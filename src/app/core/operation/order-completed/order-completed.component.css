@@ -1,0 +1,26 @@
+
+
+
+.completed h5{
+color: #101750;
+font-size: 30px;
+font-weight: 600;
+
+
+}
+.completed p{
+   color: #8D92A7;
+    font-size: 16px;
+    font-weight: 400;
+}
+.completed button{
+    /* width: 208px;
+    height: 59px; */
+    padding: 10px 20px;
+    color: white;
+    border-radius: 3px;
+    background: #42189A;
+    font-weight: 600;
+
+    
+}

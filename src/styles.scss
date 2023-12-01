@@ -1,0 +1,108 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~@fortawesome/fontawesome-free/css/all.css";
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100;0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900;0,9..40,1000;1,9..40,100;1,9..40,200;1,9..40,300;1,9..40,400;1,9..40,500;1,9..40,600;1,9..40,700;1,9..40,800;1,9..40,900;1,9..40,1000&display=swap');
+@import './_variables';
+
+* {
+    font-family: 'DM Sans', sans-serif !important;
+}
+
+/* PRIMARY COLOR */
+.paragraph-primary {
+    color: #000000a4;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.text-primary {
+    color: $primary-color !important;
+}
+
+.btn-primary,
+.btn-primary-nav {
+    background-color: $primary-color !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: white !important;
+    padding: 14px 60px !important;
+    border-radius: 8px !important;
+}
+
+.btn-primary-nav {
+    padding: 12px 24px !important;
+}
+
+.btn-primary:hover,
+.btn-primary-nav:hover {
+    background-color: #{$primary-color}B2 !important;
+}
+
+.bg-primary {
+    background-color: $primary-color !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* END OF PRIMARY COLOR */
+
+/* SECONDARY COLOR */
+.text-secondary {
+    color: $secondary-color !important;
+}
+
+.btn-secondary,
+.bg-secondary {
+    background-color: $secondary-color !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: white !important;
+    padding: 14px 60px !important;
+    border-radius: 8px !important;
+}
+
+.btn-secondary:hover {
+    background-color: $secondary-color !important;
+}
+
+/* END OF SECONDARY COLOR */
+
+/* Overflow */
+::-webkit-scrollbar {
+    width: 3px;
+    /* Set the width of the scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: $secondary-color !important;
+    /* Set the color of the scrollbar thumb */
+    border-radius: 10px;
+    /* Rounded corners for the thumb */
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    /* Set the color of the scrollbar track */
+}
+
+.form-control:focus {
+    box-shadow: none !important;
+}
+
+@media (min-width: 992px) {
+    .mobile-only {
+        display: none !important;
+    }
+}
+
+.scrollLeft {
+    background: #F1F1F1 !important;
+    color: black !important;
+    font-weight: 800;
+}
+
+.scrollRight {
+    background: $secondary-color !important;
+    color: white !important;
+    font-weight: 800;
+}

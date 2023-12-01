@@ -1,0 +1,21 @@
+.notFound {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 45vh;
+  }
+  .notFound p{
+    font-size: 25px;
+    font-weight: 600;
+  }
+
+  .notFound button a{
+    text-decoration: none;
+    color: white;
+    padding: 30px 20px;
+  }
+  .notFound button{
+    color: white;
+    padding: 10px 0px;
+  }

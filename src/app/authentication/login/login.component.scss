@@ -1,0 +1,133 @@
+@import '/src/variables';
+
+
+.signIn {
+    background: linear-gradient(113.49deg, $primary-color -30.3%, #181E41 58.12%) !important;
+
+}
+
+.signIn-form {
+    background: #FFFFFF33;
+    width: 531px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+
+}
+
+.submit-btn {
+    padding: 10px, 20px, 10px, 20px !important;
+    border-radius: 121px;
+    background: linear-gradient(214.02deg, #B75CFF 6.04%, #671AE4 92.95%);
+    color: white;
+    font-family: 'Poppins';
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: 0em;
+
+
+
+}
+
+.signIn-form input {
+    height: 50px;
+    border: none;
+    border-radius: 0px !important;
+    border-bottom: 1px solid #fff;
+    background-color: transparent;
+    color: white;
+    font-size: 16px;
+}
+
+.signIn-form input:focus {
+    box-shadow: none;
+}
+
+.signIn-form ::placeholder {
+    color: #ccc;
+}
+
+.signIn-form h5 {
+
+    font-size: 30px;
+    font-weight: 700;
+
+    letter-spacing: 0.01em;
+    color: white;
+
+
+}
+
+.signIn-form p {
+    color: white;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+}
+
+.signIn-form span {
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+}
+
+.signIn-form span:hover {
+    color: white;
+    font-size: 19px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+
+}
+
+.google {
+    width: 100%;
+    height: 55px;
+    background-color: transparent;
+    border-radius: 171px;
+    color: white;
+    border: 0.5px solid #FFFFFF
+}
+
+.facebook {
+    width: 100%;
+    height: 55px;
+    /* padding: 15px 120px; */
+    background-color: #1877F2;
+    border-radius: 171px;
+    color: white;
+    border: none !important;
+    font-size: 15px;
+    font-weight: 500;
+    /* border: 0.5px solid #FFFFFF */
+}
+
+.apple {
+    width: 100%;
+    height: 55px;
+    background-color: #1D1D1D;
+    border-radius: 171px;
+    color: white;
+    border: none !important;
+
+    font-size: 15px;
+    font-weight: 500;
+
+
+
+}
+.backToHome a{
+    font-size: 15px;
+    font-weight: 500;
+}
+.is-invalid {
+    border-color: red !important;
+  }
+  
+  .invalid-feedback {
+    color: red;
+    font-size: 14px;
+  }

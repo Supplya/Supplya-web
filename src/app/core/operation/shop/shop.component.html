@@ -1,0 +1,555 @@
+<app-navbar></app-navbar>
+
+<app-breadcrumb currentPageLink="Shop" previousLink=""></app-breadcrumb>
+
+
+
+
+<!-- CATEGORY -->
+<section class="py-5">
+    <div class="container">
+
+        <div class="row shop-cat">
+            <div class="col-md-6 d-flex justify-content-between align-items-center">
+                <h5>Categories</h5>
+            </div>
+            <div class="col-md-6 d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between justify-content-md-end align-items-center w-100">
+                    <p class="me-3 mb-0 all">View All Categories</p>
+                    <div>
+                        <button class="btn scrollLeft me-3" (click)="scrollLeft()"><</button>
+                        <button class="btn scrollRight"  (click)="scrollRight()">></button>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+        
+    </div>
+    <div class="container wrapper ">
+
+
+        <div class="wrapper-item py-2">
+    
+            <div *ngFor="let category of categories" class="card text-center  me-4" style="width: 160px;">
+                <div class="card-body">
+                    <img src="/assets/Images/correct.png" alt="Category 1 Image" style="max-width: 100%;">
+                    <h5 class="card-title">{{category.name}} </h5>
+                </div>
+            </div>
+           
+            <!-- Add more cards here as needed -->
+        </div>
+
+    </div>
+</section>
+<!-- END OF CATEGORY -->
+
+<!-- NEWLY ARRIVED BRANDS -->
+<section class="py-3">
+    <div class="container">
+
+        <div class="row shop-cat">
+            <div class="col-md-6 d-flex justify-content-between align-items-center">
+                <h5>Newly Arrived Brands</h5>
+            </div>
+            <div class="col-md-6 d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between justify-content-md-end align-items-center w-100">
+                    <p class="me-3 mb-0 all">View All Offers</p>
+                    <div>
+                        <button class="btn scrollLeft me-3" (click)="scrollLeft()"><</button>
+                        <button class="btn scrollRight"  (click)="scrollRight()">></button>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+        
+    </div>
+    <div class="container wrapper ">
+
+
+
+        <div class="wrapper-item py-2">
+            <div class="card mb-3 me-4" style="max-width: 300px; border-radius: 16px;">
+                <div class="row g-0 p-2">
+                    <div class="col-md-4 text-center">
+                        <img src="/assets/Images/Rectangle 136.png" alt="Category Image" class="img-fluid " style="border-radius: 16px;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text mb-1" style="font-weight: 300; font-size: 13px; ">Amber Jar</p>
+                            <h5 class="card-title" style="font-weight: 500;">Honey best nectar you wish to get</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-3 me-4" style="max-width: 300px; border-radius: 16px;">
+                <div class="row g-0 p-2">
+                    <div class="col-md-4 text-center">
+                        <img src="/assets/Images/Rectangle 136.png" alt="Category Image" class="img-fluid " style="border-radius: 16px;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text mb-1" style="font-weight: 300; font-size: 13px; ">Amber Jar</p>
+                            <h5 class="card-title" style="font-weight: 500;">Honey best nectar you wish to get</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-3 me-4" style="max-width: 300px; border-radius: 16px;">
+                <div class="row g-0 p-2">
+                    <div class="col-md-4 text-center">
+                        <img src="/assets/Images/Rectangle 136.png" alt="Category Image" class="img-fluid " style="border-radius: 16px;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text mb-1" style="font-weight: 300; font-size: 13px; ">Amber Jar</p>
+                            <h5 class="card-title" style="font-weight: 500;">Honey best nectar you wish to get</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-3 me-4" style="max-width: 300px; border-radius: 16px;">
+                <div class="row g-0 p-2">
+                    <div class="col-md-4 text-center">
+                        <img src="/assets/Images/Rectangle 136.png" alt="Category Image" class="img-fluid " style="border-radius: 16px;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text mb-1" style="font-weight: 300; font-size: 13px; ">Amber Jar</p>
+                            <h5 class="card-title" style="font-weight: 500;">Honey best nectar you wish to get</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-3 me-4" style="max-width: 300px; border-radius: 16px;">
+                <div class="row g-0 p-2">
+                    <div class="col-md-4 text-center">
+                        <img src="/assets/Images/Rectangle 136.png" alt="Category Image" class="img-fluid " style="border-radius: 16px;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text mb-1" style="font-weight: 300; font-size: 13px; ">Amber Jar</p>
+                            <h5 class="card-title" style="font-weight: 500;">Honey best nectar you wish to get</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-3 me-4" style="max-width: 300px; border-radius: 16px;">
+                <div class="row g-0 p-2">
+                    <div class="col-md-4 text-center">
+                        <img src="/assets/Images/Rectangle 136.png" alt="Category Image" class="img-fluid " style="border-radius: 16px;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text mb-1" style="font-weight: 300; font-size: 13px; ">Amber Jar</p>
+                            <h5 class="card-title" style="font-weight: 500;">Honey best nectar you wish to get</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-3 me-4" style="max-width: 300px; border-radius: 16px;">
+                <div class="row g-0 p-2">
+                    <div class="col-md-4 text-center">
+                        <img src="/assets/Images/Rectangle 136.png" alt="Category Image" class="img-fluid " style="border-radius: 16px;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text mb-1" style="font-weight: 300; font-size: 13px; ">Amber Jar</p>
+                            <h5 class="card-title" style="font-weight: 500;">Honey best nectar you wish to get</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-3 me-4" style="max-width: 300px; border-radius: 16px;">
+                <div class="row g-0 p-2">
+                    <div class="col-md-4 text-center">
+                        <img src="/assets/Images/Rectangle 136.png" alt="Category Image" class="img-fluid " style="border-radius: 16px;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text mb-1" style="font-weight: 300; font-size: 13px; ">Amber Jar</p>
+                            <h5 class="card-title" style="font-weight: 500;">Honey best nectar you wish to get</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-3 me-4" style="max-width: 300px; border-radius: 16px;">
+                <div class="row g-0 p-2">
+                    <div class="col-md-4 text-center">
+                        <img src="/assets/Images/Rectangle 136.png" alt="Category Image" class="img-fluid " style="border-radius: 16px;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text mb-1" style="font-weight: 300; font-size: 13px; ">Amber Jar</p>
+                            <h5 class="card-title" style="font-weight: 500;">Honey best nectar you wish to get</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-3 me-4" style="max-width: 300px; border-radius: 16px;">
+                <div class="row g-0 p-2">
+                    <div class="col-md-4 text-center">
+                        <img src="/assets/Images/Rectangle 136.png" alt="Category Image" class="img-fluid " style="border-radius: 16px;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text mb-1" style="font-weight: 300; font-size: 13px; ">Amber Jar</p>
+                            <h5 class="card-title" style="font-weight: 500;">Honey best nectar you wish to get</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-3 me-4" style="max-width: 300px; border-radius: 16px;">
+                <div class="row g-0 p-2">
+                    <div class="col-md-4 text-center">
+                        <img src="/assets/Images/Rectangle 136.png" alt="Category Image" class="img-fluid " style="border-radius: 16px;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text mb-1" style="font-weight: 300; font-size: 13px; ">Amber Jar</p>
+                            <h5 class="card-title" style="font-weight: 500;">Honey best nectar you wish to get</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- END OF NEWLY ARRIVED BRANDS -->
+
+
+
+
+
+
+
+
+
+<!-- Trending Products -->
+<section class="py-5 shop-cat">
+    <div class="container">
+        <div class="row">
+            <!-- Column 1: Trending Products -->
+            <div class="col-md-6 border-bottom">
+                <h5 class="py-2">Trending Products</h5>
+            </div>
+
+            <!-- Column 2: Categories Tabs -->
+            <div class="col-md-6">
+                <div class="scrollable-categories">
+
+                    <ul class="nav nav-tabs no-overflow flex-nowrap py-2">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab" aria-controls="all" aria-selected="true">All</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="fruit-tab" data-bs-toggle="tab" data-bs-target="#fruit" type="button" role="tab" aria-controls="fruit" aria-selected="false">Fruit</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="juice-tab" data-bs-toggle="tab" data-bs-target="#juice" type="button" role="tab" aria-controls="juice" aria-selected="false">Juice</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="food-tab" data-bs-toggle="tab" data-bs-target="#food" type="button" role="tab" aria-controls="food" aria-selected="false">Food</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pizza-tab" data-bs-toggle="tab" data-bs-target="#pizza" type="button" role="tab" aria-controls="pizza" aria-selected="false">Pizza</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="vega-tab" data-bs-toggle="tab" data-bs-target="#vega" type="button" role="tab" aria-controls="vega" aria-selected="false">Vega</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="snack-tab" data-bs-toggle="tab" data-bs-target="#snack" type="button" role="tab" aria-controls="snack" aria-selected="false">Snack</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="rice-tab" data-bs-toggle="tab" data-bs-target="#rice" type="button" role="tab" aria-controls="rice" aria-selected="false">Rice</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="beans-tab" data-bs-toggle="tab" data-bs-target="#beans" type="button" role="tab" aria-controls="beans" aria-selected="false">Beans</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="utensils-tab" data-bs-toggle="tab" data-bs-target="#utensils" type="button" role="tab" aria-controls="utensils" aria-selected="false">Utensils</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-content py-4">
+                <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+                    <!-- TRENDING PRODUCTS CARD -->
+                    <section>
+
+
+                       <div class="row w3-animate-zoom mx-auto">
+                        <div class="col-md-6 col-sm-12 col-lg-3 mb-3" *ngFor="let product of products">
+                            <div class="card shadow-sm"
+                              style="border-radius: 16px!important; border: 1px solid #e5e5e5; height: max-content; width: 300px; margin: 0 auto">
+                              <div class="p-1" style="width: 100%; align-items: center; margin: 0 auto;" (click)="viewProduct(product._id)">
+                                <img src="/assets/Images/Rectangle 134.png"
+                                  style="width: 100%;cursor: pointer; height: 270px; object-fit: cover; border-radius: 16px; background-color: #ffc0223a;align-items: center;">
+                              </div>
+              
+                              <div class="card-body">
+                                
+                                <h5 (click)="viewProduct(product._id)" class="card-title TextHeading cursor productName" style="color: #333333; font-size: 18px; font-weight: 600;
+                                ">{{product.name}}</h5>
+                                <!-- <p>{{product.quantity}} Unit <span class="text-warning" >&#9733;&#9733;&#9733;&#9733;&#9734;</span></p> -->
+
+                                <p>{{ product.quantity }} Unit 
+                                    <span class="text-warning" *ngFor="let star of getStarsArray(product.rating); let i = index" [innerHTML]="star"></span>
+                                  </p>
+                                  
+              
+                                <div class="cart px-2" style="display: flex; justify-content: space-between;">
+                                  <p style="font-weight: 800; font-size: 18px;" class="card-text price textHeading">{{ product.price |
+                                    currency: '₦' :'symbol':'1.0-0'}}</p>
+                               
+                                  <p class="btn addTo" *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)">Add To Cart</p>
+                                  <p class="btn addTo"  *ngIf="ifAddedToCart(product)" (click)="tocCart()">View Cart</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      
+                      
+                        
+                       </div>
+                    </section>
+                    <!--END OF TRENDING PRODUCTS CARD -->
+                   
+
+                </div>
+                <div class="tab-pane fade" id="fruit" role="tabpanel" aria-labelledby="fruit-tab">Content for Fruit</div>
+                <div class="tab-pane fade" id="juice" role="tabpanel" aria-labelledby="juice-tab">Content for Juice</div>
+                <div class="tab-pane fade" id="food" role="tabpanel" aria-labelledby="food-tab">Content for Food</div>
+                <div class="tab-pane fade" id="pizza" role="tabpanel" aria-labelledby="pizza-tab">Content for Pizza</div>
+                <div class="tab-pane fade" id="vega" role="tabpanel" aria-labelledby="vega-tab">Content for Vega</div>
+                <div class="tab-pane fade" id="snack" role="tabpanel" aria-labelledby="snack-tab">Content for Snack</div>
+                <div class="tab-pane fade" id="rice" role="tabpanel" aria-labelledby="rice-tab">Content for Rice</div>
+                <div class="tab-pane fade" id="beans" role="tabpanel" aria-labelledby="beans-tab">Content for Beans</div>
+                <div class="tab-pane fade" id="utensils" role="tabpanel" aria-labelledby="utensils-tab">Content for Utensils</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Trending Products -->
+
+<!-- Top Offered Products -->
+<section class="py-2 shop-cat">
+    <div class="container">
+
+        <h5>Top Offered Products</h5>
+        <div class="row w3-animate-zoom mt-4">
+            <div class="col-md-4 col-lg-3 mb-3">
+                <div class="card shadow-sm"
+                  style="border-radius: 16px!important; border: 1px solid #e5e5e5; height: max-content; width: 300px;">
+                  <div class="p-1" style="width: 100%; align-items: center; margin: 0 auto;">
+                    <img src="/assets/Images/Rectangle 134.png"
+                      style="width: 100%;cursor: pointer; height: 270px; object-fit: cover; border-radius: 16px; background-color: #ffc0223a;align-items: center;">
+                  </div>
+  
+                  <div class="card-body">
+                    
+                    <h5 class="card-title TextHeading cursor-pointer productName" style="color: #333333; font-size: 18px; font-weight: 600;
+                    ">Fabgrega Vegas</h5>
+                    <p>1 Unit <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9734;</span></p>
+
+
+  
+                    <div class="cart px-2" style="display: flex; justify-content: space-between;">
+                      <p style="font-weight: 800; font-size: 18px;" class="card-text price textHeading">{{ 4500 |
+                        currency: '₦' :'symbol':'1.0-0'}}</p>
+                   
+                      <p class="" style="font-size: 15px; font-weight: 600; color: #666666;">Add To Cart</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <div class="col-md-4 col-lg-3 mb-3">
+                <div class="card shadow-sm"
+                  style="border-radius: 16px!important; border: 1px solid #e5e5e5; height: max-content; width: 300px;">
+                  <div class="p-1" style="width: 100%; align-items: center; margin: 0 auto;">
+                    <img src="/assets/Images/Rectangle 136.png"
+                      style="width: 100%;cursor: pointer; height: 270px; object-fit: cover; border-radius: 16px; background-color: #ffc0223a;align-items: center;">
+                  </div>
+  
+                  <div class="card-body">
+                    
+                    <h5 class="card-title TextHeading cursor-pointer productName" style="color: #333333; font-size: 18px; font-weight: 600;
+                    ">Fabgrega Vegas</h5>
+                    <p>1 Unit <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9734;</span></p>
+
+
+  
+                    <div class="cart px-2" style="display: flex; justify-content: space-between;">
+                      <p style="font-weight: 800; font-size: 18px;" class="card-text price textHeading">{{ 4500 |
+                        currency: '₦' :'symbol':'1.0-0'}}</p>
+                   
+                      <p class="" style="font-size: 15px; font-weight: 600; color: #666666;">Add To Cart</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <div class="col-md-4 col-lg-3 mb-3">
+                <div class="card shadow-sm"
+                  style="border-radius: 16px!important; border: 1px solid #e5e5e5; height: max-content; width: 300px;">
+                  <div class="p-1" style="width: 100%; align-items: center; margin: 0 auto;">
+                    <img src="/assets/Images/Rectangle 137.png"
+                      style="width: 100%;cursor: pointer; height: 270px; object-fit: cover; border-radius: 16px; background-color: #ffc0223a;align-items: center;">
+                  </div>
+  
+                  <div class="card-body">
+                    
+                    <h5 class="card-title TextHeading cursor-pointer productName" style="color: #333333; font-size: 18px; font-weight: 600;
+                    ">Fabgrega Vegas</h5>
+                    <p>1 Unit <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9734;</span></p>
+
+
+  
+                    <div class="cart px-2" style="display: flex; justify-content: space-between;">
+                      <p style="font-weight: 800; font-size: 18px;" class="card-text price textHeading">{{ 4500 |
+                        currency: '₦' :'symbol':'1.0-0'}}</p>
+                   
+                      <p class="" style="font-size: 15px; font-weight: 600; color: #666666;">Add To Cart</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <div class="col-md-4 col-lg-3 mb-3">
+                <div class="card shadow-sm"
+                  style="border-radius: 16px!important; border: 1px solid #e5e5e5; height: max-content; width: 300px;">
+                  <div class="p-1" style="width: 100%; align-items: center; margin: 0 auto;">
+                    <img src="/assets/Images/Rectangle 138.png"
+                      style="width: 100%;cursor: pointer; height: 270px; object-fit: cover; border-radius: 16px; background-color: #ffc0223a;align-items: center;">
+                  </div>
+  
+                  <div class="card-body">
+                    
+                    <h5 class="card-title TextHeading cursor-pointer productName" style="color: #333333; font-size: 18px; font-weight: 600;
+                    ">Fabgrega Vegas</h5>
+                    <p>1 Unit <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9734;</span></p>
+
+
+  
+                    <div class="cart px-2" style="display: flex; justify-content: space-between;">
+                      <p style="font-weight: 800; font-size: 18px;" class="card-text price textHeading">{{ 4500 |
+                        currency: '₦' :'symbol':'1.0-0'}}</p>
+                   
+                      <p class="" style="font-size: 15px; font-weight: 600; color: #666666;">Add To Cart</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+           
+           </div>
+    </div>
+</section>
+<!-- Top Offered Products -->
+
+
+<!-- DISCOUNT SECTION -->
+<section class="py-5 container">
+    <div class="row">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-10 discount py-5 ">
+            <div class="container">
+
+                <div class="row p-5">
+                    <div class="col-lg-6">
+                        <div>
+                            <h5>Get <span class="text-secondary">20% Discount</span> <br> on Your First <br> Purchase
+                            </h5>
+                            <p>Register now to be the first to know of our news and updates!</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="">
+                            <div class=" mb-2">
+                                <label class="mb-1 px-3" for="">Email Address</label>
+                                <input type="text" class="form-control" placeholder="Email Address">
+                            </div>
+                            <div class=" mb-2">
+                                <label class="mb-1 px-3" for="">Create Password</label>
+
+                                <input type="password" class="form-control" placeholder="Create Password">
+                            </div>
+                            <div class="mb-2">
+                                <label class="mb-1 px-3" for="">Repeat Password</label>
+
+                                <input type="password" class="form-control" placeholder="Repeat Password">
+                            </div>
+
+                            <button type="submit" name="commit" class="btn btn-primary btn-block w-100 mt-1">
+                                <span>Join Mailing List </span>
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-1"></div>
+    </div>
+</section>
+<!--END OF DISCOUNT SECTION -->
+
+
+<!-- Best Selling Products -->
+<section class="py-5 shop-cat">
+    <div class="container">
+
+        <h5>Best Selling Products</h5>
+    </div>
+</section>
+<!-- Best Selling Products -->
+
+
+<section class="py-5">
+    <div class="container">
+        <div class="row expect">
+            <div class="col-lg-1">
+             
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3">
+                <!-- Content for Reasonable Prices -->
+                <h6 class="title"><span><img src="/assets/Images/cart.png" class="me-1" alt=""></span>Free Delivery</h6>
+                <p class="mb-0 px-2">Lorem ipsum dolor sit amet, consectetur adipi.</p>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3">
+                <!-- Content for Worldwide Shipping -->
+                <h6 class="title"><span><img src="/assets/Images/secure.png" class="me-1" alt=""></span>100% Secure Payment</h6>
+                <p class="mb-0 px-2">Lorem ipsum dolor sit amet, consectetur adipi.</p>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3">
+                <!-- Content for Best Ratings -->
+                <h6 class="title"><span><img src="/assets/Images/quality.png" class="me-1" alt=""></span> Quality Guarantee</h6>
+                <p class="mb-0 px-2">Lorem ipsum dolor sit amet, consectetur adipi.</p>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3">
+                <!-- Content for Help Center -->
+                <h6 class="title"><span><img src="/assets/Images/saving.png" class="me-1" alt=""></span> Guaranteed Savings</h6>
+                <p class="mb-0 px-2">Lorem ipsum dolor sit amet, consectetur adipi </p>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-3">
+                <!-- Content for Always Available -->
+                <h6 class="title"> <span><img src="/assets/Images/daily.png" class="me-1" alt=""></span>Daily offers</h6>
+                <p class="mb-0 px-2">Lorem ipsum dolor sit amet, consectetur adipi.</p>
+            </div>
+            <div class="col-lg-1">
+             
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<app-loader *ngIf="loading"></app-loader>
+<app-footer></app-footer>

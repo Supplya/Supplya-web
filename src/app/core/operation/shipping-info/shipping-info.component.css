@@ -1,0 +1,118 @@
+.shipping {
+    /* border: 2px solid #BFC6E0; */
+    background: #F8F8FD !important;
+
+}
+
+.shipping input {
+    height: 50px;
+    border: none;
+    border-radius: 0px !important;
+    border-bottom: 1px solid #C7CEE4;
+    background-color: transparent;
+    color: black;
+    font-size: 16px;
+}
+
+.shipping input:focus {
+    box-shadow: none;
+}
+
+.shipping ::placeholder {
+
+    font-size: 14px;
+    font-weight: 500;
+    color: #C5CBE3;
+
+
+}
+
+.shipping h5 {
+    color: #1D3178;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+.item-card .tag {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.item-card .tag span {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.item-card .amount {
+    color: #15245E;
+    font-size: 15px;
+    font-weight: 700;
+}
+.cartItemPrice{
+    font-family: 'Lato';
+font-size: 16px;
+font-weight: 500;
+color: #15245E;
+}
+.ship-text{
+    color: #8A91AB;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+
+.total .heading {
+    font-size: 15px !important;
+    font-weight: 700;
+    color: #1D3178;
+
+}
+.item-card .heading {
+    font-size: 18px !important;
+    font-weight: 700;
+    color: #1D3178;
+
+}
+
+.item-card a{
+    font-weight: 500;
+    color: #000;
+}
+.total {
+
+    /* height: 284px; */
+    background-color: #F4F4FC;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.total .proceed {
+    background: #42189A;
+    color: white !important;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 10px 25px;
+    border-radius: 3px;
+
+}
+
+.total input {
+    height: 50px;
+    border: none;
+    border-radius: 0px !important;
+    border-bottom: 1px solid #C7CEE4;
+    background-color: transparent;
+    color: black;
+    font-size: 16px;
+}
+
+.info-btn .btn {
+    /* height: 20px;
+    width: 20px; */
+    /* padding: 20px; */
+    border-radius: 2px!important;
+    color: white !important;
+    background: #ED8939!important;
+
+}

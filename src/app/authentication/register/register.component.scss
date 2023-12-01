@@ -1,0 +1,94 @@
+.signUp {
+    background: linear-gradient(113.49deg, #42189A -30.3%, #181E41 58.12%) !important;
+  
+}
+
+.signUp-form {
+    background: #FFFFFF33;
+    width: 531px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+
+}
+.submit-btn{
+padding: 10px, 20px, 10px, 20px!important;
+border-radius: 121px;
+background: linear-gradient(214.02deg, #B75CFF 6.04%, #671AE4 92.95%);
+color: white;
+font-family: 'Poppins';
+font-size: 17px;
+font-weight: 500;
+letter-spacing: 0em;
+
+
+
+}
+
+.signUp-form input {
+    height: 50px;
+    border: none;
+    border-radius: 0px !important;
+    border-bottom: 1px solid #fff;
+    background-color: transparent;
+    color: white;
+    font-size: 16px;
+}
+
+.signUp-form input:focus {
+    box-shadow: none;
+}
+
+.signUp-form ::placeholder {
+    color: #ccc;
+}
+
+.signUp-form h5 {
+
+    font-size: 30px;
+    font-weight: 700;
+
+    letter-spacing: 0.01em;
+    color: white;
+
+
+}
+
+.signUp-form p {
+    color: white;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+}
+
+.signUp-form span {
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+}
+
+.signUp-form span:hover {
+    color: white;
+    font-size: 19px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+
+}
+.backToHome a{
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.is-invalid {
+    border-color: red !important;
+  }
+  
+  .invalid-feedback {
+    color: red;
+    font-size: 14px;
+  }
+  

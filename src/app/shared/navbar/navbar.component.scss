@@ -1,0 +1,41 @@
+.navbar{
+    height: 10vh!important;
+   
+  }
+
+.nav-item .nav-link {
+    display: block;
+    font-weight: 500;
+    font-size: 15px;
+    color: #000!important;
+    padding-left: 30px!important;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden; 
+  }
+  
+
+  .nav-item .nav-link::before {
+    content: "";
+    position: absolute;
+    left: -100%; /* Initial position off-screen to the left */
+    bottom: 0;
+    width: 80%;
+    height: 2px;
+    background-color: #ffc222;
+    transition: left 0.3s; /* Add transition for left property */
+  }
+  
+  .nav-item .nav-link:hover::before {
+    left: 20%; /* Move the border in from the left on hover */
+  }
+  
+
+ .offcanvas{
+  width: 300px!important;
+ }
+
+
+ .offcanvas-body .navbar-nav .nav-item .nav-link {
+  border-bottom: 1px solid #ccc; /* Adjust the color and thickness as needed */
+}

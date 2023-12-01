@@ -1,0 +1,40 @@
+@import '/src/variables';
+
+.breadcrumb-bg {
+    background: #F6F5FF;
+
+}
+
+.menu-title {
+    font-size: 30px;
+    font-weight: 600;
+    color: #101750;
+
+
+
+}
+
+.breadcrumb-item a {
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    color: #000;
+
+    /* color: #ffc222; */
+    /* font-family: 'Nunito Sans', sans-serif !important; */
+}
+.breadcrumb .text-black {
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    color: #000;
+
+    /* color: #ffc222; */
+    /* font-family: 'Nunito Sans', sans-serif !important; */
+}
+.breadcrumb-item .active{
+font-size: 15px;
+font-weight: 500;
+color: $secondary-color;
+
+}

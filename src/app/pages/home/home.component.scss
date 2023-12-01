@@ -1,0 +1,198 @@
+ /* HERO SECTION */
+ @import '/src//variables';
+ .heroLeft h6 {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0em;
+    color: #000000;
+}
+
+.heroLeft h5 {
+    font-size: 72px;
+    font-weight: 700;
+    letter-spacing: 0em;
+}
+.heroLeft h3 {
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: 0em;
+}
+
+.heroLeft p {
+
+    font-size: 18px;
+    font-weight: 400;
+    color: #111111;
+
+
+}
+
+.heroLeft button {
+
+    padding: 14px 60px;
+    animation-duration: 0ms;
+}
+
+/* QUALITY SECTION */
+.qualityRight h5 {
+
+    font-size: 65px;
+    font-weight: 700;
+    color: #000;
+
+}
+.qualityRight h3 {
+
+    font-size: 40px;
+    font-weight: 700;
+    color: #000;
+
+}
+
+.qualityRight p {
+
+    font-size: 18px;
+    font-weight: 400;
+    color: #111111;
+
+}
+
+.qualityRight button {
+
+    padding: 14px 60px;
+
+}
+
+.choose h5 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 0em;
+    text-align: center;
+
+}
+
+.discount {
+    border-radius: 20px;
+    background-color: #{$primary-color}1A;
+}
+
+.discount h5 {
+
+    font-size: 40px;
+    font-weight: 700;
+    /* line-height: 67px; */
+    letter-spacing: 0em;
+
+
+
+}
+
+.discount p {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 41px;
+    letter-spacing: 0.02em;
+}
+
+.discount input {
+
+    height: 50.5px;
+    border-radius: 8px;
+    border: 1px;
+}
+
+.discount input:focus {
+    box-shadow: none;
+    height: 50.5px;
+    border-radius: 8px;
+    border: 1px solid #41189a5a;
+
+}
+
+.discount label {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.discount ::placeholder {
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.retail {
+    background-image: url(/assets/Images/background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    /* width: max-content;
+    height: max-content; */
+    display: flex;
+    justify-content: center;
+    align-items: center!important;
+}
+.retail-mobile {
+   background-color: #{$primary-color};
+   border-radius: 30px 30px 30px 30px !important;
+}
+
+.retail-mobile h5 {
+
+   font-size: 40px;
+   font-weight: 500;
+   color: white;
+
+}
+
+
+.retail-mobile p {
+   font-family: DM Sans;
+   font-size: 16px;
+   font-weight: 400;
+   color: white;
+
+
+}
+
+.retail h5 {
+
+    font-size: 48px;
+    font-weight: 700;
+    color: white;
+
+}
+
+.retail p {
+    font-family: DM Sans;
+    font-size: 18px;
+    font-weight: 500;
+    color: white;
+
+
+}
+.core{
+   width: 80%;
+   justify-content: center;
+   margin: 0 auto!important;
+}
+.core h6{
+color: white;
+font-size: 20px;
+font-weight: 700;
+padding: 10px;
+}
+.core p{
+   
+   font-size: 15px;
+   font-weight: 400;
+   color: white;
+   
+   
+
+}
+
+.background-section {
+   background-image: url(/assets/Images/background.jpg);
+   background-size: cover;
+   background-position: center;
+   height: 50vh;
+}
