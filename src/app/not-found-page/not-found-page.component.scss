@@ -1,0 +1,31 @@
+@import '/src/variables';
+
+.not-found {
+    background-color: #f8f9fa;
+    color: #495057;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+}
+
+.error-code {
+    font-size: 120px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.error-message {
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.home-link {
+    color: $primary-color;
+    text-decoration: none;
+    font-weight: bold;
+}

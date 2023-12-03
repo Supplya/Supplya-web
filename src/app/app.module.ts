@@ -9,6 +9,7 @@ import { Server } from 'src/assets/apConfig';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorHandlingInterceptor } from './shared/Interceptors/error-handling.interceptor';
+import { MenuService } from './shared/services/menu.service';
 
 @NgModule({
   declarations: [
@@ -19,10 +20,11 @@ import { ErrorHandlingInterceptor } from './shared/Interceptors/error-handling.i
     BrowserModule,
     AppRoutingModule,
     SharedModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+ 
     
   ],
-  providers: [Server,
+  providers: [Server, MenuService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorHandlingInterceptor,

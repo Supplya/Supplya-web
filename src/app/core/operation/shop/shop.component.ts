@@ -38,14 +38,14 @@ export class ShopComponent implements OnInit {
 
     this.productService.getAllProducts().subscribe(
       (data: any) => {
-        this.products = data.products;
+        this.products = data?.products;
         this.loading = false;
         console.log(data, 'products');
       },
       (error) => {
         this.loading = false;
         this.loading = false;
-        this.notify.danger(error.error.msg);
+        this.notify.danger(error);
         console.error('Error fetching products:', error);
       
         // Handle the error appropriately, for example, show a user-friendly error message.
@@ -59,7 +59,7 @@ export class ShopComponent implements OnInit {
       (data: any) => {
         if (data.status === 'success') {
 
-          this.categories = data.categories;
+          this.categories = data?.categories;
           this.loading = false;
           console.log(data, 'products');
         } else {
@@ -68,7 +68,7 @@ export class ShopComponent implements OnInit {
       },
       (error) => {
         this.loading = false;
-        this.notify.danger(error.error.msg);
+        // this.notify.danger(error);
         console.error('Error fetching categories:', error);
         // Handle the error appropriately, for example, show a user-friendly error message.
       }

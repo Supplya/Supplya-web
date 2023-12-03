@@ -1,6 +1,42 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$supplya-primary: mat.define-palette(mat.$indigo-palette);
+$supplya-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$supplya-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$supplya-theme: mat.define-light-theme((
+  color: (
+    primary: $supplya-primary,
+    accent: $supplya-accent,
+    warn: $supplya-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($supplya-theme);
+
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "~@fortawesome/fontawesome-free/css/all.css";
+@import '~font-awesome/css/font-awesome.min.css';
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100;0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900;0,9..40,1000;1,9..40,100;1,9..40,200;1,9..40,300;1,9..40,400;1,9..40,500;1,9..40,600;1,9..40,700;1,9..40,800;1,9..40,900;1,9..40,1000&display=swap');
 @import './_variables';
 
@@ -105,4 +141,51 @@
     background: $secondary-color !important;
     color: white !important;
     font-weight: 800;
+}
+.w-40{
+    width: 40%!important;
+}
+.w-50{
+    width: 50%;
+}
+.w-60{
+    width: 60%;
+}
+.w-70{
+    width: 70%;
+}
+.w-80{
+    width: 80%;
+}
+.w-90{
+    width: 90%;
+}
+
+// html, body { height: 100%; }
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.ngx-pagination a,
+.ngx-pagination button,
+.ngx-pagination li {
+   /* padding: 0.1875rem 0.625rem; */
+   /* padding: 15px; */
+   border-radius: 50%;
+   font-size: 16px;
+//    background: #00000063 !important;
+   color: #000 !important;
+   cursor: default;
+   text-decoration: none!important;
+
+
+}
+
+
+.ngx-pagination .current {
+  /* padding: 0.1875rem 0.625rem; */
+  padding: 15px;
+  /* border-radius: 50%; */
+  background: $primary-color !important;
+  color: #fff !important;
+  cursor: default;
+  font-family:  'Nunito', sans-serif;
+
 }

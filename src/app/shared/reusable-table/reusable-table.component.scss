@@ -1,0 +1,131 @@
+/* TABLE CSS ############################################### */
+@import '/src/variables';
+
+/* app-table.component.css */
+.table-content {
+    border-radius: 15px !important;
+     box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
+
+    padding: 20px, 16px, 20px, 16px;
+    border-radius: 12px;
+
+}
+
+.table thead th,
+.table tbody td {
+    // border-bottom: 1px solid rgba(0, 0, 0, 0.127);
+  border-bottom: 0px, 0px, 1px, 0px;
+  border-color: #D1D1D1;
+    padding: 10px;
+    vertical-align: middle;
+    text-transform: none;
+    /* Ensure text is displayed as it is */
+}
+
+tbody td {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: #000 !important;
+}
+
+thead tr th {
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    color: #7C7C7C !important;
+}
+.no-data{
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    color: #7C7C7C !important;
+}
+.showing{
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    color: #7C7C7C !important;
+}
+table tr:hover {
+    cursor: pointer;
+}
+
+.table-title {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0em;
+    color: #000;
+}
+.card-row{
+    border: 1px solid rgba(245, 245, 245, 0.681);
+}
+.row-data{
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: #000 !important;
+}
+.row-header{
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    color: #7C7C7C !important;
+}
+.export{
+background-color: #000;
+color: white !important;
+padding: 6px, 12px, 6px, 12px;
+border-radius: 8px;
+gap: 8px;
+
+}
+.export:focus{
+background-color: #000;
+color: white !important;
+padding: 6px, 12px, 6px, 12px;
+border-radius: 8px;
+gap: 8px;
+
+}
+.export:active{
+background-color: #000;
+color: white !important;
+padding: 6px, 12px, 6px, 12px;
+border-radius: 8px;
+gap: 8px;
+
+}
+.table-card{
+border-top: 2px solid $primary-color!important;
+border-bottom: 2px solid $primary-color!important;
+border-left: 0!important;
+border-right: 0!important;
+border-radius: 16px !important;
+}
+/* app-reusable-table.component.scss */
+
+.button-container {
+    display: flex;
+    justify-content: space-between;  /* Adjust as needed */
+    align-items: center;  /* Adjust as needed */
+}
+
+.edit-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+}
+
+.delete-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+}
+
+.custom-button-1 {
+    background-color: #2196F3;
+    color: white;
+    border: none;
+}
+
+.custom-button-2 {
+    background-color: #FFC107;
+    color: white;
+    border: none;
+}

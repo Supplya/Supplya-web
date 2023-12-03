@@ -9,6 +9,10 @@ import { ToastyModule } from 'ng-toasty';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoDataAvailableComponent } from './no-data-available/no-data-available.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ReusableTableComponent } from './reusable-table/reusable-table.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+
+
 
 
 
@@ -19,7 +23,8 @@ import { HttpClientModule } from '@angular/common/http';
     LoaderComponent,
     BreadcrumbComponent,
     NoInternetComponent,
-    NoDataAvailableComponent
+    NoDataAvailableComponent,
+    ReusableTableComponent
   ],
   imports: [
     CommonModule,
@@ -27,6 +32,9 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgxPaginationModule
+  
+  
   
   ],
   exports: [
@@ -37,13 +45,16 @@ import { HttpClientModule } from '@angular/common/http';
     BreadcrumbComponent,
     NoInternetComponent,
     NoDataAvailableComponent,
+    ReusableTableComponent,
 
 
     // Modules
     ToastyModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPaginationModule
+ 
   ]
 })
 export class SharedModule { }

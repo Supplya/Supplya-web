@@ -1,0 +1,105 @@
+#navbarVertical {
+    background-color: #fff !important;
+    width: 269px !important;
+    max-height: 100vh !important;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0em !important;
+    color: #7C7C7C !important;
+    text-decoration: none;
+    /* Remove underline */
+    padding: 10px 15px;
+    /* Adjust padding */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+
+
+.nav-link i {
+    margin-right: 10px;
+    /* Add space between icon and text */
+}
+
+.navbar-nav {
+    padding: 0;
+}
+
+.nav-item {
+    border-bottom: 1px solid rgba(245, 245, 245, 0.681);
+}
+
+
+.nav-item:last-child {
+    border-bottom: none;
+    /* Remove border for the last item */
+}
+
+/* Apply hover style to the common parent li element */
+.nav-item:hover, .nav-item:hover .nav-link, .nav-item:hover .nav-link i {
+    border-radius: 4px;
+   
+}
+/* Active menu style */
+.nav-link.active {
+    background-color: #0097A8 !important;
+    color: #fff !important;
+    border-radius: 4px;
+}
+.nav-link.active .bi {
+    color: #fff !important;
+}
+.submenu-link.active {
+    background-color: #0097A8 !important;
+    color: #fff !important;
+    border-radius: 4px;
+    padding-left: 10px !important;
+}
+.submenu-link.active .bi {
+    color: #fff !important;
+}
+
+
+
+/* Optional: Reset styles for nested elements when not hovered */
+.nav-item .nav-link, .nav-item .nav-link i {
+    transition: none; /* Disable transition to make the color change immediate */
+}
+
+/* Add transition effect back for .nav-link and .nav-link i */
+.nav-item:hover .nav-link, .nav-item:hover .nav-link i {
+    transition: color 0.3s ease, background-color 0.3s ease;
+    border-radius: 4px !important;
+}
+
+
+.submenu {
+    // padding-left: 20px; 
+    list-style-type: none;
+}
+
+.submenu-link {
+    display: block;
+    padding-left: 0px!important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    color: #0097A8 !important;
+    border-bottom: 1px solid rgba(245, 245, 245, 0.681);
+}
+
+.submenu-link:hover {
+  
+}
+
+.chevron-right::after {
+    content: '\25B8';
+    /* Unicode character for rightward arrow */
+    margin-left: auto;
+    /* Push the chevron to the right */
+}

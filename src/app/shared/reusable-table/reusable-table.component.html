@@ -1,0 +1,92 @@
+<div class="container py-3 mt-4 table-content card">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="row">
+                <div class="col-lg-4">
+                    <p class="table-title px-3">{{ title }}</p>
+                </div>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control mb-3" placeholder="Search" [(ngModel)]="searchText"
+                        (input)="applyFilter()" />
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 d-flex  align-items-center">
+            <!-- <div class="">
+            <p class="px-3">Items per Page:</p>
+        </div>
+        <select class="form-control" style="width: 50px;" [(ngModel)]="itemsPerPage">
+          <option *ngFor="let option of itemsPerPageOptions" [value]="option">{{ option }}</option>
+        </select> -->
+        </div>
+        <div class="col-lg-2 text-end">
+            <p (click)="exportToExcel()" class="btn export">Export to Excel</p>
+        </div>
+    </div>
+
+    <!-- Bootstrap Table -->
+    <div *ngIf="!filteredRows">
+        <!-- Loading indicator or message -->
+        <p class="py-5 p-5 text-center no-data">Loading...</p>
+    </div>
+    <div class="py-5 p-5 text-center no-data" *ngIf="filteredRows?.length === 0">
+        <p>No data available</p>
+    </div>
+    <div class="table-responsive d-none d-lg-block">
+
+        <table class="table table-hover" *ngIf="filteredRows?.length > 0">
+            <thead>
+                <tr>
+                    <th>SN</th>
+                    <th *ngFor="let header of headers">{{ header }}</th>
+                    <th *ngIf="showButton === true">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr
+                    *ngFor="let row of filteredRows | paginate: { itemsPerPage: pagination.itemsPerPage, currentPage: pagination.currentPage, totalItems: filteredRows.length, id: tableId } let i = index">
+                    <!-- <td>{{ i + 1 }}</td> -->
+                    <td>{{ (pagination.currentPage - 1) * pagination.itemsPerPage + i + 1 }}</td>
+                    <td *ngFor="let header of headers">{{ row[header.toLowerCase()] }}</td>
+
+
+                    <td class="button-container" *ngIf="showButton === true">
+                        <button class="edit-button" (click)="onEditClick(row)">Edit</button>
+                        <button class="delete-button" (click)="onDeleteClick(row)">Delete</button>
+                        <button class="custom-button-1" (click)="onCustomButtonClick(row, 1)">Custom 1</button>
+                        <button class="custom-button-2" (click)="onCustomButtonClick(row, 2)">Custom 2</button>
+                        <!-- Add more buttons as needed -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <!-- Responsive layout for small screens -->
+
+<div class="card mb-2 table-card mobile-only " *ngFor="let row of filteredRows | paginate: { itemsPerPage: pagination.itemsPerPage, currentPage: pagination.currentPage, totalItems: filteredRows.length, id: tableId } let i = index">
+    <div class="d-flex justify-content-between px-3 card-row align-items-center my-auto" *ngFor="let header of headers">
+        <div class="text-start ">
+            <!-- <p class="row-header p-0 mt-3">{{ 'SN' }}:</p> -->
+            <p class="row-header p-0 mt-3">{{ header }}:</p>
+        </div>
+        <div class="text-end">
+            <!-- <p class="row-data p-0 mt-3">{{ (pagination.currentPage - 1) * pagination.itemsPerPage + i + 1 }}</p> -->
+            <p class="row-data p-0 mt-3">{{ row[header.toLowerCase()] }}</p>
+        </div>
+    </div>
+</div>
+
+
+
+    <div class="d-flex justify-content-between px-3" *ngIf="filteredRows?.length > 0">
+        <pagination-controls [id]="tableId" class="" (pageChange)="pagination.currentPage = $event" previousLabel=""
+            nextLabel="" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"></pagination-controls>
+
+        <div class="text-muted mt-2 showing">
+            Showing {{ calculateStartIndex() }} - {{ calculateEndIndex() }} of {{ filteredRows.length }} items.
+        </div>
+
+    </div>

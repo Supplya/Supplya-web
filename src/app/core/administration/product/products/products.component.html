@@ -1,1 +1,7 @@
-<p>products works!</p>
+
+<app-reusable-table [title]="title" [headers]="tableHeaders" [buttons]="tableButtons" [rows]="tableRows"
+    [filteredRows]="tableRows" [showButton]="false"
+    [tableId]="'productTable'"></app-reusable-table>
+
+
+    <app-loader *ngIf="loading"></app-loader>

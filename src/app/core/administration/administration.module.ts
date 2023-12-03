@@ -7,6 +7,10 @@ import { ProductsComponent } from './product/products/products.component';
 import { ViewProductDetailsComponent } from './product/view-product-details/view-product-details.component';
 import { ViewCategoryDetailsComponent } from './category/view-category-details/view-category-details.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { OrdersComponent } from './orders/orders.component';
+import { CategoryComponent } from './category/category/category.component';
+import { UsersComponent } from './users/users/users.component';
+import { ViewUserDetailsComponent } from './users/view-user-details/view-user-details.component';
 
 
 @NgModule({
@@ -14,7 +18,11 @@ import { SharedModule } from 'src/app/shared/shared.module';
     AdminDashboardComponent,
     ProductsComponent,
     ViewProductDetailsComponent,
-    ViewCategoryDetailsComponent
+    ViewCategoryDetailsComponent,
+    OrdersComponent,
+    CategoryComponent,
+    UsersComponent,
+    ViewUserDetailsComponent
   ],
   imports: [
     CommonModule,
