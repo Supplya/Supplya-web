@@ -1,3 +1,4 @@
+
 .shipping {
     /* border: 2px solid #BFC6E0; */
     background: #F8F8FD !important;
@@ -88,7 +89,7 @@ color: #15245E;
 }
 
 .total .proceed {
-    background: #42189A;
+    background-color: #0097A8;
     color: white !important;
     font-size: 15px;
     font-weight: 500;

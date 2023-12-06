@@ -61,7 +61,7 @@ this.loading = false;
       (error) => {
         console.error('Registration failed:', error);
         this.loading = false;
-        this.notify.danger(error);
+        this.notify.danger('Registration failed');
         // Handle registration failure, e.g., display an error message
       }
     );

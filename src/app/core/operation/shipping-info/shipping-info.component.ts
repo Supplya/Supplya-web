@@ -32,10 +32,14 @@ order!: Order
       firstName: [''],
       lastName: [''],
       address: [''],
+      paymentMethod: [''],
     })
+    this.orderForm.value.paymentMethod = 'cashOnDelivery';
    }
-
+  
   ngOnInit(): void {
+  
+    this.onPaymentButtonClick();
     this.loading = true;
     this.cartService.getCartObservable().subscribe((cart) => {
       this.cart = cart;
@@ -48,7 +52,27 @@ order!: Order
     this.route.navigate(['core/operation/product-details/', `${route}`]);
     window.scrollTo(0, 0);
   }
+  // selectedPaymentMethod: string = 'cashOnDelivery';
 
+  onPaymentButtonClick(): void {
+    console.log(this.orderForm.value.paymentMethod, 'payment')
+    if (this.orderForm.value.paymentMethod === 'cashOnDelivery') {
+      this.placeOrder();
+    } else if (this.orderForm.value.paymentMethod === 'debitCard') {
+      this.proceedToPayment();
+    }
+  
+  }
+
+  placeOrder(): void {
+    // Add logic for placing order when "Place Order" is clicked
+    console.log('Placing Order...');
+  }
+
+  proceedToPayment(): void {
+    // Add logic for proceeding to payment when "Proceed to Payment" is clicked
+    console.log('Proceeding to Payment...');
+  }
 
      // PAYSTACK INTEGRATION
      email: string = 'pius1ash@gmail.com';

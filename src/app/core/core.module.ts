@@ -8,11 +8,13 @@ import { MainComponent } from './main-layout/main/main.component';
 import { SharedModule } from '../shared/shared.module';
 
 
+
 @NgModule({
   declarations: [
     HeaderComponent,
     SidebarComponent,
-    MainComponent
+    MainComponent,
+   
   ],
   imports: [
     CommonModule,

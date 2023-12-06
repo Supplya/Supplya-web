@@ -19,6 +19,7 @@ export class ShopComponent implements OnInit {
   AllAddedItems: any;
   categories: any;
   cart: any;
+  newArrivals: any;
   constructor(private productService: ProductService, private cartService: CartService, private route: Router, private notify: ToastyService) {
     this.cartService.getCartObservable().subscribe((cart) => {
       this.cart = cart;
@@ -30,17 +31,37 @@ export class ShopComponent implements OnInit {
   ngOnInit(): void {
     this.getAllProducts();
     this.getAllCategories();
+    this.getAllNewArrivals();
   }
 
 
+  getAllNewArrivals() {
+    this.loading = true;
+
+    this.productService.getAllNewArrivals().subscribe(
+      (data: any) => {
+        console.log(data, 'newArrivals');
+        this.newArrivals = data?.data;
+        this.loading = false;
+      },
+      (error) => {
+        this.loading = false;
+        this.loading = false;
+        this.notify.danger(error);
+        console.error('Error fetching products:', error);
+      
+        // Handle the error appropriately, for example, show a user-friendly error message.
+      }
+    );
+  }
   getAllProducts() {
     this.loading = true;
 
     this.productService.getAllProducts().subscribe(
       (data: any) => {
+        console.log(data, 'products');
         this.products = data?.products;
         this.loading = false;
-        console.log(data, 'products');
       },
       (error) => {
         this.loading = false;
@@ -127,7 +148,7 @@ export class ShopComponent implements OnInit {
     this.route.navigate(['core/operation/product-details/', `${route}`]);
     window.scrollTo(0, 0);
   }
-  tocCart() {
+  toCart() {
     this.route.navigate(['core/operation/shopping-cart']);
     window.scrollTo(0, 0);
   }

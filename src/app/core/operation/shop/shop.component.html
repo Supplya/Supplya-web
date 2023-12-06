@@ -73,149 +73,20 @@
 
 
         <div class="wrapper-item py-2">
-            <div class="card mb-3 me-4" style="max-width: 300px; border-radius: 16px;">
-                <div class="row g-0 p-2">
+            <div *ngFor="let item of newArrivals" class="card mb-3 me-4" style="max-width: 300px; border-radius: 16px; cursor: pointer;">
+                <div class="row g-0 p-2" (click)="viewProduct(item._id)">
                     <div class="col-md-4 text-center">
-                        <img src="/assets/Images/Rectangle 136.png" alt="Category Image" class="img-fluid " style="border-radius: 16px;">
+                        <img [src]="item.image" alt="arrival Image" class="img-fluid " style="border-radius: 16px;">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <p class="card-text mb-1" style="font-weight: 300; font-size: 13px; ">Amber Jar</p>
-                            <h5 class="card-title" style="font-weight: 500;">Honey best nectar you wish to get</h5>
+                            <p class="card-text mb-1" style="font-weight: 300; font-size: 13px; ">{{item.name}}</p>
+                            <h5 class="card-title" style="font-weight: 500;">{{item.description}}</h5>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="card mb-3 me-4" style="max-width: 300px; border-radius: 16px;">
-                <div class="row g-0 p-2">
-                    <div class="col-md-4 text-center">
-                        <img src="/assets/Images/Rectangle 136.png" alt="Category Image" class="img-fluid " style="border-radius: 16px;">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <p class="card-text mb-1" style="font-weight: 300; font-size: 13px; ">Amber Jar</p>
-                            <h5 class="card-title" style="font-weight: 500;">Honey best nectar you wish to get</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card mb-3 me-4" style="max-width: 300px; border-radius: 16px;">
-                <div class="row g-0 p-2">
-                    <div class="col-md-4 text-center">
-                        <img src="/assets/Images/Rectangle 136.png" alt="Category Image" class="img-fluid " style="border-radius: 16px;">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <p class="card-text mb-1" style="font-weight: 300; font-size: 13px; ">Amber Jar</p>
-                            <h5 class="card-title" style="font-weight: 500;">Honey best nectar you wish to get</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card mb-3 me-4" style="max-width: 300px; border-radius: 16px;">
-                <div class="row g-0 p-2">
-                    <div class="col-md-4 text-center">
-                        <img src="/assets/Images/Rectangle 136.png" alt="Category Image" class="img-fluid " style="border-radius: 16px;">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <p class="card-text mb-1" style="font-weight: 300; font-size: 13px; ">Amber Jar</p>
-                            <h5 class="card-title" style="font-weight: 500;">Honey best nectar you wish to get</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card mb-3 me-4" style="max-width: 300px; border-radius: 16px;">
-                <div class="row g-0 p-2">
-                    <div class="col-md-4 text-center">
-                        <img src="/assets/Images/Rectangle 136.png" alt="Category Image" class="img-fluid " style="border-radius: 16px;">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <p class="card-text mb-1" style="font-weight: 300; font-size: 13px; ">Amber Jar</p>
-                            <h5 class="card-title" style="font-weight: 500;">Honey best nectar you wish to get</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card mb-3 me-4" style="max-width: 300px; border-radius: 16px;">
-                <div class="row g-0 p-2">
-                    <div class="col-md-4 text-center">
-                        <img src="/assets/Images/Rectangle 136.png" alt="Category Image" class="img-fluid " style="border-radius: 16px;">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <p class="card-text mb-1" style="font-weight: 300; font-size: 13px; ">Amber Jar</p>
-                            <h5 class="card-title" style="font-weight: 500;">Honey best nectar you wish to get</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card mb-3 me-4" style="max-width: 300px; border-radius: 16px;">
-                <div class="row g-0 p-2">
-                    <div class="col-md-4 text-center">
-                        <img src="/assets/Images/Rectangle 136.png" alt="Category Image" class="img-fluid " style="border-radius: 16px;">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <p class="card-text mb-1" style="font-weight: 300; font-size: 13px; ">Amber Jar</p>
-                            <h5 class="card-title" style="font-weight: 500;">Honey best nectar you wish to get</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card mb-3 me-4" style="max-width: 300px; border-radius: 16px;">
-                <div class="row g-0 p-2">
-                    <div class="col-md-4 text-center">
-                        <img src="/assets/Images/Rectangle 136.png" alt="Category Image" class="img-fluid " style="border-radius: 16px;">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <p class="card-text mb-1" style="font-weight: 300; font-size: 13px; ">Amber Jar</p>
-                            <h5 class="card-title" style="font-weight: 500;">Honey best nectar you wish to get</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card mb-3 me-4" style="max-width: 300px; border-radius: 16px;">
-                <div class="row g-0 p-2">
-                    <div class="col-md-4 text-center">
-                        <img src="/assets/Images/Rectangle 136.png" alt="Category Image" class="img-fluid " style="border-radius: 16px;">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <p class="card-text mb-1" style="font-weight: 300; font-size: 13px; ">Amber Jar</p>
-                            <h5 class="card-title" style="font-weight: 500;">Honey best nectar you wish to get</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card mb-3 me-4" style="max-width: 300px; border-radius: 16px;">
-                <div class="row g-0 p-2">
-                    <div class="col-md-4 text-center">
-                        <img src="/assets/Images/Rectangle 136.png" alt="Category Image" class="img-fluid " style="border-radius: 16px;">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <p class="card-text mb-1" style="font-weight: 300; font-size: 13px; ">Amber Jar</p>
-                            <h5 class="card-title" style="font-weight: 500;">Honey best nectar you wish to get</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card mb-3 me-4" style="max-width: 300px; border-radius: 16px;">
-                <div class="row g-0 p-2">
-                    <div class="col-md-4 text-center">
-                        <img src="/assets/Images/Rectangle 136.png" alt="Category Image" class="img-fluid " style="border-radius: 16px;">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <p class="card-text mb-1" style="font-weight: 300; font-size: 13px; ">Amber Jar</p>
-                            <h5 class="card-title" style="font-weight: 500;">Honey best nectar you wish to get</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          
         </div>
 
     </div>
@@ -308,7 +179,7 @@
                                     currency: '₦' :'symbol':'1.0-0'}}</p>
                                
                                   <p class="btn addTo" *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)">Add To Cart</p>
-                                  <p class="btn addTo"  *ngIf="ifAddedToCart(product)" (click)="tocCart()">View Cart</p>
+                                  <p class="btn addTo"  *ngIf="ifAddedToCart(product)" (click)="toCart()">Added</p>
                                 </div>
                               </div>
                             </div>
@@ -551,5 +422,5 @@
 
 
 
-<app-loader *ngIf="loading"></app-loader>
+
 <app-footer></app-footer>

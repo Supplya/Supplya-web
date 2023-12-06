@@ -32,8 +32,8 @@ export class ErrorHandlingInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         // Handle API-related errors
         if (error.status === 0) {
-          const errorMessage = 'API is not available.';
-          this.notify.danger('Internal error: ' + errorMessage);
+          const errorMessage = 'Internal Server Error.';
+          this.notify.danger(errorMessage);
           console.error(errorMessage);
         }
 

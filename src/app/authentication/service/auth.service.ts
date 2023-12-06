@@ -15,13 +15,13 @@ export class AuthService {
   private baseURL =this.server.baseUrl;
 
   register(user: any): Observable<any> {
-    const url = `${this.baseURL}/auth/register`;
+    const url = `${this.baseURL}auth/register`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return this.http.post(url, user, { headers });
   }
   login(user: any): Observable<any> {
-    const url = `${this.baseURL}/auth/login`;
+    const url = `${this.baseURL}auth/login`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return this.http.post(url, user, { headers });
@@ -33,7 +33,7 @@ export class AuthService {
 
   private userTypeToRouteMap: { [key: string]: string } = {
     student: '/core/customer',
-    teacher: '/core/seller',
+    teacher: '/core/vendor',
     admin: '/core/admin',
   };
 

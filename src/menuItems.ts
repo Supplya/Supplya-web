@@ -9,9 +9,15 @@ export const menuItems = {
     },
     {
       name: "Analytics",
-      route: "/core/admin/order",
+      route: "/core/admin/analytics",
       hasChild: false,
       icon: "file-earmark-text",
+    },
+    {
+      name: "Wallet",
+      route: "/core/vendor/wallet",
+      hasChild: false,
+      icon: "wallet",
     },
     {
       name: "Orders",
@@ -60,7 +66,7 @@ export const menuItems = {
    
     {
       name: "Role Permissions",
-      route: "/core/admin/produ",
+      route: "/core/admin/",
       hasChild: true,
       icon: "box",
       childMenu: [
@@ -85,12 +91,12 @@ export const menuItems = {
       childMenu: [
         {
           name: "All Users",
-          route: "/user-management/all",
+          route: "/core/admin/users",
           icon: "people-fill",
         },
         {
           name: "Add New User",
-          route: "/products/add",
+          route: "/core/admin/add-new-user",
           icon: "plus-circle",
         },
       
@@ -99,7 +105,7 @@ export const menuItems = {
    
     {
       name: "Setting",
-      route: "/setting",
+      route: "/core/admin/settings",
       hasChild: false,
       icon: "gear-fill",
     },
@@ -111,153 +117,36 @@ export const menuItems = {
       hasChild: false,
       icon: "house",
     },
-    {
-      name: "Profile",
-      route: "/profile",
-      hasChild: false,
-      icon: "person-circle",
-    },
+    // {
+    //   name: "Profile",
+    //   route: "/profile",
+    //   hasChild: false,
+    //   icon: "person-circle",
+    // },
     {
       name: "Orders",
-      route: "/orders",
+      route: "/core/customer/orders",
       hasChild: false,
       icon: "file-earmark-text",
     },
+   
     {
-      name: "Products",
-      route: "/products",
-      hasChild: true,
-      icon: "box",
-      childMenu: [
-        {
-          name: "All Products",
-          route: "/products/all",
-          icon: "list-ul",
-        },
-        {
-          name: "Add Product",
-          route: "/products/add",
-          icon: "plus-circle",
-        },
-      ],
-    },
-    {
-      name: "Category",
-      route: "/category",
-      hasChild: true,
-      icon: "box",
-      childMenu: [
-        {
-          name: "All Categories",
-          route: "/category/all",
-          icon: "list-ul",
-        },
-        {
-          name: "Add Category",
-          route: "/category/add",
-          icon: "plus-circle",
-        },
-      ],
-    },
-    {
-      name: "Settings",
-      route: "/settings",
+      name: "Wallet",
+      route: "/core/customer/wallet",
       hasChild: false,
-      icon: "gear-fill",
+      icon: "wallet",
     },
-    {
-      name: "Logout",
-      route: "/logout",
-      hasChild: false,
-      icon: "box-arrow-right",
-    },
-    {
-      name: "Report",
-      route: "/report",
-      hasChild: false,
-      icon: "file-text",
-    },
-    {
-      name: "Analytics",
-      route: "/analytics",
-      hasChild: false,
-      icon: "bar-chart-line",
-    },
+   
+
+    // {
+    //   name: "Settings",
+    //   route: "/core/customer/settings",
+    //   hasChild: false,
+    //   icon: "gear-fill",
+    // },
+
   ],
-  seller: [
-    {
-      name: "Dashboard",
-      route: "/core/seller/dashboard",
-      hasChild: false,
-      icon: "house",
-    },
-    {
-      name: "Orders",
-      route: "/orders",
-      hasChild: false,
-      icon: "file-earmark-text",
-    },
-    {
-      name: "Products",
-      route: "/products",
-      hasChild: true,
-      icon: "box",
-      childMenu: [
-        {
-          name: "All Products",
-          route: "/products/all",
-          icon: "list-ul",
-        },
-        {
-          name: "Add Product",
-          route: "/products/add",
-          icon: "plus-circle",
-        },
-      ],
-    },
-    {
-      name: "Category",
-      route: "/category",
-      hasChild: true,
-      icon: "box",
-      childMenu: [
-        {
-          name: "All Categories",
-          route: "/category/all",
-          icon: "list-ul",
-        },
-        {
-          name: "Add Category",
-          route: "/category/add",
-          icon: "plus-circle",
-        },
-      ],
-    },
-    {
-      name: "Settings",
-      route: "/settings",
-      hasChild: false,
-      icon: "gear-fill",
-    },
-    {
-      name: "Logout",
-      route: "/logout",
-      hasChild: false,
-      icon: "box-arrow-right",
-    },
-    {
-      name: "Report",
-      route: "/report",
-      hasChild: false,
-      icon: "file-text",
-    },
-    {
-      name: "Analytics",
-      route: "/analytics",
-      hasChild: false,
-      icon: "bar-chart-line",
-    },
-  ],
+
   vendor: [
     {
       name: "Dashboard",
@@ -266,10 +155,17 @@ export const menuItems = {
       icon: "house",
     },
     {
-      name: "Profile",
-      route: "/profile",
+      name: "Orders",
+      route: "/core/vendor/orders",
       hasChild: false,
-      icon: "person-circle",
+      icon: "file-earmark-text",
+    },
+   
+    {
+      name: "Wallet",
+      route: "/core/vendor/wallet",
+      hasChild: false,
+      icon: "wallet",
     },
     {
       name: "Products",
@@ -279,45 +175,28 @@ export const menuItems = {
       childMenu: [
         {
           name: "All Products",
-          route: "/products/all",
+          route: "/core/vendor/products",
           icon: "list-ul",
         },
         {
           name: "Add Product",
-          route: "/products/add",
+          route: "/core/vendor/add-new-product",
           icon: "plus-circle",
         },
       ],
     },
     {
-      name: "Orders",
-      route: "/orders",
-      hasChild: false,
-      icon: "file-earmark-text",
-    },
-    {
-      name: "Settings",
-      route: "/settings",
-      hasChild: false,
-      icon: "gear-fill",
-    },
-    {
-      name: "Logout",
-      route: "/logout",
-      hasChild: false,
-      icon: "box-arrow-right",
-    },
-    {
       name: "Report",
-      route: "/report",
+      route: "/core/vendor/report",
       hasChild: false,
       icon: "file-text",
     },
     {
-      name: "Analytics",
-      route: "/analytics",
+      name: "Settings",
+      route: "/core/vendor/shop-settings",
       hasChild: false,
-      icon: "bar-chart-line",
+      icon: "gear-fill",
     },
+  
   ],
 };

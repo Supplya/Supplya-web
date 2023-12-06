@@ -38,7 +38,7 @@
 }
 
 .quantity-selector-mobile .quantity-button {
-    background-color: #ED8939;
+    background-color: var(--primary-color);
     border: none;
     /* border-radius: 50%; */
     width: 30px;
@@ -139,16 +139,16 @@ background-color: #F4F4FC;
     /* width: 134px;
     height: 39px; */
     border-radius: 2px;
-    background: #ED8939;
+    background: var(--secondary-color);
     text-align: center;
     align-self: center;
-    color: white!important;
+    color: black!important;
 
     
 }
 
 .total .proceed{
-    background: #42189A;
+    background: var(--primary-color);
     color: white!important;
     font-size: 15px;
     font-weight: 500;

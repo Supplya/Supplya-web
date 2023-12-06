@@ -15,12 +15,12 @@ const routes: Routes = [
         // canActivate: [AuthGuard],
 
       },
-     
+
       {
-        path: 'seller',
+        path: 'vendor',
         loadChildren: () =>
-          import('./seller/seller.module').then(
-            (m) => m.SellerModule
+          import('./vendor/vendor.module').then(
+            (m) => m.VendorModule
           ),
         // canActivate: [AuthGuard],
 

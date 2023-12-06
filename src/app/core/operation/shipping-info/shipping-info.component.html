@@ -2,167 +2,200 @@
 <app-breadcrumb currentPageLink="Shipping Info" previousLink="Shop"></app-breadcrumb>
 
 <app-no-data-available [visible]="!cart || !cart.items.length" notFoundMessage="Nothing to Checkout"
-resetLink="RETURN TO SHOP"></app-no-data-available>
+    resetLink="RETURN TO SHOP"></app-no-data-available>
 
 <section class="py-5" *ngIf="cart && cart.items.length">
     <div class="container">
         <form [formGroup]="orderForm">
-        <div class="row">
-            <div class="col-lg-1"></div>
-            <div class="col-lg-10">
+            <div class="row">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
 
-                <div class="row billing  py-5 ">
-                    <!-- <div class="col-lg-1"></div> -->
-                    <div class=" col-lg-8 mb-4">
+                    <div class="row billing  py-5 ">
+                        <!-- <div class="col-lg-1"></div> -->
+                        <div class=" col-lg-8 mb-4">
 
 
-                        <!-- Checkout -->
-                        <div class="card shadow-0 shipping border-0">
-                            <div class="p-4 ">
-                                <h5 class="mb-2">Contact Information</h5>
-                                <!-- <h5 class="card-title mb-3">Guest checkout</h5> -->
-                                <div class="row">
+                            <!-- Checkout -->
+                            <div class="card shadow-0 shipping border-0">
+                                <div class="p-4 ">
+                                    <h5 class="mb-2">Contact Information</h5>
+                                    <!-- <h5 class="card-title mb-3">Guest checkout</h5> -->
+                                    <div class="row">
 
-                                    <div class="col-lg-6 col-sm-12 mb-3">
+                                        <div class="col-lg-6 col-sm-12 mb-3">
 
-                                        <div class="form-outline">
-                                            <input type="text" id="typeText" formControlName="firstName" placeholder="First name (Optional)"
-                                                class="form-control" />
+                                            <div class="form-outline">
+                                                <input type="text" id="typeText" formControlName="firstName"
+                                                    placeholder="First name (Optional)" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-sm-12">
+
+                                            <div class="form-outline">
+                                                <input type="text" id="typeText" formControlName="lastName"
+                                                    placeholder="Last Name" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 mb-3">
+
+                                            <div class="form-outline">
+                                                <input type="text" id="typeText" formControlName="phone"
+                                                    placeholder="Email or mobile phone number" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <h5 class="mb-3 mt-5">Shipping Address</h5>
+
+                                        <div class="col-lg-12 col-sm-12 mb-3">
+
+                                            <div class="form-outline">
+                                                <input type="text" id="typeText" formControlName="address"
+                                                    placeholder="Address" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 mb-3">
+
+                                            <div class="form-outline">
+                                                <input type="text" id="typeText"
+                                                    placeholder="Apartment, suit, e.t.c (optional)"
+                                                    class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-sm-12 mb-3">
+
+                                            <div class="form-outline">
+                                                <input type="text" id="typeText" formControlName="city"
+                                                    placeholder="City" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-12 mb-3">
+
+                                            <div class="form-outline">
+                                                <input type="text" placeholder="Bangladesh" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-sm-12 mb-3">
+
+                                            <div class="form-outline">
+                                                <input type="text" placeholder="Postal Code" class="form-control" />
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-6 col-sm-12">
-
-                                        <div class="form-outline">
-                                            <input type="text" id="typeText" formControlName="lastName" placeholder="Last Name"
-                                                class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 col-sm-12 mb-3">
-
-                                        <div class="form-outline">
-                                            <input type="text" id="typeText" formControlName="phone" placeholder="Email or mobile phone number"
-                                                class="form-control" />
-                                        </div>
-                                    </div>
-
-                                    <h5 class="mb-3 mt-5">Shipping Address</h5>
-
-                                    <div class="col-lg-12 col-sm-12 mb-3">
-
-                                        <div class="form-outline">
-                                            <input type="text" id="typeText" formControlName="address" placeholder="Address"
-                                                class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 col-sm-12 mb-3">
-
-                                        <div class="form-outline">
-                                            <input type="text" id="typeText"
-                                                placeholder="Apartment, suit, e.t.c (optional)" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 col-sm-12 mb-3">
-
-                                        <div class="form-outline">
-                                            <input type="text" id="typeText" formControlName="city" placeholder="City" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-sm-12 mb-3">
-
-                                        <div class="form-outline">
-                                            <input type="text" placeholder="Bangladesh" class="form-control" />
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6 col-sm-12 mb-3">
-
-                                        <div class="form-outline">
-                                            <input type="text" placeholder="Postal Code" class="form-control" />
-                                        </div>
-                                    </div>
-                                </div>
 
 
 
 
-
-                                <!-- <div class="float-start info-btn">
+                                    <!-- <div class="float-start info-btn">
                                     <button class="btn">Save Shipping Info</button>
 
                                 </div> -->
+                                </div>
                             </div>
+                            <!-- Checkout -->
                         </div>
-                        <!-- Checkout -->
-                    </div>
-                    <div class=" col-lg-4 ">
+                        <div class=" col-lg-4 ">
 
 
 
 
-                        <div class="card mb-3 border shadow-0">
-                            <div class="card-body item-card">
-                                <h4 class="heading">Items</h4>
-                                <div *ngFor="let item of cart.items" class="d-flex align-items-center  py-2" style="border-bottom: 1px solid #ddd;">
-                                    <div class="me-3 position-relative">
-                                        <span
-                                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-secondary">
-                                            1
-                                        </span>
-                                        <img [src]="item.product.image"
-                                            style="height: 80px; width: 80px;" class="img-sm rounded border" />
+                            <div class="card mb-3 border shadow-0">
+                                <div class="card-body item-card">
+                                    <h4 class="heading">Items</h4>
+                                    <div *ngFor="let item of cart.items" class="d-flex align-items-center  py-2"
+                                        style="border-bottom: 1px solid #ddd;">
+                                        <div class="me-3 position-relative">
+                                            <span
+                                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-secondary">
+                                                1
+                                            </span>
+                                            <img [src]="item.product.image" style="height: 80px; width: 80px;"
+                                                class="img-sm rounded border" />
+                                        </div>
+                                        <div class="" (click)="viewProduct(item.product._id)"
+                                            style="width: 100%; cursor: pointer;">
+                                            <a class="nav-link ">
+                                                {{ item.product.name}}
+
+                                            </a>
+                                            <p class="d-flex justify-content-between mb-0">
+                                                <span class="tag text-muted">Color: <span
+                                                        class="text-primary">Blue</span></span>
+                                                <!-- <span class="tag text-muted">Color: <span class="text-primary">Blue</span></span> -->
+                                                <span class="amount">{{item.product.price | currency: '₦'
+                                                    :'symbol':'1.0-0'}}<span class="text-primary"></span></span>
+                                            </p>
+                                            <p class="tag text-muted">Size: <span class="text-primary">XL</span></p>
+                                        </div>
                                     </div>
-                                    <div class="" (click)="viewProduct(item.product._id)" style="width: 100%; cursor: pointer;">
-                                        <a  class="nav-link ">
-                                            {{ item.product.name}}
 
-                                        </a>
-                                        <p class="d-flex justify-content-between mb-0">
-                                            <span class="tag text-muted">Color: <span class="text-primary">Blue</span></span>
-                                            <!-- <span class="tag text-muted">Color: <span class="text-primary">Blue</span></span> -->
-                                            <span class="amount">{{item.product.price | currency: '₦' :'symbol':'1.0-0'}}<span class="text-primary"></span></span>
-                                        </p>
-                                        <p class="tag text-muted">Size: <span class="text-primary">XL</span></p>
+                                </div>
+
+
+                                <!-- SUB TOTAL -->
+
+
+                            </div>
+                            <div class="card shadow-0 border total mt-3">
+
+                                <div class="card-body ">
+
+
+                                    <div class="d-flex justify-content-between border-bottom mt-4">
+                                        <p class="mb-2 heading"> Total Count:</p>
+                                        <p class="mb-2 cartItemPrice">{{cart.totalCount | number}}</p>
+                                    </div>
+
+                                    <!-- <hr style="margin: 10px;"/> -->
+                                    <div class="d-flex justify-content-between border-bottom mt-4">
+                                        <p class="mb-2 heading">Total Price:</p>
+                                        <h5 class="mb-2  cartItemPrice">{{cart.totalPrice | currency: '₦'
+                                            :'symbol':'1.0-0'}}</h5>
+                                    </div>
+
+                                    <p class=" ship-text py-3">Shipping & taxes calculated at checkout</p>
+                                    <!-- <label class="text-start">Select Payment Method:</label> -->
+                                 
+                                    <!-- Cash on Delivery Radio Button -->
+                                    <div>
+
+                                        <div class="form-check">
+                                            <input type="radio" class="" id="cashOnDelivery" formControlName="paymentMethod"
+                                                name="paymentMethod" (click)="onPaymentButtonClick()" value="cashOnDelivery"
+                                                >
+                                            <label class="" for="cashOnDelivery">Cash on Delivery</label>
+                                        </div>
+                                        <!-- Debit Card Radio Button -->
+                                        <div class="">
+                                            <input type="radio" formControlName="paymentMethod" (click)="onPaymentButtonClick()" class="" id="debitCard" name="paymentMethod"
+                                                value="debitCard">
+                                            <label class="" for="debitCard">Debit Card</label>
+                                        </div>
+    
+                                        
+                                        <div class="mt-3">
+                                            <a *ngIf="this.orderForm.value.paymentMethod === 'cashOnDelivery'"
+                                                class="btn  w-100 shadow-0 mb-2 proceed">
+                                                Place Order
+                                            </a>
+                                            <a *ngIf="this.orderForm.value.paymentMethod === 'debitCard'"
+                                                class="btn  w-100 shadow-0 mb-2 proceed" (click)="payWithPaystack($event)">
+                                                Proceed to Payment
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                             
                             </div>
-
-
-                            <!-- SUB TOTAL -->
-                            
-                           
                         </div>
-                        <div class="card shadow-0 border total mt-3">
-          
-                            <div class="card-body ">
-                             
-                              
-                              <div class="d-flex justify-content-between border-bottom mt-4">
-                                <p class="mb-2 heading"> Total Count:</p>
-                                <p class="mb-2 cartItemPrice">{{cart.totalCount | number}}</p>
-                              </div>
-                  
-                              <!-- <hr style="margin: 10px;"/> -->
-                              <div class="d-flex justify-content-between border-bottom mt-4">
-                                <p class="mb-2 heading">Total Price:</p>
-                                <h5 class="mb-2  cartItemPrice">{{cart.totalPrice | currency: '₦' :'symbol':'1.0-0'}}</h5>
-                              </div>
-                            
-                              <p class=" ship-text py-3">Shipping & taxes calculated at checkout</p>
-                              <div class="mt-3">
-                                <a  class="btn  w-100 shadow-0 mb-2 proceed" (click)="payWithPaystack($event)"> Proceed to Payment
-                                </a>
-                              </div>
-                            </div>
-                          </div>
+                        <!-- <div class="col-lg-1"></div> -->
                     </div>
-                    <!-- <div class="col-lg-1"></div> -->
                 </div>
+                <div class="col-lg-1"></div>
             </div>
-            <div class="col-lg-1"></div>
-        </div>
-    </form>
+        </form>
     </div>
 </section>
 <app-footer></app-footer>

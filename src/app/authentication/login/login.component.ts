@@ -73,8 +73,9 @@ console.log(this.loginForm.value, 'login');
       (error) => {
         this.loading = false;
         // Handle HTTP error
-        console.error('HTTP error:', error);
-        this.notify.danger(error, 4000);
+        this.notify.danger(error.error.msg, 4000);
+        console.error('HTTP error:', error.error.msg);
+        
       }
     );
   }

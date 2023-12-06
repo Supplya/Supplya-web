@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../services/product/product.service';
 import { CartService } from '../services/cart/cart.service';
+import { ToastyService } from 'ng-toasty';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class ProductDetailsComponent {
   reviewForm: FormGroup;
   constructor(private activatedRoute: ActivatedRoute,
     private productService: ProductService,
-    private route: Router, private cartService: CartService, private fb: FormBuilder) {
+    private route: Router, private cartService: CartService, private fb: FormBuilder, private notify: ToastyService) {
 
     this.cartService.getCartObservable().subscribe((cart) => {
       this.cart = cart;
@@ -48,11 +49,18 @@ export class ProductDetailsComponent {
       if (foodID) {
         this.productService.getProductId(foodID).subscribe(
           (product: any) => {
-            this.product = product;
-            this.loading = false;
-            console.log(this.product, "food");
+            if(product){
+
+              this.product = product;
+              this.loading = false;
+              console.log(this.product, "food");
+            }else{
+
+              this.notify.danger('Product not found');
+            }
           },
           (error) => {
+            // this.notify.danger('Error fetching product', 4000);
             console.error('Error fetching product:', error);
             // Handle the error here, e.g., display an error message to the user
           }

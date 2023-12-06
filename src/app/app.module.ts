@@ -10,11 +10,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorHandlingInterceptor } from './shared/Interceptors/error-handling.interceptor';
 import { MenuService } from './shared/services/menu.service';
+import { DatePipe } from '@angular/common';
+import { LoaderService } from './shared/services/loader.service';
+import { LoaderInterceptor } from './shared/Interceptors/loader-interceptor.service';
+import { LoaderComponent } from './shared/loader/loader.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NotFoundPageComponent
+    NotFoundPageComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -24,12 +29,14 @@ import { MenuService } from './shared/services/menu.service';
  
     
   ],
-  providers: [Server, MenuService,
+  providers: [Server, MenuService, DatePipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorHandlingInterceptor,
       multi: true,
     },
+    LoaderService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

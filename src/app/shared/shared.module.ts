@@ -20,7 +20,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
   declarations: [
     FooterComponent,
     NavbarComponent,
-    LoaderComponent,
     BreadcrumbComponent,
     NoInternetComponent,
     NoDataAvailableComponent,
@@ -37,11 +36,14 @@ import { NgxPaginationModule } from 'ngx-pagination';
   
   
   ],
+
+  providers: [
+    
+  ],
   exports: [
     // components
     FooterComponent,
     NavbarComponent,
-    LoaderComponent,
     BreadcrumbComponent,
     NoInternetComponent,
     NoDataAvailableComponent,

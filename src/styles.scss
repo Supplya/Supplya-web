@@ -44,6 +44,11 @@ $supplya-theme: mat.define-light-theme((
     font-family: 'DM Sans', sans-serif !important;
 }
 
+:root {
+    --primary-color: #0097A8;
+    --secondary-color: #FFD865;
+  }
+  
 /* PRIMARY COLOR */
 .paragraph-primary {
     color: #000000a4;
@@ -124,7 +129,17 @@ $supplya-theme: mat.define-light-theme((
 .form-control:focus {
     box-shadow: none !important;
 }
-
+.form-check-input {
+    /* Increase the size of the radio button */
+    transform: scale(1.5)!important;
+    margin-right: 8px; /* Add some spacing between the radio button and label */
+  }
+  
+  /* Style for the selected radio button (pink color) */
+  .form-check-input:checked {
+    background-color: var($primary-color)!important; /* Change to your preferred color */
+    border-color: white!important; /* Change to your preferred color */
+  }
 @media (min-width: 992px) {
     .mobile-only {
         display: none !important;

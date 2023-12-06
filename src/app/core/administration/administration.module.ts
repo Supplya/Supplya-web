@@ -11,6 +11,14 @@ import { OrdersComponent } from './orders/orders.component';
 import { CategoryComponent } from './category/category/category.component';
 import { UsersComponent } from './users/users/users.component';
 import { ViewUserDetailsComponent } from './users/view-user-details/view-user-details.component';
+import { AddNewProductComponent } from './product/add-new-product/add-new-product.component';
+import { AddNewCategoryComponent } from './category/add-new-category/add-new-category.component';
+import { AddNewRoleComponent } from './role/add-new-role/add-new-role.component';
+import { ViewRoleComponent } from './role/view-role/view-role.component';
+import { AddNewUserComponent } from './users/add-new-user/add-new-user.component';
+import { AnalyticsComponent } from './analytics/analytics.component';
+import { RolePermissionComponent } from './role/role-permission/role-permission.component';
+import { SettingsComponent } from './settings/settings.component';
 
 
 @NgModule({
@@ -22,7 +30,15 @@ import { ViewUserDetailsComponent } from './users/view-user-details/view-user-de
     OrdersComponent,
     CategoryComponent,
     UsersComponent,
-    ViewUserDetailsComponent
+    ViewUserDetailsComponent,
+    AddNewProductComponent,
+    AddNewCategoryComponent,
+    AddNewRoleComponent,
+    ViewRoleComponent,
+    AddNewUserComponent,
+    AnalyticsComponent,
+    RolePermissionComponent,
+    SettingsComponent
   ],
   imports: [
     CommonModule,

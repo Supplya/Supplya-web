@@ -10,7 +10,7 @@ import { MenuService } from 'src/app/shared/services/menu.service';
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[] = [];
-  userRole: string = 'admin'; 
+  userRole: string = 'vendor'; 
 constructor(private menuService: MenuService, private router: Router){}
 
   ngOnInit(): void {
