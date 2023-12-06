@@ -32,8 +32,8 @@ export class AuthService {
   private userType = new BehaviorSubject<string>('');
 
   private userTypeToRouteMap: { [key: string]: string } = {
-    student: '/core/customer',
-    teacher: '/core/vendor',
+    customer: '/core/customer',
+    vendor: '/core/vendor',
     admin: '/core/admin',
   };
 
@@ -54,16 +54,16 @@ export class AuthService {
   //     }
   //   }
   // }
-  setCredentials(user: any) {
-    console.log(`Credentials, user: ${user.token}`);
-    if (user) {
+  setCredentials(data: any) {
+    console.log(`Credentials, user: ${data.token}`);
+    if (data && data.user.role) {
       this.loggedIn.next(true);
-      // this.userType.next(user.userType);
-      localStorage.setItem('userToken', user.token);
-      localStorage.setItem('userData', JSON.stringify(user));
-      const route = this.userTypeToRouteMap[user.userType] || '/auth';
+      this.userType.next(data.user.role);
+      localStorage.setItem('userToken', data.token);
+      localStorage.setItem('userData', JSON.stringify(data.user));
+      const route = this.userTypeToRouteMap[data.user.role] || '/auth';
 
-      if (this.router.url.includes(user.userType)) {
+      if (this.router.url.includes(data.user.role)) {
         this.router.navigateByUrl(this.router.url);
       } else {
         this.router.navigate([route]);

@@ -61,6 +61,7 @@ console.log(this.loginForm.value, 'login');
       (response) => {
         if (response.status === 'success') {
           this.loading = false;
+          console.table('Login success:', response);
           this.authService.setCredentials(response);
           this.notify.success('Login Successful', 4000);
         } else {

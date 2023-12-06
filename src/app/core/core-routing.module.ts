@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './main-layout/main/main.component';
+import { AuthGuard } from '../shared/Guard/auth.guard';
 
 const routes: Routes = [
   {
@@ -12,7 +13,7 @@ const routes: Routes = [
           import('./administration/administration.module').then(
             (m) => m.AdministrationModule
           ),
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
 
       },
 
@@ -22,7 +23,7 @@ const routes: Routes = [
           import('./vendor/vendor.module').then(
             (m) => m.VendorModule
           ),
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
 
       },
       {
@@ -31,7 +32,7 @@ const routes: Routes = [
           import('./customer/customer.module').then(
             (m) => m.CustomerModule
           ),
-        // canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
 
       },
     ]
@@ -42,7 +43,7 @@ const routes: Routes = [
       import('./operation/operation.module').then(
         (m) => m.OperationModule
       ),
-    // canActivate: [AuthGuard],
+
 
   },
 ];

@@ -204,3 +204,46 @@ $supplya-theme: mat.define-light-theme((
   font-family:  'Nunito', sans-serif;
 
 }
+
+// SWEET ALERT STYLE
+
+.swal2-popup {
+    width: 410px!important;
+    border-radius: 10px !important;
+  }
+
+  /* Style the text inside the alert */
+.swal2-title {
+    font-size: 24px;
+    color: #333; 
+  }
+  
+  .swal2-content {
+    font-size: 16px; 
+    color: #555; 
+  }
+  
+  /* Style the buttons */
+  .swal2-confirm {
+    background-color: var(--primary-color)!important;
+    color: #fff; 
+    box-shadow: none !important;
+    border: none!important;
+  }
+  
+  .swal2-cancel {
+    background-color: var(--secondary-color)!important; 
+    color: #fff!important;
+    box-shadow: none !important;
+    border: none!important;
+    font-weight: 500!important;
+  }
+  
+  
+  /* Style the icon */
+  .swal2-icon {
+// color: var(--primary-color)!important;
+background-color: var(--primary-color)!important;
+border-color: #fff!important;
+  }
+// END OF SWEET ALERT STYLE
