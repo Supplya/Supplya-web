@@ -30,8 +30,9 @@ tbody td {
 
 thead tr th {
     font-size: 15px !important;
-    font-weight: 600 !important;
-    color: #7C7C7C !important;
+    font-weight: 500 !important;
+    color: #fff !important;
+    background-color: var(--primary-color);
 }
 .no-data{
     font-size: 18px !important;

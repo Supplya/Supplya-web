@@ -49,14 +49,6 @@
                     <td>{{ (pagination.currentPage - 1) * pagination.itemsPerPage + i + 1 }}</td>
                     <td *ngFor="let header of headers">{{ row[header.toLowerCase()] }}</td>
 
-
-                    <td class="button-container" *ngIf="showButton === true">
-                        <button class="edit-button" (click)="onEditClick(row)">Edit</button>
-                        <button class="delete-button" (click)="onDeleteClick(row)">Delete</button>
-                        <button class="custom-button-1" (click)="onCustomButtonClick(row, 1)">Custom 1</button>
-                        <button class="custom-button-2" (click)="onCustomButtonClick(row, 2)">Custom 2</button>
-                        <!-- Add more buttons as needed -->
-                    </td>
                 </tr>
             </tbody>
         </table>

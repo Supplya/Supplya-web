@@ -20,7 +20,7 @@ const routes: Routes = [
     path: 'shopping-cart', component: ShoppingCartComponent
   },
   {
-    path: 'shipping-info', component: ShippingInfoComponent
+    path: 'checkout', component: ShippingInfoComponent
   },
   {
     path: 'order-completed', component: OrderCompletedComponent

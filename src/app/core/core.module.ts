@@ -6,6 +6,7 @@ import { HeaderComponent } from './main-layout/header/header.component';
 import { SidebarComponent } from './main-layout/sidebar/sidebar.component';
 import { MainComponent } from './main-layout/main/main.component';
 import { SharedModule } from '../shared/shared.module';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
 
@@ -14,6 +15,7 @@ import { SharedModule } from '../shared/shared.module';
     HeaderComponent,
     SidebarComponent,
     MainComponent,
+    UserProfileComponent
    
   ],
   imports: [

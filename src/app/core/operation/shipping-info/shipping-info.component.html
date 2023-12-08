@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-<app-breadcrumb currentPageLink="Shipping Info" previousLink="Shop"></app-breadcrumb>
+<app-breadcrumb currentPageLink="Checkout" previousLink="Shop"></app-breadcrumb>
 
 <app-no-data-available [visible]="!cart || !cart.items.length" notFoundMessage="Nothing to Checkout"
     resetLink="RETURN TO SHOP"></app-no-data-available>
@@ -26,8 +26,9 @@
                                         <div class="col-lg-6 col-sm-12 mb-3">
 
                                             <div class="form-outline">
-                                                <input type="text" id="typeText" formControlName="firstName"
-                                                    placeholder="First name (Optional)" class="form-control" />
+                                                <input type="text" id="typeText" [readonly]="isLoggedIn"
+                                                    formControlName="firstName" placeholder="First name (Optional)"
+                                                    class="form-control" />
                                             </div>
                                         </div>
 
@@ -35,14 +36,16 @@
 
                                             <div class="form-outline">
                                                 <input type="text" id="typeText" formControlName="lastName"
-                                                    placeholder="Last Name" class="form-control" />
+                                                    [readonly]="isLoggedIn" placeholder="Last Name"
+                                                    class="form-control" />
                                             </div>
                                         </div>
                                         <div class="col-lg-12 col-sm-12 mb-3">
 
                                             <div class="form-outline">
                                                 <input type="text" id="typeText" formControlName="phone"
-                                                    placeholder="Email or mobile phone number" class="form-control" />
+                                                    [readonly]="isLoggedIn" placeholder="Email or mobile phone number"
+                                                    class="form-control" />
                                             </div>
                                         </div>
 
@@ -73,14 +76,16 @@
                                         <div class="col-lg-6 col-sm-12 mb-3">
 
                                             <div class="form-outline">
-                                                <input type="text" placeholder="Bangladesh" class="form-control" />
+                                                <input type="text" placeholder="zip code" formControlName="zip"
+                                                    class="form-control" />
                                             </div>
                                         </div>
 
                                         <div class="col-lg-6 col-sm-12 mb-3">
 
                                             <div class="form-outline">
-                                                <input type="text" placeholder="Postal Code" class="form-control" />
+                                                <input type="text" placeholder="Country" readonly
+                                                    formControlName="country" class="form-control" />
                                             </div>
                                         </div>
                                     </div>
@@ -156,33 +161,46 @@
                                             :'symbol':'1.0-0'}}</h5>
                                     </div>
 
-                                    <p class=" ship-text py-3">Shipping & taxes calculated at checkout</p>
-                                    <!-- <label class="text-start">Select Payment Method:</label> -->
-                                 
+                                    <p class=" ship-text py-2">Shipping & taxes calculated at checkout</p>
+                                    <label class="text-start heading">Select Payment Method:</label>
+                                    <!-- Cash on Delivery Section -->
+                                    <div class="d-flex align-items-center justify-content-center"
+                                        (click)="onPaymentButtonClick('cashOnDelivery')">
+                                        <input type="radio" class="me-3" id="cashOnDelivery" formControlName="paymentMethod"
+                                            name="paymentMethod" value="cashOnDelivery">
+                                        <label class="" for="cashOnDelivery">Cash on Delivery</label>
+                                    </div>
+                                    <div *ngIf="this.orderForm.value.paymentMethod === 'cashOnDelivery'"
+                                        class="message-section mt-3 text-muted">
+                                        <div class="message bg-light p-3">
+                                            Pay upon delivery.
+                                        </div>
+                                    </div>
+                                    <!-- Debit Card Section -->
+                                    <div class="d-flex align-items-center justify-content-center"
+                                        (click)="onPaymentButtonClick('debitCard')">
+                                        <input type="radio" class="me-3" formControlName="paymentMethod" name="paymentMethod"
+                                            value="debitCard">
+                                        <label class="" for="debitCard">Debit Card</label>
+                                    </div>
+                                    <div *ngIf="this.orderForm.value.paymentMethod === 'debitCard'"
+                                        class="message-section mt-3 ">
+                                        <div class="message bg-white p-3">
+                                            Please proceed to payment using your debit card.
+                                        </div>
+                                    </div>
+                                  
                                     <!-- Cash on Delivery Radio Button -->
                                     <div>
-
-                                        <div class="form-check">
-                                            <input type="radio" class="" id="cashOnDelivery" formControlName="paymentMethod"
-                                                name="paymentMethod" (click)="onPaymentButtonClick()" value="cashOnDelivery"
-                                                >
-                                            <label class="" for="cashOnDelivery">Cash on Delivery</label>
-                                        </div>
-                                        <!-- Debit Card Radio Button -->
-                                        <div class="">
-                                            <input type="radio" formControlName="paymentMethod" (click)="onPaymentButtonClick()" class="" id="debitCard" name="paymentMethod"
-                                                value="debitCard">
-                                            <label class="" for="debitCard">Debit Card</label>
-                                        </div>
-    
-                                        
+                                    
                                         <div class="mt-3">
                                             <a *ngIf="this.orderForm.value.paymentMethod === 'cashOnDelivery'"
                                                 class="btn  w-100 shadow-0 mb-2 proceed">
                                                 Place Order
                                             </a>
                                             <a *ngIf="this.orderForm.value.paymentMethod === 'debitCard'"
-                                                class="btn  w-100 shadow-0 mb-2 proceed" (click)="payWithPaystack($event)">
+                                                class="btn  w-100 shadow-0 mb-2 proceed"
+                                                (click)="payWithPaystack($event)">
                                                 Proceed to Payment
                                             </a>
                                         </div>

@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <app-breadcrumb currentPageLink="Order Completed" previousLink="Shipping Info"></app-breadcrumb>
 <section class="py-5">
-    <div class="container py-5">
+    <div class="container py-3">
         <div class="row">
 <div class="col-lg-2"></div>
 <div class="col-lg-8">
@@ -14,7 +14,7 @@
 <p>Thank you for your order! Your order is being processed and will be completed within 3-6
     hours. <br> You will receive an email confirmation when your order is completed.
     </p>
-    <button class="btn">Continue Shopping</button>
+    <button class="btn btn-primary" (click)="goToDashboard(user.role)">View in Dashboard</button>
             </div>
             <div class="col-lg-1"></div>
         </div>

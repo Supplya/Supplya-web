@@ -24,7 +24,7 @@ console.log( userTypeFromUrl , 'userTypeFromUrl')
       return false;
     }
 
-    const userRole = credentials.userType;
+    const userRole = credentials.role;
 
     // if (userRole === 'admin' || userRole === userTypeFromUrl) {
     if (userRole === userTypeFromUrl) {
@@ -35,5 +35,6 @@ console.log( userTypeFromUrl , 'userTypeFromUrl')
       this.router.navigate(['/auth']);
       return false;
     }
+
   }
 }

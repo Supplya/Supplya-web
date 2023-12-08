@@ -11,9 +11,15 @@ import { NoDataAvailableComponent } from './no-data-available/no-data-available.
 import { HttpClientModule } from '@angular/common/http';
 import { ReusableTableComponent } from './reusable-table/reusable-table.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { RouterModule, Routes } from '@angular/router';
 
 
-
+const sharedRoutes: Routes = [
+  // {
+  //   path: 'my-profile',
+  //   component: UserProfileComponent,
+  // },
+];
 
 
 @NgModule({
@@ -23,9 +29,11 @@ import { NgxPaginationModule } from 'ngx-pagination';
     BreadcrumbComponent,
     NoInternetComponent,
     NoDataAvailableComponent,
-    ReusableTableComponent
+    ReusableTableComponent,
+    
   ],
   imports: [
+    RouterModule.forChild(sharedRoutes),
     CommonModule,
     ToastyModule,
     FormsModule,

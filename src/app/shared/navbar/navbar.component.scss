@@ -39,3 +39,15 @@
  .offcanvas-body .navbar-nav .nav-item .nav-link {
   border-bottom: 1px solid #ccc; /* Adjust the color and thickness as needed */
 }
+
+.userName{
+  border-radius: 4px;
+  border: 1px solid var(--primary-color);
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.dropdown-item:hover{
+  background-color: var(--primary-color);
+  color: #fff;
+}

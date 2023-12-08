@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './main-layout/main/main.component';
 import { AuthGuard } from '../shared/Guard/auth.guard';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,11 @@ const routes: Routes = [
         canActivate: [AuthGuard],
 
       },
+
+      {
+        path: 'my-account',
+        component: UserProfileComponent,
+      },
     ]
   },
   {
@@ -46,6 +52,7 @@ const routes: Routes = [
 
 
   },
+ 
 ];
 
 @NgModule({

@@ -39,7 +39,14 @@
     border: none !important;
     
 }
+.addToView{
+    color: var(--primary-color);
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
 
+
+}
 .category-card {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     text-align: center;

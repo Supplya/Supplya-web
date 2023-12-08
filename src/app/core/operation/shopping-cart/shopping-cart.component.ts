@@ -48,11 +48,11 @@ export class ShoppingCartComponent implements OnInit {
     this.cartService.clearCart();
   }
   checkoutRoute() {
-    this.route.navigate(['core/operation/shipping-info']);
+    this.route.navigate(['core/operation/checkout']);
     window.scrollTo(0, 0);
   }
   shoRoute() {
-    this.route.navigate(['our-menu']);
+    this.route.navigate(['core/operation/shop']);
     window.scrollTo(0, 0);
   }
 

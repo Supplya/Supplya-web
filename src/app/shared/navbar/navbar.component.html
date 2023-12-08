@@ -4,7 +4,9 @@
             <img src="/assets/Images/logo.png" style="width: 100px; height: 100%;" alt="Supplya Logo">
         </a>
 
-        <button data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
+            class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -19,12 +21,34 @@
                 <li class="nav-item mt-1">
                     <a (click)="contact()" class="nav-link">Contact</a>
                 </li>
-                <li class="nav-item me-4 mt-1">
+                <li class="nav-item me-3 mt-1">
                     <a class="nav-link">Get Help</a>
                 </li>
-                <li class="nav-item">
-                    <button (click)="signUp()" class=" btn btn-primary-nav text-white">Sign Up</button>
-                
+                <li class="nav-item" *ngIf="!isLoggedIn">
+                    <button (click)="signUp()" class="  btn-primary-nav text-white">Sign Up</button>
+
+                </li>
+                <li class="nav-item mt-1" *ngIf="isLoggedIn">
+
+                    <div class="dropdown">
+                        <!-- Toggle -->
+                        <button id="sidebarAvatar" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                          class="btn btn-primary-outline text-center fw-bold">
+                          <i class="bi bi-person-fill text-primary" style="font-size: 20px;"></i> Hi, {{userDetails?.firstName}}
+                          <i [ngClass]="{'bi-chevron-down': !openMenu, 'bi-chevron-up': openMenu}" (click)="toggleDropdown()"
+                            class="bi fw-bold"></i>
+                        </button>
+                      
+                        <!-- Menu -->
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sidebarAvatar">
+                          <a class="dropdown-item cursor-pointer" (click)="goToDashboard(userDetails?.role)">Dashboard</a>
+                          <a (click)="goToOrders(userDetails?.role)" class="dropdown-item cursor-pointer">Orders</a>
+                          <a (click)="goToMyAccount()" class="dropdown-item cursor-pointer">My Account</a>
+                          <hr class="dropdown-divider">
+                          <a (click)="logout()" class="dropdown-item cursor-pointer">Logout</a>
+                        </div>
+                      </div>
+                      
                 </li>
             </ul>
         </div>
@@ -59,7 +83,7 @@
                 <a class="nav-link">Get Help</a>
             </li>
             <li class="nav-item">
-                <button (click)="signUp()" class=" btn btn-primary-nav text-white">Sign Up</button>
+                <button (click)="signUp()" class=" btn btn-primary-nav text-white" *ngIf="!isLoggedIn">Sign Up</button>
             </li>
         </ul>
     </div>

@@ -194,8 +194,20 @@ export const menuItems = {
     {
       name: "Settings",
       route: "/core/vendor/shop-settings",
-      hasChild: false,
+      hasChild: true,
       icon: "gear-fill",
+      childMenu: [
+        {
+          name: "Store",
+          route: "/core/vendor/store",
+          icon: "cart",
+        },
+        {
+          name: "Payment",
+          route: "/core/vendor/store-payment",
+          icon: "credit-card",
+        },
+      ]
     },
   
   ],

@@ -38,22 +38,6 @@ export class AuthService {
   };
 
 
-
-  // setCredentials(user: any) {
-  //   if (user && user.userType) {
-  //     this.loggedIn.next(true);
-  //     this.userType.next(user.userType);
-  //     localStorage.setItem('userToken', user.token);
-  //     localStorage.setItem('userData', JSON.stringify(user));
-  //     const route = this.userTypeToRouteMap[user.userType] || '/auth';
-
-  //     if (this.router.url.includes(user.userType)) {
-  //       this.router.navigateByUrl(this.router.url);
-  //     } else {
-  //       this.router.navigate([route]);
-  //     }
-  //   }
-  // }
   setCredentials(data: any) {
     console.log(`Credentials, user: ${data.token}`);
     if (data && data.user.role) {
@@ -74,16 +58,25 @@ export class AuthService {
 
   getUserCredentials(): any {
     const userDataString = localStorage.getItem('userData');
+    console.log(userDataString, 'userData');
+    if(userDataString != null){
+      this.loggedIn.next(true);
+    }else{
+      this.loggedIn.next(false);
+
+    }
     return userDataString ? JSON.parse(userDataString) : null;
+    
   }
 
   logout() {
     console.log('Logout method called');
     localStorage.removeItem('userType');
     localStorage.removeItem('userData');
-    this.notify.success('Logged out Successfully', 4000);
+    localStorage.removeItem('userToken');
     this.loggedIn.next(false);
     this.userType.next('');
+    this.notify.success('Logged out Successfully', 4000);
     this.router.navigate(['/auth']);
   }
 

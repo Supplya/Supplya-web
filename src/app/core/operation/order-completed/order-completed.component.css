@@ -19,8 +19,6 @@ font-weight: 600;
     padding: 10px 20px;
     color: white;
     border-radius: 3px;
-    background: #42189A;
-    font-weight: 600;
-
-    
+    background: var(--primary-color);
+    font-weight: 600; 
 }

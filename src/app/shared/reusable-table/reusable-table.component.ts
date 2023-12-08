@@ -32,9 +32,9 @@ export class ReusableTableComponent implements OnInit, OnChanges {
     itemsPerPage: this.itemsPerPage,
     currentPage: 1,
   };
+  showPagination: boolean = false;
 
   // filteredRows: any;
-  showPagination: boolean = false;
 
   pages: number[] = [];
   result: any[] = [];
@@ -74,38 +74,8 @@ export class ReusableTableComponent implements OnInit, OnChanges {
     this.pagination.currentPage = 1;
     this.calculatePages();
   }
-  onButtonClick(button: any, row: any) {
-    this.rowClick.emit({ button, row });
-  }
 
 
-onRowClick(event: any) {
-    const button = event.button;
-    const row = event.row;
-    
-    // Handle the button click based on the action
-    if (button.action === 'edit') {
-        // Handle edit action
-    } else if (button.action === 'delete') {
-        // Handle delete action
-    }
-}
-onEditClick(row: any): void {
-  this.editClicked.emit(row);
-}
-
-onDeleteClick(row: any): void {
-  this.deleteClicked.emit(row);
-}
-
-onCustomButtonClick(row: any, buttonNumber: number): void {
-  if (buttonNumber === 1) {
-    this.customButton1Clicked.emit(row);
-  } else if (buttonNumber === 2) {
-    this.customButton2Clicked.emit(row);
-  }
-  // Add more conditions for additional buttons if needed
-}
 
   applyFilter(): void {
     if (this.searchText) {

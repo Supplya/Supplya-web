@@ -38,9 +38,9 @@ export class ProductsComponent implements OnInit {
         'Price',
         'In Stock',
         'Rating',
-        'Number of Reviews',
+        'NumReviews',
         'Brand',
-        'Date Created'
+        'dateCreated'
         // Add more headers as needed
       ];
         this.tableRows = data?.products.map((product: any) => {

@@ -5,7 +5,7 @@
           <!-- Title -->
           <div class="col-sm-6 col-12">
             <h5 class="mb-0 px-5 heading" style="font-weight: 600;">
-              {{ 'Welcome, Pius' }} <br> <span>{{formattedDate}}</span>
+             Welcome, {{ userDetails?.firstName }} <br> <span>{{formattedDate}}</span>
             </h5>
           </div>
   
@@ -23,7 +23,7 @@
             
   
               <!-- Logout Icon -->
-              <i class="bi bi-box-arrow-right" style="cursor: pointer;"></i>
+              <i (click)="logout()" class="bi bi-box-arrow-right" style="cursor: pointer;"></i>
             </div>
           </div>
         </div>

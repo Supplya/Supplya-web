@@ -85,6 +85,16 @@ $supplya-theme: mat.define-light-theme((
     box-shadow: none !important;
 }
 
+
+.btn-primary-outline{
+    border: 1px solid $primary-color!important;
+    box-shadow: none !important;
+    color:  #000 !important;
+    padding: 8px 12px !important;
+    border-radius: 8px !important;
+    font-weight: 500;
+    background: transparent !important;
+}
 /* END OF PRIMARY COLOR */
 
 /* SECONDARY COLOR */
@@ -245,5 +255,6 @@ $supplya-theme: mat.define-light-theme((
 // color: var(--primary-color)!important;
 background-color: var(--primary-color)!important;
 border-color: #fff!important;
+color: white!important;
   }
 // END OF SWEET ALERT STYLE
