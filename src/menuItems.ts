@@ -1,4 +1,3 @@
-// menuItems.ts
 export const menuItems = {
   admin: [
     {

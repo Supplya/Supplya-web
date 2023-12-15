@@ -52,7 +52,7 @@ export class SidebarComponent implements OnInit {
   loadMenuItems(): void {
     this.menuService.getMenuItems().subscribe(
       (menus) => {
-        // this.menuItems = menus['vendor'] || [];
+        // this.menuItems = menus['admin'] || [];
         this.menuItems = menus[this.userDetails?.role] || [];
       },
       (error) => {

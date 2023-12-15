@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReusableTableComponent } from './reusable-table/reusable-table.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RouterModule, Routes } from '@angular/router';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 
 const sharedRoutes: Routes = [
@@ -30,6 +31,7 @@ const sharedRoutes: Routes = [
     NoInternetComponent,
     NoDataAvailableComponent,
     ReusableTableComponent,
+    SpinnerComponent,
     
   ],
   imports: [
@@ -56,6 +58,7 @@ const sharedRoutes: Routes = [
     NoInternetComponent,
     NoDataAvailableComponent,
     ReusableTableComponent,
+    SpinnerComponent,
 
 
     // Modules

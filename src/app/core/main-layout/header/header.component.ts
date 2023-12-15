@@ -15,7 +15,7 @@ userDetails: any;
   }
   ngOnInit(): void {
 this.userDetails = this.authService.getUserCredentials();
-console.log(this.userDetails, 'userDetails');
+// console.log(this.userDetails, 'userDetails');
   }
   todayDate: Date = new Date();
   formattedDate = this.datePipe.transform(this.todayDate, 'd MMMM y | h:mm a');

@@ -23,6 +23,7 @@ export class ShippingInfoComponent implements OnInit {
   cart!: Cart;
   cartItems: CartItem[] = [];
   isLoggedIn: boolean = false;
+  loading: boolean = false;
   orderForm!: FormGroup;
   order!: Order;
   userInfo: any;
@@ -99,7 +100,8 @@ export class ShippingInfoComponent implements OnInit {
   }
 
   placeOrder(): void {
-    // Add logic for placing order when "Place Order" is clicked
+    this.loading = true;
+    this.createOrder();
     console.log('Placing Order...');
   }
 
@@ -140,20 +142,24 @@ export class ShippingInfoComponent implements OnInit {
 
   payWithPaystack(e: { preventDefault: () => void; }) {
     e.preventDefault();
-
+    this.loading = true;
     let handler = PaystackPop.setup({
       key: 'pk_test_58c4e5396a1b0b3f3d3c9e0100d0b1348affa82d', // Replace with your public key
       email: this.orderForm.value.email,
       amount: this.cart.totalPrice * 100,
       ref: '' + Math.floor((Math.random() * 1000000000) + 1),
       onClose: () => {
+        this.loading = false;
         alert('Window closed.');
         console.log('window closed', handler);
       },
       callback: (response: any) => {
         let message = 'Payment complete! Reference: ' + response.reference;
-        alert(message);
+        // alert(message);
+       
+        this.orderForm.value.paymentRef = response.reference;
         if (response.status === 'success') {
+          this.loading = true;
           this.createOrder();
         }
         console.log('window response', response);
@@ -165,6 +171,7 @@ export class ShippingInfoComponent implements OnInit {
 
 
   createOrder() {
+    
     console.log('create order Initiated');
     var orderDetails = {
       orderItems: this.cart.items,
@@ -181,16 +188,18 @@ export class ShippingInfoComponent implements OnInit {
       orderNote: this.orderForm.value.orderNote,
       orderStatus: this.orderForm.value.orderStatus,
       vendorId: this.orderForm.value.vendorId,
-      totalPrice: this.orderForm.value.totalPrice,
+      totalPrice: this.cart?.totalPrice,
     }
     this.orderService.createOrder(orderDetails).subscribe((response) => {
+      this.loading = false;
       this.notify.success('Order created successfully', 4000);
       this.route.navigate(['/core/operation/order-completed']);
       console.log('create order', orderDetails, response);
+
     },
       (error) => {
         this.notify.danger('An error occurred when creating order', 4000);
-
+        this.loading = false;
         console.error('create order failed', error);
       }
     )
