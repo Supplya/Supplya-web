@@ -144,7 +144,7 @@ export class ShippingInfoComponent implements OnInit {
     e.preventDefault();
     this.loading = true;
     let handler = PaystackPop.setup({
-      key: 'pk_test_58c4e5396a1b0b3f3d3c9e0100d0b1348affa82d', // Replace with your public key
+      key: 'pk_test_58c4e5396a1b0b3f3d3c9e0100d0b1348affa82d',
       email: this.orderForm.value.email,
       amount: this.cart.totalPrice * 100,
       ref: '' + Math.floor((Math.random() * 1000000000) + 1),

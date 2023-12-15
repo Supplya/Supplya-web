@@ -13,12 +13,12 @@ constructor(private notify: ToastyService){
 }
 
   ngOnInit(): void {
-   this.alert();
+   
   }
   title = 'supplya';
   ToasterPosition = ToasterPosition;
 
-  alert(){
-    this.notify.success('Method not implemented.');
-  }
+  // alert(){
+  //   this.notify.success('Method not implemented.');
+  // }
 }
