@@ -298,3 +298,62 @@ font-size: 15px;
 font-weight: 400;
 color: #747474;
 }
+
+/* styles.css */
+
+/* Default styles for all screen sizes */
+.card {
+    border-radius: 16px !important;
+    border: 1px solid #e5e5e5;
+}
+
+.card img {
+    width: 100%;
+    cursor: pointer;
+    height: 270px;
+    object-fit: cover;
+    border-radius: 16px;
+    align-items: center;
+}
+
+.card-title {
+    color: #333333;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.cart {
+    display: flex;
+    justify-content: space-between;
+}
+
+.price {
+    font-weight: 800;
+    font-size: 18px;
+}
+
+/* Media query for small screens (up to 767px) */
+@media (max-width: 767px) {
+    .card img {
+        height: auto; /* Adjust height for small screens */
+        
+    }
+    .card-title {
+        color: #333333;
+        font-size: 16px!important;
+        font-weight: 600;
+    }
+    
+}
+
+/* Media query for large screens (768px and above) */
+@media (min-width: 768px) {
+    .card {
+        width: 300px; /* Adjust width for large screens */
+        height: max-content; /* Adjust height for large screens */
+        margin: 0 auto; /* Center the card on large screens */
+    }
+    .card img {
+        height: 270px; /* Reset height for large screens */
+    }
+}

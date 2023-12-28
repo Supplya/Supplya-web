@@ -145,7 +145,6 @@ export const menuItems = {
     // },
 
   ],
-
   vendor: [
     {
       name: "Dashboard",

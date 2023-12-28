@@ -154,40 +154,35 @@
                     <section>
 
 
-                       <div class="row w3-animate-zoom mx-auto">
-                        <div class="col-md-6 col-sm-12 col-lg-3 mb-3" *ngFor="let product of products">
-                            <div class="card shadow-sm"
-                              style="border-radius: 16px!important; border: 1px solid #e5e5e5; height: max-content; width: 300px; margin: 0 auto">
-                              <div class="p-1" style="width: 100%; align-items: center; margin: 0 auto;" (click)="viewProduct(product._id)">
-                                <img src="/assets/Images/Rectangle 134.png"
-                                  style="width: 100%;cursor: pointer; height: 270px; object-fit: cover; border-radius: 16px; background-color: #ffc0223a;align-items: center;">
-                              </div>
-              
-                              <div class="card-body">
-                                
-                                <h5 (click)="viewProduct(product._id)" class="card-title TextHeading cursor productName" style="color: #333333; font-size: 18px; font-weight: 600;
-                                ">{{product.name}}</h5>
-                                <!-- <p>{{product.quantity}} Unit <span class="text-warning" >&#9733;&#9733;&#9733;&#9733;&#9734;</span></p> -->
-
-                                <p>{{ product.quantity }} Unit 
-                                    <span class="text-warning" *ngFor="let star of getStarsArray(product.rating); let i = index" [innerHTML]="star"></span>
-                                  </p>
-                                  
-              
-                                <div class="cart px-2" style="display: flex; justify-content: space-between;">
-                                  <p style="font-weight: 800; font-size: 18px;" class="card-text price textHeading">{{ product.price |
-                                    currency: '₦' :'symbol':'1.0-0'}}</p>
-                               
-                                  <p class="btn addTo" *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)">Add To Cart</p>
-                                  <p class=" addToView"  *ngIf="ifAddedToCart(product)" (click)="toCart()">View in Cart</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                      
-                      
+                        <div class="row w3-animate-zoom mx-auto">
+                            <div class="col-6 col-md-6 col-lg-3 mb-3" *ngFor="let product of products">
+                                <div class="card shadow-sm">
+                                    <div class="p-1" (click)="viewProduct(product._id)">
+                                        <img src="/assets/Images/Rectangle 134.png">
+                                    </div>
                         
-                       </div>
+                                    <div class="card-body">
+                                        <h5 (click)="viewProduct(product._id)" class="card-title TextHeading cursor productName">{{product.name}}</h5>
+                                        <p>{{ product.quantity }} Unit 
+                                            <span class="text-warning" *ngFor="let star of getStarsArray(product.rating); let i = index" [innerHTML]="star"></span>
+                                        </p>
+                        
+                                        <div class="cart px-2 d-none d-lg-block" >
+                                            <p class="card-text price textHeading">{{ product.price | currency: '₦' :'symbol':'1.0-0'}}</p>
+                                            <p class="btn addTo" *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)">Add To Cart</p>
+                                            <p class="addToView" *ngIf="ifAddedToCart(product)" (click)="toCart()">View in Cart</p>
+                                        </div>
+                                        <div class="px-2 mobile-only">
+                                            <p class="card-text price textHeading">{{ product.price | currency: '₦' :'symbol':'1.0-0'}}</p>
+                                            <p class="btn addTo" *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)">Add To Cart</p>
+                                            <p class="addToView" *ngIf="ifAddedToCart(product)" (click)="toCart()">View in Cart</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
                     </section>
                     <!--END OF TRENDING PRODUCTS CARD -->
                    
@@ -211,7 +206,7 @@
 <!-- Trending Products -->
 
 <!-- Top Offered Products -->
-<section class="py-2 shop-cat">
+<!-- <section class="py-2 shop-cat">
     <div class="container">
 
         <h5>Top Offered Products</h5>
@@ -319,7 +314,7 @@
            
            </div>
     </div>
-</section>
+</section> -->
 <!-- Top Offered Products -->
 
 
