@@ -70,6 +70,15 @@ $supplya-theme: mat.define-light-theme((
     border-radius: 8px !important;
 }
 
+.btn-primary-submit{
+    background-color: $primary-color !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: white !important;
+    padding: 10px 0px !important;
+    width: 100%;
+    border-radius: 8px !important;
+}
 .btn-primary-nav {
     padding: 12px 24px !important;
 }
@@ -258,3 +267,95 @@ border-color: #fff!important;
 color: white!important;
   }
 // END OF SWEET ALERT STYLE
+.export {
+    background-color: #000000c2 !important;
+    color: white !important;
+    padding: 6px, 12px, 6px, 12px !important;
+    border-radius: 8px;
+    gap: 8px;
+    font-size: 13px !important;
+  }
+  .export-primary {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    padding: 6px, 12px, 6px, 12px !important;
+    border-radius: 8px;
+    gap: 8px;
+    font-size: 14px !important;
+  }
+  
+  .export:focus {
+    background-color: #000 !important;
+    color: white !important;
+    padding: 6px, 12px, 6px, 12px !important;
+    border-radius: 8px !important;
+    gap: 8px !important;
+  }
+  
+  .export:active {
+    background-color: #000 !important;
+    color: white !important;
+    padding: 6px, 12px, 6px, 12px !important;
+    border-radius: 8px !important;
+    gap: 8px !important;
+  }
+
+// TABLE STYLING
+.table-content {
+    /* border-radius: 8px !important; */
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+    padding: 10px !important;
+    border-radius: 12px !important;
+  }
+  
+
+  .edit-text{
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 16px !important;
+    cursor: pointer;
+    text-align: center;
+  }
+  .table thead th,
+  .table tbody td {
+    border: 1px solid rgba(0, 0, 0, 0.127);
+    border-bottom: 0px, 0px, 1px, 0px;
+    border-color: #d1d1d1;
+    padding: 8px;
+    vertical-align: middle;
+    text-transform: none;
+  }
+  
+  tbody td {
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    color: #000 !important;
+  }
+  
+  thead tr th {
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    color: #fff !important;
+    background-color: var(--primary-color) !important;
+  }
+  
+  .table-title {
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    line-height: 24px !important;
+    letter-spacing: 0em !important;
+    color: #000000ba !important;
+  }
+  
+  .no-data {
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    color: #7c7c7c !important;
+  }
+  
+  .showing {
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    color: #7c7c7c !important;
+  }
+// END OF TABLE STYLING

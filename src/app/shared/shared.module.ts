@@ -13,6 +13,7 @@ import { ReusableTableComponent } from './reusable-table/reusable-table.componen
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RouterModule, Routes } from '@angular/router';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { BackButtonComponent } from './back-button/back-button.component';
 
 
 const sharedRoutes: Routes = [
@@ -32,6 +33,7 @@ const sharedRoutes: Routes = [
     NoDataAvailableComponent,
     ReusableTableComponent,
     SpinnerComponent,
+    BackButtonComponent,
     
   ],
   imports: [
@@ -59,6 +61,7 @@ const sharedRoutes: Routes = [
     NoDataAvailableComponent,
     ReusableTableComponent,
     SpinnerComponent,
+    BackButtonComponent,
 
 
     // Modules

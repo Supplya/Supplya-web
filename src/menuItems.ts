@@ -14,7 +14,7 @@ export const menuItems = {
     },
     {
       name: "Wallet",
-      route: "/core/vendor/wallet",
+      route: "/core/admin/wallet",
       hasChild: false,
       icon: "wallet",
     },

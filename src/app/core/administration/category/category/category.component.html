@@ -1,1 +1,120 @@
-<p>category works!</p>
+<app-back-button></app-back-button>
+<section class="table-content py-5">
+    <div class="row ">
+        <!-- TABLE COLUMN -->
+        <div class="col-lg-7">
+            <div class="w3-animate-zoom">
+                <div class="row mt-2" style="align-items: center!important;">
+                  <div class="col-lg-10">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <p class="table-title px-3">{{ title }}</p>
+                      </div>
+                      <div class="col-lg-6">
+                        <input type="text" class="form-control mb-3" placeholder="Search anything here..." [(ngModel)]="searchText"
+                          (input)="applyFilter()" />
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="col-lg-4">
+                  </div> -->
+                  <div class="col-lg-2 text-end" *ngIf="filteredRows?.length > 0">
+                    <p (click)="exportToExcel()" class="btn export">Export</p>
+                  </div>
+                </div>
+            
+            
+                <div class="py-5 text-center" *ngIf="filteredRows?.length < 1">
+                  <p class="no-data">No data available</p>
+                </div>
+                <table class="table" *ngIf="filteredRows?.length > 0">
+                  <thead>
+                    <tr>
+            
+                      <th scope="col">Category</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Date Created</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of filteredRows   | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
+            
+                      <td>{{item.name}}</td>
+                      <td>{{item.description}}</td>
+                      <td>{{item.createdAt  | date: 'dd-MMM-yyy'}}</td>
+                      <td > <small class="edit-text"><i class="bi bi-pencil-square"></i></small></td>
+            
+                    </tr>
+            
+            
+                  </tbody>
+                </table>
+                <pagination-controls *ngIf="filteredRows?.length > 0"
+                  (pageChange)="p = $event"
+                  previousLabel=""
+                  nextLabel=""
+                ></pagination-controls>
+              </div>
+        </div>
+
+
+
+        <!-- ADD COLUMNS -->
+        <div class="col-lg-5">
+            <section class="container p-5">
+                <div class="row">
+<form>
+    <div class="row mb-lg-3"> 
+        <div>
+            <p class="form-label" for="subject"> Name <span class="text-danger">*</span></p>
+            <input
+            type="text"
+            formControlName="name"
+            class="form-control {{
+              isInvalid('name') ? 'error-input' : ''
+            }}"
+            placeholder="Enter class category name"
+          />
+           
+            <small
+              class="text-sm error-dark"
+              *ngIf="isInvalid('name')"
+              >{{
+                getErrorMessage(
+                  "name",
+                  "Kindly enter role name"
+                )
+              }}</small
+            >
+          </div>
+      </div>
+    <div class="row mb-lg-3"> 
+        <div>
+            <p class="form-label" for="subject"> Description <span class="text-danger">*</span></p>
+            <textarea formControlName="name"
+            class="form-control {{
+              isInvalid('name') ? 'error-input' : ''
+            }}"></textarea>
+           
+            <small
+              class="text-sm error-dark"
+              *ngIf="isInvalid('name')"
+              >{{
+                getErrorMessage(
+                  "name",
+                  "Kindly enter role name"
+                )
+              }}</small
+            >
+          </div>
+      </div>
+ <button class="btn-primary-submit">Add <i class="bi bi-plus-circle"></i></button>
+</form>
+                </div>
+            </section>
+
+
+        </div>
+    </div>
+</section>
