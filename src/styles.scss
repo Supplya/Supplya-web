@@ -1,39 +1,4 @@
 
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
-@use '@angular/material' as mat;
-// Plus imports for other components in your app.
-
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
-@include mat.core();
-
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$supplya-primary: mat.define-palette(mat.$indigo-palette);
-$supplya-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-
-// The warn palette is optional (defaults to red).
-$supplya-warn: mat.define-palette(mat.$red-palette);
-
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
-$supplya-theme: mat.define-light-theme((
-  color: (
-    primary: $supplya-primary,
-    accent: $supplya-accent,
-    warn: $supplya-warn,
-  )
-));
-
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include mat.all-component-themes($supplya-theme);
-
-/* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "~@fortawesome/fontawesome-free/css/all.css";
 @import '~font-awesome/css/font-awesome.min.css';
@@ -55,7 +20,11 @@ $supplya-theme: mat.define-light-theme((
     font-size: 16px;
     font-weight: 500;
 }
-
+.heading{
+font-size: 54px;
+font-weight: 600;
+color: $primary-color;
+}
 .text-primary {
     color: $primary-color !important;
 }
@@ -305,6 +274,7 @@ color: white!important;
     /* border-radius: 8px !important; */
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
     padding: 10px !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.127);
     border-radius: 12px !important;
   }
   
@@ -359,3 +329,28 @@ color: white!important;
     color: #7c7c7c !important;
   }
 // END OF TABLE STYLING
+
+
+/* Media query for mobile devices */
+@media screen and (max-width: 767px) {
+  /* Adjust table headers to stack vertically */
+  .table th {
+    display: block;
+    padding: 10px;
+    text-align: left;
+  }
+
+  /* Adjust table cells to stack vertically */
+  .table td {
+    display: block;
+    text-align: right;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+  }
+
+  /* Hide table row borders on mobile */
+  .table tbody tr {
+    border-bottom: none;
+  }
+}

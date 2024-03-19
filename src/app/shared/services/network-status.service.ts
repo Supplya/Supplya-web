@@ -38,7 +38,7 @@ export class NetworkStatusService {
   }
 
    showOnlineAlert() {
-    this.notify.success('Your Internet connection has been restored');
+    this.notify.success('Internet Connection Restored');
   
   }
 

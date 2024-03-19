@@ -22,12 +22,15 @@ export class LoginComponent {
 
   }
 
-
+  passwordVisible: boolean = false;
   isInvalid(controlName: string): boolean {
     const control = this.loginForm.get(controlName);
     return !!control && control.invalid && (control.dirty || control.touched);
   }
 
+  togglePasswordVisibility(): void {
+    this.passwordVisible = !this.passwordVisible;
+  }
 //   login() {
 //     this,this.loading = true;
 //     console.log(this.loginForm.controls, 'login');

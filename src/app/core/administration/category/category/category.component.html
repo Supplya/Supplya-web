@@ -1,8 +1,8 @@
 <app-back-button></app-back-button>
-<section class="table-content py-5">
-    <div class="row ">
+<section class="container py-5" >
+    <div class="row">
         <!-- TABLE COLUMN -->
-        <div class="col-lg-7">
+        <div class="col-lg-7 px-lg-5">
             <div class="w3-animate-zoom">
                 <div class="row mt-2" style="align-items: center!important;">
                   <div class="col-lg-10">
@@ -61,10 +61,11 @@
 
 
         <!-- ADD COLUMNS -->
-        <div class="col-lg-5">
-            <section class="container p-5">
+        <div class="col-lg-5" style="border: 1px solid rgba(0, 0, 0, 0.127);">
+            <section class="container p-lg-5">
                 <div class="row">
-<form>
+                  <form>
+  <p class="table-title text-center">Add New Category</p>
     <div class="row mb-lg-3"> 
         <div>
             <p class="form-label" for="subject"> Name <span class="text-danger">*</span></p>
@@ -74,7 +75,7 @@
             class="form-control {{
               isInvalid('name') ? 'error-input' : ''
             }}"
-            placeholder="Enter class category name"
+            placeholder="Enter category name"
           />
            
             <small
