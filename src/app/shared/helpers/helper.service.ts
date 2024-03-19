@@ -27,7 +27,10 @@ getError(name: any, value: string, check?: boolean) {
     return 'Invalid ' + value;
   } else if (name.hasError('NoPassswordMatch')) {
     return 'Password do not match';
-  }
+  } else if (name.hasError('email')) {
+    return 'Please enter a valid email address';
+  }else if (name.hasError('pattern') && value === 'URL') {
+    return 'Invalid URL'}
   return '';
 }
 }

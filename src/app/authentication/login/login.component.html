@@ -5,13 +5,16 @@
             <section class="container">
                 <div class="p-5">
                     <img src="/assets/Images/Color=White.png" alt="">
+                    
                 </div>
                 <!-- New div to move text down -->
                 <div  class="p-5 d-none d-lg-block" style="position: absolute; bottom: 30px;">
                     <div class="container">
-
-                        <div style="height: 50px; width: 50px; background-color: white; border-radius: 50%;"></div>
-                        <h3 class="auth-heading">Shop with us</h3>
+                        <div class="bouncing-circle circle-1"></div>
+                        <div class="bouncing-circle circle-2"></div>
+                        <div class="bouncing-circle circle-3"></div>
+                        <div style="height: 20px!important;"></div>
+                        <h3 class="auth-heading mt-3">Shop with us</h3>
                         <p class="auth-sub">
                             Log in to your account to discover a world <br> of endless shopping possibilities <br> and personalized recommendations.
                         </p>
@@ -21,110 +24,81 @@
         </div>
         <div class="col-lg-6">
             <section style="margin:  0 auto;">
-                <form [formGroup]="loginForm" class="contain">
+                <form [formGroup]="loginForm" (ngSubmit)="login()" class="contain">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-2"></div>
                             <div class="col-lg-8">
                                 <div class="p-lg-5">
-                                    <h1 class="headings mt-5"> <span style="color:var(--primary-color);">Welcome</span>&nbsp;<span style="color: black!important;"></span>Back!</h1>
+                                    <h1 class="headings mt-3 slide-top">
+                                        <span style="color:var(--primary-color);">Welcome</span>&nbsp;<span style="color: black!important;"></span>Back!
+                                    </h1>
                                     <p class="text-muted">Ready to embark on another shopping adventure?</p>
-                               <div class="auth-input">
-                                <i class="bi bi-envelope"></i>
-                                <input type="email" class="auth" formControlName="email" [ngClass]="{ 'is-invalid': isInvalid('email') }" placeholder="example@gmail.com" aria-label="Email" aria-describedby="basic-addon1">
-                                <div *ngIf="isInvalid('email')" class="invalid-feedback">Email is required.</div>
-                            </div>
-                        
-                            <div class="auth-input">
-                                <i class="bi bi-lock"></i>
-                                <input type="{{ passwordVisible ? 'text' : 'password' }}" class="auth" formControlName="password" [ngClass]="{ 'is-invalid': isInvalid('password') }" placeholder="Password" aria-label="Password" aria-describedby="basic-addon2">
-                                <button class="btn text-center" type="button" id="togglePassword" (click)="togglePasswordVisibility()">
-                                    <i class="bi" [ngClass]="{ 'bi-eye': !passwordVisible, 'bi-eye-slash': passwordVisible }"></i>
-                                </button>
-                                <div *ngIf="isInvalid('password')" class="invalid-feedback">Password is required.</div>
-                            </div>
-                            <div class="sec">
-<p class="remember"> Remember</p>
-<p class="forget"> Forget Password</p>
-                            </div>
-                            <button class="submit">Login</button>
-                            
-                            <!-- Divider -->
-                    <div class="divider py-3">
-                        <hr class="or-divider">
-                        &nbsp; &nbsp;&nbsp; <span class="or-text mt-1">Or</span>&nbsp;&nbsp;&nbsp;
-                        <hr class="or-divider">
-                    </div>
-
-                            <button class="google mb-2">  <img style="width: 25px; height: 25px;" src="/assets/Images/google (2).png" alt=""> Continue with Google</button>
-                            <button class="facebook mb-3"> <img style="width: 25px; height: 25px;" src="/assets/Images/facebook.png" alt=""> Continue with Facebook</button>
-
-                            <p class="text-center sign">New to Supplya? <a style="color: var(--primary-color); font-size: 16px;" routerLink="/auth/sign-up">Sign Up here</a></p>
+                                    <label for=""  class="px-2 mb-1{{
+                                        isInvalid('email') ? 'red' : ''
+                                      }}">Email Address</label>
+                                    <div class="auth-input slide-left">
+                                        <i class="bi bi-envelope"></i>
+                                       
+                                        <input type="text" class="auth {{
+                                            isInvalid('email') ? 'error-input' : ''
+                                          }}" aria-label="Email Address" aria-describedby="basic-addon1" formControlName="email" [ngClass]="{ 'is-invalid': isInvalid('email') }" placeholder="example@gmail.com" aria-label="Email" aria-describedby="basic-addon1">
+                                        <div class="invalid-feedback mb-4 px-3" *ngIf="isInvalid('email')">
+                                            {{ getErrorMessage('email', 'Email is required') }}
+                                          </div>
+                                          <div class="invalid-feedback mb-4 px-3" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['email']">
+                                            Please enter a valid email address
+                                        </div>
+                                      
+                                    </div>
+                
+                                    <label for=""  class="px-2 mb-1 {{
+                                        isInvalid('password') ? 'red' : ''
+                                      }}">Password</label>
+                                    <div class="auth-input slide-right">
+                                        <i class="bi bi-lock"></i>
+                                        <input type="{{ passwordVisible ? 'text' : 'password' }}" class="auth {{
+                                            isInvalid('password') ? 'error-input' : ''
+                                          }}" formControlName="password" [ngClass]="{ 'is-invalid': isInvalid('password') }" placeholder="Password" aria-label="Password" aria-describedby="basic-addon2">
+                                        <button class="btn text-center" type="button" id="togglePassword" (click)="togglePasswordVisibility()">
+                                            <i class="bi" [ngClass]="{ 'bi-eye': !passwordVisible, 'bi-eye-slash': passwordVisible }"></i>
+                                        </button>
+                                        <div class="invalid-feedback mb-4 px-3" *ngIf="isInvalid('password')">
+                                            {{ getErrorMessage('password', 'Password is required') }}
+                                          </div>
+                                                                            </div>
+                
+                                    <div class="sec">
+                                        <p class="remember"> Remember</p>
+                                        <p class="forget"> <a style="text-decoration: none; color: var(--primary-color);" routerLink="/auth/forget-password">Forget Password</a> </p>
+                                    </div>
+                
+                                    <button class="submit">Login</button>
+                
+                                    <!-- Divider -->
+                                    <div class="divider py-3">
+                                        <hr class="or-divider">
+                                        &nbsp; &nbsp;&nbsp; <span class="or-text mt-1">Or</span>&nbsp;&nbsp;&nbsp;
+                                        <hr class="or-divider">
+                                    </div>
+                
+                                    <button class="google mb-2">
+                                        <img style="width: 25px; height: 25px;" src="/assets/Images/google (2).png" alt=""> Continue with Google
+                                    </button>
+                                    <button class="facebook mb-3">
+                                        <img style="width: 25px; height: 25px;" src="/assets/Images/facebook.png" alt=""> Continue with Facebook
+                                    </button>
+                
+                                    <p class="text-center sign">New to Supplya? <a style="color: var(--primary-color); font-size: 16px;" routerLink="/auth/sign-up">Sign Up here</a></p>
                                 </div>
-                        
                             </div>
                             <div class="col-lg-2"></div>
                         </div>
-                        </div>
+                    </div>
                 </form>
+                
 
             </section>
         </div>
     </div>
     
-    <!-- <div class="container">
-
-        <div class="row">
-
-            <div class="col-lg-5 d-flex justify-content-end">
-                <div>
-                    <img class="d-none d-lg-block w3-animate-zoom" src="/assets/Images/signup-image.png" alt=""
-                        style="height: 85vh;">
-                </div>
-            </div>
-            <div class="col-lg-6 d-flex justify-content-start align-items-center">
-                <div class="signIn-form container p-5 w3-animate-zoom">
-                    <form style="height: max-content;" [formGroup]="loginForm" (ngSubmit)="login()">
-                        <div class="d-flex justify-content-center mb-5 d-lg-none">
-                            <img class="" src="/assets/Images/Color=White.png" alt="">
-
-                        </div>
-                        <h5>Sign In</h5>
-                        <p>New User? <span><a class="text-decoration-none text-secondary mb-5"
-                                    routerLink="/auth/sign-up">Create an Account</a></span></p>
-
-                        <div class="row">
-
-                            <div class="mb-3">
-                                <input type="text" class="form-control w-100" placeholder="Email Address"
-                                    aria-label="Email Address" formControlName="email" aria-describedby="basic-addon1"
-                                    [ngClass]="{ 'is-invalid': isInvalid('email') }">
-                                <div *ngIf="isInvalid('email')" class="invalid-feedback">Email is required.</div>
-                            </div>
-                            <div class="mb-3">
-                                <input type="text" class="form-control w-100" placeholder="Password"
-                                    [ngClass]="{ 'is-invalid': isInvalid('password') }" aria-label="Password"
-                                    formControlName="password" aria-describedby="basic-addon1">
-                                <div *ngIf="isInvalid('password')" class="invalid-feedback">Password is required.</div>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn submit-btn">Login</button>
-                        </div>
-
-                        <p class="text-center py-2">Or</p>
-
-                        <button class="google mb-3"> <img style="width: 25px; height: 25px;" src="/assets/Images/google (2).png" alt="">  Continue with Google</button>
-                        <button class="facebook mb-3"> <img style="width: 25px; height: 25px;" src="/assets/Images/facebook.png" alt=""> Continue with Facebook</button>
-                        <button class="apple">  <img style="width: 25px; height: 25px;" src="/assets/Images/apple.png" alt=""> Continue with Apple</button>
-
-                        <p class="text-center backToHome mt-3"><a class=" text-secondary text-decoration-none"
-                                routerLink="/">Back to home</a></p>
-                    </form>
-                </div>
-            </div>
-            <div class="col-lg-1"></div>
-        </div>
-    </div> -->
-</section>
-

@@ -29,6 +29,11 @@ color: $primary-color;
     color: $primary-color !important;
 }
 
+
+.error-input {
+  border: 2px solid red !important;
+  background-color: #ffecfc !important;
+}
 .btn-primary,
 .btn-primary-nav {
     background-color: $primary-color !important;
@@ -352,5 +357,115 @@ color: white!important;
   /* Hide table row borders on mobile */
   .table tbody tr {
     border-bottom: none;
+  }
+}
+
+
+// ANIMATION
+/* Animation for sliding left */
+.slide-left {
+  animation: slideLeft 0.8s ease forwards;
+}
+
+/* Animation for sliding right */
+.slide-right {
+  animation: slideRight 0.8s ease forwards;
+}
+
+/* Animation for sliding top */
+.slide-top {
+  animation: slideTop 0.8s ease forwards;
+}
+
+/* Animation for sliding bottom */
+.slide-bottom {
+  animation: slideBottom 0.8s ease forwards;
+}
+
+/* Animation for zooming */
+.zoom-in {
+  animation: zoomIn 0.8s ease forwards;
+}
+
+/* Animation for fading in */
+.fade-in {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+/* Animation for fading out */
+.fade-out {
+  animation: fadeOut 0.8s ease forwards;
+}
+
+@keyframes slideLeft {
+  from {
+      opacity: 0;
+      transform: translateX(-50px);
+  }
+  to {
+      opacity: 1;
+      transform: translateX(0);
+  }
+}
+
+@keyframes slideRight {
+  from {
+      opacity: 0;
+      transform: translateX(50px);
+  }
+  to {
+      opacity: 1;
+      transform: translateX(0);
+  }
+}
+
+@keyframes slideTop {
+  from {
+      opacity: 0;
+      transform: translateY(-50px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+@keyframes slideBottom {
+  from {
+      opacity: 0;
+      transform: translateY(50px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+      opacity: 0;
+      transform: scale(0.5);
+  }
+  to {
+      opacity: 1;
+      transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+      opacity: 1;
+  }
+  to {
+      opacity: 0;
   }
 }

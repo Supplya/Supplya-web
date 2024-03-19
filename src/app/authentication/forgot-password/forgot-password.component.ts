@@ -6,19 +6,19 @@ import { ToastyService } from 'ng-toasty';
 import { HelperService } from 'src/app/shared/helpers/helper.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-forgot-password',
+  templateUrl: './forgot-password.component.html',
+  styleUrls: ['./forgot-password.component.scss']
 })
-export class LoginComponent {
-  loginForm: FormGroup;
+
+export class ForgotPasswordComponent {
+  form: FormGroup;
   loading: boolean = false;
   submitted: boolean = false;
   passwordVisible: boolean = false;
   constructor(private fb: FormBuilder, private helperService: HelperService, private route: Router, private authService: AuthService, private notify: ToastyService) {
-    this.loginForm = this.fb.group({
+    this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
   }, { updateOn: 'change' }); // Trigger validation on change
 
   }
@@ -26,12 +26,12 @@ export class LoginComponent {
 
   
 getErrorMessage(control: string, message: string) {
-  return this.helperService.getError(this.loginForm.get(control), message);
+  return this.helperService.getError(this.form.get(control), message);
 }
 isInvalid(control: string) {
   return (
-    (this.loginForm.get(control)?.touched && this.loginForm.get(control)?.invalid) ||
-    (this.submitted && this.loginForm.get(control)?.invalid)
+    (this.form.get(control)?.touched && this.form.get(control)?.invalid) ||
+    (this.submitted && this.form.get(control)?.invalid)
   );
 }
 
@@ -41,9 +41,9 @@ isInvalid(control: string) {
 
   login() {
     this.submitted = true;
-    if (this.loginForm.valid) {
+    if (this.form.valid) {
      
-      this.authService.login(this.loginForm.value).subscribe(
+      this.authService.login(this.form.value).subscribe(
         (response) => {
           if (response.status === 'success') {
             this.loading = false;

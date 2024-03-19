@@ -5,9 +5,58 @@ font-weight: 300;
 color: #fff;
 }
 
+/* Animation for bouncing circle */
+// @keyframes bounce {
+//     0% { transform: translateY(0); }
+//     50% { transform: translateY(-90px); }
+//     100% { transform: translateY(0); }
+// }
+
+// .bouncing-circle {
+//     animation: bounce 0.8s infinite;
+// }
+
+/* Animation for bouncing circles */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-100px); }
+    // 100% { transform: translateY(0); }
+}
+
+.bouncing-circle {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    position: absolute;
+}
+
+/* First circle */
+.circle-1 {
+    // top: 50%;
+    left: 10%;
+    background-color: var(--primary-color);
+    animation: bounce 2s infinite ease-in-out alternate;
+}
+
+/* Second circle */
+.circle-2 {
+    // top: 50%;
+    left: 40%;
+    background-color: white;
+    animation: bounce 2s infinite ease-in-out alternate 0.5s; /* Delayed by 0.5s */
+}
+
+/* Third circle */
+.circle-3 {
+    // top: 50%;
+    background-color: var(--secondary-color);
+    left: 70%;
+    animation: bounce 2s infinite ease-in-out alternate 1s; /* Delayed by 1s */
+}
+
 .auth-heading{
 font-size: 56px;
-font-weight: 500;
+font-weight: 600;
 color: #fff;
 }
 
@@ -19,9 +68,16 @@ color: #fff;
 
 .auth input {
     height: 50px;
-    padding: 17 144 17 25.4375;
+    // padding: 17 144 17 25.4375;
     border-radius: 35px;
     width: 100%;   
+}
+.auth label{
+font-size: 14px;
+font-weight: 500;
+line-height: 22px;
+color: black;
+
 }
 .auth-input {
     position: relative;
@@ -62,7 +118,7 @@ font-size: 20px;
 .auth-input i {
     position: absolute;
     left: 15px;
-    top: 50%;
+    top: 50%; 
     transform: translateY(-50%);
 }
 .auth-input i:focus {
@@ -119,6 +175,15 @@ cursor: pointer;
 text-decoration: underline;
 
 }
+.invalid-feedback {
+    position: absolute;
+    font-size: 14px;
+    color: red;
+}
+
+.auth-input input:focus {
+    border-color: #3f51b5;
+}
 
 .sec{
     display: flex;
@@ -157,136 +222,3 @@ text-decoration: underline;
     line-height: 48px;
     letter-spacing: 0.20000000298023224px;    
 }
-// }
-// @import '/src/variables';
-
-
-// .signIn {
-//     background: linear-gradient(113.49deg, $primary-color -30.3%, #181E41 58.12%) !important;
-
-// }
-
-// .signIn-form {
-//     background: #FFFFFF33;
-//     width: 531px;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     border-radius: 10px;
-
-// }
-
-// .submit-btn {
-//     padding: 10px, 20px, 10px, 20px !important;
-//     border-radius: 121px;
-//     background: linear-gradient(214.02deg, #B75CFF 6.04%, #671AE4 92.95%);
-//     color: white;
-//     font-family: 'Poppins';
-//     font-size: 17px;
-//     font-weight: 500;
-//     letter-spacing: 0em;
-
-
-
-// }
-
-// .signIn-form input {
-//     height: 50px;
-//     border: none;
-//     border-radius: 0px !important;
-//     border-bottom: 1px solid #fff;
-//     background-color: transparent;
-//     color: white;
-//     font-size: 16px;
-// }
-
-// .signIn-form input:focus {
-//     box-shadow: none;
-// }
-
-// .signIn-form ::placeholder {
-//     color: #ccc;
-// }
-
-// .signIn-form h5 {
-
-//     font-size: 30px;
-//     font-weight: 700;
-
-//     letter-spacing: 0.01em;
-//     color: white;
-
-
-// }
-
-// .signIn-form p {
-//     color: white;
-//     font-size: 18px;
-//     font-weight: 400;
-//     letter-spacing: 0.02em;
-// }
-
-// .signIn-form span {
-//     color: white;
-//     font-size: 18px;
-//     font-weight: 500;
-//     letter-spacing: 0.02em;
-//     cursor: pointer;
-// }
-
-// .signIn-form span:hover {
-//     color: white;
-//     font-size: 19px;
-//     font-weight: 500;
-//     letter-spacing: 0.02em;
-//     cursor: pointer;
-
-// }
-
-// .google {
-//     width: 100%;
-//     height: 55px;
-//     background-color: transparent;
-//     border-radius: 171px;
-//     color: white;
-//     border: 0.5px solid #FFFFFF
-// }
-
-// .facebook {
-//     width: 100%;
-//     height: 55px;
-//     background-color: #1877F2;
-//     border-radius: 171px;
-//     color: white;
-//     border: none !important;
-//     font-size: 15px;
-//     font-weight: 500;
-  
-// }
-
-// .apple {
-//     width: 100%;
-//     height: 55px;
-//     background-color: #1D1D1D;
-//     border-radius: 171px;
-//     color: white;
-//     border: none !important;
-
-//     font-size: 15px;
-//     font-weight: 500;
-
-
-
-// }
-// .backToHome a{
-//     font-size: 15px;
-//     font-weight: 500;
-// }
-// .is-invalid {
-//     border-color: red !important;
-//   }
-  
-//   .invalid-feedback {
-//     color: red;
-//     font-size: 14px;
-//   }
