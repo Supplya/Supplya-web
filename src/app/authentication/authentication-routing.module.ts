@@ -5,6 +5,8 @@ import { RegisterComponent } from './register/register.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { OtpResetPasswordComponent } from './otp-reset-password/otp-reset-password.component';
 import { CreateNewPasswordComponent } from './create-new-password/create-new-password.component';
+import { AddLocationComponent } from './add-location/add-location.component';
+import { VerifyAccountComponent } from './verify-account/verify-account.component';
 
 const routes: Routes = [
   {
@@ -23,7 +25,13 @@ const routes: Routes = [
     path: 'reset-password', component: OtpResetPasswordComponent
   },
   {
+    path: 'verify-account', component: VerifyAccountComponent
+  },
+  {
     path: 'create-new-password', component: CreateNewPasswordComponent
+  },
+  {
+    path: 'add-location', component: AddLocationComponent
   },
 ];
 

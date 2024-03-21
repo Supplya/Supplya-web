@@ -1,99 +1,154 @@
-<section class="signUp d-flex justify-content-center align-items-center " style="height: 100vh;">
-    <div class="container">
+<section class="auth">
 
-        <div class="row">
-
-            <div class="col-lg-5 d-flex justify-content-end">
-                <div>
-                    <img class="d-none d-lg-block w3-animate-zoom" src="/assets/Images/signup-image.png" alt=""
-                        style="height: 80vh;">
+    <div class="row" style="height: 100vh;">
+        <div class="col-lg-6" style="background-image: url(/assets/Images/signUp.png); background-position: center; background-size: cover;">
+            <section class="container">
+                <div class="p-5">
+                    <img src="/assets/Images/Color=White.png" alt="">
+                    
                 </div>
-            </div>
-            <div class="col-lg-6 d-flex justify-content-start align-items-center">
-                <div class="signUp-form container p-5 w3-animate-zoom">
-                    <form [formGroup]="registerForm" (ngSubmit)="register()" style="height: max-content;">
-                        <div class="d-flex justify-content-center mb-5 d-lg-none">
-                            <img class="" src="/assets/Images/Color=White.png" alt="">
-
-                        </div>
-                        <h5>Sign Up</h5>
-                        <p>Already a member? <span><a class="text-decoration-none text-secondary"
-                                    routerLink="/auth/sign-in">Sign In</a></span></p>
-
-                        <div class="row mb-3">
-                            <div class="col-lg-6">
-                                <input type="text" class="form-control" formControlName="firstName"
-                                    placeholder="First Name" aria-label="First Name" aria-describedby="basic-addon1"
-                                    [ngClass]="{ 'is-invalid': isInvalid('firstName') }">
-                                <div *ngIf="isInvalid('firstName')" class="invalid-feedback">First Name is required.
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <input type="text" class="form-control" formControlName="lastName"
-                                    placeholder="Last Name" aria-label="Last Name" aria-describedby="basic-addon1"
-                                    [ngClass]="{ 'is-invalid': isInvalid('lastName') }">
-                                <div *ngIf="isInvalid('lastName')" class="invalid-feedback">Last Name is required.</div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-lg-6">
-                                <input type="text" class="form-control" formControlName="email"
-                                    placeholder="Email Address" aria-label="Email Address"
-                                    [ngClass]="{ 'is-invalid': isInvalid('email') }" aria-describedby="basic-addon1">
-                                <div *ngIf="isInvalid('email')" class="invalid-feedback">Email Address is required.
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <input type="text" class="form-control" formControlName="phoneNumber"
-                                    placeholder="Phone Number" aria-label="Phone Number" aria-describedby="basic-addon1"
-                                    [ngClass]="{ 'is-invalid': isInvalid('phoneNumber') }">
-                                <div *ngIf="isInvalid('phoneNumber')" class="invalid-feedback">Phone Number is required.
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
-
-                        <div class="row mb-4">
-                            <div class="col-lg-12">
-                                <input type="date" class="form-control" formControlName="dob" placeholder="Month"
-                                    aria-label="Month" aria-describedby="basic-addon1"
-                                    [ngClass]="{ 'is-invalid': isInvalid('dob') }">
-                                <div *ngIf="isInvalid('dob')" class="invalid-feedback">Date of Birth is required.</div>
-                            </div>
-
-
-                        </div>
-                        <div class="mb-3 row">
-                            <input type="password" class="form-control" formControlName="password"
-                                placeholder="Password" aria-label="Password" aria-describedby="basic-addon1"
-                                [ngClass]="{ 'is-invalid': isInvalid('password') }">
-                            <div *ngIf="isInvalid('password')" class="invalid-feedback">Password is required.</div>
-                        </div>
-
-
-                        <div class="mb-4 row">
-                            <input type="password" class="form-control" formControlName="confirmPassword"
-                                placeholder="Confirm Password" aria-label="Password" aria-describedby="basic-addon1"
-                                [ngClass]="{ 'is-invalid': isInvalid('confirmPassword') }">
-                            <div *ngIf="isInvalid('confirmPassword')" class="invalid-feedback">Please Confirm your
-                                Password.</div>
-
-                        </div>
-
-                        <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn submit-btn" [disabled]="registerForm.invalid">Create
-                                Account</button>
-                        </div>
-
-                    </form>
+                <!-- New div to move text down -->
+                <div  class="p-5 d-none d-lg-block" style="position: absolute; bottom: 30px;">
+                    <div class="container">
+                        <div class="bouncing-circle circle-1"></div>
+                        <div class="bouncing-circle circle-2"></div>
+                        <div class="bouncing-circle circle-3"></div>
+                        <div style="height: 20px!important;"></div>
+                        <h3 class="auth-heading mt-3 slide-left">Shop with us</h3>
+                        <p class="auth-sub slide-bottom">
+                            Join our community of savvy shoppers and unlock  <br> exclusive deals, personalized recommendations, and  <br> seamless shopping experiences.
+                        </p>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-1"></div>
+            </section>
+        </div>
+        <div class="col-lg-6">
+            <section style="margin:  0 auto;">
+                <form [formGroup]="form" (ngSubmit)="register()" class="contain">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-8">
+                                <div class="p-lg-3">
+                                    <h1 class="headings mt-3 slide-top">
+                                        <span style="color:var(--primary-color);">Hi</span>&nbsp;<span style="color: black!important;"></span>There!
+                                    </h1>
+                                   
+                                    <p class="text-muted">We're thrilled to have you on board. Get ready to embark on a seamless shopping experience tailored just for you.</p>
+                                   <div class="row">
+                                    <div class="col-lg-6">
+                                        <label for=""  class="px-2 mb-1{{
+                                            isInvalid('firstName') ? 'red' : ''
+                                          }}">First Name</label>
+                                        <div class="auth-input slide-left">
+                                            <input type="text" class="auth {{
+                                                isInvalid('firstName') ? 'error-input' : ''
+                                              }}"  aria-describedby="basic-addon1" formControlName="firstName" [ngClass]="{ 'is-invalid': isInvalid('firstName') }" placeholder="Your Name">
+                                            <div class="invalid-feedback mb-4 px-3" *ngIf="isInvalid('firstName')">
+                                                {{ getErrorMessage('firstName', 'First Name is required') }}
+                                              </div>
+                                          
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for=""  class="px-2 mb-1{{
+                                            isInvalid('lastName') ? 'red' : ''
+                                          }}">Last Name</label>
+                                        <div class="auth-input slide-left">
+                                            <input type="text" class="auth {{
+                                                isInvalid('lastName') ? 'error-input' : ''
+                                              }}" aria-describedby="basic-addon1" formControlName="lastName" [ngClass]="{ 'is-invalid': isInvalid('lastName') }" placeholder="Your Name">
+                                            <div class="invalid-feedback mb-4 px-3" *ngIf="isInvalid('lastName')">
+                                                {{ getErrorMessage('lastName', 'Last Name is required') }}
+                                              </div>
+                                         
+                                          
+                                        </div>
+                                    </div>
+                                   </div>
+                                   
+                                   
+                                   
+                                   <label for=""  class="px-2 mb-1{{
+                                        isInvalid('email') ? 'red' : ''
+                                      }}">Email Address</label>
+                                    <div class="auth-input slide-left">
+                                        <i class="bi bi-envelope"></i>
+                                       
+                                        <input type="text" class="auth {{
+                                            isInvalid('email') ? 'error-input' : ''
+                                          }}" aria-label="Email Address" aria-describedby="basic-addon1" formControlName="email" [ngClass]="{ 'is-invalid': isInvalid('email') }" placeholder="example@gmail.com" aria-label="Email" aria-describedby="basic-addon1">
+                                        <div class="invalid-feedback mb-4 px-3" *ngIf="isInvalid('email')">
+                                            {{ getErrorMessage('email', 'Email is required') }}
+                                          </div>
+                                          <div class="invalid-feedback mb-4 px-3" *ngIf="form.get('email')?.touched && form.get('email')?.errors?.['email']">
+                                            Please enter a valid email address
+                                        </div>
+                                      
+                                    </div>
+                
+                                    <label for=""  class="px-2 mb-1 {{
+                                        isInvalid('password') ? 'red' : ''
+                                      }}">Password</label>
+                                    <div class="auth-input slide-right">
+                                        <i class="bi bi-lock"></i>
+                                        <input type="{{ passwordVisible ? 'text' : 'password' }}" class="auth {{
+                                            isInvalid('password') ? 'error-input' : ''
+                                          }}" formControlName="password" [ngClass]="{ 'is-invalid': isInvalid('password') }" placeholder="Password" aria-label="Password" aria-describedby="basic-addon2">
+                                        <button class="btn text-center" type="button" id="togglePassword" (click)="togglePasswordVisibility()">
+                                            <i class="bi" [ngClass]="{ 'bi-eye': !passwordVisible, 'bi-eye-slash': passwordVisible }"></i>
+                                        </button>
+                                        <div class="invalid-feedback mb-4 px-3" *ngIf="isInvalid('password')">
+                                            {{ getErrorMessage('password', 'Password is required') }}
+                                          </div>
+                                                                            </div>
+
+                                    <label for=""  class="px-2 mb-1 {{
+                                        isInvalid('confirmPassword') ? 'red' : ''
+                                      }}">Re-type Password</label>
+                                    <div class="auth-input slide-right">
+                                        <i class="bi bi-lock"></i>
+                                        <input type="{{ passwordVisible ? 'text' : 'password' }}" class="auth {{
+                                            isInvalid('confirmPassword') ? 'error-input' : ''
+                                          }}" formControlName="confirmPassword" [ngClass]="{ 'is-invalid': isInvalid('password') }" placeholder="Confirm your password">
+                                        <button class="btn text-center" type="button" id="togglePassword" (click)="togglePasswordVisibility()">
+                                            <i class="bi" [ngClass]="{ 'bi-eye': !passwordVisible, 'bi-eye-slash': passwordVisible }"></i>
+                                        </button>
+                                        <div class="invalid-feedback mb-4 px-3" *ngIf="isInvalid('confirmPassword')">
+                                            {{ getErrorMessage('confirmPassword', 'Password is required') }}
+                                          </div>
+                                                                            </div>
+                
+                                  
+                
+                                    <button class="submit mt-2">Sign Up</button>
+                
+                                    <!-- Divider -->
+                                    <!-- <div class="divider py-3">
+                                        <hr class="or-divider">
+                                        &nbsp; &nbsp;&nbsp; <span class="or-text mt-1">Or</span>&nbsp;&nbsp;&nbsp;
+                                        <hr class="or-divider">
+                                    </div> -->
+                
+                                    <!-- <button class="google mb-2">
+                                        <img style="width: 25px; height: 25px;" src="/assets/Images/google (2).png" alt=""> Continue with Google
+                                    </button>
+                                    <button class="facebook mb-3">
+                                        <img style="width: 25px; height: 25px;" src="/assets/Images/facebook.png" alt=""> Continue with Facebook
+                                    </button> -->
+                
+                                    <p class="text-center sign-ups mt-4 mb-0">By signing up, you agree to the Terms of Service and Privacy Policy, including cookie use.</p>
+                                    <p class="text-center sign">Have an account? <a style="color: var(--primary-color); font-size: 16px;" routerLink="/auth/sign-in">Sign in here</a></p>
+                                
+                                </div>
+                            </div>
+                            <div class="col-lg-2"></div>
+                        </div>
+                    </div>
+                </form>
+                
+
+            </section>
         </div>
     </div>
-</section>
+    

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
@@ -10,7 +10,7 @@ import { HelperService } from 'src/app/shared/helpers/helper.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   loginForm: FormGroup;
   loading: boolean = false;
   submitted: boolean = false;
@@ -21,6 +21,9 @@ export class LoginComponent {
       password: ['', Validators.required],
   }, { updateOn: 'change' }); // Trigger validation on change
 
+  }
+  ngOnInit(): void {
+    this.authService.clearCredentials();
   }
  
 
@@ -47,7 +50,6 @@ isInvalid(control: string) {
         (response) => {
           if (response.status === 'success') {
             this.loading = false;
-            console.table('Login success:', response);
             this.authService.setCredentials(response);
             this.notify.success('Login Successful', 4000);
           } else {

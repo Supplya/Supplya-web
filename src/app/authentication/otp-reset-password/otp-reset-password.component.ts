@@ -18,8 +18,13 @@ export class OtpResetPasswordComponent {
   passwordVisible: boolean = false;
   constructor(private fb: FormBuilder, private helperService: HelperService, private route: Router, private authService: AuthService, private notify: ToastyService) {
     this.form = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-  }, { updateOn: 'change' }); // Trigger validation on change
+      digit1: ['', [Validators.required]],
+      digit2: ['', [Validators.required]],
+      digit3: ['', [Validators.required]],
+      digit4: ['', [Validators.required]],
+      digit5: ['', [Validators.required]],
+      digit6: ['', [Validators.required]],
+  });
 
   }
  
@@ -86,9 +91,10 @@ isInvalid(control: string) {
   
 
   submitOTP() {
+    this.submitted = true;
+    alert(this.form.value);
     const otpCode = this.getOtpCode();
     // alert(otpCode);
-    this.submitted = true;
     if (this.form.valid) {
      
       this.authService.login(this.form.value).subscribe(

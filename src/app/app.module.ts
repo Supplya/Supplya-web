@@ -14,6 +14,7 @@ import { DatePipe } from '@angular/common';
 import { LoaderService } from './shared/services/loader.service';
 import { LoaderInterceptor } from './shared/Interceptors/loader-interceptor.service';
 import { LoaderComponent } from './shared/loader/loader.component';
+import { AuthInterceptor } from './shared/Interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { LoaderComponent } from './shared/loader/loader.component';
       multi: true,
     },
     LoaderService,
-    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

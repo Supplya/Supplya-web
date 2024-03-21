@@ -46,7 +46,7 @@ export class SidebarComponent implements OnInit {
   getUserCredentials() {
     this.user = this.authService.getUserCredentials();
     this.userDetails = this.user;
-    console.log(this.userDetails, 'userDetails');
+    // console.log(this.userDetails, 'userDetails');
     this.loadMenuItems();
   }
   loadMenuItems(): void {

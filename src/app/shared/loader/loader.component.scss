@@ -10,7 +10,8 @@
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(255, 255, 255, 0.941); /* Semi-transparent overlay */
+    background: rgba(255, 255, 255, 0.941);
+    // background: rgba(255, 255, 255, 0.941);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,7 +25,7 @@
     display: inline-block;
     position: relative;
     border: 3px solid;
-    border-color: $primary-color $primary-color transparent transparent;
+    border-color: var(--primary-color) var(--primary-color) transparent transparent;
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
   }
@@ -59,7 +60,7 @@
     bottom: 0;
     margin: auto;
     border: 3px solid;
-    border-color: transparent transparent $secondary-color $secondary-color;
+    border-color: transparent transparent var(--secondary-color) var(--secondary-color);
     width: 40px;
     height: 40px;
     border-radius: 50%;

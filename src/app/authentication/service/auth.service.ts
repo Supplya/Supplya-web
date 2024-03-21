@@ -27,6 +27,19 @@ export class AuthService {
     return this.http.post(url, user, { headers });
   }
 
+  OTPVerification(user: any): Observable<any> {
+    const url = `${this.baseURL}auth/verify-otp`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post(url, user, { headers });
+  }
+  resendOTP(user: any): Observable<any> {
+    const url = `${this.baseURL}auth/resend-otp`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post(url, user, { headers });
+  }
+
 
   private loggedIn = new BehaviorSubject<boolean>(false);
   private userType = new BehaviorSubject<string>('');
@@ -39,12 +52,11 @@ export class AuthService {
 
 
   setCredentials(data: any) {
-    console.log(`Credentials, user: ${data.token}`);
     if (data && data.user.role) {
       this.loggedIn.next(true);
       this.userType.next(data.user.role);
-      localStorage.setItem('userToken', data.token);
-      localStorage.setItem('userData', JSON.stringify(data.user));
+      localStorage.setItem('sp-userToken', data.token);
+      localStorage.setItem('sp-userData', JSON.stringify(data.user));
       const route = this.userTypeToRouteMap[data.user.role] || '/auth';
 
       if (this.router.url.includes(data.user.role)) {
@@ -55,10 +67,17 @@ export class AuthService {
     }
   }
 
+  sendEmailForOTP(data: any) {
+    localStorage.setItem('sp-OTPEmail', data);
+  }
+  
+  getEmailForOTP(): any {
+    const email = localStorage.getItem('sp-OTPEmail');
+    return email;
+   }
 
   getUserCredentials(): any {
-    const userDataString = localStorage.getItem('userData');
-    console.log(userDataString, 'userData');
+    const userDataString = localStorage.getItem('sp-userData');
     if(userDataString != null){
       this.loggedIn.next(true);
     }else{
@@ -70,13 +89,21 @@ export class AuthService {
   }
 
   logout() {
-    console.log('Logout method called');
-    localStorage.removeItem('userType');
-    localStorage.removeItem('userData');
-    localStorage.removeItem('userToken');
+    localStorage.removeItem('sp-userType');
+    localStorage.removeItem('sp-userData');
+    localStorage.removeItem('sp-userToken');
+    localStorage.removeItem('sp-OTPEmail');
     this.loggedIn.next(false);
     this.userType.next('');
     this.notify.success('Logged out Successfully', 4000);
+    this.router.navigate(['/auth']);
+  }
+  clearCredentials() {
+    localStorage.removeItem('sp-userType');
+    localStorage.removeItem('sp-userData');
+    localStorage.removeItem('sp-userToken');
+    this.loggedIn.next(false);
+    this.userType.next('');
     this.router.navigate(['/auth']);
   }
 

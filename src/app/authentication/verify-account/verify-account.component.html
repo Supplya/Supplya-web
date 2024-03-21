@@ -1,0 +1,80 @@
+<div class="row auth" style="height: 100vh;">
+    <div class="col-lg-6" style="background-image: url(/assets/Images/signUp.png); background-position: center; background-size: cover;">
+        <section class="container">
+            <div class="p-5">
+                <img src="/assets/Images/Color=White.png" alt="">
+                
+            </div>
+            <!-- New div to move text down -->
+            <div  class="p-5 d-none d-lg-block" style="position: absolute; bottom: 30px;">
+                <div class="container">
+                    <div class="bouncing-circle circle-1"></div>
+                    <div class="bouncing-circle circle-2"></div>
+                    <div class="bouncing-circle circle-3"></div>
+                    <div style="height: 20px!important;"></div>
+                    <h3 class="auth-heading mt-3 slide-left">Shop with us</h3>
+                    <p class="auth-sub slide-bottom">
+                        Join our community of savvy shoppers and unlock  <br> exclusive deals, personalized recommendations, and  <br> seamless shopping experiences.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="col-lg-6">
+        <section class="other-section" style="height: 100vh; display: flex; justify-content: center; align-items: center;">
+          <div class="contain">
+            <div class="text-lg-center">
+                <h1 class="headings text-lg-center slide-top">
+                    <span style="color:var(--primary-color);">Enter</span>&nbsp;<span style="color: black!important;"></span>OTP Code
+                </h1>
+                <p class="text-muted d-none d-lg-block">Enter the OTP code that we sent to your <br> email, Be careful not to share the code with anyone</p>
+                <p class="text-muted mobile-only">Enter the OTP code that we sent to your email, Be careful not to share the code with anyone</p>
+            </div>
+            <form [formGroup]="form" (ngSubmit)="submitOTP()">
+                <div class="otp-input-container py-2">
+<div class="otp-input" (ngOnInit)="focusFirstInput()">
+<input type="text" formControlName="digit1" class="{{
+isInvalid('digit1') ? 'error-input' : ''
+}}" maxlength="1" #digit1 (keydown)="moveToNextOrPreviousInput($event, digit1, digit2, null)">
+
+<input type="text" formControlName="digit2" class="{{
+isInvalid('digit2') ? 'error-input' : ''
+}}" maxlength="1" #digit2 (keydown)="moveToNextOrPreviousInput($event, digit2, digit3, digit1)">
+
+<input type="text" formControlName="digit3" class="{{
+isInvalid('digit3') ? 'error-input' : ''
+}}" maxlength="1" #digit3 (keydown)="moveToNextOrPreviousInput($event, digit3, digit4, digit2)">
+
+<input type="text" formControlName="digit4" class="{{
+isInvalid('digit4') ? 'error-input' : ''
+}}" maxlength="1" #digit4 (keydown)="moveToNextOrPreviousInput($event, digit4, digit5, digit3)">
+
+<input type="text" formControlName="digit5" maxlength="1" class="{{
+isInvalid('digit5') ? 'error-input' : ''
+}}" #digit5 (keydown)="moveToNextOrPreviousInput($event, digit5, digit6, digit4)">
+
+<input type="text" formControlName="digit6" class="{{
+isInvalid('digit6') ? 'error-input' : ''
+}}" maxlength="1" #digit6 (keydown)="moveToNextOrPreviousInput($event, digit6, null, digit5)">
+</div>
+
+
+                </div>
+                <button class="submit mt-5 mb-3" type="submit">Verify</button>
+                
+                <!-- <button type="submit" class="submit mt-5 mb-3">
+                    <ng-container *ngIf="!loading; else loadingTemplate">
+                        Verify
+                    </ng-container>
+                    <ng-template #loadingTemplate>
+                    Verifying... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    </ng-template>
+                </button> -->
+            </form>
+            <p class="text-center sign ">Didn't receive OTP code? <a style="color: var(--primary-color); font-size: 16px; text-decoration: none; cursor: pointer;" (click)="resendOTP()">Resend code</a></p>
+          </div>
+        
+
+        </section>
+    </div>
+</div>

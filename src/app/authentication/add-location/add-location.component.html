@@ -1,0 +1,95 @@
+<div class="row location" style="height: 100vh;">
+    <div class="col-lg-4 d-flex flex-column justify-content-between" style="background: #0097A8; padding-top: 20px;">
+        <section class="container">
+            <div class="p-3">
+                <img src="/assets/Images/Color=White.png" alt="">
+            </div>
+            <div class="py-5 d-none d-lg-block">
+                <div class="mb-3 mt-5" style="text-align: center;">
+                    <img src="/assets/Images/location svg.png" alt="">
+                </div>
+                <p class="auth-sub slide-bottom text-center">
+                    Set Your Primary Location for Swift Order <br> Fulfillment and Tailored Service
+                </p>
+            </div>
+        </section>
+    </div>
+    <div class="col-lg-8">
+        <div class="px-5 py-5 auth">
+
+            <h1 class="headings mt-3 slide-top">
+                <span style="color:var(--primary-color);">Select</span>&nbsp;<span style="color: black!important;"></span>Location
+            </h1>
+            <p class="slide-bottom mobile-only">
+                Set Your Primary Location for Swift Order Fulfillment and Tailored Service
+            </p>
+<form [formGroup]="form">
+    <div class="row py-5">
+        <div class="col-lg-4">
+            <div class="row">
+                <div class="col-lg-4 d-flex align-items-center justify-content-center">
+                    <label style="font-size: 20px; font-weight: 600;" for="country" class="px-2 mb-1 d-none d-lg-block {{
+                        isInvalid('country') ? 'red' : ''
+                      }}">Country</label>
+                </div>
+                <div class="col-lg-8">
+                    <label style="font-size: 20px; font-weight: 600;" for="country" class="px-2 mb-1 mobile-only {{
+                        isInvalid('country') ? 'red' : ''
+                      }}">Country</label>
+                    <div class="auth-input slide-left d-flex align-items-center">
+                        <select formControlName="country" id="country" class="auth {{
+                            isInvalid('country') ? 'error-input' : ''
+                          }}" >
+                          <option value="Nigeria">Nigeria</option>
+                        </select>
+                        <div class="invalid-feedback mb-4 px-3" *ngIf="isInvalid('country')">
+                            {{ getErrorMessage('country', 'Country is required') }}
+                        </div>   
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-lg-6">
+            <div class="">
+                        
+
+                <div class="auth-input slide-left"> 
+                    
+                    <textarea #search class="auth {{
+                        isInvalid('address') ? 'error-input' : ''
+                      }}" formControlName="address"  placeholder="Enter your address here"></textarea>
+
+                    <div class="invalid-feedback mb-4 px-3" *ngIf="isInvalid('address')">
+                        {{ getErrorMessage('address', 'Address is required') }}
+                      </div>
+                     
+                  
+                </div>
+
+
+
+
+            </div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+
+
+    <!-- Google map here -->
+    <div #map style="height: 300px;">
+
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+
+            <button type="submit" class="submit">Select Location</button>
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
+</form>
+        </div>
+    </div>
+</div>

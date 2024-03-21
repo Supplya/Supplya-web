@@ -9,6 +9,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { OtpResetPasswordComponent } from './otp-reset-password/otp-reset-password.component';
 import { CreateNewPasswordComponent } from './create-new-password/create-new-password.component';
 import { AuthHeaderComponent } from './auth-header/auth-header.component';
+import { AddLocationComponent } from './add-location/add-location.component';
+import { VerifyAccountComponent } from './verify-account/verify-account.component';
 
 
 @NgModule({
@@ -18,7 +20,9 @@ import { AuthHeaderComponent } from './auth-header/auth-header.component';
     ForgotPasswordComponent,
     OtpResetPasswordComponent,
     CreateNewPasswordComponent,
-    AuthHeaderComponent
+    AuthHeaderComponent,
+    AddLocationComponent,
+    VerifyAccountComponent
   ],
   imports: [
     CommonModule,

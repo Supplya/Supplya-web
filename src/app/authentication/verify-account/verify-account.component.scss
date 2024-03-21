@@ -1,0 +1,147 @@
+.headings{
+    font-size: 30px;
+    font-weight: 800!important;
+    // color:var(--primary-color);
+    }
+
+.card-forget{
+    border-radius: 30px;
+    border: 1px solid #E8E8E8
+    
+}
+
+@media (max-width: 992px) {
+    .contain {
+        padding: 30px!important;
+    }
+    .headings{
+        font-size: 26px;
+        text-align: left;
+        font-weight: 900;
+    }
+    .card-forget{
+        border: none;
+    }
+    .auth{
+        height: 30vh!important;
+    }
+    .other-section{
+        height: 70vh!important;
+    }
+}
+
+
+.auth-sub{
+    font-size: 20px;
+    font-weight: 300;
+    color: #fff;
+    }
+    
+    
+    /* Animation for bouncing circles */
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-100px); }
+        // 100% { transform: translateY(0); }
+    }
+    
+    .bouncing-circle {
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        position: absolute;
+    }
+    
+    /* First circle */
+    .circle-1 {
+        // top: 50%;
+        left: 10%;
+        background-color: var(--primary-color);
+        animation: bounce 2s infinite ease-in-out alternate;
+    }
+    
+    /* Second circle */
+    .circle-2 {
+        // top: 50%;
+        left: 40%;
+        background-color: white;
+        animation: bounce 2s infinite ease-in-out alternate 0.5s; /* Delayed by 0.5s */
+    }
+    
+    /* Third circle */
+    .circle-3 {
+        // top: 50%;
+        background-color: var(--secondary-color);
+        left: 70%;
+        animation: bounce 2s infinite ease-in-out alternate 1s; /* Delayed by 1s */
+    }
+    
+    .auth-heading{
+    font-size: 56px;
+    font-weight: 600;
+    color: #fff;
+    }
+    
+.auth .submit{
+height: 50px;  
+width: 100%;
+border-radius: 50px;
+background-color: var(--primary-color);
+font-size: 16px;
+font-weight: 600;
+color: #FFFFFF;
+letter-spacing: -0.2px;
+
+}
+
+.invalid-feedback {
+    position: absolute;
+    font-size: 14px;
+    color: red;
+}
+
+.auth-input input:focus {
+    border-color: #3f51b5;
+}
+
+.otp-input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.otp-input {
+    display: flex;
+}
+
+.otp-input input {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    text-align: center;
+    margin: 0 5px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #090A0A;
+    border-color: #0097A7!important;
+    background-color: white;
+   
+}
+
+.otp-input input:focus {
+    background-color: #E8E8E8;
+    border: none!important;
+}
+
+
+.sign{
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 48px;
+    letter-spacing: 0.20000000298023224px;    
+}
+/* If you want to hide the actual input fields */
+/*.hidden-input {
+    display: none;
+}*/

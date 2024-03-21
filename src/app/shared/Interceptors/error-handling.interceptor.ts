@@ -30,13 +30,22 @@ export class ErrorHandlingInterceptor implements HttpInterceptor {
     // Proceed with the HTTP request and handle errors
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-        // Handle API-related errors
-        if (error.status === 0) {
-          const errorMessage = 'Internal Server Error.';
-          this.notify.danger(errorMessage);
-          console.error(errorMessage);
-        }
+        let errorMessage = 'An error occurred';
 
+        if (error.error instanceof ErrorEvent) {
+          // Client-side error
+          errorMessage = `Error: ${error.error.message}`;
+        } else {
+          // Server-side error
+          if (error.status === 0) {
+            errorMessage = 'Could not connect to the Server. Please check your internet connection or try again later.';
+            this.notify.danger(errorMessage);
+          } else {
+            errorMessage = `Error Code: ${error.status}, Message: ${error.message}`;
+            this.notify.danger('Something went wrong. Please try again..');
+         
+          }
+        }
         return throwError(error);
       })
     );

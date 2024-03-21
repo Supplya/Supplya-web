@@ -16,6 +16,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { BackButtonComponent } from './back-button/back-button.component';
 
 
+
 const sharedRoutes: Routes = [
   // {
   //   path: 'my-profile',
@@ -44,6 +45,7 @@ const sharedRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     NgxPaginationModule
+
   
   
   
