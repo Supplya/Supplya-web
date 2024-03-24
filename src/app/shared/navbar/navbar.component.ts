@@ -15,12 +15,21 @@ export class NavbarComponent implements OnInit {
   isLoggedIn = false;
   userDetails: any;
   ngOnInit(): void {
-    // this.authService.isLoggedIn().subscribe((log: any) => {
-    //   this.isLoggedIn = log;
-    //   this.userDetails = this.authService.getUserCredentials();
-    //   console.log(log, 'isLoggedIn');
-    // });
+    this.userDetails = this.authService.getUserCredentials();
+    console.log('User is logged in', this.userDetails);
+  
+    this.authService.isLoggedIn().subscribe((loggedIn: boolean) => {
+      if (loggedIn) {
+        this.userDetails = this.authService.getUserCredentials();
+        this.isLoggedIn = true;
+      } else {
+        this.isLoggedIn = false;
+        console.log('User is not logged in');
+
+      }
+    });
   }
+  
 
   goToDashboard(role: string) {
     this.route.navigate([`/core/${role}`]);
@@ -40,6 +49,14 @@ toggleDropdown(){
     this.route.navigate(['auth/sign-up']);
     window.scrollTo(0, 0);
   }
+  login() {
+    this.route.navigate(['auth/sign-in']);
+    window.scrollTo(0, 0);
+  }
+  cart() {
+    this.route.navigate(['core/operation/shopping-cart']);
+    window.scrollTo(0, 0);
+  }
   contact() {
     this.route.navigate(['contact-us']);
     window.scrollTo(0, 0);
@@ -52,6 +69,8 @@ toggleDropdown(){
     this.route.navigate(['/core/operation/shop']);
     window.scrollTo(0, 0);
   }
+
+
 
   logout(){
     Swal.fire({

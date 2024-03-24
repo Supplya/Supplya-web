@@ -16,6 +16,7 @@ export class ProductDetailsComponent {
   product: any;
   cart: any;
   reviews: any;
+  products: any;
   AllAddedItems: any;
   loading: boolean = false;
   reviewForm: FormGroup;
@@ -70,20 +71,60 @@ export class ProductDetailsComponent {
       }
     });
 
+    this.getAllProducts();
+
   }
 
+  getAllProducts() {
+    this.loading = true;
+
+    this.productService.getAllProducts().subscribe(
+      (data: any) => {
+        console.log(data, 'products');
+        this.products = data?.products;
+        this.loading = false;
+      },
+      (error) => {
+        this.loading = false;
+        this.loading = false;
+        this.notify.danger(error);
+        console.error('Error fetching products:', error);
+      
+        // Handle the error appropriately, for example, show a user-friendly error message.
+      }
+    );
+  }
+
+
+  ifAddedToCart(product: any): boolean {
+    // Check if the product is in the list of added items (cart)
+    const cartItem = this.AllAddedItems.find((item: any) => item.product._id === product._id);
+
+    // Return true if the product is in the cart, otherwise, return false
+    return !!cartItem;
+  }
+
+  getStarsArray(rating: number): number[] {
+    return Array(Math.floor(rating)).fill(0);
+}
+
+getEmptyStarsArray(rating: number): number[] {
+    return Array(5 - Math.floor(rating)).fill(0);
+}
 
   addToCart(product: any) {
     this.cartService.addToCart(product);
-    this.route.navigateByUrl('/core/operation/shopping-cart');
+    // this.notify.success(`${product.name} Added to Cart successfully`)
+    // this.route.navigateByUrl('/core/operation/shopping-cart');
   }
-  getStarsArray(rating: number): string[] {
-    if (rating <= 0) {
-      return Array(5).fill('&#9734;'); // Return an array with 5 empty stars
-    }
 
-    const filledStars = Array(rating).fill('&#9733;');
-    const emptyStars = Array(5 - rating).fill('&#9734;');
-    return filledStars.concat(emptyStars);
+  viewProduct(route: number) {
+    this.route.navigate(['core/operation/product-details/', `${route}`]);
+    window.scrollTo(0, 0);
   }
+  toCart() {
+    this.route.navigate(['core/operation/shopping-cart']);
+    window.scrollTo(0, 0);
+  }
+
 }

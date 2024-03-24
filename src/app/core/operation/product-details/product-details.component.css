@@ -9,9 +9,9 @@
 }
 
 .product h6 {
-    font-size: 20px;
+    font-size: 30px;
     font-weight: 700;
-    color: #151875;
+    color: #000;
 }
 
 .product .description {
@@ -19,11 +19,30 @@
     /* font-weight: 700; */
 
 }
+.des-heading{
+font-size: 18px;
+font-weight: 500;
+line-height: 22px;
+color: #000;
+
+}
+.flash-sales .card-title{
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    color: #000;
+    cursor: pointer;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    
+    }
 
 .product .tag {
-    color: #151875;
-    font-size: 16px;
-    font-weight: 700;
+    color: #000;
+    font-size: 14px;
+    font-weight: 400;
 }
 
 .product span {
@@ -31,12 +50,19 @@
 }
 
 .product .cart {
-    font-size: 15px;
-    font-weight: 500;
-    background: #0097A8;
+    font-size: 16px;
+    font-weight: 600;
+    background: var(--primary-color);
     color: white;
+    width: 100%;
+    border-radius: 50px;
+    padding: 16px;
 }
 
+.image-container{
+    overflow-x: auto;
+    white-space: nowrap;
+}
 /* .nav-tabs .nav-link.active {
     background-color: blue !important;
     color: black !important;
@@ -96,3 +122,138 @@ font-size: 15px;
     
 
 }
+
+.store-name{
+font-size: 16px;
+font-weight: 500;
+line-height: 22px;
+color: var(--primary-color);
+text-decoration: underline;
+}
+.stock{
+font-size: 14px;
+font-weight: 500;
+line-height: 22px;
+color: var(--primary-color);
+}
+.mini{
+font-size: 15px;
+font-weight: 500;
+line-height: 22px;
+color: var(--primary-color);
+}
+
+.star-rating {
+    color: #ffc107;
+    margin-bottom: 10px;
+}
+
+
+
+.home-heading{
+    font-size: 39px;
+    font-weight: 600;
+    line-height: 38.4px;
+    text-align: left;
+    color: #000;
+    
+    }
+    
+    .see-all{
+    color: var(--primary-color);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 20px;
+    text-decoration: underline;
+    }
+    .see-all-white{
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 20px;
+    text-decoration: underline;
+    }
+    
+    
+    .flash-sales .card {
+        width: 18rem;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+    }
+    
+    .placeholder-image {
+        height: 200px;
+        background-color: #f0f0f0; /* Placeholder background color */
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .placeholder-image img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover; /* or object-fit: contain; */
+    }
+    
+    .love-icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #fff; /* White background color */
+        border-radius: 50%; /* Make it round */
+        padding: 10px; /* Equal padding on all sides */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+    }
+    
+    .love-icon i {
+        color: #000; /* Black color for the icon */
+        font-size: 17px; /* Adjust font size as needed */
+        line-height: 1; /* Ensure icon is vertically centered */
+    }
+    
+    
+    .star-rating {
+        color: #ffc107; /* Color for the star icons */
+        margin-bottom: 10px;
+    }
+    
+    .price-and-cart {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .product-amount {
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 25px;
+    letter-spacing: 0.0038em;
+    color: var(--primary-color);
+    
+    }
+    
+    .cart-icon {
+        
+        color: #fff;
+        background-color: var(--primary-color);
+        border-radius: 50%;
+        padding: 20px; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+    }
+    .product-container {
+        overflow-x: auto;
+        white-space: nowrap;
+      }

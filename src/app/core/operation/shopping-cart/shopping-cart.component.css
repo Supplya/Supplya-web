@@ -179,3 +179,14 @@ color: #C5CBE3;
 
 
 }
+
+
+  
+  .product-details {
+    margin-left: 20px;
+  }
+  
+  .product-name {
+    font-size: 18px;
+    margin: 0;
+  }

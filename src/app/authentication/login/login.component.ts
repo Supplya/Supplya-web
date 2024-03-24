@@ -55,15 +55,14 @@ isInvalid(control: string) {
           } else {
             // Handle login error
             this.submitted = false;
-            this.notify.danger(response.msg, 4000);
-            console.error('Login error:', response.errorMessage);
+            this.notify.danger(response.message, 4000);
+            console.error('Login error:', response);
           }
         },
         (error) => {
           this.submitted = false;
           // Handle HTTP error
-          this.notify.danger(error.error.msg, 4000);
-          console.error('HTTP error:', error.error.msg);
+          console.error('HTTP error:', error.error);
           
         }
       );

@@ -1,332 +1,612 @@
 <app-navbar></app-navbar>
-
-<section class="container">
-    <div class="py-5">
-        <div class="row py-4 heroLeft">
+<section style="background: url(/assets/Images/hero\ banner\ 4.png); background-size: cover;">
+    <div class="py-5 container">
+        <div class="row py-5 heroLeft" >
             <div class="col-lg-6 py-5 d-flex align-items-center">
-                <div>
+                <div class="px-5 d-none d-lg-block">
 
-                    <h6 class="text-primary">BUY, SELL, PAY AND SHIP IN ONE PLACE</h6>
-                    <h5 class="w3-animate-zoom d-none d-lg-block">The Ideal Trader's <br> Marketplace</h5>
-                    <h3 class="w3-animate-zoom mobile-only">The Ideal Trader's <br>Marketplace</h3>
-                    <p class="text-muted">We’ve simplified sourcing and selling, so you can face what really matters to you, earning conveniently</p>
-                    <button class="btn btn-primary" (click)="shop()">Shop Supplya</button>
+                    <h6 class="text-neutral">BUY, SELL, PAY AND SHIP IN ONE PLACE</h6>
+                    <h5 class="slide-left d-none d-lg-block">You’ve got 
+                      a Product?</h5>
+                    <h3 class="zoom-in mobile-only">You’ve got 
+                      a Product?</h3>
+                    <p class="slide-right">Lets connect you to potential buyers, <br>
+                      Create a vendor account and start selling</p>
+                      <div class="py-2">
+
+                        <button class="btn slide-bottom">Become a Vendor</button>
+                      </div>
+                </div>
+                <div class="px-3 mobile-only">
+
+                    <h6 class="text-neutral">BUY, SELL, PAY AND SHIP IN ONE PLACE</h6>
+                    <h5 class="slide-left d-none d-lg-block">You’ve got 
+                      a Product?</h5>
+                    <h3 class="zoom-in mobile-only">You’ve got 
+                      a Product?</h3>
+                    <p class="slide-right">Lets connect you to potential buyers, <br>
+                      Create a vendor account and start selling</p>
+                      <div class="py-2">
+
+                        <button class="btn slide-bottom">Become a Vendor</button>
+                      </div>
                 </div>
             </div>
-            <div class="col-lg-6">
-                <!-- First Image -->
-                <img src="/assets/Images/idealTrader.png" alt="First Image" class="img-fluid " >
-
-                <!-- Second Image -->
-                <!-- <img src="/assets/Images/Rectangle 2.png" alt="Second Image" class="img-fluid" style="position: absolute; top: 0; left: 0; width: 50%; height: 100%; object-fit: cover; z-index: 2;"> -->
-            </div>
         </div>
     </div>
 </section>
 
-<!-- <section class="background-section">
-    <div class="container d-flex justify-content-center align-items-center h-100">
+<!-- CATEGORIES -->
+<Section class="category py-5">
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3">
+  <div class="card border-0">
+  <div  class="d-flex justify-between align-items-center">
+    <div>
+      <img src="/assets/Images/phone.png" alt="">
+    </div>
+    <div>
+      <p>Phones, Tablets & Accessories</p>
+    </div>
+    &nbsp;&nbsp;&nbsp;
+  </div>
+  </div>
+    </div>
+    <div class="col-lg-3">
+  <div class="card border-0">
+  <div  class="d-flex justify-between align-items-center">
+    <div>
+      <img src="/assets/Images/furniture.png" alt="">
+    </div>
+    &nbsp;&nbsp;&nbsp;
+    <div>
+      <p>Home & Furniture</p>
+    </div>
+    
+  </div>
+  </div>
+    </div>
+    <div class="col-lg-3">
+  <div class="card border-0">
+  <div  class="d-flex justify-between align-items-center">
+    <div>
+      <img src="/assets/Images/apparel.png" alt="">
+    </div>
+    &nbsp;&nbsp;&nbsp;
+    <div>
+      <p>Men & Women Apparel</p>
+    </div>
+  </div>
+  </div>
+    </div>
+    <div class="col-lg-3">
+  <div class="card border-0">
+  <div  class="d-flex justify-between align-items-center">
+    <div>
+      <img src="/assets/Images/games.png" alt="">
+    </div>
+    &nbsp;&nbsp;&nbsp;
+    <div>
+      <p>Games & Toys</p>
+    </div>
+  </div>
+  </div>
+    </div>
+    <div class="col-lg-3">
+  <div class="card border-0">
+  <div  class="d-flex justify-between align-items-center">
+    <div>
+      <img src="/assets/Images/books.png" alt="">
+    </div>
+    &nbsp;&nbsp;&nbsp;
+    <div>
+      <p>Books & Stationary</p>
+    </div>
+  
+  </div>
+  </div>
+    </div>
+  
+    <div class="col-lg-3">
+      <div class="card border-0">
+      <div class="d-flex justify-between align-items-center">
+        <div>
+          <img src="/assets/Images/health.png" alt="">
+        </div>
+        &nbsp;&nbsp;&nbsp;
+        <div>
+          <p>Health & Wellness</p>
+        </div>
+      </div>
+      </div>
+        </div>
+  
+    <div class="col-lg-3">
+  <div class="card border-0">
+  <div class="d-flex justify-between align-items-center">
+    <div>
+      <img src="/assets/Images/beauty.png" alt="">
+    </div>
+  
+    &nbsp;&nbsp;&nbsp;
+    <div>
+      <p>Beauty & Personal Care</p>
+    </div>
+  </div>
+  </div>
+    </div>
+  
+    <div class="col-lg-3">
+  <div class="card border-0">
+  <div class="d-flex justify-between align-items-center">
+    <div>
+      <img src="/assets/Images/sport.png" alt="">
+    </div>
+    <div>
+      <p>Sports & Outdoors</p>
+    </div>
+  </div>
+  </div>
+    </div>
+  </div>
+</div>
+</Section>
+
+<!-- FLASH SALES -->
+<section class="flash-sales py-3">
+<div class="container">
+  <div class="py-2" style="display: flex; justify-content: space-between;">
+<div>
+  <p class="home-heading">Flash Sales</p>
+</div>
+<div>
+  <p class="see-all mt-2">See All</p>
+</div>
+  </div>
+
+  <!-- Products -->
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="product-container">
+        <div class="d-flex flex-nowrap">
+          <!-- Product cards -->
+          <div class="col-lg-auto" *ngFor="let product of products">
+            <div class="card border-0 shadow-sm me-4">
+              <!-- Placeholder background image -->
+              <div class="card-img-top placeholder-image" >
+                <!-- Love icon for wishlist -->
+                <span class="love-icon mt-2"><i class="bi bi-heart"></i></span>
+                <!-- Product image -->
+                <img (click)="viewProduct(product._id)" src="/assets/Images/headphone.png" alt="Product Image">
+              </div>
+              <div class="card-body">
+                <!-- Product name -->
+                <h5 class="card-title" (click)="viewProduct(product._id)">{{product.name}}</h5>
+                <!-- Star rating -->
+                <!-- <div class="star-rating">
+                  <span class="bi bi-star-fill"></span>
+                  <span class="bi bi-star-fill"></span>
+                  <span class="bi bi-star-fill"></span>
+                  <span class="bi bi-star-fill"></span>
+                  <span class="bi bi-star"></span>
+                </div> -->
+                <div class="star-rating">
+                  <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product.rating); let i = index"></span>
+                  <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product.rating); let i = index"></span>
+              </div>
+              
+                <!-- Product amount and cart icon -->
+                <div class="price-and-cart">
+                  <span class="product-amount">{{ product.price | currency: '₦' :'symbol':'1.0-0'}}</span>
+                  <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
+                  <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End of product cards -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+</div>
+</section>
+<!-- DEALS OF THE DAY -->
+<section class="py-5 deals">
+<div class="container">
+  <div class=" px-4" style="display: flex; justify-content: space-between; align-items: center; background-color: var(--primary-color);">
+    <div>
+      <p class="deals-heading mt-3">Deals of the day</p>
+    </div>
+    <div>
+      <p class="see-all-white mt-3">See All</p>
+    </div>
+      </div>
+
+      <!-- DEALS OF THE DAY -->
+      <!-- Products -->
+  <div class="row py-3">
+    <div class="col-lg-12">
+      <div class="product-container">
+        <div class="d-flex flex-nowrap mb-3">
+          <!-- Product cards -->
+          <div class="col-lg-auto" *ngFor="let product of products">
+            <div class="card border-0 shadow-sm me-4">
+              <!-- Placeholder background image -->
+              <div class="card-img-top placeholder-image">
+                <!-- Love icon for wishlist -->
+                <span class="love-icon mt-2"><i class="bi bi-heart"></i></span>
+                <!-- Product image -->
+                <img (click)="viewProduct(product._id)" src="/assets/Images/headphone.png" alt="Product Image">
+              </div>
+              <div class="card-body">
+                <!-- Product name -->
+                <h5 class="card-title" (click)="viewProduct(product._id)">{{product.name}}</h5>
+                <!-- Star rating -->
+                <!-- <div class="star-rating">
+                  <span class="bi bi-star-fill"></span>
+                  <span class="bi bi-star-fill"></span>
+                  <span class="bi bi-star-fill"></span>
+                  <span class="bi bi-star-fill"></span>
+                  <span class="bi bi-star"></span>
+                </div> -->
+                <div class="star-rating">
+                  <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product.rating); let i = index"></span>
+                  <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product.rating); let i = index"></span>
+              </div>
+              
+                <!-- Product amount and cart icon -->
+                <div class="price-and-cart">
+                  <span class="product-amount">{{ product.price | currency: '₦' :'symbol':'1.0-0'}}</span>
+                  <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
+                  <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End of product cards -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+
+<!-- POPULAR ITEMS -->
+<section class="mb-5 mt-3">
+  <div class="container">
+
+    <div class="py-2" style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <p class="home-heading mt-3">Special Deals</p>
+      </div>
+      <div>
+        <p class="see-all mt-3">See All</p>
+      </div>
+        </div>
+
         <div class="row">
-            <div class="col-md-3 text-center">
-                <img src="step1-icon.png" alt="Step 1">
-                <h3>Step 1</h3>
-                <p>Step 1 description here</p>
+          <div class="col-lg-4" style="background: url(/assets/Images/discount.png);">
+
+          </div>
+          <div class="col-lg-8">
+            <div class="row mb-3 px-4">
+              <div class="col-lg-12">
+                <div class="product-container">
+                  <div class="d-flex flex-nowrap mb-3">
+                    <!-- Product cards -->
+                    <div class="col-lg-auto" *ngFor="let product of products">
+                      <div class="card border-0 shadow-sm me-4">
+                        <!-- Placeholder background image -->
+                        <div class="card-img-top placeholder-image">
+                          <!-- Love icon for wishlist -->
+                          <span class="love-icon mt-2"><i class="bi bi-heart"></i></span>
+                          <!-- Product image -->
+                          <img (click)="viewProduct(product._id)" src="/assets/Images/headphone.png" alt="Product Image">
+                        </div>
+                        <div class="card-body">
+                          <!-- Product name -->
+                          <h5 class="card-title" (click)="viewProduct(product._id)">{{product.name}}</h5>
+                          <!-- Star rating -->
+                          <!-- <div class="star-rating">
+                            <span class="bi bi-star-fill"></span>
+                            <span class="bi bi-star-fill"></span>
+                            <span class="bi bi-star-fill"></span>
+                            <span class="bi bi-star-fill"></span>
+                            <span class="bi bi-star"></span>
+                          </div> -->
+                          <div class="star-rating">
+                            <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product.rating); let i = index"></span>
+                            <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product.rating); let i = index"></span>
+                        </div>
+                        
+                          <!-- Product amount and cart icon -->
+                          <div class="price-and-cart">
+                            <span class="product-amount">{{ product.price | currency: '₦' :'symbol':'1.0-0'}}</span>
+                            <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
+                            <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- End of product cards -->
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="col-md-3 text-center">
-                <img src="step2-icon.png" alt="Step 2">
-                <h3>Step 2</h3>
-                <p>Step 2 description here</p>
+            <div class="row mb-3 px-4">
+              <div class="col-lg-12">
+                <div class="product-container">
+                  <div class="d-flex flex-nowrap mb-3">
+                    <!-- Product cards -->
+                    <div class="col-lg-auto" *ngFor="let product of products">
+                      <div class="card border-0 shadow-sm me-4">
+                        <!-- Placeholder background image -->
+                        <div class="card-img-top placeholder-image">
+                          <!-- Love icon for wishlist -->
+                          <span class="love-icon mt-2"><i class="bi bi-heart"></i></span>
+                          <!-- Product image -->
+                          <img (click)="viewProduct(product._id)" src="/assets/Images/headphone.png" alt="Product Image">
+                        </div>
+                        <div class="card-body">
+                          <!-- Product name -->
+                          <h5 class="card-title" (click)="viewProduct(product._id)">{{product.name}}</h5>
+                          <!-- Star rating -->
+                          <!-- <div class="star-rating">
+                            <span class="bi bi-star-fill"></span>
+                            <span class="bi bi-star-fill"></span>
+                            <span class="bi bi-star-fill"></span>
+                            <span class="bi bi-star-fill"></span>
+                            <span class="bi bi-star"></span>
+                          </div> -->
+                          <div class="star-rating">
+                            <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product.rating); let i = index"></span>
+                            <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product.rating); let i = index"></span>
+                        </div>
+                        
+                          <!-- Product amount and cart icon -->
+                          <div class="price-and-cart">
+                            <span class="product-amount">{{ product.price | currency: '₦' :'symbol':'1.0-0'}}</span>
+                            <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
+                            <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- End of product cards -->
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="col-md-3 text-center">
-                <img src="step3-icon.png" alt="Step 3">
-                <h3>Step 3</h3>
-                <p>Step 3 description here</p>
-            </div>
-            <div class="col-md-3 text-center">
-                <img src="step4-icon.png" alt="Step 4">
-                <h3>Step 4</h3>
-                <p>Step 4 description here</p>
-            </div>
+          </div>
         </div>
-    </div>
-</section> -->
-
-
-<!-- LARGE SCREEN -->
-<section class="d-none d-lg-block py-5 text-center">
-    <div class="row">
-        <div class="col-lg-1"></div>
-        <div class="col-lg-10 retail container">
-<div class="  ">
-    <div class="mb-5">
-
-        <h5>Retailing just got seamless</h5>
-        <p>Supplya goes the extra mile so you can source products and fulfil orders in 4 simple <br> steps, it’s the only tool you need to get it all done!</p>
-    </div>
-   <div class="">
-
-       <div class="row core">
-        
-           <div class="col-lg-3">
-               <img src="/assets/Images/buy.png" alt="">
-               <h6>Buy</h6>
-               <p>Choose quality products from verified suppliers</p>
-           </div>
-           <div class="col-lg-3">
-               <img src="/assets/Images/pay.png" alt="">
-               <h6>Pay</h6>
-               <p>Choose quality products from verified suppliers</p>
-           </div>
-           <div class="col-lg-3">
-               <img src="/assets/Images/sell.png" alt="">
-               <h6>Sell</h6>
-               <p>Choose quality products from verified suppliers</p>
-           </div>
-           <div class="col-lg-3">
-               <img src="/assets/Images/fulfil.png" alt="">
-               <h6>Fulfill</h6>
-               <p>Choose quality products from verified suppliers</p>
-           </div>
-       </div>
-   </div>
-</div>
-        </div>
-        <div class="col-lg-1"></div>
-    </div>
-</section>
-<!-- LARGE SCREEN END -->
-
-<!-- MOBILE SCREEN -->
-<section class="py-5 text-center mobile-only px-3">
-  <div class="row py-2">
-      <div class="col-lg-1"></div>
-      <div class="col-lg-10 retail-mobile container">
-<div class="py-5">
-  <div class="mb-5">
-
-      <h5>Retailing just got <span class="text-secondary">seamless</span> </h5>
-      <p>Supplya goes the extra mile so you can source products and fulfil orders in 4 simple <br> steps, it’s the only tool you need to get it all done!</p>
-  </div>
- <div class="">
-
-     <div class="row core">
-      
-         <div class="col-lg-3">
-             <img src="/assets/Images/buy.png" alt="">
-             <h6>Buy</h6>
-             <p>Choose quality products from verified suppliers</p>
-         </div>
-         <div class="col-lg-3">
-             <img src="/assets/Images/pay.png" alt="">
-             <h6>Pay</h6>
-             <p>Choose quality products from verified suppliers</p>
-         </div>
-         <div class="col-lg-3">
-             <img src="/assets/Images/sell.png" alt="">
-             <h6>Sell</h6>
-             <p>Choose quality products from verified suppliers</p>
-         </div>
-         <div class="col-lg-3">
-             <img src="/assets/Images/fulfil.png" alt="">
-             <h6>Fulfill</h6>
-             <p>Choose quality products from verified suppliers</p>
-         </div>
-     </div>
- </div>
-</div>
-      </div>
-      <div class="col-lg-1"></div>
   </div>
 </section>
-<!-- MOBILE SCREEN END -->
-<!-- PARTNERSHIP SECTION -->
-<section class="px-5 py-3">
+
+<section class="mb-5 mt-3">
+  <div class="container">
+
+    <div class="py-2" style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <p class="home-heading mt-3">Popular items this season</p>
+      </div>
+      <div>
+        <p class="see-all mt-3">See All</p>
+      </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-8">
+            <div class="row mb-3 px-4">
+              <div class="col-lg-12">
+                <div class="product-container">
+                  <div class="d-flex flex-nowrap mb-3">
+                    <!-- Product cards -->
+                    <div class="col-lg-auto" *ngFor="let product of products">
+                      <div class="card border-0 shadow-sm me-4">
+                        <!-- Placeholder background image -->
+                        <div class="card-img-top placeholder-image">
+                          <!-- Love icon for wishlist -->
+                          <span class="love-icon mt-2"><i class="bi bi-heart"></i></span>
+                          <!-- Product image -->
+                          <img (click)="viewProduct(product._id)" src="/assets/Images/headphone.png" alt="Product Image">
+                        </div>
+                        <div class="card-body">
+                          <!-- Product name -->
+                          <h5 class="card-title" (click)="viewProduct(product._id)">{{product.name}}</h5>
+                          <!-- Star rating -->
+                          <!-- <div class="star-rating">
+                            <span class="bi bi-star-fill"></span>
+                            <span class="bi bi-star-fill"></span>
+                            <span class="bi bi-star-fill"></span>
+                            <span class="bi bi-star-fill"></span>
+                            <span class="bi bi-star"></span>
+                          </div> -->
+                          <div class="star-rating">
+                            <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product.rating); let i = index"></span>
+                            <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product.rating); let i = index"></span>
+                        </div>
+                        
+                          <!-- Product amount and cart icon -->
+                          <div class="price-and-cart">
+                            <span class="product-amount">{{ product.price | currency: '₦' :'symbol':'1.0-0'}}</span>
+                            <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
+                            <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- End of product cards -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3 px-4">
+              <div class="col-lg-12">
+                <div class="product-container">
+                  <div class="d-flex flex-nowrap mb-3">
+                    <!-- Product cards -->
+                    <div class="col-lg-auto" *ngFor="let product of products">
+                      <div class="card border-0 shadow-sm me-4">
+                        <!-- Placeholder background image -->
+                        <div class="card-img-top placeholder-image">
+                          <!-- Love icon for wishlist -->
+                          <span class="love-icon mt-2"><i class="bi bi-heart"></i></span>
+                          <!-- Product image -->
+                          <img (click)="viewProduct(product._id)" src="/assets/Images/headphone.png" alt="Product Image">
+                        </div>
+                        <div class="card-body">
+                          <!-- Product name -->
+                          <h5 class="card-title" (click)="viewProduct(product._id)">{{product.name}}</h5>
+                          <!-- Star rating -->
+                          <!-- <div class="star-rating">
+                            <span class="bi bi-star-fill"></span>
+                            <span class="bi bi-star-fill"></span>
+                            <span class="bi bi-star-fill"></span>
+                            <span class="bi bi-star-fill"></span>
+                            <span class="bi bi-star"></span>
+                          </div> -->
+                          <div class="star-rating">
+                            <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product.rating); let i = index"></span>
+                            <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product.rating); let i = index"></span>
+                        </div>
+                        
+                          <!-- Product amount and cart icon -->
+                          <div class="price-and-cart">
+                            <span class="product-amount">{{ product.price | currency: '₦' :'symbol':'1.0-0'}}</span>
+                            <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
+                            <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- End of product cards -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4" style="background: url(/assets/Images/popular.png);">
+
+          </div>
+         
+        </div>
+  </div>
+</section>
+
+
+
+<!-- RECENTLY VIEW -->
+<section class="flash-sales py-3">
+  <div class="container">
+    <div class="py-2" style="display: flex; justify-content: space-between;">
+  <div>
+    <p class="home-heading">Recently Viewed</p>
+  </div>
+  <div>
+    <p class="see-all mt-2">See All</p>
+  </div>
+    </div>
+  
+    <!-- Products -->
     <div class="row">
-      <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 mb-4 mb-md-0">
-        <div
-          class="bg-image hover-overlay ripple shadow-1-strong rounded"
-          data-ripple-color="light"
-        >
-          <img
-            src="/assets/Images/Figure.png"
-            class="w-100"
-          />
-          <a href="#!">
-            <div
-              class="mask"
-              style="background-color: rgba(251, 251, 251, 0.2);"
-            ></div>
-          </a>
+      <div class="col-lg-12">
+        <div class="product-container">
+          <div class="d-flex flex-nowrap">
+            <!-- Product cards -->
+            <div class="col-lg-auto" *ngFor="let product of products">
+              <div class="card border-0 shadow-sm me-4">
+                <!-- Placeholder background image -->
+                <div class="card-img-top placeholder-image" >
+                  <!-- Love icon for wishlist -->
+                  <span class="love-icon mt-2"><i class="bi bi-heart"></i></span>
+                  <!-- Product image -->
+                  <img (click)="viewProduct(product._id)" src="/assets/Images/headphone.png" alt="Product Image">
+                </div>
+                <div class="card-body">
+                  <!-- Product name -->
+                  <h5 class="card-title" (click)="viewProduct(product._id)">{{product.name}}</h5>
+                  <!-- Star rating -->
+                  <!-- <div class="star-rating">
+                    <span class="bi bi-star-fill"></span>
+                    <span class="bi bi-star-fill"></span>
+                    <span class="bi bi-star-fill"></span>
+                    <span class="bi bi-star-fill"></span>
+                    <span class="bi bi-star"></span>
+                  </div> -->
+                  <div class="star-rating">
+                    <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product.rating); let i = index"></span>
+                    <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product.rating); let i = index"></span>
+                </div>
+                
+                  <!-- Product amount and cart icon -->
+                  <div class="price-and-cart">
+                    <span class="product-amount">{{ product.price | currency: '₦' :'symbol':'1.0-0'}}</span>
+                    <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
+                    <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End of product cards -->
+          </div>
         </div>
       </div>
-      <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 mb-4 mb-md-0">
-        <div
-          class="bg-image hover-overlay ripple shadow-1-strong rounded"
-          data-ripple-color="light"
-        >
-          <img
-            src="/assets/Images/Figure (1).png"
-            class="w-100"
-          />
-          <a href="#!">
-            <div
-              class="mask"
-              style="background-color: rgba(251, 251, 251, 0.2);"
-            ></div>
-          </a>
+    </div>
+    
+    
+  </div>
+  </section>
+
+  <section class="py-5">
+    <div class="">
+      <div class="row gx-3">
+        <div class="col-lg-1"></div>
+        <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
+          <div class="border p-3">
+            <!-- Content for Reasonable Prices -->
+            <h6 class="title"><span><img src="/assets/Images/cart.png" class="me-1" alt=""></span>Free Delivery</h6>
+            <p class="mb-0 px-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          </div>
         </div>
-      </div>
-      <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 mb-4 mb-md-0">
-        <div
-          class="bg-image hover-overlay ripple shadow-1-strong rounded"
-          data-ripple-color="light"
-        >
-          <img
-            src="/assets/Images/Figure (2).png"
-            class="w-100"
-          />
-          <a href="#!">
-            <div
-              class="mask"
-              style="background-color: rgba(251, 251, 251, 0.2);"
-            ></div>
-          </a>
+        <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
+          <div class="border p-3">
+            <!-- Content for Worldwide Shipping -->
+            <h6 class="title"><span><img src="/assets/Images/secure.png" class="me-1" alt=""></span>100% Secure Payment</h6>
+            <p class="mb-0 px-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          </div>
         </div>
-      </div>
-      <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 mb-4 mb-md-0">
-        <div
-          class="bg-image hover-overlay ripple shadow-1-strong rounded"
-          data-ripple-color="light"
-        >
-          <img
-            src="/assets/Images/Figure (3).png"
-            class="w-100"
-          />
-          <a href="#!">
-            <div
-              class="mask"
-              style="background-color: rgba(251, 251, 251, 0.2);"
-            ></div>
-          </a>
+        <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
+          <div class="border p-3">
+            <!-- Content for Best Ratings -->
+            <h6 class="title"><span><img src="/assets/Images/quality.png" class="me-1" alt=""></span> Quality Guarantee</h6>
+            <p class="mb-0 px-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          </div>
         </div>
-      </div>
-      <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 mb-4 mb-md-0">
-        <div
-          class="bg-image hover-overlay ripple shadow-1-strong rounded"
-          data-ripple-color="light"
-        >
-          <img
-            src="/assets/Images/Figure (4).png"
-            class="w-100"
-          />
-          <a href="#!">
-            <div
-              class="mask"
-              style="background-color: rgba(251, 251, 251, 0.2);"
-            ></div>
-          </a>
+        <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
+          <div class="border p-3">
+            <!-- Content for Help Center -->
+            <h6 class="title"><span><img src="/assets/Images/saving.png" class="me-1" alt=""></span> Guaranteed Savings</h6>
+            <p class="mb-0 px-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+          </div>
         </div>
-      </div>
-      <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 mb-4 mb-md-0">
-        <div
-          class="bg-image hover-overlay ripple shadow-1-strong rounded"
-          data-ripple-color="light"
-        >
-          <img
-            src="/assets/Images/Figure (5).png"
-            class="w-100"
-          />
-          <a href="#!">
-            <div
-              class="mask"
-              style="background-color: rgba(251, 251, 251, 0.2);"
-            ></div>
-          </a>
+        <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
+          <div class="border p-3">
+            <!-- Content for Always Available -->
+            <h6 class="title"> <span><img src="/assets/Images/daily.png" class="me-1" alt=""></span>Daily offers</h6>
+            <p class="mb-0 px-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          </div>
         </div>
+        <div class="col-lg-1"></div>
       </div>
     </div>
   </section>
-<!--END OF PARTNERSHIP SECTION -->
-
-<!-- PRODUCT TO CHOOSE FROM SECTION -->
-<section class="container py-5 choose text-center d-none d-lg-block">
-    <div class="row">
-        <div class="col-lg-2"></div>
-        <div class="col-lg-8">
-            <h5><span class="text-secondary">500+</span> products to choose from</h5>
-            <img src="/assets/Images/Frame 6.png" class="py-3" alt="">
-            <h5><span class="text-secondary">200+</span> retailers trust Supplya</h5>
-
-            <button class="btn btn-primary" (click)="signUp()">Join them</button>
-        </div>
-        <div class="col-lg-2"></div>
-    </div>
-</section>
-<!--END OF PRODUCT TO CHOOSE FROM SECTION -->
-
-<section class="container py-5">
-    <div class="row qualityRight">
-        <div class="col-lg-6">
-<img src="/assets/Images/gotQuality.png" class="img-fluid mb-3" alt="">
-        </div>
-        <div class="col-lg-6 d-flex align-items-center">
-<div class="d-none d-lg-block">
-    <h5>Got Quality <br class="mb-0"> Products to<br>Sell?</h5>
-    <p class="text-muted">Register now to become as a vendor on Supplya and earn high returns</p>
-    <button class="btn btn-primary">Register as a Vendor</button>
-</div>
-<div class="mobile-only text-center">
-    <h3>Got Quality <br class="mb-0"> Products to Sell?</h3>
-    <p class="text-muted">Register now to become as a vendor on Supplya and earn high returns</p>
-    <button class="btn btn-primary" (click)="signUp()">Register as a Vendor</button>
-</div>
-        </div>
-    </div>
-</section>
-
-<!-- DISCOUNT SECTION -->
-<section class="py-5 container">
-    <div class="row">
-        <div class="col-lg-1"></div>
-        <div class="col-lg-10 discount py-5 ">
-            <div class="container">
-
-                <div class="row p-5">
-    <div class="col-lg-6">
-        <div>
-            <h5>Get <span class="text-secondary">20% Discount</span> <br>  on Your First <br> Purchase</h5>
-            <p >Register now to be the first to know of our news and updates!</p>
-        </div>
-    </div>
-    <div class="col-lg-6">
-        <div class="">
-            <div class=" mb-2">
-            <label class="mb-1 px-3" for="">Email Address</label>
-              <input type="text" class="form-control" placeholder="Email Address">
-            </div>
-            <div class=" mb-2">
-                <label class="mb-1 px-3" for="">Create Password</label>
-            
-              <input type="password" class="form-control" placeholder="Create Password" >
-            </div>
-            <div class="mb-2">
-            <label class="mb-1 px-3" for="">Repeat Password</label>
-             
-              <input type="password" class="form-control" placeholder="Repeat Password">
-            </div>
-           
-            <button type="submit" name="commit" class="btn btn-primary btn-block w-100 mt-1">
-              <span>Join Mailing List </span>
-            </button>
-           
-          </div>
-    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-1"></div>
-    </div>
-</section>
-<!--END OF DISCOUNT SECTION -->
+  
+  
 
 <app-footer></app-footer>

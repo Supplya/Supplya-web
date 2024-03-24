@@ -32,9 +32,9 @@
     /* color: #ffc222; */
     /* font-family: 'Nunito Sans', sans-serif !important; */
 }
-.breadcrumb-item .active{
+.breadcrumb .active{
 font-size: 15px;
 font-weight: 500;
-color: $secondary-color;
+color: var(--primary-color)!important;
 
 }

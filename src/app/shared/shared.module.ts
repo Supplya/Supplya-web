@@ -14,6 +14,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { RouterModule, Routes } from '@angular/router';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { BackButtonComponent } from './back-button/back-button.component';
+import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator.component';
 
 
 
@@ -35,6 +36,7 @@ const sharedRoutes: Routes = [
     ReusableTableComponent,
     SpinnerComponent,
     BackButtonComponent,
+    LoadingIndicatorComponent,
     
   ],
   imports: [
@@ -64,6 +66,7 @@ const sharedRoutes: Routes = [
     ReusableTableComponent,
     SpinnerComponent,
     BackButtonComponent,
+    LoadingIndicatorComponent,
 
 
     // Modules
