@@ -161,7 +161,7 @@ isInvalid(control: string) {
               }
             });
             
-          } else {
+          } else if (response.status === 'error') {
             this.submitted = false;
             Swal.fire({
               title: "OTP Verification Failed",
@@ -186,8 +186,10 @@ isInvalid(control: string) {
             })
            
           }
-        }   
+        }  
+        
       )
+        
     }
   }
 

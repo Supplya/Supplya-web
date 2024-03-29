@@ -69,7 +69,7 @@ export class HomeComponent implements OnInit {
     this.productService.getAllProducts().subscribe(
       (data: any) => {
         console.log(data, 'products');
-        this.products = data?.products;
+        this.products = data?.data;
         this.loading = false;
       },
       (error) => {
@@ -89,11 +89,11 @@ export class HomeComponent implements OnInit {
       (data: any) => {
         if (data.status === 'success') {
 
-          this.categories = data?.categories;
+          this.categories = data?.data;
           this.loading = false;
           console.log(data, 'products');
         } else {
-          this.notify.danger(data?.msg);
+          this.notify.danger(data?.message);
         }
       },
       (error) => {
@@ -105,23 +105,10 @@ export class HomeComponent implements OnInit {
     );
   }
   ifAddedToCart(product: any): boolean {
-    // Check if the product is in the list of added items (cart)
     const cartItem = this.AllAddedItems.find((item: any) => item.product._id === product._id);
-
-    // Return true if the product is in the cart, otherwise, return false
     return !!cartItem;
   }
-  // getStarsArray(rating: number): string[] {
-  //   if (rating <= 0) {
-  //     return Array(5).fill('&#9734;'); // Return an array with 5 empty stars
-  //   }
-
-  //   const filledStars = Array(rating).fill('&#9733;');
-  //   const emptyStars = Array(5 - rating).fill('&#9734;');
-  //   return filledStars.concat(emptyStars);
-  // }
-
-  // Inside your component class
+ 
 getStarsArray(rating: number): number[] {
     return Array(Math.floor(rating)).fill(0);
 }
@@ -134,8 +121,6 @@ getEmptyStarsArray(rating: number): number[] {
   addToCart(product: any) {
     this.onSubmit = true;
     this.cartService.addToCart(product);
-    // alert('Added product');
-    console.log(product, 'product')
   }
   scrollLeft() {
     const wrapper = document.querySelector('.wrapper-item');

@@ -39,9 +39,11 @@ export class ErrorHandlingInterceptor implements HttpInterceptor {
           // Server-side error
           if (error.status === 0) {
             errorMessage = 'Could not connect to the Server. Please check your internet connection or try again later.';
+            console.log(errorMessage);
             this.notify.danger(errorMessage);
           } else {
             errorMessage = `Error Code: ${error.status}, Message: ${error.message}`;
+            console.log(errorMessage);
             this.notify.danger('Something went wrong. Please try again..');
          
           }
