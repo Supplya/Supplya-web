@@ -11,6 +11,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { NetworkStatusService } from '../services/network-status.service';
 import { ToastyService } from 'ng-toasty';
+import Swal from 'sweetalert2';
 
 
 @Injectable()
@@ -40,11 +41,54 @@ export class ErrorHandlingInterceptor implements HttpInterceptor {
           if (error.status === 0) {
             errorMessage = 'Could not connect to the Server. Please check your internet connection or try again later.';
             console.log(errorMessage);
-            this.notify.danger(errorMessage);
+           
+            Swal.fire({
+              title: `${errorMessage}`,
+              text: "",
+              icon: "error",
+              showCancelButton: false,
+              confirmButtonText: "OK",
+              showClass: {
+                popup: `
+                  animate__animated
+                  animate__fadeInDown
+                  animate__faster
+                `
+              },
+              hideClass: {
+                popup: `
+                  animate__animated
+                  animate__fadeOutDown
+                  animate__faster
+                `
+              }
+            })
+            // this.notify.danger(errorMessage);
           } else {
             errorMessage = `Error Code: ${error.status}, Message: ${error.message}`;
             console.log(errorMessage);
-            this.notify.danger('Something went wrong. Please try again..');
+            Swal.fire({
+              title: `${error.error.message}`,
+              text: "",
+              icon: "error",
+              showCancelButton: false,
+              confirmButtonText: "OK",
+              showClass: {
+                popup: `
+                  animate__animated
+                  animate__fadeInDown
+                  animate__faster
+                `
+              },
+              hideClass: {
+                popup: `
+                  animate__animated
+                  animate__fadeOutDown
+                  animate__faster
+                `
+              }
+            })
+            // this.notify.danger('Something went wrong. Please try again..');
          
           }
         }
