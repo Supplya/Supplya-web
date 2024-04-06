@@ -3,6 +3,8 @@
     padding-left: 35px!important;
     padding-top: 20px!important;
     padding-bottom: 15px!important;
+    background-color: #e3e5e532!important;
+    height: 89vh!important;
   }
   
   @media (max-width: 992px) {
@@ -14,4 +16,16 @@
       padding-top: 15px!important;
       padding-bottom: 15px!important;
     }
+}
+
+.step-two {
+  color: var(--primary-color)!important;
+  font-size: 15px!important;
+  font-weight: 500!important;
+}
+
+.step-one {
+  color: #667085!important;
+  font-size: 14px!important;
+  font-weight: 500!important;
 }

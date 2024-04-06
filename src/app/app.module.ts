@@ -15,6 +15,7 @@ import { LoaderService } from './shared/services/loader.service';
 import { LoaderInterceptor } from './shared/Interceptors/loader-interceptor.service';
 import { LoaderComponent } from './shared/loader/loader.component';
 import { AuthInterceptor } from './shared/Interceptors/auth.interceptor';
+import { TitleService } from './shared/services/title.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { AuthInterceptor } from './shared/Interceptors/auth.interceptor';
  
     
   ],
-  providers: [Server, MenuService, DatePipe,
+  providers: [Server, MenuService, DatePipe, TitleService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorHandlingInterceptor,
@@ -42,4 +43,8 @@ import { AuthInterceptor } from './shared/Interceptors/auth.interceptor';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  constructor(private titleService: TitleService) {
+    this.titleService.init();
+  } 
+}

@@ -80,14 +80,12 @@ export class ProductDetailsComponent {
 
     this.productService.getAllProducts().subscribe(
       (data: any) => {
-        console.log(data, 'products');
-        this.products = data?.products;
+        this.products = data?.data;
         this.loading = false;
       },
       (error) => {
         this.loading = false;
         this.loading = false;
-        this.notify.danger(error);
         console.error('Error fetching products:', error);
       
         // Handle the error appropriately, for example, show a user-friendly error message.

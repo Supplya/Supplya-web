@@ -167,21 +167,9 @@ export const menuItems = {
     },
     {
       name: "Products",
-      route: "/products",
-      hasChild: true,
-      icon: "box",
-      childMenu: [
-        {
-          name: "All Products",
-          route: "/core/vendor/products",
-          icon: "list-ul",
-        },
-        {
-          name: "Add Product",
-          route: "/core/vendor/add-new-product",
-          icon: "plus-circle",
-        },
-      ],
+      route: "/core/vendor/products",
+      hasChild: false,
+      icon: "box"
     },
     {
       name: "Report",

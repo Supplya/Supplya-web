@@ -52,14 +52,14 @@ export class AuthService {
 
 
   setCredentials(data: any) {
-    if (data && data.user.role) {
+    if (data && data.role) {
       this.loggedIn.next(true);
-      this.userType.next(data.user.role);
+      this.userType.next(data.role);
       localStorage.setItem('sp-userToken', data.token);
-      localStorage.setItem('sp-userData', JSON.stringify(data.user));
-      const route = this.userTypeToRouteMap[data.user.role] || '/auth';
+      localStorage.setItem('sp-userData', JSON.stringify(data));
+      const route = this.userTypeToRouteMap[data.role] || '/auth';
 
-      if (this.router.url.includes(data.user.role)) {
+      if (this.router.url.includes(data.role)) {
         this.router.navigateByUrl(this.router.url);
       } else {
         this.router.navigate([route]);

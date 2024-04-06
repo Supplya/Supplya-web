@@ -78,8 +78,8 @@
               <p class="store-name py-1">Jamal Super Stores</p>
                 <h5 class="">{{product?.name}}</h5>
                 <div class="star-rating">
-                  <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product.rating); let i = index"></span>
-                  <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product.rating); let i = index"></span>  <span class="text-black"> &nbsp; |  &nbsp;</span>  <span class="stock">In Stock </span>
+                  <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
+                  <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>  <span class="text-black"> &nbsp; |  &nbsp;</span>  <span class="stock">In Stock </span>
               </div>
              
                 <div class="d-flex justify-content-between border-bottom">
@@ -186,11 +186,11 @@
                   <!-- Love icon for wishlist -->
                   <span class="love-icon mt-2"><i class="bi bi-heart"></i></span>
                   <!-- Product image -->
-                  <img (click)="viewProduct(product._id)" src="/assets/Images/headphone.png" alt="Product Image">
+                  <img (click)="viewProduct(product?._id)" src="/assets/Images/headphone.png" alt="Product Image">
                 </div>
                 <div class="card-body">
                   <!-- Product name -->
-                  <h5 class="card-title" (click)="viewProduct(product._id)">{{product.name}}</h5>
+                  <h5 class="card-title" (click)="viewProduct(product?._id)">{{product?.name}}</h5>
                   <!-- Star rating -->
                   <!-- <div class="star-rating">
                     <span class="bi bi-star-fill"></span>
@@ -200,13 +200,13 @@
                     <span class="bi bi-star"></span>
                   </div> -->
                   <div class="star-rating">
-                    <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product.rating); let i = index"></span>
-                    <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product.rating); let i = index"></span>
+                    <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
+                    <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
                 </div>
                 
                   <!-- Product amount and cart icon -->
                   <div class="price-and-cart">
-                    <span class="product-amount">{{ product.price | currency: '₦' :'symbol':'1.0-0'}}</span>
+                    <span class="product-amount">{{ product?.price | currency: '₦' :'symbol':'1.0-0'}}</span>
                     <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
                     <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
                   </div>

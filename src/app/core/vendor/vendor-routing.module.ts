@@ -10,12 +10,12 @@ import { VendorAddNewProductComponent } from './vendor-add-new-product/vendor-ad
 
 const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-  {path: 'dashboard', component: VendorDashboardComponent},
-  {path: 'orders', component: VendorOrdersComponent},
-  {path: 'wallet', component: VendorWalletComponent},
-  {path: 'shop-settings', component: VendorSettingsComponent},
-  {path: 'report', component: VendorReportComponent},
-  {path: 'products', component: VendorProductsComponent},
+  {path: 'dashboard', component: VendorDashboardComponent, data: { title: 'Vendor Dashboard' }},
+  {path: 'orders', component: VendorOrdersComponent, data: { title: 'Vendor Orders' }},
+  { path: 'wallet', component: VendorWalletComponent, data: { title: 'Vendor Wallet' }},
+  {path: 'shop-settings', component: VendorSettingsComponent, data: { title: 'Vendor Profile' }},
+  {path: 'report', component: VendorReportComponent, data: { title: 'Vendor Report' }},
+  {path: 'products', component: VendorProductsComponent, data: { title: 'Vendor Products' }},
   {path: 'add-new-product', component: VendorAddNewProductComponent},
 ];
 
