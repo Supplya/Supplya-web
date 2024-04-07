@@ -432,20 +432,7 @@ color: #1A1C21;
     font-size: 15px!important;
     font-weight: 400;
   }
-  .content-select option:checked {
-    background-color: var(--primary-color)!important;
-    color: white!important; 
-  }
-  
 
-  .content-select option {
-    background-color: lightgreen;
-    border: 1px solid #E0E2E7;
-  }
-
-  .content-select:hover {
-    border-color: #b3b5ba;
-  }
   
   .content-select:focus {
     outline: none;
