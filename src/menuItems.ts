@@ -153,48 +153,62 @@ export const menuItems = {
       icon: "house",
     },
     {
-      name: "Orders",
-      route: "/core/vendor/orders",
-      hasChild: false,
-      icon: "file-earmark-text",
-    },
-   
-    {
-      name: "Wallet",
-      route: "/core/vendor/wallet",
-      hasChild: false,
-      icon: "wallet",
-    },
-    {
       name: "Products",
       route: "/core/vendor/products",
       hasChild: false,
       icon: "box"
     },
     {
-      name: "Report",
-      route: "/core/vendor/report",
+      name: "Analytics",
+      route: "/core/vendor/analytics",
       hasChild: false,
-      icon: "file-text",
+      icon: "file-earmark-text",
     },
+    {
+      name: "Orders",
+      route: "/core/vendor/orders",
+      hasChild: false,
+      icon: "file-earmark-text",
+    },
+   
+    // {
+    //   name: "Wallet",
+    //   route: "/core/vendor/wallet",
+    //   hasChild: false,
+    //   icon: "wallet",
+    // },
+    
+    // {
+    //   name: "Report",
+    //   route: "/core/vendor/report",
+    //   hasChild: false,
+    //   icon: "file-text",
+    // },
     {
       name: "Settings",
       route: "/core/vendor/shop-settings",
-      hasChild: true,
+      hasChild: false,
       icon: "gear-fill",
-      childMenu: [
-        {
-          name: "Store",
-          route: "/core/vendor/store",
-          icon: "cart",
-        },
-        {
-          name: "Payment",
-          route: "/core/vendor/store-payment",
-          icon: "credit-card",
-        },
-      ]
+      
     },
+    // {
+    //   name: "Settings",
+    //   route: "/core/vendor/shop-settings",
+    //   hasChild: true,
+    //   icon: "gear-fill",
+    //   childMenu: [
+    //     {
+    //       name: "Store",
+    //       route: "/core/vendor/store",
+    //       icon: "cart",
+    //     },
+    //     {
+    //       name: "Payment",
+    //       route: "/core/vendor/store-payment",
+    //       icon: "credit-card",
+    //     },
+    //   ]
+    // },
   
   ],
 };
