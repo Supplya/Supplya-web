@@ -55,7 +55,8 @@
                 </td>
                 <td>{{item?.brand}}</td>
                 <td>{{item?.moq}}</td>
-                <td class="product-info">{{item?.price || 0 | currency:'₦':true:'1.0-0'}}</td>
+                <!-- <td class="product-info">{{item?.price || 0 | currency:'₦':'':'1.0-0'}}</td> -->
+                <td>{{item?.price || 0 | currency:'₦':true:'1.0-0'}}</td>
                 <td>{{item?.saleCount}}</td>
                 <td [ngClass]="{'in-stock': item?.inStock, 'out-of-stock': !item?.inStock}">
                   {{ item?.inStock ? 'In Stock' : 'Out of Stock' }}
