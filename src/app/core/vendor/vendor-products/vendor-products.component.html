@@ -5,7 +5,7 @@
         </div>
         <div class="col-sm-6">
           <div class="btn-container">
-            <button class="add"> <i class="bi bi-plus mt-1"></i> Add Product</button>
+            <button class="add" routerLink="/core/vendor/add-new-product"> <i class="bi bi-plus mt-1"></i> Add Product</button>
           </div>
         </div>
       </div>
@@ -22,8 +22,10 @@
 
       <section class="content center" *ngIf="!productLoading && !products && errorFetchingProduct">
         <div class="py-5 ">
-          <div class="py-5 text-center" >
-            <p class="loading-text  text-muted">Could not display products. Click on the 'Refresh' below to try again.</p>
+          <div class="py-3 text-center" >
+            <img src="/assets/Images/oops.png" style="height: 200px;" alt="">
+            <p class="loading-text  text-muted py-3">Could not display products. Click 'Refresh' to try again.
+        </p>
             <p class="refresh" (click)="refreshProducts()">Refresh <i class="bi bi-arrow-repeat"></i></p>
           </div>
         </div>

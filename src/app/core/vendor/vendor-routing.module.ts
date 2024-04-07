@@ -16,7 +16,7 @@ const routes: Routes = [
   {path: 'shop-settings', component: VendorSettingsComponent, data: { title: 'Vendor Profile' }},
   {path: 'report', component: VendorReportComponent, data: { title: 'Vendor Report' }},
   {path: 'products', component: VendorProductsComponent, data: { title: 'Vendor Products' }},
-  {path: 'add-new-product', component: VendorAddNewProductComponent},
+  {path: 'add-new-product', component: VendorAddNewProductComponent, data: { title: 'Add New Product' }},
 ];
 
 @NgModule({

@@ -1,7 +1,6 @@
-@import '/src/variables';
 
 .not-found {
-    background-color: #f8f9fa;
+    background-color: #fff!important;
     color: #495057;
     display: flex;
     align-items: center;
@@ -25,7 +24,8 @@
 }
 
 .home-link {
-    color: $primary-color;
+    color: var(--primary-color);
     text-decoration: none;
     font-weight: bold;
+    font-size: 18px;
 }

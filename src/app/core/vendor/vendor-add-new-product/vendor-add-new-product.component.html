@@ -1,1 +1,112 @@
-<p>vendor-add-new-product works!</p>
+<section>
+
+    <div class="pageRow row align-items-center mb-3 px-2">
+        <div class="col-sm-6">
+          <div class="page-name mt-2">Add Product</div>
+
+        </div>
+        <div class="col-sm-6">
+          <div class="btn-container">
+            <button class="cancel" routerLink="/core/vendor/add-new-product"> <i class="bi bi-x mt-1"></i> Cancel </button> &nbsp; &nbsp;
+            <button class="add" routerLink="/core/vendor/add-new-product"> <i class="bi bi-plus mt-1"></i> Add Product</button>
+          </div>
+        </div>
+      </div>
+    <div class="row">
+        <div class="col-lg-8">
+<section class="content container mb-3">
+    <div class="py-3">
+
+        <p class="content-heading">General Information</p>
+        <div class="mb-2 slide-left">
+            <label for="productName" class="content-label">Product Name</label>
+            <input type="text" id="productName" class="content-input" placeholder="Enter product name">
+          </div>
+          <div class="mb-2 slide-right">
+            <label for="description" class="content-label">Description</label>
+            <textarea id="description" class=" content-input" placeholder="Enter description"></textarea>
+        </div>
+    </div>
+</section>
+
+
+<section class="content container mb-3">
+    <div class="py-3">
+
+        <p class="content-heading">Media</p>
+        <label for="productName" class="content-label">Photo</label>
+        <div class="mb-2 media-div zoom-in">
+            <div class=" text-center py-4">
+                <img src="/assets/Images/gallery.png" class="mb-2" alt="">
+                <p class="mb-4">Drag and drop image here, or click add image</p>
+                <button class="content-button center-button"> <i class="bi bi-plus mt-1"></i> Add Image</button>
+
+            </div>
+          </div>
+         
+    </div>
+</section>
+
+<section class="content container mb-3">
+    <div class="py-3">
+
+        <p class="content-heading">Inventory</p>
+        <div class="row">
+
+            <div class="mb-2 col-lg-6 slide-left">
+                <label for="sku" class="content-label">SKU</label>
+                <input type="text" id="sku" class="content-input" placeholder="Enter product SKU">
+              </div>
+              <div class="mb-2 col-lg-6 slide-right">
+                <label for="quantity" class="content-label">Quantity</label>
+                <input type="text" id="quantity" class="content-input" placeholder="Enter product Quantity">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content container mb-3">
+    <div class="py-3">
+
+        <p class="content-heading">Pricing</p>
+        <div class="mb-2 slide-left">
+            <label for="price" class="content-label">Unit Price</label>
+            <input type="text" id="price" class="content-input" placeholder="Enter product unit price">
+          </div>
+          <div class="mb-2 slide-right">
+            <label for="mini" class="content-label">Minimum Order Quantity</label>
+            <textarea id="mini" class=" content-input" placeholder="Enter minimum order quantity"></textarea>
+        </div>
+    </div>
+</section>
+
+<section class="content container mb-3">
+    <div class="py-3">
+
+        <p class="content-heading">Variant</p>
+       <button class="content-button zoom-in"> <i class="bi bi-plus mt-1"></i> Add Variant</button>
+    </div>
+</section>
+
+        </div>
+
+
+        <div class="col-lg-4">
+            <section class="content container mb-3">
+                <div class="py-3">
+            
+                    <p class="content-heading">Category</p>
+                    <div class="mb-2 slide-right">
+                        <label for="category" class="content-label">Product Category</label>
+                        <select class="content-select">
+                            <option value="" selected  id="category">Select category</option>
+                            <option value="option1">Option 1</option>
+  <option value="option2">Option 2</option>
+  <option value="option3">Option 3</option>
+                        </select>
+                      </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
