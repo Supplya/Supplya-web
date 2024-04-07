@@ -1,0 +1,14 @@
+
+<section class="offline zoom-in" *ngIf="status === 0">
+    <div class="message-container">
+        <p class="error-message text-danger">Oops! It seems you're offline. Please check your internet connection.</p>
+
+    </div>
+</section>
+<section class="online zoom-in" *ngIf="status === 1 && showSuccessMessage">
+    <div class="message-container">
+        <p class="success-message ">Internet connection Restored</p>
+
+    </div>
+</section>
+

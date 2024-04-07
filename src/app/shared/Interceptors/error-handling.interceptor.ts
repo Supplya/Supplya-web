@@ -67,27 +67,30 @@ export class ErrorHandlingInterceptor implements HttpInterceptor {
           } else {
             errorMessage = `Error Code: ${error.status}, Message: ${error.message}`;
             console.log(errorMessage);
-            Swal.fire({
-              title: `${error.error.message}`,
-              text: "",
-              icon: "error",
-              showCancelButton: false,
-              confirmButtonText: "OK",
-              showClass: {
-                popup: `
-                  animate__animated
-                  animate__fadeInDown
-                  animate__faster
-                `
-              },
-              hideClass: {
-                popup: `
-                  animate__animated
-                  animate__fadeOutDown
-                  animate__faster
-                `
-              }
-            })
+            if (error?.error?.message) {
+              Swal.fire({
+                title: `${error.error.message}`,
+                text: "",
+                icon: "error",
+                showCancelButton: false,
+                confirmButtonText: "OK",
+                showClass: {
+                  popup: `
+                    animate__animated
+                    animate__fadeInDown
+                    animate__faster
+                  `
+                },
+                hideClass: {
+                  popup: `
+                    animate__animated
+                    animate__fadeOutDown
+                    animate__faster
+                  `
+                }
+              })
+            }
+           
             // this.notify.danger('Something went wrong. Please try again..');
          
           }

@@ -16,6 +16,7 @@ import { LoaderInterceptor } from './shared/Interceptors/loader-interceptor.serv
 import { LoaderComponent } from './shared/loader/loader.component';
 import { AuthInterceptor } from './shared/Interceptors/auth.interceptor';
 import { TitleService } from './shared/services/title.service';
+import { OnlineStatusModule } from 'ngx-online-status';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { TitleService } from './shared/services/title.service';
     AppRoutingModule,
     SharedModule,
     BrowserAnimationsModule,
+    OnlineStatusModule
  
     
   ],

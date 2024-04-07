@@ -9,58 +9,80 @@
           </div>
         </div>
       </div>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Product Information</th>
-          <th>Category</th>
-          <th>Min. Order</th>
-          <th>Unit Price</th>
-          <th>Inventory</th>
-          <th>Status</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <div class="product-info">
-              <img class="product-image" src="/assets/Images/Rectangle 134.png" alt="Product Image">
-              Product 1
-            </div>
-          </td>
-          <td>Category 1</td>
-          <td>10</td>
-          <td>$10.00</td>
-          <td>100</td>
-          <td>In Stock</td>
-          <td>
-            <div class="action-icons">
-                <img src="/assets/Images/view.png" alt="View"> &nbsp; &nbsp;
-                <img src="/assets/Images/delete.png" alt="Delete">
+
+      <section class="content" *ngIf="productLoading && !products && !errorFetchingProduct">
+<div class="py-5 p-5 center">
+    <div>
+
+        <img src="/assets/Images/requestLoading.gif" alt="">
+        <p class="loading-text text-center text-muted">Loading...</p>
+    </div>
+</div>
+      </section >
+
+      <section class="content center" *ngIf="!productLoading && !products && errorFetchingProduct">
+        <div class="py-5 ">
+          <div class="py-5 text-center" >
+            <p class="loading-text  text-muted">Could not display products. Click on the 'Refresh' below to try again.</p>
+            <p class="refresh" (click)="refreshProducts()">Refresh <i class="bi bi-arrow-repeat"></i></p>
+          </div>
+        </div>
+      </section>
+      
+      <div class="table-responsive" *ngIf="!productLoading && products">
+
+          <table class="table" style="overflow-y: auto;">
+            <thead>
+              <tr>
+                <th>Product Information</th>
+                <th>Category</th>
+                <th>Min. Order</th>
+                <th>Unit Price</th>
+                <th>Inventory</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of products | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
+                <td>
+                  <div class="product-info">
+                    <img class="product-image" src="/assets/Images/Rectangle 134.png" alt="Product Image">
+                    {{item?.name}}
+                  </div>
+                </td>
+                <td>{{item?.brand}}</td>
+                <td>{{item?.moq}}</td>
+                <td class="product-info">{{item?.price || 0 | currency:'₦':true:'1.0-0'}}</td>
+                <td>{{item?.saleCount}}</td>
+                <td [ngClass]="{'in-stock': item?.inStock, 'out-of-stock': !item?.inStock}">
+                  {{ item?.inStock ? 'In Stock' : 'Out of Stock' }}
+                </td>
+                <td>
+                  <div class="action-icons">
+                      <img src="/assets/Images/view.png" alt="View"> &nbsp; &nbsp;
+                      <img src="/assets/Images/delete.png" alt="Delete">
+                    </div>
+                </td>
+              </tr>
+            </tbody>
+           
+          </table>
+
+          <div class="d-flex justify-content-between px-5">
+
+            <div class="pagination-info text-muted">
+                Now Showing {{ calculateStartRecord() }} - {{ calculateEndRecord() }} of {{ products?.length }} records
               </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div class="product-info">
-                <img class="product-image" src="/assets/Images/Rectangle 134.png" alt="Product Image">
-              Product 2
-            </div>
-          </td>
-          <td>Category 2</td>
-          <td>20</td>
-          <td>$20.00</td>
-          <td>200</td>
-          <td>In Stock</td>
-          <td>
-            <div class="action-icons">
-              <img src="/assets/Images/view.png" alt="View"> &nbsp; &nbsp;
-              <img src="/assets/Images/delete.png" alt="Delete">
-            </div>
-          </td>
-        </tr>
-        <!-- Add more rows as needed -->
-      </tbody>
-    </table>
+
+              <div>
+                <pagination-controls *ngIf="products?.length > 0"
+                    (pageChange)="p = $event"
+                    previousLabel=""
+                    nextLabel=""
+                  ></pagination-controls>
+              </div>
+          </div>
+          
+      </div>
   </div>

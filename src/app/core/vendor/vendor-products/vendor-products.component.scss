@@ -1,6 +1,7 @@
 .table .product-info {
     display: flex;
     align-items: center;
+    font-weight: 500!important;
   }
 
   .table .product-image {
@@ -10,4 +11,16 @@
     margin-right: 10px;
   }
 
- 
+  .in-stock {
+    color: green;
+  }
+  
+  .out-of-stock {
+    color: red;
+  }
+  .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  

@@ -15,6 +15,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { BackButtonComponent } from './back-button/back-button.component';
 import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator.component';
+import { InternetOfflineComponent } from './internet-offline/internet-offline.component';
 
 
 
@@ -37,6 +38,7 @@ const sharedRoutes: Routes = [
     SpinnerComponent,
     BackButtonComponent,
     LoadingIndicatorComponent,
+    InternetOfflineComponent,
     
   ],
   imports: [
@@ -59,6 +61,7 @@ const sharedRoutes: Routes = [
   exports: [
     // components
     FooterComponent,
+    InternetOfflineComponent,
     NavbarComponent,
     BreadcrumbComponent,
     NoInternetComponent,
