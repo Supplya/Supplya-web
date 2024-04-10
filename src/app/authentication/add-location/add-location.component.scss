@@ -4,6 +4,9 @@
     color: #fff;
     }
 
+    .auth-input textarea::placeholder {
+font-style: italic;
+      }
     @media (max-width: 992px) {
         .contain {
             padding: 30px!important;
@@ -18,7 +21,7 @@
         .auth select {
             height: 50px;
             padding: 5px 20px 5px 20px; 
-            border-radius: 35px;
+            // border-radius: 35px;
             border: 1px solid #ccc;
             outline: none; 
             width: 100%;
@@ -65,7 +68,7 @@
         .auth select {
             height: 50px;
             // padding: 17px 40px 17px 50px; 
-            border-radius: 35px;
+            // border-radius: 35px;
             border: 1px solid #ccc;
             outline: none; 
             width: 100%;
@@ -77,7 +80,7 @@
         .auth-input textarea {
             height: 50px;
             padding: 15px 40px 15px 40px;
-            border-radius: 35px;
+            // border-radius: 35px;
             border: 1px solid #ccc;
             outline: none;
             width: 100%;
@@ -104,3 +107,18 @@
             letter-spacing: -0.2px;
             
             }
+
+            /* Example styling for the location icon */
+/* Example styling for the location icon */
+.location-icon {
+    position: absolute;
+    top: 50%;
+    right: 20px; /* Adjust this value to position the icon horizontally */
+    transform: translateY(-50%);
+    color: #ccc; /* Adjust the color as needed */
+    cursor: pointer;
+  }
+  
+  
+  
+  

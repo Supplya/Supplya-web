@@ -1,4 +1,4 @@
-import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HelperService } from 'src/app/shared/helpers/helper.service';
@@ -12,17 +12,19 @@ declare const google: any; // Declare the google variable
   templateUrl: './add-location.component.html',
   styleUrls: ['./add-location.component.scss']
 })
-export class AddLocationComponent implements OnInit {
+export class AddLocationComponent implements OnInit, AfterViewInit {
 
   @ViewChild('search') searchElementRef!: ElementRef;
   @ViewChild('map') mapElementRef!: ElementRef;
 
   map!: any; // Use 'any' type for map variable
+  autocomplete: any; // Autocomplete variable
 
   form: FormGroup;
   loading: boolean = false;
   submitted: boolean = false;
   passwordVisible: boolean = false;
+  mapVisible: boolean = false; // Track whether the map should be visible
 
   constructor(
     private fb: FormBuilder,
@@ -37,32 +39,56 @@ export class AddLocationComponent implements OnInit {
       address: ['', [Validators.required]],
     });
   }
+  userDetails: any;
+  ngOnInit(): void {
+    this.userDetails = this.authService.getUserCredentials();
+  }
 
-  ngAfterViewInit() {
-    // Set initial center to Lagos
-    const lagos = new google.maps.LatLng(6.5244, 3.3792);
+  ngAfterViewInit(): void {
+    this.initializeAutocomplete();
+  }
 
-    // Initialize map
+  initializeMap(): void {
+    const nigeria = new google.maps.LatLng(9.0820, 8.6753);
     this.map = new google.maps.Map(this.mapElementRef.nativeElement, {
-      center: lagos,
-      zoom: 12 // Adjust zoom level as needed
+      center: nigeria,
+      zoom: 6 // Adjust zoom level as needed
     });
+  }
 
-    // Initialize autocomplete without specifying administrative area
-    const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+  initializeAutocomplete(): void {
+    this.autocomplete = new google.maps.places.Autocomplete(this.searchElementRef?.nativeElement, {
       componentRestrictions: { country: 'NG' }
     });
-    autocomplete.addListener('place_changed', () => {
+    this.autocomplete.addListener('place_changed', () => {
       this.ngZone.run(() => {
-        const place = autocomplete.getPlace();
-        console.log(place);
+        const place = this.autocomplete.getPlace();
+
+        if (!place.geometry) {
+          // console.error("No geometry for place", place);
+          return;
+        }
+
+        this.map.setCenter(place.geometry.location);
+        const marker = new google.maps.Marker({
+          position: place.geometry.location,
+          map: this.map
+        });
       });
     });
   }
-  
 
-  ngOnInit(): void {
-    // Implement ngOnInit if necessary
+  onAddressChange(): void {
+    const addressControl = this.form.get('address');
+    if (addressControl && !addressControl.value) {
+      this.mapVisible = false;
+    } else {
+      this.mapVisible = true;
+
+      if (!this.map) {
+        this.initializeMap();
+      }
+    }
   }
 
   getErrorMessage(control: string, message: string) {
@@ -74,5 +100,27 @@ export class AddLocationComponent implements OnInit {
       (this.form.get(control)?.touched && this.form.get(control)?.invalid) ||
       (this.submitted && this.form.get(control)?.invalid)
     );
+  }
+
+  onSubmitLocation() {
+    this.submitted = true;
+    if (this.form.valid) {
+  
+}
+   this.updateUserData(this.userDetails?._id, this.userDetails)
+  }
+
+  updateUserData(userId: string, userData: any): void {
+
+    this.submitted = true;
+    this.authService.updateUserById(userId, userData)
+      .subscribe(
+        (data) => {
+          this.submitted = false;
+          this.notify.success('Address Added Successfully', 4000);
+          this.route.navigate([`/core/${this.userDetails.role}/dashboard`]);
+        },
+        
+      );
   }
 }

@@ -92,7 +92,6 @@ isInvalid(control: string) {
 
   submitOTP() {
     this.submitted = true;
-    alert(this.form.value);
     const otpCode = this.getOtpCode();
     // alert(otpCode);
     if (this.form.valid) {

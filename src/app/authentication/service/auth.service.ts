@@ -12,7 +12,7 @@ export class AuthService {
 
   
   constructor(private http: HttpClient, private server: Server, private router: Router, private notify: ToastyService) {}
-  private baseURL =this.server.baseUrl;
+  private baseURL = this.server.baseUrl;
 
   register(user: any): Observable<any> {
     const url = `${this.baseURL}auth/register`;
@@ -25,6 +25,11 @@ export class AuthService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return this.http.post(url, user, { headers });
+  }
+
+  updateUserById(userId: string, userData: any): Observable<any> {
+    const url = `${this.baseURL}users/${userId}`;
+    return this.http.patch<any>(url, userData);
   }
 
   OTPVerification(user: any): Observable<any> {
@@ -52,11 +57,12 @@ export class AuthService {
 
 
   setCredentials(data: any) {
+    console.log(data, 'credentials');
     if (data && data.role) {
       this.loggedIn.next(true);
       this.userType.next(data.role);
-      localStorage.setItem('sp-userToken', data.token);
-      localStorage.setItem('sp-userData', JSON.stringify(data));
+      localStorage.setItem('spa-userToken', data.token);
+      localStorage.setItem('spa-userData', JSON.stringify(data));
       const route = this.userTypeToRouteMap[data.role] || '/auth';
 
       if (this.router.url.includes(data.role)) {
@@ -68,16 +74,16 @@ export class AuthService {
   }
 
   sendEmailForOTP(data: any) {
-    localStorage.setItem('sp-OTPEmail', data);
+    localStorage.setItem('spa-OTPEmail', data);
   }
   
   getEmailForOTP(): any {
-    const email = localStorage.getItem('sp-OTPEmail');
+    const email = localStorage.getItem('spa-OTPEmail');
     return email;
    }
 
   getUserCredentials(): any {
-    const userDataString = localStorage.getItem('sp-userData');
+    const userDataString = localStorage.getItem('spa-userData');
     if(userDataString != null){
       this.loggedIn.next(true);
     }else{
@@ -89,19 +95,19 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('sp-userType');
-    localStorage.removeItem('sp-userData');
-    localStorage.removeItem('sp-userToken');
-    localStorage.removeItem('sp-OTPEmail');
+    localStorage.removeItem('spa-userType');
+    localStorage.removeItem('spa-userData');
+    localStorage.removeItem('spa-userToken');
+    localStorage.removeItem('spa-OTPEmail');
     this.loggedIn.next(false);
     this.userType.next('');
     this.notify.success('Logged out Successfully', 4000);
     this.router.navigate(['/auth']);
   }
   clearCredentials() {
-    localStorage.removeItem('sp-userType');
-    localStorage.removeItem('sp-userData');
-    localStorage.removeItem('sp-userToken');
+    localStorage.removeItem('spa-userType');
+    localStorage.removeItem('spa-userData');
+    localStorage.removeItem('spa-userToken');
     this.loggedIn.next(false);
     this.userType.next('');
     this.router.navigate(['/auth']);

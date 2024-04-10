@@ -32,14 +32,14 @@ export class RegisterComponent implements OnInit {
     }, { updateOn: 'change' });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   register() {
     this.submitted = true;
     if (this.form.valid) {
       this.authService.register(this.form.value).subscribe(
         (response) => {
-          console.log('Registration successful:', response);
           if (response) {
             if (response.status === 'success') {
               this.authService.sendEmailForOTP(this.form.value.email)
@@ -71,28 +71,4 @@ export class RegisterComponent implements OnInit {
     this.passwordVisible = !this.passwordVisible;
   }
 
-  login() {
-    this.submitted = true;
-    if (this.form.valid) {
-      this.authService.login(this.form.value).subscribe(
-        (response) => {
-          if (response.status === 'success') {
-            this.loading = false;
-            console.table('Login success:', response);
-            this.authService.setCredentials(response);
-            this.notify.success('Login Successful', 4000);
-          } else {
-            this.submitted = false;
-            this.notify.danger(response.msg, 4000);
-            console.error('Login error:', response.errorMessage);
-          }
-        },
-        (error) => {
-          this.submitted = false;
-          this.notify.danger(error.error.msg, 4000);
-          console.error('HTTP error:', error.error.msg);
-        }
-      );
-    }
-  }
 }
