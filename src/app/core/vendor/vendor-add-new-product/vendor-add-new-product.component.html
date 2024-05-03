@@ -64,6 +64,12 @@
                 <input type="text" id="quantity" class="content-input" placeholder="Enter product Quantity">
             </div>
         </div>
+        <div class="row">
+             <div class="mb-2 slide-right">
+                <label for="minquantity" class="content-label">Minimum Order Quantity</label>
+                <input type="text" id="minquantity" class="content-input" placeholder="Enter min. order Quantity">
+            </div>
+        </div>
     </div>
 </section>
 
@@ -76,19 +82,19 @@
             <input type="text" id="price" class="content-input" placeholder="Enter product unit price">
           </div>
           <div class="mb-2 slide-right">
-            <label for="mini" class="content-label">Minimum Order Quantity</label>
-            <textarea id="mini" class=" content-input" placeholder="Enter minimum order quantity"></textarea>
+            <label for="disPrice" class="content-label">Discounted Price</label>
+                <input type="text" id="disPrice" class="content-input" placeholder="Enter product discount price">
         </div>
     </div>
 </section>
 
-<section class="content container mb-3">
+<!-- <section class="content container mb-3">
     <div class="py-3">
 
         <p class="content-heading">Variant</p>
        <button class="content-button zoom-in"> <i class="bi bi-plus mt-1"></i> Add Variant</button>
     </div>
-</section>
+</section> -->
 
         </div>
 
@@ -103,6 +109,25 @@
                         <select class="content-select">
                             <option value="" selected  id="category">Select category</option>
                             <option *ngFor="let item of categories" >{{item.name}}</option>
+                        </select>
+                      </div>
+                </div>
+
+                <div class="btn-container-sm mobile-only py-3">
+                    <button class="cancel" routerLink="/core/vendor/add-new-product"> <i class="bi bi-x mt-1"></i> Cancel </button> &nbsp; &nbsp;
+                    <button class="add" routerLink="/core/vendor/add-new-product"> <i class="bi bi-plus mt-1"></i> Add Product</button>
+                  </div>
+            </section>
+            <section class="content container mb-3">
+                <div class="py-3">
+            
+                    <p class="content-heading">Status</p>
+                    <div class="mb-2 slide-right">
+                        <label for="category" class="content-label">Product Status</label>
+                        <select class="content-select">
+                            <option value="" selected  id="category">Select Status</option>
+                            <option>In Stock</option>
+                            <option>Out Stock</option>
                         </select>
                       </div>
                 </div>
