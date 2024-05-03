@@ -8,6 +8,7 @@ import { ShippingInfoComponent } from './shipping-info/shipping-info.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ShopComponent } from './shop/shop.component';
+import { ProductCategoryComponent } from './product-category/product-category.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ShopComponent } from './shop/shop.component';
     OrderCompletedComponent,
     ShippingInfoComponent,
     ShoppingCartComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    ProductCategoryComponent
   ],
   imports: [
     CommonModule,

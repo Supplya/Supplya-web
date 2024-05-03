@@ -102,9 +102,7 @@
                         <label for="category" class="content-label">Product Category</label>
                         <select class="content-select">
                             <option value="" selected  id="category">Select category</option>
-                            <option value="option1">Option 1</option>
-  <option value="option2">Option 2</option>
-  <option value="option3">Option 3</option>
+                            <option *ngFor="let item of categories" >{{item.name}}</option>
                         </select>
                       </div>
                 </div>
