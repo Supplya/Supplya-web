@@ -58,14 +58,14 @@ export class AuthService {
 
   setCredentials(data: any) {
     console.log(data, 'credentials');
-    if (data && data.role) {
+    if (data && data.data.role) {
       this.loggedIn.next(true);
-      this.userType.next(data.role);
+      this.userType.next(data.data.role);
       localStorage.setItem('spa-userToken', data.token);
-      localStorage.setItem('spa-userData', JSON.stringify(data));
-      const route = this.userTypeToRouteMap[data.role] || '/auth';
+      localStorage.setItem('spa-userData', JSON.stringify(data.data));
+      const route = this.userTypeToRouteMap[data.data.role] || '/auth';
 
-      if (this.router.url.includes(data.role)) {
+      if (this.router.url.includes(data.data.role)) {
         this.router.navigateByUrl(this.router.url);
       } else {
         this.router.navigate([route]);

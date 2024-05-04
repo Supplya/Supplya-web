@@ -49,7 +49,7 @@ isInvalid(control: string) {
       this.authService.login(this.loginForm.value).subscribe(
         (response) => {
           if (response.status === 'success') {
-            this.authService.setCredentials(response.data);
+            this.authService.setCredentials(response);
             this.notify.success('Login Successful', 4000);
           } else {
             // Handle login error

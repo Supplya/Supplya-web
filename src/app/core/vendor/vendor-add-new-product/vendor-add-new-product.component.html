@@ -95,7 +95,7 @@
               </div>
               <div class="mb-2 col-lg-6 slide-right">
                 <label for="quantity" class="content-label">Quantity</label>
-                <input type="text" id="quantity" formControlName="quantity" class=" content-input {{
+                <input type="number"  [min]="1" id="quantity" formControlName="quantity" class=" content-input {{
                                         isInvalid('quantity') ? 'error-input' : ''
                                       }}" placeholder="Enter product Quantity">
                                        <small class="error-text mb-4" *ngIf="isInvalid('quantity')">
@@ -106,7 +106,7 @@
         <div class="row">
              <div class="mb-2 slide-right">
                 <label for="minquantity" class="content-label">Minimum Order Quantity</label>
-                <input type="text" id="minquantity" formControlName="moq" class=" content-input {{
+                <input [min]="1" type="number" id="minquantity" formControlName="moq" class=" content-input {{
                                         isInvalid('moq') ? 'error-input' : ''
                                       }}" placeholder="Enter min. order Quantity">
                                        <small class="error-text mb-4" *ngIf="isInvalid('moq')">
@@ -123,7 +123,7 @@
         <p class="content-heading">Pricing</p>
         <div class="mb-2 slide-left">
             <label for="price" class="content-label">Unit Price</label>
-            <input (keypress)="numberOnly($event)" formatCurrency type="text" id="price" formControlName="unit_price" class=" content-input {{
+            <input  [min]="1" (keypress)="numberOnly($event)" type="number" id="price" formControlName="unit_price" class=" content-input {{
                                         isInvalid('unit_price') ? 'error-input' : ''
                                       }}" placeholder="Enter product unit price">
 
@@ -133,7 +133,7 @@
           </div>
           <div class="mb-2 slide-right">
             <label for="disPrice" class="content-label">Discounted Price</label>
-                <input (keypress)="numberOnly($event)" type="text" formatCurrency formControlName="discounted_price" id="disPrice" class=" content-input {{
+                <input [min]="1" (keypress)="numberOnly($event)" type="number" formControlName="discounted_price" id="disPrice" class=" content-input {{
                                         isInvalid('discounted_price') ? 'error-input' : ''
                                       }}" placeholder="Enter product discount price">
                  <small class="error-text mb-4" *ngIf="isInvalid('discounted_price')">
@@ -188,8 +188,8 @@
                                         isInvalid('status') ? 'error-input' : ''
                                       }}">
                             <option value="" selected  id="status">Select Status</option>
-                            <option>In Stock</option>
-                            <option>Out Stock</option>
+                            <option value="instock">In Stock</option>
+                            <option value="outOfStock">Out Stock</option>
                         </select>
                          <small class="error-text mb-4" *ngIf="isInvalid('status')">
                                             {{ getErrorMessage('status', 'This field is required') }}

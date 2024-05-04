@@ -39,56 +39,55 @@ export class ErrorHandlingInterceptor implements HttpInterceptor {
         } else {
           // Server-side error
           if (error.status === 0) {
-            errorMessage = 'Could not connect to the Server. Please check your internet connection or try again later.';
-            console.log(errorMessage);
+            errorMessage = 'Unable to connect to the Server. Please check your internet connection or try again';
            
             Swal.fire({
-              title: `${errorMessage}`,
-              text: "",
-              icon: "error",
+              html: `<span style="color: #000; font-weight: 600; font-size: 19px;">${errorMessage}</span>`,
+              icon: 'error',
               showCancelButton: false,
-              confirmButtonText: "OK",
+              allowOutsideClick: false,
+              confirmButtonText: 'OK',
               showClass: {
                 popup: `
                   animate__animated
                   animate__fadeInDown
                   animate__faster
-                `
+                `,
               },
               hideClass: {
                 popup: `
                   animate__animated
                   animate__fadeOutDown
                   animate__faster
-                `
-              }
-            })
+                `,
+              },
+            });
             // this.notify.danger(errorMessage);
           } else {
             errorMessage = `Error Code: ${error.status}, Message: ${error.message}`;
-            console.log(errorMessage);
             if (error?.error?.message) {
               Swal.fire({
-                title: `${error.error.message}`,
-                text: "",
-                icon: "error",
+                html: `<span style="color: #000; font-weight: 600; font-size: 19px;">${error.error.message}</span>`,
+                text: '',
+                icon: 'error',
                 showCancelButton: false,
-                confirmButtonText: "OK",
+                allowOutsideClick: false,
+                confirmButtonText: 'OK',
                 showClass: {
                   popup: `
                     animate__animated
                     animate__fadeInDown
                     animate__faster
-                  `
+                  `,
                 },
                 hideClass: {
                   popup: `
                     animate__animated
                     animate__fadeOutDown
                     animate__faster
-                  `
-                }
-              })
+                  `,
+                },
+              });
             }
            
             // this.notify.danger('Something went wrong. Please try again..');

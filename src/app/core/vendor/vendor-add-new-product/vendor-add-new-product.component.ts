@@ -37,7 +37,7 @@ export class VendorAddNewProductComponent implements OnInit {
       discounted_price: [, Validators.required],
       description: ['', Validators.required],
       quantity: [, Validators.required],
-      brand: ['', Validators.required],
+      brand: [''],
       category: ['', Validators.required],
       rating: [''],
       numReviews: [],
@@ -48,7 +48,7 @@ export class VendorAddNewProductComponent implements OnInit {
       status: ['', Validators.required],
       sku: ['', Validators.required],
       moq: [, Validators.required],
-      image: ['', Validators.required],
+      image: [''],
     });
   }
   getAllCategories() {
@@ -137,21 +137,27 @@ export class VendorAddNewProductComponent implements OnInit {
 
   submit() {
     this.submitted = true;
-   this.form.value.unit_price = this.helperService.removeCommas(this.form.value.unit_price);
-   this.form.value.discounted_price = this.helperService.removeCommas(
-     this.form.value.discounted_price
-     );
-    console.log(this.form.value );
+  //  this.form.value.unit_price = this.helperService.removeCommas(this.form.value.unit_price);
+  //  this.form.value.discounted_price = this.helperService.removeCommas(
+  //    this.form.value.discounted_price
+  //      );
+ 
+    // console.log(this.form.value );
     const formData = this.form.value;
-    formData.image = this.images[0];
-    this.productService.vendorAddProduct(formData).subscribe(data => { 
-      if (data.status === 'success') {
-  this.notify.success(data.message);
-}
-    },
-      (error) => { 
-      }
-    )
+    formData.image =
+      'https://m.media-amazon.com/images/I/71If1mV9JKS._AC_SL1300_.jpg';
+    // formData.image = this.images[0];
+    if (this.form.valid) {
+      
+      this.productService.vendorAddProduct(formData).subscribe(data => { 
+        if (data.status === 'success') {
+    this.notify.success(data.message);
+  }
+      },
+        (error) => { 
+        }
+      )
+    }
   }
 
   getErrorMessage(control: string, message: string) {
