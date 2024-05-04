@@ -16,6 +16,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { BackButtonComponent } from './back-button/back-button.component';
 import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator.component';
 import { InternetOfflineComponent } from './internet-offline/internet-offline.component';
+import { CurrencyFormatDirective } from './helpers/currency-format.directive';
 
 
 
@@ -39,7 +40,7 @@ const sharedRoutes: Routes = [
     BackButtonComponent,
     LoadingIndicatorComponent,
     InternetOfflineComponent,
-    
+    CurrencyFormatDirective,
   ],
   imports: [
     RouterModule.forChild(sharedRoutes),
@@ -48,16 +49,10 @@ const sharedRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgxPaginationModule
-
-  
-  
-  
+    NgxPaginationModule,
   ],
 
-  providers: [
-    
-  ],
+  providers: [],
   exports: [
     // components
     FooterComponent,
@@ -70,15 +65,13 @@ const sharedRoutes: Routes = [
     SpinnerComponent,
     BackButtonComponent,
     LoadingIndicatorComponent,
-
-
+CurrencyFormatDirective,
     // Modules
     ToastyModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgxPaginationModule
- 
-  ]
+    NgxPaginationModule,
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}

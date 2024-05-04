@@ -123,7 +123,7 @@
         <p class="content-heading">Pricing</p>
         <div class="mb-2 slide-left">
             <label for="price" class="content-label">Unit Price</label>
-            <input type="text" id="price" formControlName="unit_price" class=" content-input {{
+            <input (keypress)="numberOnly($event)" formatCurrency type="text" id="price" formControlName="unit_price" class=" content-input {{
                                         isInvalid('unit_price') ? 'error-input' : ''
                                       }}" placeholder="Enter product unit price">
 
@@ -133,7 +133,7 @@
           </div>
           <div class="mb-2 slide-right">
             <label for="disPrice" class="content-label">Discounted Price</label>
-                <input type="text" formControlName="discounted_price" id="disPrice" class=" content-input {{
+                <input (keypress)="numberOnly($event)" type="text" formatCurrency formControlName="discounted_price" id="disPrice" class=" content-input {{
                                         isInvalid('discounted_price') ? 'error-input' : ''
                                       }}" placeholder="Enter product discount price">
                  <small class="error-text mb-4" *ngIf="isInvalid('discounted_price')">

@@ -131,8 +131,27 @@ export class VendorAddNewProductComponent implements OnInit {
     }
   }
 
+  numberOnly(event: any): void {
+    this.helperService.numberOnly(event);
+  }
+
   submit() {
     this.submitted = true;
+   this.form.value.unit_price = this.helperService.removeCommas(this.form.value.unit_price);
+   this.form.value.discounted_price = this.helperService.removeCommas(
+     this.form.value.discounted_price
+     );
+    console.log(this.form.value );
+    const formData = this.form.value;
+    formData.image = this.images[0];
+    this.productService.vendorAddProduct(formData).subscribe(data => { 
+      if (data.status === 'success') {
+  this.notify.success(data.message);
+}
+    },
+      (error) => { 
+      }
+    )
   }
 
   getErrorMessage(control: string, message: string) {
