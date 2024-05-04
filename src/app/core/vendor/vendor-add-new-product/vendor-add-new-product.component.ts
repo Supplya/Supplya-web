@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../operation/services/product/product.service';
 import { ToastyService } from 'ng-toasty';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HelperService } from 'src/app/shared/helpers/helper.service';
+import { AuthService } from 'src/app/authentication/service/auth.service';
 
 @Component({
   selector: 'app-vendor-add-new-product',
@@ -9,9 +12,44 @@ import { ToastyService } from 'ng-toasty';
 })
 export class VendorAddNewProductComponent implements OnInit {
   categories: any;
-  constructor(public productService: ProductService, private notify: ToastyService) {}
+  constructor(
+    public productService: ProductService,
+    private fb: FormBuilder,
+    private helperService: HelperService,
+    private authService: AuthService,
+    private notify: ToastyService
+  ) {}
+
+  form!: FormGroup;
+  loading: boolean = false;
+  submitted: boolean = false;
+  passwordVisible: boolean = false;
+
   ngOnInit(): void {
     this.getAllCategories();
+    this.initForm();
+  }
+
+  initForm() {
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      unit_price: [, Validators.required],
+      discounted_price: [, Validators.required],
+      description: ['', Validators.required],
+      quantity: [, Validators.required],
+      brand: ['', Validators.required],
+      category: ['', Validators.required],
+      rating: [''],
+      numReviews: [],
+      isFeatured: [false],
+      hasDiscount: [false],
+      flashsale: [false],
+      saleCount: [],
+      status: ['', Validators.required],
+      sku: ['', Validators.required],
+      moq: [, Validators.required],
+      image: ['', Validators.required],
+    });
   }
   getAllCategories() {
     this.productService.getAllCategories().subscribe(
@@ -26,5 +64,88 @@ export class VendorAddNewProductComponent implements OnInit {
         this.notify.danger(error.error?.msg);
       }
     );
+  }
+
+  images: string[] = [];
+  mainImageIndex: number = 0;
+
+  addImages(event: any) {
+    const files = event.target.files;
+    if (files) {
+      for (let i = 0; i < files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.images.push(e.target.result);
+          // If it's the first image, set it as the main image
+          if (this.images.length === 1) {
+            this.mainImageIndex = 0;
+          }
+        };
+        reader.readAsDataURL(files[i]);
+      }
+    }
+  }
+
+  removeImage(index: number) {
+    this.images.splice(index, 1);
+    // If the removed image was the main image, reset mainImageIndex
+    if (index === this.mainImageIndex) {
+      this.mainImageIndex = 0;
+    }
+  }
+
+  setMainImage(index: number) {
+    this.mainImageIndex = index;
+  }
+
+  onDragOver(event: any) {
+    event.preventDefault();
+  }
+
+  onDragEnter(event: any) {
+    event.preventDefault();
+    event.currentTarget.classList.add('drag-over');
+  }
+
+  onDragLeave(event: any) {
+    event.preventDefault();
+    event.currentTarget.classList.remove('drag-over');
+  }
+
+  onDrop(event: any) {
+    event.preventDefault();
+    event.currentTarget.classList.remove('drag-over');
+    const files = event.dataTransfer.files;
+    if (files) {
+      for (let i = 0; i < files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.images.push(e.target.result);
+          // If it's the first image, set it as the main image
+          if (this.images.length === 1) {
+            this.mainImageIndex = 0;
+          }
+        };
+        reader.readAsDataURL(files[i]);
+      }
+    }
+  }
+
+  submit() {
+    this.submitted = true;
+  }
+
+  getErrorMessage(control: string, message: string) {
+    return this.helperService.getError(this.form.get(control), message);
+  }
+  isInvalid(control: string) {
+    return (
+      (this.form.get(control)?.touched && this.form.get(control)?.invalid) ||
+      (this.submitted && this.form.get(control)?.invalid)
+    );
+  }
+  resetForm() {
+    this.form.reset();
+    this.submitted = false;
   }
 }
