@@ -198,7 +198,7 @@
               
                 <!-- Product amount and cart icon -->
                 <div class="price-and-cart">
-                  <span class="product-amount">{{ product.price | currency: '₦' :'symbol':'1.0-0'}}</span>
+                  <span class="product-amount">{{ product.unit_price | currency: '₦' :'symbol':'1.0-0'}}</span>
                   <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
                   <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
                 </div>
@@ -254,13 +254,13 @@
                   <span class="bi bi-star"></span>
                 </div> -->
                 <div class="star-rating">
-                  <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product.rating); let i = index"></span>
-                  <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product.rating); let i = index"></span>
+                  <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
+                  <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
               </div>
               
                 <!-- Product amount and cart icon -->
                 <div class="price-and-cart">
-                  <span class="product-amount">{{ product.price | currency: '₦' :'symbol':'1.0-0'}}</span>
+                  <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0'}}</span>
                   <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
                   <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
                 </div>
@@ -326,7 +326,7 @@
                         
                           <!-- Product amount and cart icon -->
                           <div class="price-and-cart">
-                            <span class="product-amount">{{ product.price | currency: '₦' :'symbol':'1.0-0'}}</span>
+                            <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0'}}</span>
                             <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
                             <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
                           </div>
@@ -370,7 +370,7 @@
                         
                           <!-- Product amount and cart icon -->
                           <div class="price-and-cart">
-                            <span class="product-amount">{{ product.price | currency: '₦' :'symbol':'1.0-0'}}</span>
+                            <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0'}}</span>
                             <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
                             <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
                           </div>
@@ -434,7 +434,7 @@
                         
                           <!-- Product amount and cart icon -->
                           <div class="price-and-cart">
-                            <span class="product-amount">{{ product.price | currency: '₦' :'symbol':'1.0-0'}}</span>
+                            <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0'}}</span>
                             <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
                             <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
                           </div>
@@ -478,7 +478,7 @@
                         
                           <!-- Product amount and cart icon -->
                           <div class="price-and-cart">
-                            <span class="product-amount">{{ product.price | currency: '₦' :'symbol':'1.0-0'}}</span>
+                            <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0'}}</span>
                             <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
                             <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
                           </div>
@@ -546,7 +546,7 @@
                 
                   <!-- Product amount and cart icon -->
                   <div class="price-and-cart">
-                    <span class="product-amount">{{ product.price | currency: '₦' :'symbol':'1.0-0'}}</span>
+                    <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0'}}</span>
                     <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
                     <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
                   </div>
