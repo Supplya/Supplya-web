@@ -165,7 +165,7 @@
                                         isInvalid('category') ? 'error-input' : ''
                                       }}">
                             <option value="" selected  id="category">Select category</option>
-                            <option *ngFor="let item of categories" >{{item.name}}</option>
+                            <option *ngFor="let item of categories"  [value]="item?._id">{{item.name}}</option>
                         </select>
                          <small class="error-text mb-4" *ngIf="isInvalid('category')">
                                             {{ getErrorMessage('category', 'This field is required') }}
@@ -188,8 +188,8 @@
                                         isInvalid('status') ? 'error-input' : ''
                                       }}">
                             <option value="" selected  id="status">Select Status</option>
-                            <option value="instock">In Stock</option>
-                            <option value="outOfStock">Out Stock</option>
+                            <option value="inStock">In Stock</option>
+                            <option value="outOfStock">Out Of Stock</option>
                         </select>
                          <small class="error-text mb-4" *ngIf="isInvalid('status')">
                                             {{ getErrorMessage('status', 'This field is required') }}
