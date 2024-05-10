@@ -53,14 +53,15 @@
                     {{item?.name}}
                   </div>
                 </td>
-                <td>{{item?.brand}}</td>
+                <td>{{item?.category?.name}}</td>
                 <td>{{item?.moq}}</td>
                 <!-- <td class="product-info">{{item?.price || 0 | currency:'₦':'':'1.0-0'}}</td> -->
-                <td>{{item?.price || 0 | currency:'₦':true:'1.0-0'}}</td>
-                <td>{{item?.saleCount}}</td>
-                <td [ngClass]="{'in-stock': item?.inStock, 'out-of-stock': !item?.inStock}">
-                  {{ item?.inStock ? 'In Stock' : 'Out of Stock' }}
-                </td>
+                <td>{{item?.unit_price || 0 | currency:'₦':true:'1.0-0'}}</td>
+                <td>{{item?.quantity}}</td>
+               <td [ngClass]="{'in-stock': item?.status === 'inStock', 'out-of-stock': item?.status !== 'inStock'}">
+  {{ item?.status === 'inStock' ? 'In Stock' : 'Out of Stock' }}
+</td>
+
                 <td>
                   <div class="action-icons">
                       <img src="/assets/Images/view.png" alt="View"> &nbsp; &nbsp;
