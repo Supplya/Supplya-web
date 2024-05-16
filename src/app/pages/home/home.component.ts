@@ -68,14 +68,13 @@ export class HomeComponent implements OnInit {
 
     this.productService.getAllProducts().subscribe(
       (data: any) => {
-        console.log(data, 'products');
         this.products = data?.data;
         this.loading = false;
       },
       (error) => {
         this.loading = false;
         this.loading = false;
-        this.notify.danger(error);
+        this.notify.danger(error.error.message);
         console.error('Error fetching products:', error);
       
         // Handle the error appropriately, for example, show a user-friendly error message.

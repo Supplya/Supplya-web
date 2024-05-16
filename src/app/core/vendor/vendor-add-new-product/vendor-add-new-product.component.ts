@@ -4,6 +4,8 @@ import { ToastyService } from 'ng-toasty';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HelperService } from 'src/app/shared/helpers/helper.service';
 import { AuthService } from 'src/app/authentication/service/auth.service';
+import { MediaUploadService } from 'src/app/shared/services/mediaUpload.service';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-vendor-add-new-product',
@@ -17,7 +19,8 @@ export class VendorAddNewProductComponent implements OnInit {
     private fb: FormBuilder,
     private helperService: HelperService,
     private authService: AuthService,
-    private notify: ToastyService
+    private notify: ToastyService,
+    private uploadService: MediaUploadService
   ) {}
 
   form!: FormGroup;
@@ -75,8 +78,8 @@ export class VendorAddNewProductComponent implements OnInit {
       for (let i = 0; i < files.length; i++) {
         const reader = new FileReader();
         reader.onload = (e: any) => {
-          this.images.push(e.target.result);
-          // If it's the first image, set it as the main image
+          // this.images.push(e.target.result);
+          this.uploadImages(e.target.result);
           if (this.images.length === 1) {
             this.mainImageIndex = 0;
           }
@@ -86,6 +89,33 @@ export class VendorAddNewProductComponent implements OnInit {
     }
   }
 
+  errorUploading: boolean = false;
+  uploadProgress: number = 0;
+  requestLoading: boolean = false;
+  uploadRequestLoading: boolean = false;
+  uploadImages(file: File) {
+    console.log(file);
+    this.uploadProgress = 0;
+    this.uploadRequestLoading = true;
+    const fd = new FormData();
+    fd.append('file', file);
+    this.uploadService.uploadImages(fd).subscribe(
+      (event: HttpEvent<any>) => {
+        console.log('Upload', event)
+        if (event.type === HttpEventType.UploadProgress) {
+          // this.uploadProgress = Math.round((event.loaded / event.total) * 100);
+        } else if (event.type === HttpEventType.Response) {
+          this.uploadProgress = 0;
+          this.uploadRequestLoading = false;
+
+        }
+      },
+      (err) => {
+        this.errorUploading = true;
+        this.uploadRequestLoading = false;
+      }
+    );
+  }
   removeImage(index: number) {
     this.images.splice(index, 1);
     // If the removed image was the main image, reset mainImageIndex
@@ -122,6 +152,7 @@ export class VendorAddNewProductComponent implements OnInit {
         reader.onload = (e: any) => {
           this.images.push(e.target.result);
           // If it's the first image, set it as the main image
+          this.uploadImages(e.target.result);
           if (this.images.length === 1) {
             this.mainImageIndex = 0;
           }
@@ -131,32 +162,42 @@ export class VendorAddNewProductComponent implements OnInit {
     }
   }
 
+  uploadImage(file: any) {
+    this.uploadService.uploadImages(file).subscribe(
+      (data) => {
+        console.log(data);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+
   numberOnly(event: any): void {
     this.helperService.numberOnly(event);
   }
 
   submit() {
     this.submitted = true;
-  //  this.form.value.unit_price = this.helperService.removeCommas(this.form.value.unit_price);
-  //  this.form.value.discounted_price = this.helperService.removeCommas(
-  //    this.form.value.discounted_price
-  //      );
- 
+    //  this.form.value.unit_price = this.helperService.removeCommas(this.form.value.unit_price);
+    //  this.form.value.discounted_price = this.helperService.removeCommas(
+    //    this.form.value.discounted_price
+    //      );
+
     // console.log(this.form.value );
     const formData = this.form.value;
     formData.image =
       'https://m.media-amazon.com/images/I/71If1mV9JKS._AC_SL1300_.jpg';
     // formData.image = this.images[0];
     if (this.form.valid) {
-      
-      this.productService.vendorAddProduct(formData).subscribe(data => { 
-        if (data.status === 'success') {
-    this.notify.success(data.message);
-  }
-      },
-        (error) => { 
-        }
-      )
+      this.productService.vendorAddProduct(formData).subscribe(
+        (data) => {
+          if (data.status === 'success') {
+            this.notify.success(data.message);
+          }
+        },
+        (error) => {}
+      );
     }
   }
 

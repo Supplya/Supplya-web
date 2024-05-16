@@ -25,6 +25,7 @@ export class ErrorHandlingInterceptor implements HttpInterceptor {
     // Check for internet connectivity
     if (!navigator.onLine) {
       this.networkStatusService.setOnlineStatus(false);
+      this.notify.danger("You're offline. No internet connection");
       return throwError("You're offline. No internet connection");
     }
 

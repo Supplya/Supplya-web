@@ -17,23 +17,24 @@ import { LoaderComponent } from './shared/loader/loader.component';
 import { AuthInterceptor } from './shared/Interceptors/auth.interceptor';
 import { TitleService } from './shared/services/title.service';
 import { OnlineStatusModule } from 'ngx-online-status';
+import { CloudinaryModule } from '@cloudinary/ng';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NotFoundPageComponent,
-    LoaderComponent
-  ],
+  declarations: [AppComponent, NotFoundPageComponent, LoaderComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     SharedModule,
     BrowserAnimationsModule,
-    OnlineStatusModule
- 
-    
+    OnlineStatusModule,
+    CloudinaryModule
+    // CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'mycloudname' })
   ],
-  providers: [Server, MenuService, DatePipe, TitleService,
+  providers: [
+    Server,
+    MenuService,
+    DatePipe,
+    TitleService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorHandlingInterceptor,
@@ -41,12 +42,12 @@ import { OnlineStatusModule } from 'ngx-online-status';
     },
     LoaderService,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { 
+export class AppModule {
   constructor(private titleService: TitleService) {
     this.titleService.init();
-  } 
+  }
 }

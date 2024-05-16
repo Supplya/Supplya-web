@@ -1,4 +1,4 @@
 
 export class Server {
-  baseUrl: string = 'https://supplya.onrender.com/api/v1';
+  baseUrl: string = 'https://supplya.onrender.com/api/v1/';
 }

@@ -10,7 +10,9 @@ import { Subject } from 'rxjs';
 export class TitleService {
   titleUpdated = new Subject<string>();
 
-  constructor(private title: Title, private router: Router, private activatedRoute: ActivatedRoute) {}
+  constructor(private title: Title, private router: Router, private activatedRoute: ActivatedRoute) {
+    
+  }
 
   init(): void {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
