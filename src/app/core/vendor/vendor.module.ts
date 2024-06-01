@@ -10,6 +10,7 @@ import { VendorAddNewProductComponent } from './vendor-add-new-product/vendor-ad
 import { VendorReportComponent } from './vendor-report/vendor-report.component';
 import { VendorSettingsComponent } from './vendor-settings/vendor-settings.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { VendorEditProductComponent } from './vendor-edit-product/vendor-edit-product.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     VendorProductsComponent,
     VendorAddNewProductComponent,
     VendorReportComponent,
-    VendorSettingsComponent
+    VendorSettingsComponent,
+    VendorEditProductComponent
   ],
   imports: [
     CommonModule,

@@ -83,9 +83,11 @@ export class VendorProductsComponent implements OnInit {
   }
   delete(id: string) {
     this.productService.deleteProduct(id).subscribe(result => { 
-      console.log(result)
-      this.toast.success("Product deleted successfully");
-      this.getAllProducts();
+      if (result === 'success') { 
+
+        this.toast.success("Product deleted successfully");
+        this.getAllProducts();
+      }
     })
   }
   exportToExcel() {

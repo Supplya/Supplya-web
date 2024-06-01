@@ -6,14 +6,15 @@ import { HelperService } from 'src/app/shared/helpers/helper.service';
 import { AuthService } from 'src/app/authentication/service/auth.service';
 import { MediaUploadService } from 'src/app/shared/services/mediaUpload.service';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
-import {  Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
-  selector: 'app-vendor-add-new-product',
-  templateUrl: './vendor-add-new-product.component.html',
-  styleUrls: ['./vendor-add-new-product.component.scss'],
+  selector: 'app-vendor-edit-product',
+  templateUrl: './vendor-edit-product.component.html',
+  styleUrls: ['./vendor-edit-product.component.scss'],
 })
-export class VendorAddNewProductComponent implements OnInit {
+export class VendorEditProductComponent implements OnInit {
   categories: any;
   constructor(
     public productService: ProductService,
@@ -21,19 +22,36 @@ export class VendorAddNewProductComponent implements OnInit {
     private helperService: HelperService,
     private authService: AuthService,
     private notify: ToastyService,
-    private uploadService: MediaUploadService, private route: Router
+    private uploadService: MediaUploadService,
+    private route: Router,
+    private router: ActivatedRoute
   ) {}
 
   form!: FormGroup;
   loading: boolean = false;
   submitted: boolean = false;
   passwordVisible: boolean = false;
-
+  id: any;
   ngOnInit(): void {
+    this.router.paramMap.subscribe((params) => {
+      this.id = params.get('id');
+      this.getProductByID()
+    });
     this.getAllCategories();
     this.initForm();
   }
 
+  getProductByID() {
+    this.productService.getProductId(this.id).subscribe(
+      (details: any) => {
+        if (details.status === 'success') {
+          this.form.patchValue(details.data);
+          this.images = details.data.images;
+         }
+      },
+      
+    );
+  }
   initForm() {
     this.form = this.fb.group({
       name: ['', Validators.required],
@@ -200,14 +218,12 @@ export class VendorAddNewProductComponent implements OnInit {
     formData.image = this.images[0];
     formData.images = this.images;
     if (this.form.valid) {
-      this.productService.vendorAddProduct(formData).subscribe(
-        (data) => {
-          if (data.status === 'success') {
-            this.notify.success(data.message);
-            this.route.navigate(['/core/vendor/products']);
-          }
-        },
-      );
+      this.productService.UpdateProduct(this.id, formData).subscribe((data) => {
+        if (data.status === 'success') {
+          this.notify.success(data.message);
+          this.route.navigate(['/core/vendor/products']);
+        }
+      });
     }
   }
 

@@ -1,11 +1,16 @@
-
-import { Injectable } from "@angular/core";
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from "rxjs"
+import { Injectable } from '@angular/core';
+import {
+  HttpInterceptor,
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpErrorResponse,
+} from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { Router } from "@angular/router";
-import { AuthService } from "src/app/authentication/service/auth.service";
-import { ToastyService } from "ng-toasty";
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/authentication/service/auth.service';
+import { ToastyService } from 'ng-toasty';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -15,24 +20,22 @@ export class AuthInterceptor implements HttpInterceptor {
     private toastr: ToastyService
   ) {}
 
-
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-      const token = localStorage.getItem('spa-userToken');
-    if (token) {
-        // if(token && !req.url.includes('common')){
-        
+    const token = localStorage.getItem('spa-userToken');
+    const cloudinaryUrl = 'https://api.cloudinary.com';
+
+    // Check if the request URL starts with the Cloudinary URL
+    if (token && !req.url.startsWith(cloudinaryUrl)) {
       const cloned = req.clone({
         headers: req.headers.set('Authorization', `Bearer ${token}`),
       });
       return next.handle(cloned).pipe(
-        map((event: HttpEvent<any>) => {
-          return event;
-        }),
+        map((event: HttpEvent<any>) => event),
         catchError((err: HttpErrorResponse) => {
-          if (err.status == 401) {
+          if (err.status === 401) {
             if (this.router.url !== '/auth/sign-in') {
               this.authService.logout();
               this.router.navigate(['/auth/sign-in']);
@@ -46,11 +49,9 @@ export class AuthInterceptor implements HttpInterceptor {
       );
     } else {
       return next.handle(req).pipe(
-        map((event: HttpEvent<any>) => {
-          return event;
-        }),
+        map((event: HttpEvent<any>) => event),
         catchError((err: HttpErrorResponse) => {
-          if (err.status == 401) {
+          if (err.status === 401) {
             if (this.router.url !== '/auth/sign-in') {
               this.authService.logout();
               this.router.navigate(['/auth/sign-in']);
