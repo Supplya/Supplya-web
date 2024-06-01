@@ -43,9 +43,11 @@ export class ProductService {
   }
 
   UpdateProduct(id: any, product: any): Observable<any> {
-    return this.http.put<any>(`${this.productUrl}/${id}`, product)
+    return this.http.put<any>(`${this.productUrl}products/${id}`, product);
   }
-
+  deleteProduct(id: any): Observable<any> {
+    return this.http.delete<any>(`${this.productUrl}products/${id}`);
+  }
 
   // getAllFoodsBySearch(searchTerm: string): Observable<Product[]> {
   // return this.getAllProducts().pipe(

@@ -12,15 +12,31 @@
   }
 
   .in-stock {
-    color: green;
+    background: #00FF661A;
+    font-family: Open Sans;
+    font-size: 14px;
+    font-weight: 600;
+    color: #0FB347;
+    padding: 7px 12px;
+    border-radius: 100px;
   }
   
   .out-of-stock {
-    color: red;
+    background: #FFF0EA;
+    font-family: Open Sans;
+    font-size: 14px;
+    font-weight: 600;
+    color: #F86624;
+    padding: 7px 12px;
+    border-radius: 100px;
   }
+
   .center-content {
     display: flex;
     justify-content: center;
     align-items: center;
   }
   
+  .action-icons img{
+    cursor: pointer;
+  }

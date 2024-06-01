@@ -198,7 +198,7 @@
               
                 <!-- Product amount and cart icon -->
                 <div class="price-and-cart">
-                  <span class="product-amount">{{ product.unit_price | currency: '₦' :'symbol':'1.0-0'}}</span>
+                  <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0'}}</span>
                   <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
                   <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
                 </div>

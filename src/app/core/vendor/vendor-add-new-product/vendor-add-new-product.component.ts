@@ -94,20 +94,47 @@ export class VendorAddNewProductComponent implements OnInit {
   requestLoading: boolean = false;
   uploadRequestLoading: boolean = false;
   uploadImages(file: File) {
+    this.uploadProgress = 0;
+    this.uploadRequestLoading = true;
+    const fd = new FormData();
+    fd.append('file', file);
+    fd.append('upload_preset', 'supplya-uploads');
+    fd.append('cloud_name', 'piusash');
+
+    this.uploadService.uploadImages(fd).subscribe(
+      (event: HttpEvent<any>) => {
+        console.log('Upload', event);
+        if (event.type === HttpEventType.UploadProgress && event.total) {
+          this.uploadProgress = Math.round((event.loaded / event.total) * 100);
+        } else if (event.type === HttpEventType.Response) {
+          this.uploadProgress = 0;
+          this.uploadRequestLoading = false;
+          console.log('Upload response', event.body);
+        }
+      },
+      (err) => {
+        this.errorUploading = true;
+        this.uploadRequestLoading = false;
+        console.error('Upload error', err);
+      }
+    );
+  }
+  uploadImages1(file: File) {
     console.log(file);
     this.uploadProgress = 0;
     this.uploadRequestLoading = true;
     const fd = new FormData();
     fd.append('file', file);
+    fd.append('upload_preset', 'supplya-uploads');
+    fd.append('cloud_name', 'piusash');
     this.uploadService.uploadImages(fd).subscribe(
       (event: HttpEvent<any>) => {
-        console.log('Upload', event)
+        console.log('Upload', event);
         if (event.type === HttpEventType.UploadProgress) {
           // this.uploadProgress = Math.round((event.loaded / event.total) * 100);
         } else if (event.type === HttpEventType.Response) {
           this.uploadProgress = 0;
           this.uploadRequestLoading = false;
-
         }
       },
       (err) => {
@@ -186,8 +213,8 @@ export class VendorAddNewProductComponent implements OnInit {
 
     // console.log(this.form.value );
     const formData = this.form.value;
-    formData.image =
-      'https://m.media-amazon.com/images/I/71If1mV9JKS._AC_SL1300_.jpg';
+    // formData.image =
+    //   'https://m.media-amazon.com/images/I/71If1mV9JKS._AC_SL1300_.jpg';
     // formData.image = this.images[0];
     if (this.form.valid) {
       this.productService.vendorAddProduct(formData).subscribe(

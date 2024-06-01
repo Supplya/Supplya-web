@@ -9,7 +9,7 @@ import { HelperService } from 'src/app/shared/helpers/helper.service';
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
-  styleUrls: ['./category.component.scss']
+  styleUrls: ['./category.component.scss'],
 })
 export class CategoryComponent implements OnInit {
   categories: any;
@@ -20,22 +20,22 @@ export class CategoryComponent implements OnInit {
   p: number = 1;
   form!: FormGroup;
   submitted: boolean = false;
-constructor(private productService: ProductService, private fb: FormBuilder, private helper: HelperService, private notify: ToastyService, private exportService: ExportService){
-
-}
+  constructor(
+    private productService: ProductService,
+    private fb: FormBuilder,
+    private helper: HelperService,
+    private notify: ToastyService,
+    private exportService: ExportService
+  ) {}
   ngOnInit(): void {
     this.getAllCategories();
     this.initForm();
   }
 
-
   getAllCategories() {
-   
-
     this.productService.getAllCategories().subscribe(
       (data: any) => {
         if (data.status === 'success') {
-
           this.categories = data?.categories;
           this.filteredRows = data?.categories;
           console.log(data, 'products');
@@ -51,12 +51,16 @@ constructor(private productService: ProductService, private fb: FormBuilder, pri
   }
 
   applyFilter() {
-    this.filteredRows = applyGlobalSearch(
-      this.categories,  
-      this.searchText,
-      ['name',  'description', 'createdAt']
-    );
+    this.filteredRows = applyGlobalSearch(this.categories, this.searchText, [
+      'name',
+      'description',
+      'createdAt',
+    ]);
     this.p = 1;
+  }
+
+  exportToExcel() {
+    this.exportService.exportToExcel(this.filteredRows, this.title);
   }
 
   private initForm(): void {
@@ -65,10 +69,6 @@ constructor(private productService: ProductService, private fb: FormBuilder, pri
       description: [''],
       createdAt: [''],
     });
-  }
-
-  exportToExcel() {
-    this.exportService.exportToExcel(this.filteredRows, this.title);
   }
 
   getErrorMessage(control: string, message: string) {
@@ -80,6 +80,4 @@ constructor(private productService: ProductService, private fb: FormBuilder, pri
       (this.submitted && this.form.get(control)?.invalid)
     );
   }
-
-  
 }

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpEventType } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Cloudinary } from '@cloudinary/url-gen';
 import { Observable } from 'rxjs';
@@ -23,7 +23,13 @@ export class MediaUploadService {
     this.baseUrl = `https://api.cloudinary.com/v1_1/piusash/image/upload`;
   }
 
-  uploadImages(file: any): Observable<any> {
+  uploadImages1(file: any): Observable<any> {
     return this.http.post<any>(this.baseUrl, file);
+  }
+  uploadImages(file: FormData): Observable<HttpEvent<any>> {
+    return this.http.post<any>(this.baseUrl, file, {
+      reportProgress: true,
+      observe: 'events',
+    });
   }
 }
