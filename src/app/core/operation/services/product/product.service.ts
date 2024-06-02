@@ -43,7 +43,7 @@ export class ProductService {
   }
 
   UpdateProduct(id: any, product: any): Observable<any> {
-    return this.http.put<any>(`${this.productUrl}products/${id}`, product);
+    return this.http.patch<any>(`${this.productUrl}products/${id}`, product);
   }
   deleteProduct(id: any): Observable<any> {
     return this.http.delete<any>(`${this.productUrl}products/${id}`);
