@@ -35,7 +35,8 @@
                                     </h1>
                                    
                                     <p class="text-muted">We're thrilled to have you on board. Get ready to embark on a seamless shopping experience tailored just for you.</p>
-                                   <div class="row">
+                                   <p *ngIf="userType != ''" class="text-center py-1" style="font-size: 18px; font-weight: 500;">You're about to sign up as a <span style="font-size: 18px; font-weight: 600;"> {{capitalizeFirstLetter(userType)}}</span> <br> <span style="font-weight: 600;" (click)="toggleModal('signUpModal', 'open')" class="text-primary cursor-pointer">Change Account Type</span></p>
+                                    <div class="row">
                                     <div class="col-lg-6">
                                         <label for=""  class="px-2 mb-1{{
                                             isInvalid('firstName') ? 'red' : ''
@@ -152,3 +153,43 @@
         </div>
     </div>
     
+
+    <div id="signUpModal" class="modal">
+  <div
+    class="modal-center-content mx-auto pt-4 px-4 px-lg-5 pb-5"
+    style="border-radius: 10px !important"
+  >
+    <div class="d-flex justify-content-end">
+
+      <img 
+        style="cursor: pointer"
+        class=""
+        (click)="toggleModal('signUpModal', 'close')"
+        src="/assets/Images/dismiss.svg"
+        alt=""
+      />
+    </div>
+            <p class="modal-heading text-center">Select Account Type</p>
+   <div class="container-sec mt-2">
+  <label class="option" [class.selected]="userType === 'retailer'" (click)="setUserType('retailer')">
+    <div class="content">
+      <img [src]="userType === 'retailer' ? '/assets/Images/selected-retailer.svg' : '/assets/Images/retailer.png'" alt="Retailer">
+      <p class="py-2">Retailer</p>
+    </div>
+  </label>
+
+  <label class="option" [class.selected]="userType === 'vendor'" (click)="setUserType('vendor')">
+    <div class="content">
+      <img [src]="userType === 'vendor' ? '/assets/Images/vendor.png' : '/assets/Images/not-active-vendor.svg'" alt="Vendor">
+      <p class="py-2">Vendor</p>
+    </div>
+  </label>
+</div>
+
+<p *ngIf="userType === '' && submitType" class="text-danger text-center mt-2" style="font-size: 18px;">Please select an acount type to proceed</p>
+<div class="d-flex justify-content-center">
+
+    <button  (click)="continue()" class="btn-modal-primary mt-3" style="border-radius: 80px!important; padding: 13px 60px!important;">Continue</button>
+</div>
+  </div>
+</div>

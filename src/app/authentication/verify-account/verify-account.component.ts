@@ -136,6 +136,7 @@ export class VerifyAccountComponent implements OnInit {
     // console.log(data);
     if (this.form.valid) {
       this.authService.OTPVerification(data).subscribe((response) => {
+        console.log(response)
         localStorage.setItem('spa-userToken', response.token);
         localStorage.setItem('spa-userData', JSON.stringify(response.data));
         if (response.status === 'success') {
@@ -146,7 +147,7 @@ export class VerifyAccountComponent implements OnInit {
             icon: 'success',
             showCancelButton: false,
             confirmButtonText: 'Continue',
-            allowOutsideClick: false, // Prevents closing on outside click
+            allowOutsideClick: false,
             showClass: {
               popup: `
                   animate__animated

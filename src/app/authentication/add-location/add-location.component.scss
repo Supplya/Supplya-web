@@ -66,7 +66,7 @@ font-style: italic;
         }
 
         .auth select {
-            height: 50px;
+            height: 60px;
             // padding: 17px 40px 17px 50px; 
             // border-radius: 35px;
             border: 1px solid #ccc;
@@ -78,7 +78,7 @@ font-style: italic;
         }
 
         .auth-input textarea {
-            height: 50px;
+            height: 60px;
             padding: 15px 40px 15px 40px;
             // border-radius: 35px;
             border: 1px solid #ccc;
@@ -121,4 +121,8 @@ font-style: italic;
   
   
   
-  
+  .map-container {
+  width: 100%;
+  height: 400px; /* Adjust as needed */
+//   margin-top: 20px; /* Add some spacing if needed */
+}

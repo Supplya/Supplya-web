@@ -8,35 +8,51 @@ import { HelperService } from 'src/app/shared/helpers/helper.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading: boolean = false;
   submitted: boolean = false;
   passwordVisible: boolean = false;
-  constructor(private fb: FormBuilder, private helperService: HelperService, private route: Router, private authService: AuthService, private notify: ToastyService) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-  }, { updateOn: 'change' }); // Trigger validation on change
-
+  constructor(
+    private fb: FormBuilder,
+    private helperService: HelperService,
+    private route: Router,
+    private authService: AuthService,
+    private notify: ToastyService
+  ) {
+    this.loginForm = this.fb.group(
+      {
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', Validators.required],
+      },
+      { updateOn: 'change' }
+    ); // Trigger validation on change
   }
   ngOnInit(): void {
     this.authService.clearCredentials();
   }
- 
 
-  
-getErrorMessage(control: string, message: string) {
-  return this.helperService.getError(this.loginForm.get(control), message);
-}
-isInvalid(control: string) {
-  return (
-    (this.loginForm.get(control)?.touched && this.loginForm.get(control)?.invalid) ||
-    (this.submitted && this.loginForm.get(control)?.invalid)
-  );
-}
+  toggleModal = (modalId, action: string, data?: any) => {
+    if (action == 'open') {
+      document.getElementById(modalId).style.display = 'flex';
+    } else {
+      document.getElementById(modalId).style.display = 'none';
+    }
+    
+  };
+
+  getErrorMessage(control: string, message: string) {
+    return this.helperService.getError(this.loginForm.get(control), message);
+  }
+  isInvalid(control: string) {
+    return (
+      (this.loginForm.get(control)?.touched &&
+        this.loginForm.get(control)?.invalid) ||
+      (this.submitted && this.loginForm.get(control)?.invalid)
+    );
+  }
 
   togglePasswordVisibility(): void {
     this.passwordVisible = !this.passwordVisible;
@@ -45,7 +61,6 @@ isInvalid(control: string) {
   login() {
     this.submitted = true;
     if (this.loginForm.valid) {
-     
       this.authService.login(this.loginForm.value).subscribe(
         (response) => {
           if (response.status === 'success') {
@@ -62,10 +77,8 @@ isInvalid(control: string) {
           this.submitted = false;
           // Handle HTTP error
           console.error('HTTP error:', error.error);
-          
         }
       );
     }
   }
-
 }

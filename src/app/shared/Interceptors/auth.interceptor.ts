@@ -7,7 +7,7 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/authentication/service/auth.service';
 import { ToastyService } from 'ng-toasty';
@@ -32,37 +32,26 @@ export class AuthInterceptor implements HttpInterceptor {
       const cloned = req.clone({
         headers: req.headers.set('Authorization', `Bearer ${token}`),
       });
-      return next.handle(cloned).pipe(
-        map((event: HttpEvent<any>) => event),
-        catchError((err: HttpErrorResponse) => {
-          if (err.status === 401) {
-            if (this.router.url !== '/auth/sign-in') {
-              this.authService.logout();
-              this.router.navigate(['/auth/sign-in']);
-              this.toastr.info(
-                'Your session has expired and you have been logged out'
-              );
-            }
-          }
-          return throwError(err);
-        })
-      );
+      return next
+        .handle(cloned)
+        .pipe(catchError((err: HttpErrorResponse) => this.handleError(err)));
     } else {
-      return next.handle(req).pipe(
-        map((event: HttpEvent<any>) => event),
-        catchError((err: HttpErrorResponse) => {
-          if (err.status === 401) {
-            if (this.router.url !== '/auth/sign-in') {
-              this.authService.logout();
-              this.router.navigate(['/auth/sign-in']);
-              this.toastr.info(
-                'Your session has expired and you have been logged out'
-              );
-            }
-          }
-          return throwError(err);
-        })
-      );
+      return next
+        .handle(req)
+        .pipe(catchError((err: HttpErrorResponse) => this.handleError(err)));
     }
+  }
+
+  private handleError(err: HttpErrorResponse): Observable<never> {
+    if (err.status === 401) {
+      if (this.router.url !== '/auth/sign-in') {
+        // this.authService.logout();
+        this.router.navigate(['/auth/sign-in']);
+        this.toastr.info(
+          'Your session has expired and you have been logged out'
+        );
+      }
+    }
+    return throwError(err);
   }
 }

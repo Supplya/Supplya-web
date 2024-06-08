@@ -46,6 +46,10 @@ export class VendorEditProductComponent implements OnInit {
       (details: any) => {
         if (details.status === 'success') {
           this.form.patchValue(details.data);
+          this.form.patchValue({
+            category: details.data.category.name
+          });
+
           this.images = details.data.images;
          }
       },

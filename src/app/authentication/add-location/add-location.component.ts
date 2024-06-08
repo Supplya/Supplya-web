@@ -10,12 +10,11 @@ declare const google: any; // Declare the google variable
 @Component({
   selector: 'app-add-location',
   templateUrl: './add-location.component.html',
-  styleUrls: ['./add-location.component.scss']
+  styleUrls: ['./add-location.component.scss'],
 })
 export class AddLocationComponent implements OnInit, AfterViewInit {
-
-  @ViewChild('search') searchElementRef!: ElementRef;
-  @ViewChild('map') mapElementRef!: ElementRef;
+  @ViewChild('search', { static: false }) searchElementRef!: ElementRef;
+  @ViewChild('mapElement', { static: false }) mapElementRef!: ElementRef;
 
   map!: any; // Use 'any' type for map variable
   autocomplete: any; // Autocomplete variable
@@ -37,6 +36,7 @@ export class AddLocationComponent implements OnInit, AfterViewInit {
     this.form = this.fb.group({
       country: ['Nigeria', [Validators.required]],
       address: ['', [Validators.required]],
+      state: [''],
     });
   }
   userDetails: any;
@@ -45,37 +45,84 @@ export class AddLocationComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.initializeAutocomplete();
+    if (this.mapElementRef) {
+      this.initializeMap();
+    }
+    if (this.searchElementRef) {
+      this.initializeAutocomplete();
+    }
   }
 
   initializeMap(): void {
-    const nigeria = new google.maps.LatLng(9.0820, 8.6753);
-    this.map = new google.maps.Map(this.mapElementRef.nativeElement, {
-      center: nigeria,
-      zoom: 6 // Adjust zoom level as needed
-    });
+    if (this.mapElementRef && this.mapElementRef.nativeElement) {
+      const nigeria = new google.maps.LatLng(9.082, 8.6753);
+      this.map = new google.maps.Map(this.mapElementRef.nativeElement, {
+        center: nigeria,
+        zoom: 6, // Adjust zoom level as needed
+      });
+    }
   }
 
+  mapMarkers: any[] = [];
+  address: string = '';
+  state: string = '';
   initializeAutocomplete(): void {
-    this.autocomplete = new google.maps.places.Autocomplete(this.searchElementRef?.nativeElement, {
-      componentRestrictions: { country: 'NG' }
-    });
-    this.autocomplete.addListener('place_changed', () => {
-      this.ngZone.run(() => {
-        const place = this.autocomplete.getPlace();
-
-        if (!place.geometry) {
-          // console.error("No geometry for place", place);
-          return;
+    if (this.searchElementRef && this.searchElementRef.nativeElement) {
+      this.autocomplete = new google.maps.places.Autocomplete(
+        this.searchElementRef.nativeElement,
+        {
+          componentRestrictions: { country: 'NG' },
         }
+      );
+      this.autocomplete.addListener('place_changed', () => {
+        this.ngZone.run(() => {
+          const place = this.autocomplete.getPlace();
 
-        this.map.setCenter(place.geometry.location);
-        const marker = new google.maps.Marker({
-          position: place.geometry.location,
-          map: this.map
+          if (!place.geometry) {
+            // console.error("No geometry for place", place);
+            return;
+          }
+
+          // Extract the state from the address components
+          let state = '';
+          for (const component of place.address_components) {
+            if (component.types.includes('administrative_area_level_1')) {
+              state = component.long_name;
+              break;
+            }
+          }
+
+          // Log the state
+          // console.log('Selected state:', state);
+
+          // Set the state variable in your component if needed
+          this.state = state;
+
+          // Your existing code for handling map and markers...
+          this.address = place.formatted_address;
+          if (this.map) {
+            // Clear existing markers
+            this.mapMarkers.forEach((marker) => marker.setMap(null));
+            this.mapMarkers = [];
+
+            // Set center and zoom level based on selected place
+            if (place.geometry.viewport) {
+              this.map.fitBounds(place.geometry.viewport);
+            } else {
+              this.map.setCenter(place.geometry.location);
+              this.map.setZoom(17); // Adjust zoom level as needed
+            }
+
+            // Add marker for selected place
+            const marker = new google.maps.Marker({
+              position: place.geometry.location,
+              map: this.map,
+            });
+            this.mapMarkers.push(marker);
+          }
         });
       });
-    });
+    }
   }
 
   onAddressChange(): void {
@@ -105,22 +152,19 @@ export class AddLocationComponent implements OnInit, AfterViewInit {
   onSubmitLocation() {
     this.submitted = true;
     if (this.form.valid) {
-  
-}
-   this.updateUserData(this.userDetails?._id, this.userDetails)
+      this.userDetails.country = 'Nigeria';
+      this.userDetails.address = this.address;
+      this.userDetails.state = this.state;
+      this.updateUserData(this.userDetails?._id, this.userDetails);
+    }
   }
 
   updateUserData(userId: string, userData: any): void {
-
     this.submitted = true;
-    this.authService.updateUserById(userId, userData)
-      .subscribe(
-        (data) => {
-          this.submitted = false;
-          this.notify.success('Address Added Successfully', 4000);
-          this.route.navigate([`/core/${this.userDetails.role}/dashboard`]);
-        },
-        
-      );
+    this.authService.updateUserById(userId, userData).subscribe((data) => {
+      this.submitted = false;
+      this.notify.success('Address Added Successfully', 4000);
+      this.route.navigate([`/core/${this.userDetails.role}/dashboard`]);
+    });
   }
 }

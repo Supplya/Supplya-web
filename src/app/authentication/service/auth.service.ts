@@ -15,7 +15,7 @@ export class AuthService {
   private baseURL = this.server.baseUrl;
 
   register(user: any): Observable<any> {
-    const url = `${this.baseURL}auth/register`;
+    const url = `${this.baseURL}auth/sign-up`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return this.http.post(url, user, { headers });
@@ -33,13 +33,13 @@ export class AuthService {
   }
 
   OTPVerification(user: any): Observable<any> {
-    const url = `${this.baseURL}auth/verify-otp`;
+    const url = `${this.baseURL}auth/sign-up-complete`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return this.http.post(url, user, { headers });
   }
   resendOTP(user: any): Observable<any> {
-    const url = `${this.baseURL}auth/resend-otp`;
+    const url = `${this.baseURL}auth/verify-otp`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return this.http.post(url, user, { headers });
