@@ -42,6 +42,9 @@ export class ProductService {
   getAllVendorProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.productUrl}products/vendor`);
   }
+  getVendorMetric(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.productUrl}users/orders`);
+  }
   getAllNewArrivals(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.productUrl}products/newly-arrived-brands`);
   }

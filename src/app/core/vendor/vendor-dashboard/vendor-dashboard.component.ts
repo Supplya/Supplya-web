@@ -23,6 +23,7 @@ export class VendorDashboardComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.getAllProducts();
+    this.getVendorMetric();
   }
   errorFetchingProduct: boolean = false;
   ordersLoading: boolean = false;
@@ -38,6 +39,26 @@ export class VendorDashboardComponent implements OnInit {
       (error) => {
         this.errorFetchingProduct = true;
         this.ordersLoading = false;
+      }
+    );
+  }
+
+  summary
+  getVendorMetric() {
+    this.ordersLoading = true;
+    this.productService.getVendorMetric().subscribe(
+      (data: any) => {
+        if (data.status === 'success') { 
+
+          this.summary = data.data
+        } else {
+          
+        }
+        // this.ordersLoading = false;
+      },
+      (error) => {
+        // this.errorFetchingProduct = true;
+        // this.ordersLoading = false;
       }
     );
   }

@@ -50,11 +50,10 @@ export class ProductDetailsComponent {
       if (foodID) {
         this.productService.getProductId(foodID).subscribe(
           (product: any) => {
-            if(product){
+            if(product.status === 'success') {
 
-              this.product = product;
+              this.product = product.data;
               this.loading = false;
-              console.log(this.product, "food");
             }else{
 
               this.notify.danger('Product not found');

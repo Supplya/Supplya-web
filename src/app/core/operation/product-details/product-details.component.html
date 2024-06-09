@@ -17,7 +17,7 @@
                  
                     <div class="col-lg-12 d-flex justify-content-start align-items-end animate__animated animate__fadeInUp">
                         
-                        <img style="width: 100%; height: 400px;" src="/assets/Images/Rectangle 134.png " class="img-thumbnail  " alt="" >
+                        <img style="width: 100%; height: 400px;" [src]="product?.image" class="img-thumbnail  " alt="" >
 
                         
                     </div>
@@ -75,24 +75,27 @@
                 
             </div>
             <div class="col-lg-6 align-items-center">
-              <p class="store-name py-1">Jamal Super Stores</p>
+              <!-- <p class="store-name py-1">Jamal Super Stores</p> -->
                 <h5 class="">{{product?.name}}</h5>
                 <div class="star-rating">
                   <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
-                  <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>  <span class="text-black"> &nbsp; |  &nbsp;</span>  <span class="stock">In Stock </span>
+                  <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>  <span class="text-black"> &nbsp; |  &nbsp;</span>  
+                  <span [ngClass]="{'stock': product?.status === 'inStock', 'text-danger': product?.status !== 'inStock'}">
+  {{product?.status === 'inStock' ? 'In Stock' : 'Out of Stock'}}
+</span>
+ 
               </div>
              
                 <div class="d-flex justify-content-between border-bottom">
 
                 <h6 >{{ product?.price |
                   currency: '₦' :'symbol':'1.0-0'}}</h6>
-                  <p class="fw-bold">Minimum Order: <span class="mini"> {{ product?.quantity }}</span></p>
+                  <p class="fw-bold">Minimum Order: <span class="mini"> {{ product?.moq }}</span></p>
                 </div>
 <!-- Description -->
                 <div class="py-3">
 <p class="des-heading mb-2">Product Description</p>
-<p class="description text-muted">Aliquam dis vulputate vulputate integer sagittis. Faucibus dolor ornare faucibus vel sed et eleifend habitasse amet. Montes, mauris varius ac est bibendum. Scelerisque a, risus ac ante. Velit consectetur neque, elit, aliquet.</p>
-<!-- <p class="description text-muted">{{ product?.description }}</p> -->
+<p class="description text-muted">{{ product?.description }}</p>
                 </div>
 
                
@@ -100,8 +103,8 @@
                     <p *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="btn cart">Add to Cart</p> 
                     <p *ngIf="ifAddedToCart(product)" (click)="toCart()" class="btn cart">View Cart</p> 
                 </div>
-                <p class="tag">SKU &nbsp; &nbsp; &nbsp; <span class="">2456786</span></p>
-                <p class="tag">CATEGORY &nbsp; &nbsp; &nbsp; <span class="">2456786</span></p>
+                <p class="tag">SKU &nbsp; &nbsp; &nbsp; <span class="">{{product?.sku}}</span></p>
+                <p class="tag">CATEGORY &nbsp; &nbsp; &nbsp; <span class="">{{product?.category?.name}}</span></p>
 
             </div>
 
@@ -186,7 +189,7 @@
                   <!-- Love icon for wishlist -->
                   <span class="love-icon mt-2"><i class="bi bi-heart"></i></span>
                   <!-- Product image -->
-                  <img (click)="viewProduct(product?._id)" src="/assets/Images/headphone.png" alt="Product Image">
+                  <img (click)="viewProduct(product?._id)" [src]="product?.image" alt="Product Image">
                 </div>
                 <div class="card-body">
                   <!-- Product name -->

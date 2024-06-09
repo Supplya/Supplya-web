@@ -8,7 +8,7 @@
                 <p class="head-text">Total Sales</p>
                 <img src="/assets/Images/total-sales.png" alt="">
             </div>
-            <h3 class="head-count">67,000</h3>
+            <h3 class="head-count">{{summary?.totalAmountSold || 0 | currency:'₦':true:'1.0-0'}}</h3>
             <p class="head-brief">+ N45,000 Today</p>
         </div>
     </div>
@@ -18,7 +18,7 @@
                 <p class="head-text">Order</p>
                 <img src="/assets/Images/orders.png" alt="">
             </div>
-            <h3 class="head-count">120</h3>
+            <h3 class="head-count">{{summary?.totalOrders || 0 | currency:'₦':true:'1.0-0'}}</h3>
             <p class="head-brief">+300 Today</p>
         </div>
     </div>
@@ -28,7 +28,7 @@
                 <p class="head-text">Total Stocks</p>
                 <img src="/assets/Images/stocks.png" alt="">
             </div>
-            <h3 class="head-count">67,000</h3>
+            <h3 class="head-count">{{summary?.totalStock | number:'1.0-0'}}</h3>
             <p class="head-brief">20,000 Added Recently</p>
         </div>
     </div>
@@ -38,7 +38,7 @@
                 <p class="head-text">Pending Order</p>
                 <img src="/assets/Images/pending.png" alt="">
             </div>
-            <h3 class="head-count">67,0000</h3>
+            <h3 class="head-count">{{summary?.totalStock | number:'1.0-0'}}</h3>
             <p class="head-brief">123 Orders Made</p>
         </div>
     </div>
