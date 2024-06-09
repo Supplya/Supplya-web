@@ -10,9 +10,8 @@ import { LoaderService } from 'src/app/shared/services/loader.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
-
 export class HomeComponent implements OnInit {
   products: any;
   onSubmit: boolean = false;
@@ -21,26 +20,29 @@ export class HomeComponent implements OnInit {
   categories: any;
   cart: any;
   newArrivals: any;
-  constructor(private productService: ProductService,  private loaderService: LoaderService, private cartService: CartService, private route: Router, private notify: ToastyService) {
-  loaderService.hideLoader();
+  constructor(
+    private productService: ProductService,
+    private loaderService: LoaderService,
+    private cartService: CartService,
+    private route: Router,
+    private notify: ToastyService
+  ) {
+    loaderService.hideLoader();
     this.cartService.getCartObservable().subscribe((cart) => {
       this.cart = cart;
       this.AllAddedItems = cart.items;
-
     });
   }
   ngOnInit(): void {
     this.getAllProducts();
     this.getAllCategories();
     this.getAllNewArrivals();
+    this.getAllFlashProducts();
   }
 
-
   getAllNewArrivals() {
-
     this.productService.getAllNewArrivals().subscribe(
       (data: any) => {
-        console.log(data, 'newArrivals');
         this.newArrivals = data?.data;
         this.loading = false;
       },
@@ -48,8 +50,7 @@ export class HomeComponent implements OnInit {
         this.loading = false;
         this.loading = false;
         this.notify.danger(error);
-        console.error('Error fetching products:', error);
-      
+
         // Handle the error appropriately, for example, show a user-friendly error message.
       }
     );
@@ -76,7 +77,26 @@ export class HomeComponent implements OnInit {
         this.loading = false;
         this.notify.danger(error.error.message);
         console.error('Error fetching products:', error);
-      
+
+        // Handle the error appropriately, for example, show a user-friendly error message.
+      }
+    );
+  }
+  flashProducts: any;
+  getAllFlashProducts() {
+    this.loading = true;
+
+    this.productService.getAllFlashProducts().subscribe(
+      (data: any) => {
+        this.flashProducts = data?.data;
+        this.loading = false;
+      },
+      (error) => {
+        this.loading = false;
+        this.loading = false;
+        this.notify.danger(error.error.message);
+        console.error('Error fetching products:', error);
+
         // Handle the error appropriately, for example, show a user-friendly error message.
       }
     );
@@ -87,10 +107,8 @@ export class HomeComponent implements OnInit {
     this.productService.getAllCategories().subscribe(
       (data: any) => {
         if (data.status === 'success') {
-
           this.categories = data?.data;
           this.loading = false;
-          console.log(data, 'products');
         } else {
           this.notify.danger(data?.message);
         }
@@ -104,18 +122,19 @@ export class HomeComponent implements OnInit {
     );
   }
   ifAddedToCart(product: any): boolean {
-    const cartItem = this.AllAddedItems.find((item: any) => item.product._id === product._id);
+    const cartItem = this.AllAddedItems.find(
+      (item: any) => item.product._id === product._id
+    );
     return !!cartItem;
   }
- 
-getStarsArray(rating: number): number[] {
+
+  getStarsArray(rating: number): number[] {
     return Array(Math.floor(rating)).fill(0);
-}
+  }
 
-getEmptyStarsArray(rating: number): number[] {
+  getEmptyStarsArray(rating: number): number[] {
     return Array(5 - Math.floor(rating)).fill(0);
-}
-
+  }
 
   addToCart(product: any) {
     this.onSubmit = true;
@@ -129,7 +148,7 @@ getEmptyStarsArray(rating: number): number[] {
       wrapper.scrollBy({
         top: 0,
         left: -scrollAmount,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
     }
   }
@@ -142,7 +161,7 @@ getEmptyStarsArray(rating: number): number[] {
       wrapper.scrollBy({
         top: 0,
         left: scrollAmount,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
     }
   }
@@ -155,6 +174,4 @@ getEmptyStarsArray(rating: number): number[] {
     this.route.navigate(['core/operation/shopping-cart']);
     window.scrollTo(0, 0);
   }
-
-
 }

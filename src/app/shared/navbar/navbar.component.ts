@@ -15,8 +15,7 @@ export class NavbarComponent implements OnInit {
   isLoggedIn = false;
   userDetails: any;
   ngOnInit(): void {
-    this.userDetails = this.authService.getUserCredentials();
-    console.log('User is logged in', this.userDetails);
+    // this.userDetails = this.authService.getUserCredentials();
   
     this.authService.isLoggedIn().subscribe((loggedIn: boolean) => {
       if (loggedIn) {

@@ -14,7 +14,7 @@
                       Create a vendor account and start selling</p>
                       <div class="py-2">
 
-                        <button class="btn slide-bottom">Become a Vendor</button>
+                        <button class="btn slide-bottom" routerLink="/auth/sign-up">Become a Vendor</button>
                       </div>
                 </div>
                 <div class="px-3 mobile-only">
@@ -28,7 +28,7 @@
                       Create a vendor account and start selling</p>
                       <div class="py-2">
 
-                        <button class="btn slide-bottom">Become a Vendor</button>
+                        <button class="btn slide-bottom" routerLink="/auth/sign-up">Become a Vendor</button>
                       </div>
                 </div>
             </div>
@@ -171,14 +171,14 @@
       <div class="product-container">
         <div class="d-flex flex-nowrap">
           <!-- Product cards -->
-          <div class="col-lg-auto" *ngFor="let product of products">
+          <div class="col-lg-auto" *ngFor="let product of flashProducts">
             <div class="card border-0 shadow-sm me-4">
               <!-- Placeholder background image -->
               <div class="card-img-top placeholder-image" >
                 <!-- Love icon for wishlist -->
                 <span class="love-icon mt-2"><i class="bi bi-heart"></i></span>
                 <!-- Product image -->
-                <img (click)="viewProduct(product._id)" src="/assets/Images/headphone.png" alt="Product Image">
+                <img (click)="viewProduct(product._id)" [src]="product?.image" alt="Product Image">
               </div>
               <div class="card-body">
                 <!-- Product name -->
@@ -233,18 +233,18 @@
       <div class="product-container">
         <div class="d-flex flex-nowrap mb-3">
           <!-- Product cards -->
-          <div class="col-lg-auto" *ngFor="let product of products">
+          <div class="col-lg-auto" *ngFor="let product of newArrivals">
             <div class="card border-0 shadow-sm me-4">
               <!-- Placeholder background image -->
               <div class="card-img-top placeholder-image">
                 <!-- Love icon for wishlist -->
                 <span class="love-icon mt-2"><i class="bi bi-heart"></i></span>
                 <!-- Product image -->
-                <img (click)="viewProduct(product._id)" src="/assets/Images/headphone.png" alt="Product Image">
+                <img (click)="viewProduct(product?._id)" [src]="product?.image" alt="Product Image">
               </div>
               <div class="card-body">
                 <!-- Product name -->
-                <h5 class="card-title" (click)="viewProduct(product._id)">{{product.name}}</h5>
+                <h5 class="card-title" (click)="viewProduct(product?._id)">{{product?.name}}</h5>
                 <!-- Star rating -->
                 <!-- <div class="star-rating">
                   <span class="bi bi-star-fill"></span>
@@ -306,7 +306,7 @@
                           <!-- Love icon for wishlist -->
                           <span class="love-icon mt-2"><i class="bi bi-heart"></i></span>
                           <!-- Product image -->
-                          <img (click)="viewProduct(product._id)" src="/assets/Images/headphone.png" alt="Product Image">
+                          <img (click)="viewProduct(product._id)" [src]="product?.image" alt="Product Image">
                         </div>
                         <div class="card-body">
                           <!-- Product name -->
@@ -350,7 +350,7 @@
                           <!-- Love icon for wishlist -->
                           <span class="love-icon mt-2"><i class="bi bi-heart"></i></span>
                           <!-- Product image -->
-                          <img (click)="viewProduct(product._id)" src="/assets/Images/headphone.png" alt="Product Image">
+                          <img (click)="viewProduct(product._id)" [src]="product?.image" alt="Product Image">
                         </div>
                         <div class="card-body">
                           <!-- Product name -->
@@ -414,7 +414,7 @@
                           <!-- Love icon for wishlist -->
                           <span class="love-icon mt-2"><i class="bi bi-heart"></i></span>
                           <!-- Product image -->
-                          <img (click)="viewProduct(product._id)" src="/assets/Images/headphone.png" alt="Product Image">
+                          <img (click)="viewProduct(product._id)" [src]="product?.image" alt="Product Image">
                         </div>
                         <div class="card-body">
                           <!-- Product name -->
@@ -458,7 +458,7 @@
                           <!-- Love icon for wishlist -->
                           <span class="love-icon mt-2"><i class="bi bi-heart"></i></span>
                           <!-- Product image -->
-                          <img (click)="viewProduct(product._id)" src="/assets/Images/headphone.png" alt="Product Image">
+                          <img (click)="viewProduct(product._id)" [src]="product?.image" alt="Product Image">
                         </div>
                         <div class="card-body">
                           <!-- Product name -->
@@ -526,7 +526,7 @@
                   <!-- Love icon for wishlist -->
                   <span class="love-icon mt-2"><i class="bi bi-heart"></i></span>
                   <!-- Product image -->
-                  <img (click)="viewProduct(product._id)" src="/assets/Images/headphone.png" alt="Product Image">
+                  <img (click)="viewProduct(product._id)" [src]="product?.image" alt="Product Image">
                 </div>
                 <div class="card-body">
                   <!-- Product name -->
