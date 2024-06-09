@@ -22,52 +22,12 @@
                         
                     </div>
                     <div class="col-lg-12">
-                      <div class="image-container">
-                        <div class="d-flex flex-nowrap">
-                          <!-- Product cards -->
-                          <div class="col-lg-auto d-flex">
-                            <div class="card border-0 shadow-sm me-4">
-                              <img style=" width: 100%; " src="/assets/Images/Rectangle 137.png" class="img-thumbnail  " alt="" >
-                            </div>
-                            <div class="card border-0 shadow-sm me-4">
-              
-                              <img style=" width: 100%;" src="/assets/Images/Rectangle 136.png" class="img-thumbnail  " alt="" >
-                            </div>
-                            <div class="card border-0 shadow-sm me-4">
-              
-                              <img style=" width: 100%;" src="/assets/Images/Rectangle 136.png" class="img-thumbnail  " alt="" >
-                            </div>
-                            <div class="card border-0 shadow-sm me-4">
-              
-                              <img style=" width: 100%;" src="/assets/Images/Rectangle 136.png" class="img-thumbnail  " alt="" >
-                            </div>
-                            <div class="card border-0 shadow-sm me-4">
-              
-                              <img style=" width: 100%;" src="/assets/Images/Rectangle 136.png" class="img-thumbnail  " alt="" >
-                            </div>
-                            <div class="card border-0 shadow-sm me-4">
-              
-                              <img style=" width: 100%;" src="/assets/Images/Rectangle 136.png" class="img-thumbnail  " alt="" >
-                            </div>
-                            <div class="card border-0 shadow-sm me-4">
-
-                              <img style=" width: 100%;" src="/assets/Images/Rectangle 136.png" class="img-thumbnail  " alt="" >
-
-                            </div>
-                            <div class="card border-0 shadow-sm me-4">
-
-                              <img style=" width: 100%;" src="/assets/Images/Rectangle 136.png" class="img-thumbnail  " alt="" >
-
-                            </div>
-                            <div class="card border-0 shadow-sm me-4">
-
-                              <img style="width: 100%;" src="/assets/Images/Rectangle 136.png" class="img-thumbnail  " alt="" >
-
-                            </div>
-                          </div>
-                          <!-- End of product cards -->
-                        </div>
-                      </div>
+                       <div class="other-images">
+                    <div class="image" *ngFor="let image of product?.images">
+                      <img style="border-radius: 10px; height: 100px!important; background-size: contain;" class="img-fluid img-thumbnail mr-1"  [src]="image" alt="Other Image">
+                    </div>
+                  </div>
+                   
                     </div>
                    
                     
