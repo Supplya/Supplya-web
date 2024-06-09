@@ -105,13 +105,11 @@ export class VendorDashboardComponent implements OnInit {
     return this.filteredRows?.slice(startIndex, endIndex);
   }
 
-  // Method to calculate the start record number shown on the current page
-  calculateStartRecord(): number {
-    return (this.p - 1) * this.itemPerPage + 1;
-  }
-
-  // Method to calculate the end record number shown on the current page
-  calculateEndRecord(): number {
-    return Math.min(this.p * this.itemPerPage, this.filteredRows?.length);
-  }
+  toggleModal = (modalId, action: string, data?: any) => {
+    if (action == 'open') {
+      document.getElementById(modalId).style.display = 'flex';
+    } else {
+      document.getElementById(modalId).style.display = 'none';
+    }
+  };
 }

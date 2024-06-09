@@ -109,28 +109,12 @@
                   {{ item?.status === 'inStock' ? 'In Stock' : 'Out of Stock' }}</small></td>
 
                 <td>
-                <span class="view-call text-decoration-underline text-primary cursor-pointer fw-bold">View</span>
+                <span (click)="toggleModal('orderDetailsModal', 'open', item)" class="view-call text-decoration-underline text-primary cursor-pointer fw-bold">View</span>
                 </td>
               </tr>
             </tbody>
            
-          </table>
-
-          <div class="d-flex justify-content-between px-5" *ngIf="filteredRows?.length > 0">
-
-            <div class="pagination-info text-muted">
-                Now Showing {{ calculateStartRecord() }} - {{ calculateEndRecord() }} of {{ filteredRows?.length }} records
-              </div>
-
-              <div>
-                <pagination-controls *ngIf="filteredRows?.length > 0"
-                    (pageChange)="p = $event"
-                    previousLabel=""
-                    nextLabel=""
-                  ></pagination-controls>
-              </div>
-          </div>
-          
+          </table>          
       </div>
 
       
@@ -148,3 +132,133 @@
       </section>
 
 </section>
+
+
+ <div id="orderDetailsModal" class="modal">
+  <div
+    class="modal-center-content mx-auto pt-4 px-2 px-lg-5 pb-5"
+   
+  >
+    <div class="d-flex justify-content-between">
+            <p class="modal-heading text-center">Order Details</p>
+      <img 
+        style="cursor: pointer"
+        class=""
+        (click)="toggleModal('orderDetailsModal', 'close')"
+        src="/assets/Images/dismiss.svg"
+        alt=""
+      />
+    </div>
+<section>
+  <div class="row orderDetails">
+    <div class="col-lg-4">
+      <div>
+        <div class="details-head">Order Information</div>
+        <div class="contain mt-3">
+          <p class="name"> Created On:</p>
+          <p class="value">14 March, 2024, 7:32 PM</p>
+        </div>
+        <div class="contain">
+          <p class="name"> Product Status:</p>
+          <p class="value">Cancelled</p>
+        </div>
+        <div class="contain">
+          <p class="name"> Payment Status:</p>
+          <p class="value">Payment on Delivery</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div>
+        <div class="details-head">Customer Information</div>
+        <div class="contain mt-3">
+          <p class="name"> Name:</p>
+          <p class="value">Pius Ashogbon</p>
+        </div>
+        <div class="contain">
+          <p class="name"> Email:</p>
+          <p class="value"><a href="mailto:piusash@gmail.com">piusash@gmail.com</a></p>
+        </div>
+        <div class="contain">
+          <p class="name"> Phone:</p>
+          <p class="value"><a href="tel:09056779099">09056779099</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div>
+        <div class="details-head">Shipping Information</div>
+        <div class="contain mt-3">
+          <p class="name"> Name:</p>
+          <p class="value">Pius Ashogbon</p>
+        </div>
+        <div class="contain">
+          <p class="name">Address:</p>
+          <p class="value">8502 Inglewood, Maine 98380 Lagos, Nigeria</p>
+        </div>
+     
+      </div>
+    </div>
+  </div>
+</section>
+<section class="py-2">
+   <div class="table-responsive" style="border-radius: 0px!important; box-shadow: none!important; overflow-y: auto;" *ngIf="!ordersLoading && filteredRows?.length > 0">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Products</th>
+                <th>Variation</th>
+                <th>SKU</th>
+                <th>QTY</th>
+                <th>Unit Price</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of filteredRows | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
+                <td class="text-primary" style="font-size: 15px; font-weight: 500;">
+                    {{item?.name}}
+                </td>
+                <td>{{ item?.dateCreated | date: 'MMM d, y hh:mm a' }}</td>
+                <td>{{item?.moq || 0 | currency:'₦':true:'1.0-0'}}</td>
+                <td>{{item?.unit_price || 0 | currency:'₦':true:'1.0-0'}}</td>
+                <td>{{item?.quantity}}</td>
+               <td >
+                <small [ngClass]="{'in-stock': item?.status === 'inStock', 'out-of-stock': item?.status !== 'inStock'}">
+                  {{ item?.status === 'inStock' ? 'In Stock' : 'Out of Stock' }}</small></td>
+              </tr>
+            </tbody>
+           
+          </table>          
+      </div>
+</section>
+<section>
+  <div class="row d-flex justify-content-end ">
+<div class="col-4 d-flex justify-content-end align-items-center">
+  <div class="contain-total shadow-sm p-2">
+    <div class="d-flex border-bottom mt-2">
+          <p class="name">Order Value:</p>
+          <p class="value">N34,000</p>
+    </div>
+    <div class="d-flex mt-3">
+
+      <p class="name">Commission (1%):</p>
+      <p class="value">N3,400</p>
+    </div>
+         
+  <div class="d-flex">
+ <div class="details-head">Earnings</div>
+ <div class="details-head">N240,000</div>
+
+   </div>
+        </div>
+</div>
+  </div>
+</section>
+  
+<!-- <div class="d-flex justify-content-center">
+
+    <button  class="btn-modal-primary mt-3" style="border-radius: 80px!important; padding: 13px 60px!important;">Continue</button>
+</div> -->
+  </div>
+</div>

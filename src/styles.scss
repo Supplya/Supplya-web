@@ -387,6 +387,18 @@ color: white!important;
     padding: 10.53px 20.21px!important;
     animation: slideLeft 0.8s ease forwards;
   }
+   .details-head {
+    background: #0097A81A!important;
+    border-left: 2px solid #fff!important;
+    border-right: 2px solid #fff!important;
+    font-size: 14px!important;
+    font-weight: 600!important;
+    letter-spacing: 0.005em;
+    // color: #1D1F2C;
+    color: var(--primary-color)!important;
+    padding: 10.53px 20.21px!important;
+    animation: slideLeft 0.8s ease forwards;
+  }
   
   .table td {
    animation: slideRight 0.8s ease forwards;

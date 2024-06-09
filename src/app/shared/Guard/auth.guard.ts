@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
       return false;
     }
 
-    const userRole = credentials.role;
+    const userRole = credentials?.role;
 
     // if (userRole === 'admin' || userRole === userTypeFromUrl) {
     if (userRole === userTypeFromUrl) {

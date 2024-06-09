@@ -25,7 +25,28 @@ export class ErrorHandlingInterceptor implements HttpInterceptor {
     // Check for internet connectivity
     if (!navigator.onLine) {
       this.networkStatusService.setOnlineStatus(false);
-      this.notify.danger("You're offline. No internet connection");
+       Swal.fire({
+         html: `<span style="color: #000; font-weight: 600; font-size: 19px;">You're offline. No internet connection</span>`,
+         text: '',
+         icon: 'error',
+         showCancelButton: false,
+         allowOutsideClick: false,
+         confirmButtonText: 'OK',
+         showClass: {
+           popup: `
+                    animate__animated
+                    animate__fadeInDown
+                    animate__faster
+                  `,
+         },
+         hideClass: {
+           popup: `
+                    animate__animated
+                    animate__fadeOutDown
+                    animate__faster
+                  `,
+         },
+       });
       return throwError("You're offline. No internet connection");
     }
 
