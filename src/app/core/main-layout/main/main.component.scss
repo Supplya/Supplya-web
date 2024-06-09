@@ -4,7 +4,8 @@
     padding-top: 20px!important;
     padding-bottom: 15px!important;
     background-color: #e3e5e532!important;
-    height: max-content!important;
+    height: 100vh!important;
+    overflow-y: auto!important;
   }
   
   @media (max-width: 992px) {

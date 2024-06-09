@@ -27,7 +27,7 @@ export class VendorProductsComponent implements OnInit {
   products: any;
   getAllProducts() {
     this.productLoading = true;
-    this.productService.getAllProducts().subscribe(
+    this.productService.getAllVendorProducts().subscribe(
       (data: any) => {
         this.products = data?.data;
         this.filteredRows = data?.data;
@@ -36,7 +36,6 @@ export class VendorProductsComponent implements OnInit {
       (error) => {
         this.errorFetchingProduct = true;
         this.productLoading = false;
-        console.error('Error fetching products:', error);
       }
     );
   }

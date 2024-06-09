@@ -35,6 +35,10 @@ export class ProductService {
   getAllProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.productUrl}products`);
   }
+
+  getAllVendorProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.productUrl}products/vendor`);
+  }
   getAllNewArrivals(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.productUrl}products/newly-arrived-brands`);
   }

@@ -13,10 +13,8 @@ export class AuthGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const urlSegments = state.url.split('/'); // Split the URL into segments
     const userTypeFromUrl = urlSegments[2]; // The third segment should be the user type
-console.log( urlSegments , 'urlSegments')
-console.log( userTypeFromUrl , 'userTypeFromUrl')
+
     const credentials = this.authService.getUserCredentials();
-    console.log( credentials, 'credentials')
 
     if (!credentials) {
       this.router.navigate(['/auth']);

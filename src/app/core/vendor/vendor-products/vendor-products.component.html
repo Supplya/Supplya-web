@@ -59,7 +59,7 @@
               <tr *ngFor="let item of filteredRows | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
                 <td>
                   <div class="product-info">
-                    <img class="product-image" src="/assets/Images/Rectangle 134.png" alt="Product Image">
+                    <img class="product-image" [src]="item?.image" alt="Product Image">
                     {{item?.name}}
                   </div>
                 </td>
@@ -99,6 +99,8 @@
           </div>
           
       </div>
+
+      
        <section class="content center" *ngIf="filteredRows?.length === 0">
         <div class="py-5 ">
           <div class="py-3 text-center" >

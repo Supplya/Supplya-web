@@ -45,11 +45,11 @@ export class VendorEditProductComponent implements OnInit {
     this.productService.getProductId(this.id).subscribe(
       (details: any) => {
         if (details.status === 'success') {
-          this.form.patchValue(details.data);
+          
           this.form.patchValue({
             category: details.data.category.name
           });
-
+this.form.patchValue(details.data);
           this.images = details.data.images;
          }
       },

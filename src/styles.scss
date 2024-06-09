@@ -383,8 +383,8 @@ color: white!important;
     font-weight: 600!important;
     letter-spacing: 0.005em;
     // color: #1D1F2C;
-    color: #0097A81A;
-    padding: 16.53px 20.21px!important;
+    color: var(--primary-color)!important;
+    padding: 10.53px 20.21px!important;
     animation: slideLeft 0.8s ease forwards;
   }
   
@@ -678,28 +678,7 @@ letter-spacing: 0.005em;
 
 
 /* Media query for mobile devices */
-@media screen and (max-width: 767px) {
-  /* Adjust table headers to stack vertically */
-  .table th {
-    display: block;
-    padding: 10px;
-    text-align: left;
-  }
 
-  /* Adjust table cells to stack vertically */
-  .table td {
-    display: block;
-    text-align: right;
-    padding: 10px;
-    border: none;
-    border-bottom: 1px solid #ddd;
-  }
-
-  /* Hide table row borders on mobile */
-  .table tbody tr {
-    border-bottom: none;
-  }
-}
 
 
 // ANIMATION

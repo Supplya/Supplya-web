@@ -1,1 +1,150 @@
-<p>vendor-dashboard works!</p>
+<section>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-3">
+        <div class="container-content p-3 mb-2">
+            <div class="d-flex justify-content-between ">
+                <p class="head-text">Total Sales</p>
+                <img src="/assets/Images/total-sales.png" alt="">
+            </div>
+            <h3 class="head-count">67,000</h3>
+            <p class="head-brief">+ N45,000 Today</p>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="container-content p-3 mb-2">
+            <div class="d-flex justify-content-between ">
+                <p class="head-text">Order</p>
+                <img src="/assets/Images/orders.png" alt="">
+            </div>
+            <h3 class="head-count">120</h3>
+            <p class="head-brief">+300 Today</p>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="container-content p-3 mb-2">
+            <div class="d-flex justify-content-between ">
+                <p class="head-text">Total Stocks</p>
+                <img src="/assets/Images/stocks.png" alt="">
+            </div>
+            <h3 class="head-count">67,000</h3>
+            <p class="head-brief">20,000 Added Recently</p>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="container-content p-3 MB-2">
+            <div class="d-flex justify-content-between ">
+                <p class="head-text">Pending Order</p>
+                <img src="/assets/Images/pending.png" alt="">
+            </div>
+            <h3 class="head-count">67,0000</h3>
+            <p class="head-brief">123 Orders Made</p>
+        </div>
+    </div>
+    
+
+        </div>
+    </div>
+</section>
+
+
+<section>
+          <section class="content" *ngIf="ordersLoading && !filteredRows && !errorFetchingProduct">
+<div class="py-5 p-5 center">
+    <div>
+
+        <img src="/assets/Images/requestLoading.gif" alt="">
+        <p class="loading-text text-center text-muted">Loading...</p>
+    </div>
+</div>
+      </section >
+
+      <section class="content center" *ngIf="!ordersLoading && !filteredRows && errorFetchingProduct">
+        <div class="py-5 ">
+          <div class="py-3 text-center" >
+            <img src="/assets/Images/oops.png" style="height: 200px;" alt="">
+            <p class="loading-text  text-muted py-3">Could not display products. Click 'Refresh' to try again.
+        </p>
+            <p class="refresh" (click)="refreshProducts()">Refresh <i class="bi bi-arrow-repeat"></i></p>
+          </div>
+        </div>
+      </section>
+     
+     
+      <div class="orders-section mt-4"  *ngIf="!ordersLoading && filteredRows?.length > 0">
+        <div class="px-4 d-flex justify-content-between align-items-center">
+            <div>
+
+                <p class="head-count mb-0 mt-2" style="font-size: 20px;">Orders</p>
+                <p class="head-text">Recent Orders</p>
+            </div>
+            <p class="view-all">View All</p>
+</div>
+      </div>
+      <div class="table-responsive" *ngIf="!ordersLoading && filteredRows?.length > 0">
+          <table class="table" style="overflow-y: auto;">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Date & Time</th>
+                <th>Price</th>
+                <th>Earnings</th>
+                <th>Customer</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of filteredRows | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
+                <td class="text-primary" style="font-size: 15px; font-weight: 500;">
+                    {{item?.name}}
+                </td>
+                <td>{{ item?.dateCreated | date: 'MMM d, y hh:mm a' }}</td>
+                <td>{{item?.moq || 0 | currency:'₦':true:'1.0-0'}}</td>
+                <td>{{item?.unit_price || 0 | currency:'₦':true:'1.0-0'}}</td>
+                <td>{{item?.quantity}}</td>
+               <td >
+                <small [ngClass]="{'in-stock': item?.status === 'inStock', 'out-of-stock': item?.status !== 'inStock'}">
+                  {{ item?.status === 'inStock' ? 'In Stock' : 'Out of Stock' }}</small></td>
+
+                <td>
+                <span class="view-call text-decoration-underline text-primary cursor-pointer fw-bold">View</span>
+                </td>
+              </tr>
+            </tbody>
+           
+          </table>
+
+          <div class="d-flex justify-content-between px-5" *ngIf="filteredRows?.length > 0">
+
+            <div class="pagination-info text-muted">
+                Now Showing {{ calculateStartRecord() }} - {{ calculateEndRecord() }} of {{ filteredRows?.length }} records
+              </div>
+
+              <div>
+                <pagination-controls *ngIf="filteredRows?.length > 0"
+                    (pageChange)="p = $event"
+                    previousLabel=""
+                    nextLabel=""
+                  ></pagination-controls>
+              </div>
+          </div>
+          
+      </div>
+
+      
+       <section class="content center" *ngIf="filteredRows?.length === 0">
+        <div class="py-5 ">
+          <div class="py-3 text-center" >
+            <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">
+            <div class=" py-5">
+
+              <p class="loading-text  text-muted">No product found for your search
+          </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+</section>
