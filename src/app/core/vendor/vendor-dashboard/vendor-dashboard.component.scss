@@ -49,22 +49,41 @@ height: 135px;
     margin-right: 10px;
   }
 
-  .in-stock {
+   .completed {
     background: #00FF661A;
     font-family: Open Sans;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
     color: #0FB347;
     padding: 7px 12px;
     border-radius: 100px;
   }
   
-  .out-of-stock {
+  .new {
+    background: #3399FF1A;
+    font-family: Open Sans;
+    font-size: 14px;
+    font-weight: 500;
+    color: #3399FF;
+    padding: 7px 12px;
+    border-radius: 100px;
+  }
+
+  .cancelled {
     background: #FFF0EA;
     font-family: Open Sans;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
     color: #F86624;
+    padding: 7px 12px;
+    border-radius: 100px;
+  }
+  .pending {
+    background-color: #ffeb3b5c;
+  color: #000000;  
+    font-family: Open Sans;
+    font-size: 14px;
+    font-weight: 300;
     padding: 7px 12px;
     border-radius: 100px;
   }

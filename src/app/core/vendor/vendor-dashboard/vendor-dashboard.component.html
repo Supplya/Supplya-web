@@ -79,7 +79,7 @@
                 <p class="head-count mb-0 mt-2" style="font-size: 20px;">Orders</p>
                 <p class="head-text">Recent Orders</p>
             </div>
-            <p class="view-all">View All</p>
+            <p class="view-all" routerLink="/core/vendor/orders">View All</p>
 </div>
       </div>
       <div class="table-responsive" *ngIf="!ordersLoading && filteredRows?.length > 0">
@@ -96,17 +96,19 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of filteredRows | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
+              <tr *ngFor="let item of mockData | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
                 <td class="text-primary" style="font-size: 15px; font-weight: 500;">
-                    {{item?.name}}
+                    {{item?._id}}
                 </td>
-                <td>{{ item?.dateCreated | date: 'MMM d, y hh:mm a' }}</td>
-                <td>{{item?.moq || 0 | currency:'₦':true:'1.0-0'}}</td>
+                <td>{{ item?.dateOrdered | date: 'MMM d, y hh:mm a' }}</td>
+                <td>{{item?.totalPrice || 0 | currency:'₦':true:'1.0-0'}}</td>
                 <td>{{item?.unit_price || 0 | currency:'₦':true:'1.0-0'}}</td>
                 <td>{{item?.quantity}}</td>
                <td >
-                <small [ngClass]="{'in-stock': item?.status === 'inStock', 'out-of-stock': item?.status !== 'inStock'}">
-                  {{ item?.status === 'inStock' ? 'In Stock' : 'Out of Stock' }}</small></td>
+                <small [ngClass]="{'completed': item?.orderStatus === 'completed', 'new': item?.orderStatus === 'new',
+                 'pending': item?.orderStatus === 'pending', 'cancelled': item?.orderStatus === 'cancelled'}">
+                  {{ capitalizeFirstLetter(item?.orderStatus) }}</small>
+                </td>
 
                 <td>
                 <span (click)="toggleModal('orderDetailsModal', 'open', item)" class="view-call text-decoration-underline text-primary cursor-pointer fw-bold">View</span>
@@ -156,15 +158,20 @@
         <div class="details-head">Order Information</div>
         <div class="contain mt-3">
           <p class="name"> Created On:</p>
-          <p class="value">14 March, 2024, 7:32 PM</p>
+          <p class="value">{{ selectedOrder?.dateOrdered | date: 'MMM d, y hh:mm a' }}</p>
         </div>
         <div class="contain">
           <p class="name"> Product Status:</p>
-          <p class="value">Cancelled</p>
+          <p class="value">
+            <span [ngClass]="{'completed': selectedOrder?.orderStatus === 'completed', 'new': selectedOrder?.orderStatus === 'new',
+                 'pending': selectedOrder?.orderStatus === 'pending', 'cancelled': selectedOrder?.orderStatus === 'cancelled'}">
+                {{ capitalizeFirstLetter(selectedOrder?.orderStatus) }} 
+                </span>
+            </p>
         </div>
         <div class="contain">
           <p class="name"> Payment Status:</p>
-          <p class="value">Payment on Delivery</p>
+          <p class="value">{{capitalizeFirstLetter(selectedOrder?.paymentMethod)}}</p>
         </div>
       </div>
     </div>
@@ -177,11 +184,11 @@
         </div>
         <div class="contain">
           <p class="name"> Email:</p>
-          <p class="value"><a href="mailto:piusash@gmail.com">piusash@gmail.com</a></p>
+          <p class="value"><a href="{{selectedOrder?.email}}">{{selectedOrder?.email}}</a></p>
         </div>
         <div class="contain">
           <p class="name"> Phone:</p>
-          <p class="value"><a href="tel:09056779099">09056779099</a></p>
+          <p class="value"><a href="tel:{{selectedOrder?.phone}}">{{selectedOrder?.phone}}</a></p>
         </div>
       </div>
     </div>
@@ -194,7 +201,7 @@
         </div>
         <div class="contain">
           <p class="name">Address:</p>
-          <p class="value">8502 Inglewood, Maine 98380 Lagos, Nigeria</p>
+          <p class="value">{{selectedOrder?.address}}</p>
         </div>
      
       </div>
@@ -202,56 +209,52 @@
   </div>
 </section>
 <section class="py-2">
-   <div class="table-responsive" style="border-radius: 0px!important; box-shadow: none!important; overflow-y: auto;" *ngIf="!ordersLoading && filteredRows?.length > 0">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Products</th>
-                <th>Variation</th>
-                <th>SKU</th>
-                <th>QTY</th>
-                <th>Unit Price</th>
-                <th>Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of filteredRows | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
-                <td class="text-primary" style="font-size: 15px; font-weight: 500;">
-                    {{item?.name}}
-                </td>
-                <td>{{ item?.dateCreated | date: 'MMM d, y hh:mm a' }}</td>
-                <td>{{item?.moq || 0 | currency:'₦':true:'1.0-0'}}</td>
-                <td>{{item?.unit_price || 0 | currency:'₦':true:'1.0-0'}}</td>
-                <td>{{item?.quantity}}</td>
-               <td >
-                <small [ngClass]="{'in-stock': item?.status === 'inStock', 'out-of-stock': item?.status !== 'inStock'}">
-                  {{ item?.status === 'inStock' ? 'In Stock' : 'Out of Stock' }}</small></td>
-              </tr>
-            </tbody>
-           
-          </table>          
+   <div class="table-responsive" style="border-radius: 0px!important; box-shadow: none!important;" *ngIf="!ordersLoading && filteredRows?.length > 0">
+         <table class="table">
+  <thead>
+    <tr>
+      <th>Products</th>
+      <th>Variation</th>
+      <th>SKU</th>
+      <th>QTY</th>
+      <th>Unit Price</th>
+      <th>Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of selectedOrder?.orderItems | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
+      <td class="text-primary" style="font-size: 15px; font-weight: 500;">
+        {{ item?.product?.name }}
+      </td>
+      <td>{{ item?.product?.dateCreated | date: 'MMM d, y hh:mm a' }}</td>
+      <td>{{ item?.product?.sku || 0  }}</td>
+      <td>{{ item?.quantity }}</td>
+      <td>{{ item?.product?.unit_price | currency:'₦':true:'1.0-0' }}</td>
+      <td>{{ (item?.product?.unit_price * item?.quantity) | currency:'₦':true:'1.0-0' }}</td>
+    </tr>
+  </tbody>
+</table>
+
       </div>
 </section>
 <section>
   <div class="row d-flex justify-content-end ">
 <div class="col-4 d-flex justify-content-end align-items-center">
   <div class="contain-total shadow-sm p-2">
-    <div class="d-flex border-bottom mt-2">
-          <p class="name">Order Value:</p>
-          <p class="value">N34,000</p>
-    </div>
-    <div class="d-flex mt-3">
-
-      <p class="name">Commission (1%):</p>
-      <p class="value">N3,400</p>
-    </div>
-         
+  <div class="d-flex border-bottom mt-2">
+    <p class="name">Total Price:</p>
+    <p class="value">{{ selectedOrder?.totalPrice | currency:'₦':true:'1.0-0' }}</p>
+  </div>
+  <div class="d-flex mt-3">
+    <p class="name">Commission (1%):</p>
+    <p class="value">{{ (selectedOrder?.totalPrice * 0.01) | currency:'₦':true:'1.0-0' }}</p>
+  </div>
   <div class="d-flex">
- <div class="details-head">Earnings</div>
- <div class="details-head">N240,000</div>
+    <div class="details-head">Earnings</div>
+    <div class="details-head">{{ (selectedOrder?.totalPrice - (selectedOrder?.totalPrice * 0.01)) | currency:'₦':true:'1.0-0' }}</div>
+  </div>
+</div>
 
-   </div>
-        </div>
 </div>
   </div>
 </section>

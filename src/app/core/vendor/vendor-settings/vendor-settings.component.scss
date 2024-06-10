@@ -1,0 +1,30 @@
+.setting-section{
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
+    background-color: white;
+    box-shadow: 0px 3.67px 27.54px 0px #2E2D740D;
+border: 0.92px solid #F0F1F3
+}
+.tab {
+  padding: 10px 16px!important;
+  gap: 8px;
+  border-radius: 4px;
+  opacity: 1;
+//   text-align: center;
+  cursor: pointer;
+  width: 100%;
+  }
+
+.active {
+  background: var(--primary-color);
+  color: white;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.inactive {
+  font-weight: 500;
+  font-size: 16px;
+  color: #333843;
+
+}
