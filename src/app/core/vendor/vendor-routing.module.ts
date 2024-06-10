@@ -8,6 +8,7 @@ import { VendorReportComponent } from './vendor-report/vendor-report.component';
 import { VendorProductsComponent } from './vendor-products/vendor-products.component';
 import { VendorAddNewProductComponent } from './vendor-add-new-product/vendor-add-new-product.component';
 import { VendorEditProductComponent } from './vendor-edit-product/vendor-edit-product.component';
+import { VendorWithdrawalComponent } from './vendor-withdrawal/vendor-withdrawal.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -50,6 +51,11 @@ const routes: Routes = [
     path: 'add-new-product',
     component: VendorAddNewProductComponent,
     data: { title: 'Add New Product' },
+  },
+  {
+    path: 'withdrawal',
+    component: VendorWithdrawalComponent,
+    data: { title: 'Withdrawal' },
   },
 ];
 

@@ -60,7 +60,7 @@ this.form.patchValue(details.data);
     this.form = this.fb.group({
       name: ['', Validators.required],
       unit_price: [, Validators.required],
-      discounted_price: [, Validators.required],
+      discounted_price: [''],
       description: ['', Validators.required],
       quantity: [, Validators.required],
       brand: [''],

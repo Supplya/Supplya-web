@@ -27,7 +27,6 @@ export class ProductDetailsComponent {
     this.cartService.getCartObservable().subscribe((cart) => {
       this.cart = cart;
       this.AllAddedItems = cart.items;
-      console.log(this.AllAddedItems, "AllAddedItems");
 
     });
 
