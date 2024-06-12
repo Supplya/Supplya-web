@@ -30,7 +30,7 @@ const routes: Routes = [
   {
     path: 'shop-settings',
     component: VendorSettingsComponent,
-    data: { title: 'Profile' },
+    data: { title: 'Shop Profile Settings' },
   },
   {
     path: 'report',
