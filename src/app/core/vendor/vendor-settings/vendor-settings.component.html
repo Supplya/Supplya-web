@@ -132,12 +132,15 @@
                   </div>
                   <div class="mb-2 col-lg-6 slide-right">
                     <label for="country" class="content-label">Country</label>
-                    <select formControlName="country" class=" content-select {{
+                    <!-- <select formControlName="country" class=" content-select {{
                                         isInvalid('country') ? 'error-input' : ''
                                       }}">
                             <option value="Nigeria" selected  id="country">Select Country</option>
-                            <!-- <option *ngFor="let item of countries">{{item}}</option> -->
-                        </select>
+                            <option *ngFor="let item of countries">{{item}}</option>
+                        </select> -->
+                        <input type="text" value="Nigeria" readonly   id="country" formControlName="country" class=" content-input {{
+                                            isInvalid('country') ? 'error-input' : ''
+                                          }}" placeholder="Enter country">
                                            <small class="error-text mb-4" *ngIf="isInvalid('country')">
                                                 {{ getErrorMessage('country', 'This field is required') }}
                                               </small>
