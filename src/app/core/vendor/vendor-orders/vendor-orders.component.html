@@ -99,7 +99,7 @@
             <tbody>
               <tr *ngFor="let item of filteredRows | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
                 <td class="text-primary" style="font-size: 15px; font-weight: 500;">
-                    {{item?._id}}
+                    {{item?.orderId}}
                 </td>
                 <td>{{ item?.dateOrdered | date: 'MMM d, y hh:mm a' }}</td>
                 <td>{{item?.totalPrice || 0 | currency:'₦':true:'1.0-0'}}</td>
