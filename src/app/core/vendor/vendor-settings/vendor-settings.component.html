@@ -135,8 +135,8 @@
                     <select formControlName="country" class=" content-select {{
                                         isInvalid('country') ? 'error-input' : ''
                                       }}">
-                            <option value="" selected  id="country">Select Country</option>
-                            <option *ngFor="let item of countries">{{item}}</option>
+                            <option value="Nigeria" selected  id="country">Select Country</option>
+                            <!-- <option *ngFor="let item of countries">{{item}}</option> -->
                         </select>
                                            <small class="error-text mb-4" *ngIf="isInvalid('country')">
                                                 {{ getErrorMessage('country', 'This field is required') }}
