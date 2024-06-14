@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastyService } from 'ng-toasty';
 import { AuthService } from 'src/app/authentication/service/auth.service';
 import { HelperService } from 'src/app/shared/helpers/helper.service';
+import { PasswordMatchValidator } from 'src/app/shared/helpers/password-match.validator';
 import { MediaUploadService } from 'src/app/shared/services/mediaUpload.service';
 
 @Component({
@@ -19,32 +20,43 @@ export class VendorSettingsComponent implements OnInit {
     private notify: ToastyService,
     private uploadService: MediaUploadService
   ) {}
-  initialFormValues = {
-    accountNumber: '',
-    address: 'Oloja St, Somolu, Lagos 102216, Lagos, Nigeria',
-    bank: '',
-    country: 'Nigeria',
-    createdAt: '2024-06-08T18:33:34.676Z',
-    dob: null,
-    email: 'ashconceptdigital@gmail.com',
-    firstName: 'Pius',
-    shopName: 'Pius Store',
-    shopUrl: 'http://supplya.com/ash',
-    isSoleProprietor: false,
-    lastName: 'Ashogbon',
-    phoneNumber: '09067009945',
-    role: 'vendor',
-    state: 'Lagos',
-    _id: '6664a5b92dd055006ba503de',
-  };
 
   states = ['Lagos', 'Abuja'];
   countries = ['Nigeria', 'Ghana'];
+  userDetails;
   ngOnInit(): void {
     this.initForm();
-    this.form.patchValue(this.initialFormValues);
+    this.userDetails = this.authService.getUserCredentials();
+    console.log(this.userDetails)
+    this.getUserByID();
+  }
+  requestLoading;
+  userInfo;
+  getUserByID() {
+    this.requestLoading = true;
+    this.authService.getUserById(this.userDetails?._id).subscribe(
+      (data: any) => {
+        this.requestLoading = false;
+        if (data.status === 'success') {
+          this.userInfo = data['data'];
+          this.form.patchValue(data['data']);
+        } else {
+          this.notify.danger(data.message);
+        }
+      },
+      (error) => {
+        this.requestLoading = false;
+        this.errorFetching = true;
+      }
+    );
+  }
+  errorFetching;
+  refreshUser() {
+    this.errorFetching = false;
+    this.getUserByID();
   }
   form: FormGroup;
+  passwordForm: FormGroup;
   submitted: boolean = false;
   selectedTab: string = 'shop';
   showPassword: boolean = false;
@@ -61,26 +73,30 @@ export class VendorSettingsComponent implements OnInit {
   }
   initForm() {
     this.form = this.fb.group({
-      accountNumber: [''],
-      address: [''],
-      bank: [''],
       country: ['', Validators.required],
-      shopName: ['', Validators.required],
-      shopUrl: ['', Validators.required],
-      createdAt: ['', Validators.required],
-      dob: [null, Validators.required],
-      email: [''],
-      confirmPassword: [''],
-      password: ['password'],
-      newPassword: [''],
-      firstName: ['', Validators.required],
-      isSoleProprietor: [false],
-      lastName: ['', Validators.required],
-      phoneNumber: [null, Validators.required],
-      role: ['', Validators.required],
       state: ['', Validators.required],
+      address: ['', Validators.required],
+      city: [''],
+      postalCode: [''],
+      storeName: [null],
+      storeUrl: [null],
+      phoneNumber: [null, Validators.required],
+      accountNumber: [''],
+      bank: [''],
+      dob: [null],
       _id: [''],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', Validators.required],
     });
+    this.passwordForm = this.fb.group(
+      {
+        password: ['', Validators.required],
+        newPassword: ['', Validators.required],
+        confirmPassword: ['', Validators.required],
+      },
+      { validator: PasswordMatchValidator('newPassword', 'confirmPassword') }
+    );
   }
   getErrorMessage(control: string, message: string) {
     return this.helperService.getError(this.form.get(control), message);
@@ -89,6 +105,18 @@ export class VendorSettingsComponent implements OnInit {
     return (
       (this.form.get(control)?.touched && this.form.get(control)?.invalid) ||
       (this.submitted && this.form.get(control)?.invalid)
+    );
+  }
+
+  submittedPass;
+  getErrorMessagePass(control: string, message: string) {
+    return this.helperService.getError(this.passwordForm.get(control), message);
+  }
+  isInvalidPass(control: string) {
+    return (
+      (this.passwordForm.get(control)?.touched &&
+        this.passwordForm.get(control)?.invalid) ||
+      (this.submittedPass && this.passwordForm.get(control)?.invalid)
     );
   }
 
@@ -125,7 +153,6 @@ export class VendorSettingsComponent implements OnInit {
       reader.readAsDataURL(file);
     }
   }
- 
 
   onDragOver(event: any) {
     event.preventDefault();
@@ -163,8 +190,7 @@ export class VendorSettingsComponent implements OnInit {
           this.uploadProgress = 0;
           this.uploadRequestLoading = false;
           this.imgUrl = event.body.secure_url;
-    this.toggleModal('changePhotoModal', 'open');
-
+          this.toggleModal('changePhotoModal', 'open');
         }
       },
       (err) => {
@@ -173,5 +199,20 @@ export class VendorSettingsComponent implements OnInit {
       }
     );
   }
-  updateProfile() {}
+  changePassword() {}
+
+  updateProfile(): void {
+    this.submitted = true;
+    this.authService.updateUserById(this.userDetails?._id, this.form.value).subscribe((data) => {
+
+      if (data.success === 'success') { 
+        this.authService.setCredentials(data);
+        this.submitted = false;
+        this.userDetails = data['data'];
+          this.notify.success('Store Profile Updated Successfully', 4000);
+          this.getUserByID();
+      }
+    
+    });
+  }
 }

@@ -1,4 +1,30 @@
-<section class="setting-section">
+
+
+
+
+    <section class="content" *ngIf="requestLoading && !userInfo && !errorFetching">
+<div class="py-5 p-5 center">
+    <div>
+
+        <img src="/assets/Images/requestLoading.gif" alt="">
+        <p class="loading-text text-center text-muted">Loading...</p>
+    </div>
+</div>
+      </section >
+
+      <section class="content center" *ngIf="!requestLoading && !userInfo && errorFetching">
+        <div class="py-5 ">
+          <div class="py-3 text-center" >
+            <img src="/assets/Images/oops.png" style="height: 200px;" alt="">
+            <p class="loading-text  text-muted py-3">Could not display Store Profile. Click 'Refresh' to try again.
+        </p>
+            <p class="refresh" (click)="refreshUser()">Refresh <i class="bi bi-arrow-repeat"></i></p>
+          </div>
+        </div>
+      </section>
+
+
+<section class="setting-section" *ngIf="!requestLoading && userInfo && !errorFetching">
 <div class="row p-3">
     <div class="col-lg-3" style="border-right: 1px solid #D1D1D1">
           <div class="tabs p-4">
@@ -17,9 +43,10 @@
   </div>
     </div>
     <div class="col-lg-9">
-<form [formGroup]="form" (ngSubmit)="updateProfile()">
+
 
 <section [ngSwitch]="selectedTab" class=" p-4">
+  <form [formGroup]="form" (ngSubmit)="updateProfile()">
 <div *ngSwitchCase="'shop'">
 <div class="d-flex justify-content-between align-items-center" style="border-bottom: 1px solid #D1D1D1">
 <div class="mb-2">
@@ -40,9 +67,9 @@
                 <i class="bi bi-camera-fill camera-icon"></i>
             </div>
             <div>
-                <p class="mb-0" style="font-size: 22px; font-weight: 500; color: #000;">{{form.value?.shopName}}</p>
-                <p class="sub mb-0">{{form.value?.email}}</p>
-                <p class="sub">{{form.value?.phoneNumber}}</p>
+                <p class="mb-0" style="font-size: 22px; font-weight: 500; color: #000;">{{userDetails?.storeName}}</p>
+                <p class="sub mb-0">{{userDetails?.email}}</p>
+                <p class="sub">{{userDetails?.phoneNumber}}</p>
             </div>
         </div>
         <!-- <button class="btn btn-save d-none d-lg-block">Change Picture</button> -->
@@ -73,44 +100,66 @@
          <div class="row mb-3">
     
                 <div class="mb-2 col-lg-6 slide-left">
-                    <label for="shopName" class="content-label">Shop Name</label>
-                    <input type="text" formControlName="shopName" id="shopName" class=" content-input {{
-                                            isInvalid('shopName') ? 'error-input' : ''
-                                          }}" placeholder="Enter shop name">
+                    <label for="phoneNumber" class="content-label">Phone Number</label>
+                    <input type="text" formControlName="phoneNumber" id="phoneNumber" class=" content-input {{
+                                            isInvalid('phoneNumber') ? 'error-input' : ''
+                                          }}" placeholder="Enter phone number">
     
-                                            <small class="error-text mb-4" *ngIf="isInvalid('shopName')">
-                                                {{ getErrorMessage('shopName', 'This field is required') }}
+                                            <small class="error-text mb-4" *ngIf="isInvalid('phoneNumber')">
+                                                {{ getErrorMessage('phoneNumber', 'This field is required') }}
                                               </small>
                   </div>
                   <div class="mb-2 col-lg-6 slide-right">
-                    <label for="shopUrl" class="content-label">Shop link - {{this.form.value.shopUrl}}</label>
-                    <input type="text"   id="shopUrl" formControlName="shopUrl" class=" content-input {{
-                                            isInvalid('shopUrl') ? 'error-input' : ''
-                                          }}" placeholder="Enter shop link">
-                                           <small class="error-text mb-4" *ngIf="isInvalid('shopUrl')">
-                                                {{ getErrorMessage('shopUrl', 'This field is required') }}
+                    <label for="email" class="content-label">Email</label>
+                    <input type="text"   id="email" formControlName="email" class=" content-input {{
+                                            isInvalid('email') ? 'error-input' : ''
+                                          }}" placeholder="Enter email address">
+                                           <small class="error-text mb-4" *ngIf="isInvalid('email')">
+                                                {{ getErrorMessage('email', 'This field is required') }}
                                               </small>
                 </div>
             </div>
          <div class="row mb-3">
     
                 <div class="mb-2 col-lg-6 slide-left">
-                    <label for="shopName" class="content-label">Shop Address</label>
-                    <input type="text" formControlName="shopName" id="shopName" class=" content-input {{
-                                            isInvalid('shopName') ? 'error-input' : ''
+                    <label for="storeName" class="content-label">Store Name</label>
+                    <input type="text" formControlName="storeName" id="storeName" class=" content-input {{
+                                            isInvalid('storeName') ? 'error-input' : ''
                                           }}" placeholder="Enter shop name">
     
-                                            <small class="error-text mb-4" *ngIf="isInvalid('shopName')">
-                                                {{ getErrorMessage('shopName', 'This field is required') }}
+                                            <small class="error-text mb-4" *ngIf="isInvalid('storeName')">
+                                                {{ getErrorMessage('storeName', 'This field is required') }}
                                               </small>
                   </div>
                   <div class="mb-2 col-lg-6 slide-right">
-                    <label for="shopUrl" class="content-label">Shop Postal/zip Code</label>
-                    <input type="text"   id="shopUrl" formControlName="shopUrl" class=" content-input {{
-                                            isInvalid('shopUrl') ? 'error-input' : ''
+                    <label for="storeUrl" class="content-label">Store link - {{this.form.value.storeUrl}}</label>
+                    <input type="text"   id="storeUrl" formControlName="storeUrl" class=" content-input {{
+                                            isInvalid('storeUrl') ? 'error-input' : ''
                                           }}" placeholder="Enter shop link">
-                                           <small class="error-text mb-4" *ngIf="isInvalid('shopUrl')">
-                                                {{ getErrorMessage('shopUrl', 'This field is required') }}
+                                           <small class="error-text mb-4" *ngIf="isInvalid('storeUrl')">
+                                                {{ getErrorMessage('storeUrl', 'This field is required') }}
+                                              </small>
+                </div>
+            </div>
+         <div class="row mb-3">
+    
+                <div class="mb-2 col-lg-6 slide-left">
+                    <label for="address" class="content-label">Store Address</label>
+                    <input type="text" formControlName="address" id="address" class=" content-input {{
+                                            isInvalid('address') ? 'error-input' : ''
+                                          }}" placeholder="Enter shop name">
+    
+                                            <small class="error-text mb-4" *ngIf="isInvalid('address')">
+                                                {{ getErrorMessage('address', 'This field is required') }}
+                                              </small>
+                  </div>
+                  <div class="mb-2 col-lg-6 slide-right">
+                    <label for="postalCode" class="content-label">Shop Postal/zip Code</label>
+                    <input type="text"   id="postalCode" formControlName="postalCode" class=" content-input {{
+                                            isInvalid('postalCode') ? 'error-input' : ''
+                                          }}" placeholder="Enter shop link">
+                                           <small class="error-text mb-4" *ngIf="isInvalid('postalCode')">
+                                                {{ getErrorMessage('postalCode', 'This field is required') }}
                                               </small>
                 </div>
             </div>
@@ -155,6 +204,9 @@
 </section>
 
 </div>
+</form>
+
+ <form [formGroup]="passwordForm" (ngSubmit)="changePassword()">
 <div *ngSwitchCase="'security'">
 <div class="mb-2" style="border-bottom: 1px solid #D1D1D1">
 <p class="mb-0" style="font-size: 24px; font-weight: 500; color: #000;">Security</p>
@@ -167,12 +219,12 @@
     <label for="password" class="content-label">Current Password</label>
     <div class="position-relative">
       <input [type]="showPassword ? 'text' : 'password'" formControlName="password" id="password" class="content-input {{
-                                      isInvalid('password') ? 'error-input' : ''
+                                      isInvalidPass('password') ? 'error-input' : ''
                                     }}" placeholder="Enter your password">
       <i (click)="togglePasswordVisibility('password')" [class]="showPassword ? 'bi bi-eye-slash password-toggle-icon' : 'bi bi-eye password-toggle-icon'"></i>
     </div>
-    <small class="error-text mb-4" *ngIf="isInvalid('password')">
-      {{ getErrorMessage('password', 'This field is required') }}
+    <small class="error-text mb-4" *ngIf="isInvalidPass('password')">
+      {{ getErrorMessagePass('password', 'This field is required') }}
     </small>
   </div>
   
@@ -180,12 +232,12 @@
     <label for="newPassword" class="content-label">New Password</label>
     <div class="position-relative">
       <input [type]="showNewPassword ? 'text' : 'password'" formControlName="newPassword" id="newPassword" class="content-input {{
-                                      isInvalid('newPassword') ? 'error-input' : ''
+                                      isInvalidPass('newPassword') ? 'error-input' : ''
                                     }}" placeholder="Enter your new password">
       <i (click)="togglePasswordVisibility('newPassword')" [class]="showNewPassword ? 'bi bi-eye-slash password-toggle-icon' : 'bi bi-eye password-toggle-icon'"></i>
     </div>
-    <small class="error-text mb-4" *ngIf="isInvalid('newPassword')">
-      {{ getErrorMessage('newPassword', 'This field is required') }}
+    <small class="error-text mb-4" *ngIf="isInvalidPass('newPassword')">
+      {{ getErrorMessagePass('newPassword', 'This field is required') }}
     </small>
   </div>
   
@@ -193,24 +245,26 @@
     <label for="confirmPassword" class="content-label">Confirm New Password</label>
     <div class="position-relative">
       <input [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmPassword" id="confirmPassword" class="content-input {{
-                                      isInvalid('confirmPassword') ? 'error-input' : ''
+                                      isInvalidPass('confirmPassword') ? 'error-input' : ''
                                     }}" placeholder="Confirm your password">
       <i (click)="togglePasswordVisibility('confirmPassword')" [class]="showConfirmPassword ? 'bi bi-eye-slash password-toggle-icon' : 'bi bi-eye password-toggle-icon'"></i>
     </div>
-    <small class="error-text mb-4" *ngIf="isInvalid('confirmPassword')">
-      {{ getErrorMessage('confirmPassword', 'This field is required') }}
+    <small class="error-text mb-4" *ngIf="isInvalidPass('confirmPassword')">
+      {{ getErrorMessagePass('confirmPassword', 'This field is required') }}
     </small>
+    <small class="error-text mb-4" *ngIf="passwordForm?.get('confirmPassword')?.touched && passwordForm.get('newPassword')?.value && passwordForm.get('confirmPassword')?.value && passwordForm.errors?.['passwordsMismatch']">
+        Passwords do not match
+      </small>
   </div>
 
   <div class="py-3">
     <button class="btn-curve-primary w-100">Change Password</button>
   </div>
 </section>
-
-
 </div>
-</section>
 </form>
+</section>
+
     </div>
 </div>
 </section>

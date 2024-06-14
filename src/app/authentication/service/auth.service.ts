@@ -31,6 +31,10 @@ export class AuthService {
     const url = `${this.baseURL}users/${userId}`;
     return this.http.patch<any>(url, userData);
   }
+  getUserById(userId: string): Observable<any> {
+    const url = `${this.baseURL}users/${userId}`;
+    return this.http.get<any>(url);
+  }
 
   OTPVerification(user: any): Observable<any> {
     const url = `${this.baseURL}auth/sign-up-complete`;
@@ -57,7 +61,6 @@ export class AuthService {
 
 
   setCredentials(data: any) {
-    console.log(data, 'credentials');
     if (data && data.data.role) {
       this.loggedIn.next(true);
       this.userType.next(data.data.role);
