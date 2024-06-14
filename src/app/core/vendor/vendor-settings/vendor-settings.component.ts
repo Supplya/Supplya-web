@@ -22,12 +22,44 @@ export class VendorSettingsComponent implements OnInit {
   ) {}
 
   states = [
-    'Abia', 'Adamawa', 'Akwa Ibom', 'Anambra', 'Bauchi', 'Bayelsa', 'Benue',
-    'Borno', 'Cross River', 'Delta', 'Ebonyi', 'Edo', 'Ekiti', 'Enugu', 'Gombe',
-    'Imo', 'Jigawa', 'Kaduna', 'Kano', 'Katsina', 'Kebbi', 'Kogi', 'Kwara',
-    'Lagos', 'Nasarawa', 'Niger', 'Ogun', 'Ondo', 'Osun', 'Oyo', 'Plateau',
-    'Rivers', 'Sokoto', 'Taraba', 'Yobe', 'Zamfara', 'Abuja'
-]
+    'Abia',
+    'Adamawa',
+    'Akwa Ibom',
+    'Anambra',
+    'Bauchi',
+    'Bayelsa',
+    'Benue',
+    'Borno',
+    'Cross River',
+    'Delta',
+    'Ebonyi',
+    'Edo',
+    'Ekiti',
+    'Enugu',
+    'Gombe',
+    'Imo',
+    'Jigawa',
+    'Kaduna',
+    'Kano',
+    'Katsina',
+    'Kebbi',
+    'Kogi',
+    'Kwara',
+    'Lagos',
+    'Nasarawa',
+    'Niger',
+    'Ogun',
+    'Ondo',
+    'Osun',
+    'Oyo',
+    'Plateau',
+    'Rivers',
+    'Sokoto',
+    'Taraba',
+    'Yobe',
+    'Zamfara',
+    'Abuja',
+  ];
 
   countries = ['Nigeria', 'Ghana'];
   userDetails;
@@ -35,6 +67,7 @@ export class VendorSettingsComponent implements OnInit {
     this.initForm();
     this.userDetails = this.authService.getUserCredentials();
     this.getUserByID();
+    
   }
   requestLoading;
   userInfo;
@@ -205,39 +238,101 @@ export class VendorSettingsComponent implements OnInit {
       }
     );
   }
+  availableText: string = '';
+  notAvailableText: string = '';
+  validatingShop: boolean = false;
+  errorValidatingShop: boolean = false;
+  unableToValidate: string = '';
+  validateStoreName() {
+    if (this.form.value.storeName === this.userDetails?.storeName ) {
+      return;
+    } else {
+      
+      const storeName = this.form.get('storeName')?.value;
+      this.validatingShop = true;
+      this.authService.validateShop(storeName).subscribe(
+        (response: any) => {
+          this.validatingShop = false;
+          if (response.status === 'success') {
+            this.availableText = response.message;
+            this.notAvailableText = '';
+            this.unableToValidate = '';
+          } else {
+            this.availableText = '';
+            this.unableToValidate = '';
+            this.notAvailableText = response.message;
+          }
+        },
+        (error) => {
+          this.validatingShop = false;
+          this.errorValidatingShop = true;
+          this.unableToValidate =
+            'Unable to Validate Store name';
+        }
+      );
+      
+    }
+  }
+
+  validateStoreNamee(storeName: string) {
+    this.validatingShop = true;
+    this.authService.validateShop(storeName).subscribe(
+      (response: any) => {
+        this.validatingShop = false;
+
+        if (response.status === 'success') {
+          this.availableText = response.message;
+          this.notAvailableText = '';
+          this.unableToValidate = '';
+        } else {
+          this.availableText = '';
+          this.unableToValidate = '';
+          this.notAvailableText = response.message;
+        }
+      },
+      (error) => {
+        this.validatingShop = false;
+        this.unableToValidate =
+          'Unable to Validate Store name. Please try again';
+      }
+    );
+  }
+
   changePassword() {}
 
   updateProfile(): void {
     this.submitted = true;
-    this.authService.updateUserById(this.userDetails?._id, this.form.value).subscribe((data) => {
-      if (data?.status === 'success') { 
-        localStorage.setItem('spa-userData', JSON.stringify(data.data));
-        this.submitted = false;
-        this.userDetails = data['data'];
+    this.authService
+      .updateUserById(this.userDetails?._id, this.form.value)
+      .subscribe((data) => {
+        if (data?.status === 'success') {
+          localStorage.setItem('spa-userData', JSON.stringify(data.data));
+          this.submitted = false;
+          this.userDetails = data['data'];
           this.notify.success('Store Profile Updated Successfully', 4000);
           this.getUserByID();
-      }
-    
-    });
+        }
+      });
   }
   updatePicture(): void {
     this.toggleModal('changePhotoModal', 'close');
     this.submitted = true;
-    this.authService.updateUserById(this.userDetails?._id, this.form.value).subscribe((data) => {
-      if (data?.status === 'success') { 
-        localStorage.setItem('spa-userData', JSON.stringify(data.data));
-        this.submitted = false;
-        this.userDetails = data['data'];
-        this.toggleModal('changePhotoModal', 'close');
-          this.notify.success('Store Photo Updated Successfully', 4000);
-          this.getUserByID();
-      }
-    
-    },
-      (error => {
-    this.toggleModal('changePhotoModal', 'open');
-        
-      })
-    );
+    this.authService
+      .updateUserById(this.userDetails?._id, this.form.value)
+      .subscribe(
+        (data) => {
+          if (data?.status === 'success') {
+            localStorage.setItem('spa-userData', JSON.stringify(data.data));
+            this.submitted = false;
+            this.userDetails = data['data'];
+            this.toggleModal('changePhotoModal', 'close');
+            this.notify.success('Store Photo Updated Successfully', 4000);
+            this.getUserByID();
+          }
+        },
+        (error) => {
+          this.toggleModal('changePhotoModal', 'open');
+        }
+      );
   }
 }

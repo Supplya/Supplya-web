@@ -61,7 +61,8 @@ export class ErrorHandlingInterceptor implements HttpInterceptor {
         } else {
           // Server-side error
           if (error.status === 0) {
-            errorMessage = 'Unable to connect to the Server. Please check your internet connection or try again';
+            errorMessage =
+              'Oops! Something went wrong. Please check your internet connection or try again later.';
            
             Swal.fire({
               html: `<span style="color: #000; font-weight: 600; font-size: 19px;">${errorMessage}</span>`,

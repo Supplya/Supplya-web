@@ -103,7 +103,7 @@
                 </td>
                 <td>{{ item?.dateOrdered | date: 'MMM d, y hh:mm a' }}</td>
                 <td>{{item?.totalPrice || 0 | currency:'₦':true:'1.0-0'}}</td>
-                <td>{{item?.unit_price || 0 | currency:'₦':true:'1.0-0'}}</td>
+                <td>{{ (item?.totalPrice - (item?.totalPrice * 0.01)) | currency:'₦':true:'1.0-0' }}</td>
                 <td>{{item?.user?.firstName}} {{item?.user?.lastName}}</td>
                <td >
                 <small [ngClass]="{'completed': item?.orderStatus === 'completed', 'new': item?.orderStatus === 'new',

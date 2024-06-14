@@ -6,12 +6,15 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Server } from 'src/assets/apConfig';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
-  
-  constructor(private http: HttpClient, private server: Server, private router: Router, private notify: ToastyService) {}
+  constructor(
+    private http: HttpClient,
+    private server: Server,
+    private router: Router,
+    private notify: ToastyService
+  ) {}
   private baseURL = this.server.baseUrl;
 
   register(user: any): Observable<any> {
@@ -35,6 +38,10 @@ export class AuthService {
     const url = `${this.baseURL}users/${userId}`;
     return this.http.get<any>(url);
   }
+  validateShop(storeName: string): Observable<any> {
+    const url = `${this.baseURL}vendors/validate-store-name?storeName=${storeName}`;
+    return this.http.get<any>(url);
+  }
 
   OTPVerification(user: any): Observable<any> {
     const url = `${this.baseURL}auth/sign-up-complete`;
@@ -49,7 +56,6 @@ export class AuthService {
     return this.http.post(url, user, { headers });
   }
 
-
   private loggedIn = new BehaviorSubject<boolean>(false);
   private userType = new BehaviorSubject<string>('');
 
@@ -58,7 +64,6 @@ export class AuthService {
     vendor: '/core/vendor',
     admin: '/core/admin',
   };
-
 
   setCredentials(data: any) {
     if (data && data.data.role) {
@@ -79,22 +84,20 @@ export class AuthService {
   sendEmailForOTP(data: any) {
     localStorage.setItem('spa-OTPEmail', data);
   }
-  
+
   getEmailForOTP(): any {
     const email = localStorage.getItem('spa-OTPEmail');
     return email;
-   }
+  }
 
   getUserCredentials(): any {
     const userDataString = localStorage.getItem('spa-userData');
-    if(userDataString != null){
+    if (userDataString != null) {
       this.loggedIn.next(true);
-    }else{
+    } else {
       this.loggedIn.next(false);
-
     }
     return userDataString ? JSON.parse(userDataString) : null;
-    
   }
 
   logout() {
@@ -132,5 +135,4 @@ export class AuthService {
   getUserTypeValue(): string {
     return this.userType.value;
   }
-
 }
