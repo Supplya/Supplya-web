@@ -157,7 +157,7 @@
                     <label for="postalCode" class="content-label">Shop Postal/zip Code</label>
                     <input type="text"   id="postalCode" formControlName="postalCode" class=" content-input {{
                                             isInvalid('postalCode') ? 'error-input' : ''
-                                          }}" placeholder="Enter shop link">
+                                          }}" placeholder="Enter postal/zip code">
                                            <small class="error-text mb-4" *ngIf="isInvalid('postalCode')">
                                                 {{ getErrorMessage('postalCode', 'This field is required') }}
                                               </small>
@@ -171,7 +171,7 @@
                                         isInvalid('state') ? 'error-input' : ''
                                       }}">
                             <option value="" selected  id="state">Select State</option>
-                            <option *ngFor="let item of states">{{item}}</option>
+                            <option *ngFor="let item of states" [value]="item">{{item}}</option>
                         </select>
                    
     
@@ -293,7 +293,8 @@
           
         <!-- <label for="fileInput" class="content-button center-button" style="width: max-content; cursor: pointer;"> Change Photo</label> -->
         <div class="py-2 mt-3">
-            <button class="btn-curve-primary w-100 mb-2">Set Store Photo</button>
+          <p (click)="profileInput.click()" class="text-center mb-3" style="color: #000; font-size: 16px; font-weight: 400; cursor: pointer;">Change Photo</p>
+            <button class="btn-curve-primary w-100 mb-2" (click)="updatePicture()">Set Store Photo</button>
             <p (click)="toggleModal('changePhotoModal', 'close')" class="text-center" style="color: #948E8E; font-size: 18px; font-weight: 400; cursor: pointer;">Cancel</p>
         </div>
 
@@ -312,7 +313,7 @@
             </section>
            
           </ng-container>
-<input type="file" accept="image/*" (change)="addImage($event)" style="display: none;" id="fileInput">
+<input type="file" #profileInput accept="image/*" (change)="addImage($event)" style="display: none;" id="fileInput">
 </section>
   </div>
 </div>

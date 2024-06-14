@@ -21,13 +21,19 @@ export class VendorSettingsComponent implements OnInit {
     private uploadService: MediaUploadService
   ) {}
 
-  states = ['Lagos', 'Abuja'];
+  states = [
+    'Abia', 'Adamawa', 'Akwa Ibom', 'Anambra', 'Bauchi', 'Bayelsa', 'Benue',
+    'Borno', 'Cross River', 'Delta', 'Ebonyi', 'Edo', 'Ekiti', 'Enugu', 'Gombe',
+    'Imo', 'Jigawa', 'Kaduna', 'Kano', 'Katsina', 'Kebbi', 'Kogi', 'Kwara',
+    'Lagos', 'Nasarawa', 'Niger', 'Ogun', 'Ondo', 'Osun', 'Oyo', 'Plateau',
+    'Rivers', 'Sokoto', 'Taraba', 'Yobe', 'Zamfara', 'Abuja'
+]
+
   countries = ['Nigeria', 'Ghana'];
   userDetails;
   ngOnInit(): void {
     this.initForm();
     this.userDetails = this.authService.getUserCredentials();
-    console.log(this.userDetails)
     this.getUserByID();
   }
   requestLoading;
@@ -204,9 +210,8 @@ export class VendorSettingsComponent implements OnInit {
   updateProfile(): void {
     this.submitted = true;
     this.authService.updateUserById(this.userDetails?._id, this.form.value).subscribe((data) => {
-
-      if (data.success === 'success') { 
-        this.authService.setCredentials(data);
+      if (data?.status === 'success') { 
+        localStorage.setItem('spa-userData', JSON.stringify(data.data));
         this.submitted = false;
         this.userDetails = data['data'];
           this.notify.success('Store Profile Updated Successfully', 4000);
@@ -214,5 +219,25 @@ export class VendorSettingsComponent implements OnInit {
       }
     
     });
+  }
+  updatePicture(): void {
+    this.toggleModal('changePhotoModal', 'close');
+    this.submitted = true;
+    this.authService.updateUserById(this.userDetails?._id, this.form.value).subscribe((data) => {
+      if (data?.status === 'success') { 
+        localStorage.setItem('spa-userData', JSON.stringify(data.data));
+        this.submitted = false;
+        this.userDetails = data['data'];
+        this.toggleModal('changePhotoModal', 'close');
+          this.notify.success('Store Photo Updated Successfully', 4000);
+          this.getUserByID();
+      }
+    
+    },
+      (error => {
+    this.toggleModal('changePhotoModal', 'open');
+        
+      })
+    );
   }
 }
