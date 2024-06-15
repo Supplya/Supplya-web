@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { ToastyService } from 'ng-toasty';
 import { HelperService } from 'src/app/shared/helpers/helper.service';
+import { PasswordMatchValidator } from 'src/app/shared/helpers/password-match.validator';
 
 @Component({
   selector: 'app-register',
@@ -23,17 +24,21 @@ export class RegisterComponent implements OnInit {
     private authService: AuthService,
     private notify: ToastyService
   ) {
-    this.form = fb.group(
-      {
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', Validators.required],
-        role: [''],
-        confirmPassword: ['', Validators.required],
-      },
-      { updateOn: 'change' }
-    );
+this.form = this.fb.group(
+  {
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required],
+    role: [''],
+    confirmPassword: ['', Validators.required],
+  },
+  {
+    validator: PasswordMatchValidator('password', 'confirmPassword'),
+    // updateOn: 'change',
+  }
+);
+
   }
 
   ngOnInit(): void {

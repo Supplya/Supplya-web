@@ -38,6 +38,9 @@ export class AuthService {
     const url = `${this.baseURL}users/${userId}`;
     return this.http.get<any>(url);
   }
+  changePassword(payload: any): Observable<any> {
+    return this.http.post<any>(`${this.baseURL}auth/change-password`, payload);
+  }
   validateShop(storeName: string): Observable<any> {
     const url = `${this.baseURL}vendors/validate-store-name?storeName=${storeName}`;
     return this.http.get<any>(url);

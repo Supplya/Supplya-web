@@ -50,7 +50,7 @@
 
 
 <section>
-          <section class="content" *ngIf="ordersLoading && !filteredRows && !errorFetchingProduct">
+          <section class="content" *ngIf="ordersLoading && !allOrders && !errorFetchingProduct">
 <div class="py-5 p-5 center">
     <div>
 
@@ -60,7 +60,7 @@
 </div>
       </section >
 
-      <section class="content center" *ngIf="!ordersLoading && !filteredRows && errorFetchingProduct">
+      <section class="content center" *ngIf="!ordersLoading && !allOrders && errorFetchingProduct">
         <div class="py-5 ">
           <div class="py-3 text-center" >
             <img src="/assets/Images/oops.png" style="height: 200px;" alt="">
@@ -72,7 +72,7 @@
       </section>
      
      
-      <div class="orders-section mt-4"  *ngIf="!ordersLoading && filteredRows?.length > 0">
+      <div class="orders-section mt-4"  *ngIf="!ordersLoading && allOrders?.length > 0">
         <div class="px-4 d-flex justify-content-between align-items-center">
             <div>
 
@@ -82,7 +82,7 @@
             <p class="view-all" routerLink="/core/vendor/orders">View All</p>
 </div>
       </div>
-      <div class="table-responsive" *ngIf="!ordersLoading && filteredRows?.length > 0">
+      <div class="table-responsive" *ngIf="!ordersLoading && allOrders?.length > 0">
           <table class="table" style="overflow-y: auto;">
             <thead>
               <tr>
@@ -96,16 +96,16 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of mockData | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
+              <tr *ngFor="let item of allOrders | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
                 <td class="text-primary" style="font-size: 15px; font-weight: 500;">
-                    {{item?._id}}
+                    {{item?.orderId}}
                 </td>
                 <td>{{ item?.dateOrdered | date: 'MMM d, y hh:mm a' }}</td>
                 <td>{{item?.totalPrice || 0 | currency:'₦':true:'1.0-0'}}</td>
-                <td>{{item?.unit_price || 0 | currency:'₦':true:'1.0-0'}}</td>
-                <td>{{item?.quantity}}</td>
+                <td>{{ (item?.totalPrice - (item?.totalPrice * 0.01)) | currency:'₦':true:'1.0-0' }}</td>
+                <td>{{item?.user?.firstName}} {{item?.user?.lastName}}</td>
                <td >
-                <small [ngClass]="{'completed': item?.orderStatus === 'completed', 'new': item?.orderStatus === 'new',
+                <small [ngClass]="{'completed': item?.orderStatus ===  'received' || 'completed', 'new': item?.orderStatus === 'new',
                  'pending': item?.orderStatus === 'pending', 'cancelled': item?.orderStatus === 'cancelled'}">
                   {{ capitalizeFirstLetter(item?.orderStatus) }}</small>
                 </td>
@@ -120,13 +120,13 @@
       </div>
 
       
-       <section class="content center" *ngIf="filteredRows?.length === 0">
+       <section class="content center" *ngIf="!ordersLoading && allOrders?.length === 0">
         <div class="py-5 ">
           <div class="py-3 text-center" >
             <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">
             <div class=" py-5">
 
-              <p class="loading-text  text-muted">No product found for your search
+              <p class="loading-text  text-muted">No order available
           </p>
             </div>
           </div>
@@ -163,7 +163,7 @@
         <div class="contain">
           <p class="name"> Product Status:</p>
           <p class="value">
-            <span [ngClass]="{'completed': selectedOrder?.orderStatus === 'completed', 'new': selectedOrder?.orderStatus === 'new',
+            <span [ngClass]="{'completed': selectedOrder?.orderStatus === 'received' || 'completed', 'new': selectedOrder?.orderStatus === 'new',
                  'pending': selectedOrder?.orderStatus === 'pending', 'cancelled': selectedOrder?.orderStatus === 'cancelled'}">
                 {{ capitalizeFirstLetter(selectedOrder?.orderStatus) }} 
                 </span>
@@ -180,7 +180,7 @@
         <div class="details-head">Customer Information</div>
         <div class="contain mt-3">
           <p class="name"> Name:</p>
-          <p class="value">Pius Ashogbon</p>
+          <p class="value">{{selectedOrder?.user?.firstName}} {{selectedOrder?.user?.lastName}}</p>
         </div>
         <div class="contain">
           <p class="name"> Email:</p>
@@ -197,7 +197,7 @@
         <div class="details-head">Shipping Information</div>
         <div class="contain mt-3">
           <p class="name"> Name:</p>
-          <p class="value">Pius Ashogbon</p>
+          <p class="value">{{selectedOrder?.user?.firstName}} {{selectedOrder?.user?.lastName}}</p>
         </div>
         <div class="contain">
           <p class="name">Address:</p>
@@ -209,7 +209,7 @@
   </div>
 </section>
 <section class="py-2">
-   <div class="table-responsive" style="border-radius: 0px!important; box-shadow: none!important;" *ngIf="!ordersLoading && filteredRows?.length > 0">
+   <div class="table-responsive" style="border-radius: 0px!important; box-shadow: none!important;">
          <table class="table">
   <thead>
     <tr>

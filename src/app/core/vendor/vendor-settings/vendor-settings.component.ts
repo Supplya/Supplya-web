@@ -67,7 +67,6 @@ export class VendorSettingsComponent implements OnInit {
     this.initForm();
     this.userDetails = this.authService.getUserCredentials();
     this.getUserByID();
-    
   }
   requestLoading;
   userInfo;
@@ -244,10 +243,9 @@ export class VendorSettingsComponent implements OnInit {
   errorValidatingShop: boolean = false;
   unableToValidate: string = '';
   validateStoreName() {
-    if (this.form.value.storeName === this.userDetails?.storeName ) {
+    if (this.form.value.storeName === this.userDetails?.storeName) {
       return;
     } else {
-      
       const storeName = this.form.get('storeName')?.value;
       this.validatingShop = true;
       this.authService.validateShop(storeName).subscribe(
@@ -266,39 +264,30 @@ export class VendorSettingsComponent implements OnInit {
         (error) => {
           this.validatingShop = false;
           this.errorValidatingShop = true;
-          this.unableToValidate =
-            'Unable to Validate Store name';
+          this.unableToValidate = 'Unable to Validate Store name';
         }
       );
-      
     }
   }
 
-  validateStoreNamee(storeName: string) {
-    this.validatingShop = true;
-    this.authService.validateShop(storeName).subscribe(
-      (response: any) => {
-        this.validatingShop = false;
-
-        if (response.status === 'success') {
-          this.availableText = response.message;
-          this.notAvailableText = '';
-          this.unableToValidate = '';
-        } else {
-          this.availableText = '';
-          this.unableToValidate = '';
-          this.notAvailableText = response.message;
+  changePassword(): void {
+   const payload = {
+     currentPassword: this.form.value.password,
+     newPassword: this.form.value.newPassword,
+     confirmPassword: this.form.value.confirmPassword,
+   };
+    if (this.passwordForm.valid) {
+      const formValues = this.passwordForm.value;
+      this.authService.changePassword(payload).subscribe(
+        (response) => {
+          console.log('Password changed successfully:', response);
+        },
+        (error) => {
+          this.selectedTab = 'security';
         }
-      },
-      (error) => {
-        this.validatingShop = false;
-        this.unableToValidate =
-          'Unable to Validate Store name. Please try again';
-      }
-    );
+      );
+    }
   }
-
-  changePassword() {}
 
   updateProfile(): void {
     this.submitted = true;

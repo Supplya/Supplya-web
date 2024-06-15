@@ -111,14 +111,17 @@
                                         <i class="bi bi-lock"></i>
                                         <input type="{{ passwordVisible ? 'text' : 'password' }}" class="auth {{
                                             isInvalid('confirmPassword') ? 'error-input' : ''
-                                          }}" formControlName="confirmPassword" [ngClass]="{ 'is-invalid': isInvalid('password') }" placeholder="Confirm your password">
+                                          }}" formControlName="confirmPassword" [ngClass]="{ 'is-invalid': isInvalid('confirmPassword') }" placeholder="Confirm your password">
                                         <button class="btn text-center" type="button" id="togglePassword" (click)="togglePasswordVisibility()">
                                             <i class="bi" [ngClass]="{ 'bi-eye': !passwordVisible, 'bi-eye-slash': passwordVisible }"></i>
                                         </button>
                                         <div class="invalid-feedback mb-4 px-3" *ngIf="isInvalid('confirmPassword')">
-                                            {{ getErrorMessage('confirmPassword', 'Password is required') }}
+                                            {{ getErrorMessage('confirmPassword', 'Re-type your password') }}
                                           </div>
-                                                                            </div>
+                     <small class="error-text mb-4" *ngIf="form?.get('confirmPassword')?.touched && form.get('password')?.value && form.get('confirmPassword')?.value && form.errors?.['passwordsMismatch']">
+        Passwords do not match
+      </small>
+                                        </div>
                 
                                   
                 
