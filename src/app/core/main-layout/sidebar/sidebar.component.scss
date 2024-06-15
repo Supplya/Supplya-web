@@ -3,7 +3,13 @@
     width: 269px !important;
     max-height: 100vh !important;
 }
-
+.name{
+    // font-family: Noir Pro;
+font-size: 16px;
+font-weight: 500!important;
+line-height: 14.4px;
+color: #000;
+}
 .nav-link {
     display: flex;
     align-items: center;
@@ -104,4 +110,58 @@
     /* Unicode character for rightward arrow */
     margin-left: auto;
     /* Push the chevron to the right */
+}
+/* Ensure the offcanvas covers the entire viewport and pushes content */
+.offcanvas {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 60%!important;
+    z-index: 1050; /* Ensure it overlays other content */
+    visibility: hidden;
+    overflow-y: auto; /* Allow scrolling if content overflows */
+    background-color: #fff; /* Background color of the offcanvas */
+    transition: transform 0.3s ease; /* Smooth transition effect */
+}
+
+/* Show the offcanvas when it's opened */
+.offcanvas.show {
+    visibility: visible;
+    transform: translateX(0); /* Slide in from the left */
+}
+
+/* Offcanvas header styles */
+.offcanvas-header {
+    padding: 0.5rem 1rem; /* Adjust padding as needed */
+    border-bottom: 1px solid #e9ecef; /* Optional: Divider line */
+    display: flex;
+    align-items: center!important;
+}
+
+/* Offcanvas body styles */
+.offcanvas-body {
+    padding: 1rem; /* Adjust padding as needed */
+}
+
+/* Optional: Close button styles */
+.offcanvas .btn-close {
+    padding: 0.25rem 0.5rem; /* Adjust close button size */
+    margin-top: 0.25rem; /* Optional: Add space above the close button */
+}
+.bottom-nav .bi{
+color: var(--primary-color);
+}
+.bottom-nav .text{
+color: #000;
+font-weight: 600;
+}
+// .bottom-nav a.border-end {
+//     border-right: 1px solid #ddd;
+// }
+
+.badge {
+    border-radius: 50%;
+    padding: 0.5em;
+    font-size: 0.75em;
 }

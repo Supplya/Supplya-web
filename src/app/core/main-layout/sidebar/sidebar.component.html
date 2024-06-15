@@ -1,7 +1,8 @@
 
 <nav class="navbar show d-none d-lg-block navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white border-bottom border-bottom-lg-0 border-end-lg"
     id="navbarVertical">
-<div class="container-fluid"> <!-- Toggler --> <button class="navbar-toggler ms-n2" type="button"
+<div class="container-fluid"> <!-- Toggler -->
+     <button class="navbar-toggler ms-n2" type="button"
         data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse"
         aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
     </button> <!-- Brand --> <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-5 me-0" href="#"> <img
@@ -21,7 +22,8 @@
                 <hr class="dropdown-divider"> <a href="#" class="dropdown-item">Logout</a>
             </div>
         </div>
-    </div> <!-- Collapse -->
+    </div>
+     <!-- Collapse -->
     <div class="collapse navbar-collapse" id="sidebarCollapse"> <!-- Navigation -->
         <ul class="navbar-nav px-3">
             <ng-container *ngFor="let menuItem of menuItems">
@@ -56,9 +58,8 @@
        <!-- Push content down -->
         <div class="mt-auto"></div> <!-- User (md) -->
         <ul class="navbar-nav px-3">
-            <li class="nav-item"> <a class="nav-link" [routerLinkActive]="'active'" routerLink="/core/my-account"> <i class="bi bi-person-circle"></i>My Account </a>
-            </li>
-            <li  *ngIf="userDetails && userDetails?.role; else noAccess" class="nav-item cursor-pointer"> <a (click)="logout()" class="nav-link"> <i class="bi bi-box-arrow-left"></i> Logout </a>
+            <hr>
+            <li  *ngIf="userDetails && userDetails?.role; else noAccess" class="nav-item cursor-pointer"> <a style="color: #FA1E1E!important;" (click)="logout()" class="nav-link"> <i style="color: #FA1E1E;" class="bi bi-box-arrow-left"></i> Logout </a>
             </li>
         </ul>
         <ng-template #noAccess>
@@ -72,11 +73,12 @@
 <!-- FOR MOBILE -->
 <nav class="navbar show mobile-only navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white border-bottom border-bottom-lg-0 border-end-lg"
     id="navbarVertical-sm">
-<div class="container-fluid"> <!-- Toggler --> <button id="navbar-toggler" class="navbar-toggler ms-n2" type="button"
-        data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse"
-        aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
+    <div class="container-fluid">
+         <button class="navbar-toggler ms-n2" type="button"
+        data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+                aria-controls="offcanvasExample" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
     </button> <!-- Brand --> <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-5 me-0" href="#"> <img
-            src="/assets//Images/logo.png" style="height: 35px!important;" alt="..."> </a>
+            src="/assets//Images/logo.png" alt="..."> </a>
     <!-- User menu (mobile) -->
     <div class="navbar-user d-lg-none"> <!-- Dropdown -->
         <div class="dropdown"> <!-- Toggle --> <a href="#" id="sidebarAvatar" role="button"
@@ -92,27 +94,37 @@
                 <hr class="dropdown-divider"> <a href="#" class="dropdown-item">Logout</a>
             </div>
         </div>
-    </div> <!-- Collapse -->
-    <div class="collapse navbar-collapse" id="sidebarCollapse"> <!-- Navigation -->
-        <ul class="navbar-nav px-3">
+    </div>
+       
+
+     <!-- Offcanvas Content -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+<a class="navbar-brand  me-0" href="#"> <img
+            src="/assets//Images/logo.png" alt="..."> </a>
+        <img class="cursor-pointer" data-bs-dismiss="offcanvas" aria-label="Close" src="/assets/Images/dismiss.svg" alt="">
+        <!-- <button type="button" class="text-reset" ></button> -->
+    </div>
+    <div class="offcanvas-body d-flex flex-column">
+        <!-- Navigation Menu -->
+        <ul class="navbar-nav">
             <ng-container *ngFor="let menuItem of menuItems">
-                <li class="nav-item" *ngIf="!menuItem.hasChild">
-                    <a (click)="closeMenuMobile()" class="nav-link" [routerLink]="menuItem.route" [routerLinkActive]="'active'">
+                <li data-bs-dismiss="offcanvas" aria-label="Close" class="nav-item" *ngIf="!menuItem.hasChild">
+                    <a class="nav-link" [routerLink]="menuItem.route" [routerLinkActive]="'active'">
                         <i class="bi bi-{{menuItem.icon}}"></i> {{ menuItem.name }}
                     </a>
                 </li>
                 <li class="nav-item cursor-pointer" *ngIf="menuItem.hasChild">
-                    <a (click)="closeMenuMobile()" class="nav-link" (click)="toggleSubMenu(menuItem)" [routerLinkActive]="'active'">
+                    <a class="nav-link" (click)="toggleSubMenu(menuItem)" [routerLinkActive]="'active'">
                         <i class="bi bi-{{menuItem.icon}}" [ngClass]="menuItem.icon"></i> {{ menuItem.name }}
-                        <span class="d-inline-flex-end  align-items-center ms-3">
+                        <span class="d-inline-flex-end align-items-center ms-3">
                             <i *ngIf="isMenuOpen(menuItem.name)" class="bi bi-caret-right-fill"></i>
                             <i *ngIf="!isMenuOpen(menuItem.name)" class="bi bi-caret-down-fill"></i>
-                            <!-- <i class="chevron-right"></i> -->
                         </span>
                     </a>
                     <ul class="submenu" *ngIf="menuItem.name === openMenu">
-                        <li *ngFor="let childItem of menuItem.childMenu">
-                            <a (click)="closeMenuMobile()" class="submenu-link" [routerLink]="childItem.route" [routerLinkActive]="'active'">
+                        <li data-bs-dismiss="offcanvas" aria-label="Close" *ngFor="let childItem of menuItem.childMenu">
+                            <a class="submenu-link" [routerLink]="childItem.route" [routerLinkActive]="'active'">
                                 <i class="bi bi-{{childItem.icon}}"></i> &nbsp;&nbsp; {{ childItem.name }}
                             </a>
                         </li>
@@ -120,24 +132,56 @@
                 </li>
             </ng-container>
         </ul>
-        
+
         <!-- Divider -->
+        <hr>
 
+        <!-- User Info and Logout -->
+        <div class="text-center mb-4 mt-5" *ngIf="userDetails && userDetails?.role">
+            <p class="name mb-3">You're currently logged in as</p>
+            <p class="name text-primary mb-1" style="font-weight: 600!important;">{{ userDetails?.firstName }} {{ userDetails?.lastName }}</p>
+            <p class="text-muted">{{ capitalizeFirstLetter(userDetails?.role) }}</p>
+            <p style="font-weight: 600!important;" class="name mt-5 cursor-pointer">
+                Not you?
+            </p>
+            <p style="font-weight: 500!important;" class="name text-primary cursor-pointer">
+                <a style="color: #FA1E1E!important; font-size: 17px;" (click)="logout()" class="nav-link d-inline">
+                    <i style="color: #FA1E1E;" class="bi bi-box-arrow-left"></i> Logout
+                </a>
+            </p>
+        </div>
 
-       <!-- Push content down -->
-        <div class="mt-auto"></div> <!-- User (md) -->
-        <ul class="navbar-nav px-3" *ngIf="userDetails && userDetails?.role; else noAccess">
-            <li class="nav-item" (click)="closeMenuMobile()"> <a class="nav-link" [routerLinkActive]="'active'" routerLink="/core/my-account"> <i class="bi bi-person-circle"></i>My Account </a>
-            </li>
-            <li class="nav-item"> <a (click)="logout()" class="nav-link"> <i class="bi bi-box-arrow-left"></i> Logout </a>
-            </li>
-        </ul>
         <ng-template #noAccess>
             <p>You don't have access to the menu.</p>
-          </ng-template>
+        </ng-template>
+
+      <!-- Bottom Navigation Menu -->
+<div class="mt-auto bottom-nav zoom-in">
+    <div class="d-flex justify-content-around border-top pt-3">
+        <a [routerLink]="'/shop'" class="text-center text-decoration-none" data-bs-dismiss="offcanvas" aria-label="Close">
+            <i class="bi bi-shop" style="font-size: 24px; font-weight: bold;"></i>
+            <div class="text">Shop</div>
+        </a>
+        <a [routerLink]="'/wishlist'" class="text-center text-decoration-none position-relative" data-bs-dismiss="offcanvas" aria-label="Close">
+            <i class="bi bi-heart-fill" style="font-size: 24px; font-weight: bold;"></i>
+            <div class="text">Wishlist</div>
+            <span class="badge position-absolute top-0 start-50 translate-middle bg-warning text-black">0</span>
+        </a>
+        <a [routerLink]="'/cart'" class="text-center text-decoration-none position-relative" data-bs-dismiss="offcanvas" aria-label="Close">
+            <i class="bi bi-basket-fill" style="font-size: 24px; font-weight: bold;"></i>
+            <div class="text">Cart</div>
+            <span class="badge position-absolute top-0 start-100 translate-middle bg-warning text-black">0</span>
+        </a>
     </div>
 </div>
+
+    </div>
+</div>
+
+    </div>
 </nav>
+
+
 
 
 

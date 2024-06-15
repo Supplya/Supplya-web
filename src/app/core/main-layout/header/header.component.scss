@@ -18,3 +18,103 @@ color: #000;
 letter-spacing: 0em;
 
 }
+.name{
+    // font-family: Noir Pro;
+font-size: 16px;
+font-weight: 600!important;
+line-height: 14.4px;
+color: #000;
+}
+.search-container {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  border: 1px solid #E3E5E5;
+  border-radius: 20px;
+  height: 40px!important;
+  
+}
+ .search-input:focus {
+    outline: none;
+    border-color: #b3b5ba;
+    transform: scale(1.02);
+  }
+.icon-circle {
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center!important;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.search-icon {
+  color: white;
+  font-size: 16px;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  flex: 1;
+  padding: 5px;
+  font-size: 16px;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.search-input::placeholder {
+  color: #ccc;
+  opacity: 1;
+}
+    .notification-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .notification-icon {
+      font-size: 40px!important; 
+      color: black; /* Bold black color */
+    }
+
+    .notification-count {
+      position: absolute;
+      top: -5px;
+      right: -25px;
+      background-color: red;
+      color: white;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 12px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 20px;
+      height: 20px;
+    }
+.profile-picture {
+  width: 50px; /* Adjust the size of the circle */
+  height: 50px;
+  border-radius: 50%; /* Ensures the container is a circle */
+  overflow: hidden; /* Ensures the image stays within the circle */
+  border: 2px solid #ccc; /* Optional: Adds a border */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the entire circle */
+  display: block;
+}
+
+    .date{
+font-size: 16px!important;
+font-weight: 500!important;
+line-height: 19.07px!important;
+color: #000!important;
+    }

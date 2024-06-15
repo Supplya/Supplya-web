@@ -8,20 +8,25 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[] = [];
   showButtonMenu: boolean = false;
-  constructor(private menuService: MenuService, private router: Router, private authService: AuthService) { }
+  constructor(
+    private menuService: MenuService,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.getUserCredentials();
   }
 
-
-
-
+  capitalizeFirstLetter(value: string): string {
+    if (!value) return '';
+    return value?.charAt(0).toUpperCase() + value?.slice(1);
+  }
 
   openMenu: string = '';
   toggleSubMenu(menuItem: any): void {
@@ -61,33 +66,32 @@ export class SidebarComponent implements OnInit {
     );
   }
 
-  logout(){
+  logout() {
     Swal.fire({
-      title: "Log out",
-      text: "Are you sure you want to log out?",
-      icon: "warning",
+      title: 'Log out',
+      text: 'Are you sure you want to log out?',
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: "Yes",
-      cancelButtonText: "No",
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
       showClass: {
         popup: `
           animate__animated
           animate__fadeInDown
           animate__faster
-        `
+        `,
       },
       hideClass: {
         popup: `
           animate__animated
           animate__fadeOutDown
           animate__faster
-        `
-      }
+        `,
+      },
     }).then((result) => {
       if (result.isConfirmed) {
-       this.authService.logout();
+        this.authService.logout();
       }
     });
-
   }
 }

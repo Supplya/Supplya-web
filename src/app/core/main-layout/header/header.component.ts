@@ -6,48 +6,68 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent  implements OnInit {
-userDetails: any;
-  constructor(private datePipe: DatePipe, private authService: AuthService){
-    
+export class HeaderComponent implements OnInit {
+  userDetails: any;
+  todayDate: Date = new Date();
+  formattedDate: string | null;
+  constructor(private datePipe: DatePipe, private authService: AuthService) {
+    this.formattedDate = this.formatDate(this.todayDate);
   }
   ngOnInit(): void {
-this.userDetails = this.authService.getUserCredentials();
-// console.log(this.userDetails, 'userDetails');
+    this.userDetails = this.authService.getUserCredentials();
+    // console.log(this.userDetails, 'userDetails');
   }
-  todayDate: Date = new Date();
-  formattedDate = this.datePipe.transform(this.todayDate, 'd MMMM y | h:mm a');
+  capitalizeFirstLetter(value: string): string {
+    if (!value) return '';
+    return value?.charAt(0).toUpperCase() + value?.slice(1);
+  }
+  formatDate(date: Date): string | null {
+    const dayName = this.datePipe.transform(date, 'EEEE');
+    const day = this.datePipe.transform(date, 'd');
+    const month = this.datePipe.transform(date, 'MMMM');
 
+    let suffix = 'th';
+    if (day) {
+      if (day.endsWith('1') && !day.endsWith('11')) {
+        suffix = 'st';
+      } else if (day.endsWith('2') && !day.endsWith('12')) {
+        suffix = 'nd';
+      } else if (day.endsWith('3') && !day.endsWith('13')) {
+        suffix = 'rd';
+      }
+    }
 
-  logout(){
+    return `${dayName}, ${day}${suffix} ${month}`;
+  }
+
+  logout() {
     Swal.fire({
-      title: "Log out",
-      text: "Are you sure you want to log out?",
-      icon: "warning",
+      title: 'Log out',
+      text: 'Are you sure you want to log out?',
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: "Yes",
-      cancelButtonText: "No",
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
       showClass: {
         popup: `
           animate__animated
           animate__fadeInDown
           animate__faster
-        `
+        `,
       },
       hideClass: {
         popup: `
           animate__animated
           animate__fadeOutDown
           animate__faster
-        `
-      }
+        `,
+      },
     }).then((result) => {
       if (result.isConfirmed) {
-       this.authService.logout();
+        this.authService.logout();
       }
     });
-
   }
 }
