@@ -215,13 +215,13 @@
   <div class="mb-2 slide-left">
     <label for="password" class="content-label">Current Password</label>
     <div class="position-relative">
-      <input [type]="showPassword ? 'text' : 'password'" formControlName="password" id="password" class="content-input {{
-                                      isInvalidPass('password') ? 'error-input' : ''
+      <input [type]="showPassword ? 'text' : 'password'" formControlName="currentPassword" id="password" class="content-input {{
+                                      isInvalidPass('currentPassword') ? 'error-input' : ''
                                     }}" placeholder="Enter your password">
       <i (click)="togglePasswordVisibility('password')" [class]="showPassword ? 'bi bi-eye-slash password-toggle-icon' : 'bi bi-eye password-toggle-icon'"></i>
     </div>
-    <small class="error-text mb-4" *ngIf="isInvalidPass('password')">
-      {{ getErrorMessagePass('password', 'This field is required') }}
+    <small class="error-text mb-4" *ngIf="isInvalidPass('currentPassword')">
+      {{ getErrorMessagePass('currentPassword', 'This field is required') }}
     </small>
   </div>
   

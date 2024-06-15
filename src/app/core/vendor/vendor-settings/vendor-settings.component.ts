@@ -1,6 +1,7 @@
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastyService } from 'ng-toasty';
 import { AuthService } from 'src/app/authentication/service/auth.service';
 import { HelperService } from 'src/app/shared/helpers/helper.service';
@@ -17,7 +18,7 @@ export class VendorSettingsComponent implements OnInit {
     private fb: FormBuilder,
     private helperService: HelperService,
     private authService: AuthService,
-    private notify: ToastyService,
+    private notify: ToastyService, private router: Router,
     private uploadService: MediaUploadService
   ) {}
 
@@ -129,7 +130,7 @@ export class VendorSettingsComponent implements OnInit {
     });
     this.passwordForm = this.fb.group(
       {
-        password: ['', Validators.required],
+        currentPassword: ['', Validators.required],
         newPassword: ['', Validators.required],
         confirmPassword: ['', Validators.required],
       },
@@ -271,16 +272,19 @@ export class VendorSettingsComponent implements OnInit {
   }
 
   changePassword(): void {
-   const payload = {
-     currentPassword: this.form.value.password,
-     newPassword: this.form.value.newPassword,
-     confirmPassword: this.form.value.confirmPassword,
-   };
+  
     if (this.passwordForm.valid) {
       const formValues = this.passwordForm.value;
-      this.authService.changePassword(payload).subscribe(
+      this.authService.changePassword(formValues).subscribe(
         (response) => {
-          console.log('Password changed successfully:', response);
+          if (response.status === 'success') { 
+
+            this.notify.success('Password changed successfully');
+            this.router.navigate(['/auth']);
+          } else {
+            
+            this.notify.danger(response.message);
+          }
         },
         (error) => {
           this.selectedTab = 'security';
