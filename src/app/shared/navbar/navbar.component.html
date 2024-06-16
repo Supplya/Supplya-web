@@ -1,6 +1,150 @@
 
 
 
+
+
+<!-- FOR MOBILE -->
+<!-- FOR MOBILE -->
+<!-- FOR MOBILE -->
+<nav class="navbar mb-0 show mobile-only navbar-vertical sticky-top h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-white border-bottom border-bottom-lg-0 border-end-lg"
+    id="navbarVertical-sm">
+    <div class="container-fluid">
+        <button class="navbar-toggler ms-n2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+                aria-controls="offcanvasExample" aria-expanded="false" aria-label="Toggle navigation"> 
+            <span class="navbar-toggler-icon"></span>
+        </button> 
+        <!-- Brand --> 
+        <a class="navbar-brand" href="#"> 
+            <img src="/assets//Images/logo.png" alt="..."> 
+        </a>
+
+        <!-- User menu (mobile) -->
+        <div class="navbar-user d-lg-none" *ngIf="!userDetails">
+            <!-- Dropdown -->
+              <img (click)="login()" style="height: 50px; cursor: pointer;" alt="Image Placeholder" src="/assets/Images/acct.png"
+                        class=""> 
+          
+        </div>
+        <div class="navbar-user d-lg-none" *ngIf="userDetails">
+            <!-- Dropdown -->
+            <div class="dropdown">
+                <!-- Toggle --> 
+                <a href="#" id="sidebarAvatar" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="avatar-parent-child"> 
+                        <img alt="Image Placeholder" src="https://images.unsplash.com/photo-1548142813-c348350df52b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80"
+                        class="avatar avatar- rounded-circle"> 
+                        <span class="avatar-child avatar-badge bg-success"></span> 
+                    </div>
+                </a> 
+                <!-- Menu -->
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sidebarAvatar"> 
+                    <a  class="dropdown-item cursor-pointer" (click)="goToDashboard(userDetails?.role)">Dashboard</a>
+                    <a  class="dropdown-item cursor-pointer" (click)="goToOrders(userDetails?.role)">Orders</a> 
+                    <a  class="dropdown-item cursor-pointer" (click)="goToMyAccount()">My Account</a> 
+                    <hr class="dropdown-divider"> 
+                    <a  class="dropdown-item" (click)="logout()">Logout</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Offcanvas Content -->
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header">
+                <a class="navbar-brand me-0" href="#"> 
+                    <img src="/assets//Images/logo.png" alt="..."> 
+                </a>
+                <img class="cursor-pointer" data-bs-dismiss="offcanvas" aria-label="Close" src="/assets/Images/dismiss.svg" alt="">
+            </div>
+            <div class="offcanvas-body d-flex flex-column">
+                <!-- Navigation Menu -->
+                <ul class="navbar-nav">
+                    <li data-bs-dismiss="offcanvas" aria-label="Close" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <a class="nav-link" [routerLink]="['/home']">
+                            <i class="bi bi-house"></i> Home
+                        </a>
+                    </li>
+                    <li data-bs-dismiss="offcanvas" aria-label="Close" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <a class="nav-link" [routerLink]="['/core/operation/shop']">
+                            <i class="bi bi-shop"></i> Shop
+                        </a>
+                    </li>
+                    <li data-bs-dismiss="offcanvas" aria-label="Close" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <a class="nav-link" [routerLink]="['/about-us']">
+                            <i class="bi bi-info-circle"></i> About
+                        </a>
+                    </li>
+                    <li data-bs-dismiss="offcanvas" aria-label="Close" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <a class="nav-link" [routerLink]="['/faqs']">
+                            <i class="bi bi-question-circle"></i> FAQs
+                        </a>
+                    </li>
+                    <li data-bs-dismiss="offcanvas" aria-label="Close" class="nav-item mb-4" style="border-bottom: 1px solid #ccc;" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <a class="nav-link" [routerLink]="['/contact-us']">
+                            <i class="bi bi-envelope"></i> Contact
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- User Info and Logout or Login/Sign Up -->
+                <div class="text-center mb-2 mt-5">
+                    <ng-container *ngIf="userDetails && userDetails?.role; else notLoggedIn">
+                        <p class="name mb-3">You're currently logged in as</p>
+                        <p class="name text-primary mb-1" style="font-weight: 600!important;">{{ userDetails?.firstName }} {{ userDetails?.lastName }}</p>
+                        <p class="text-muted">{{ capitalizeFirstLetter(userDetails?.role) }}</p>
+                        <p style="font-weight: 600!important;" class="name mt-5 cursor-pointer">
+                            Not you?
+                        </p>
+                        <p style="font-weight: 500!important;" class="name text-primary cursor-pointer">
+                            <a style="color: #FA1E1E!important; font-size: 17px;" (click)="logout()" class="nav-link d-inline">
+                                <i style="color: #FA1E1E;" class="bi bi-box-arrow-left"></i> Logout
+                            </a>
+                        </p>
+                    </ng-container>
+                    <ng-template #notLoggedIn>
+                                                <p class="name mb-4 mt-3 text-center">You're not logged in</p>
+                        <div class="d-flex justify-content-center">
+                            <button class="btn  me-2 signLog" (click)="login()">Login</button>
+                            <button class="btn ms-2 signLog" (click)="signUp()">Sign Up</button>
+                        </div>
+                    </ng-template>
+                </div>
+
+                <ng-template #noAccess>
+                    <p>You don't have access to the menu.</p>
+                </ng-template>
+
+                <!-- Bottom Navigation Menu -->
+                <div class="mt-auto bottom-nav zoom-in">
+                    <div class="d-flex justify-content-around border-top pt-3">
+                        <a [routerLink]="'/core/operation/shop'" class="text-center text-decoration-none cursor-pointer" data-bs-dismiss="offcanvas" aria-label="Close">
+                            <i class="bi bi-shop" style="font-size: 24px; font-weight: bold;"></i>
+                            <div class="text">Shop</div>
+                        </a>
+                        <a [routerLink]="'/wishlist'" class="text-center text-decoration-none position-relative cursor-pointer" data-bs-dismiss="offcanvas" aria-label="Close">
+                            <i class="bi bi-heart-fill" style="font-size: 24px; font-weight: bold;"></i>
+                            <div class="text">Wishlist</div>
+                            <span class="badge position-absolute top-0 start-50 translate-middle bg-warning text-black">0</span>
+                        </a>
+                        <a [routerLink]="'/cart'" class="text-center text-decoration-none position-relative cursor-pointer" data-bs-dismiss="offcanvas" aria-label="Close">
+                            <i class="bi bi-basket-fill" style="font-size: 24px; font-weight: bold;"></i>
+                            <div class="text">Cart</div>
+                            <span class="badge position-absolute top-0 start-100 translate-middle bg-warning text-black">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+
+
+
+
+
+<section class="d-none d-lg-block">
+
 <nav class="navbar navbar-expand-lg bg-white sticky-top shadow-sm mb-0" style="z-index: 998;">
     <div class="container">
         <a class="navbar-brand" href="#">
@@ -63,13 +207,6 @@
         </div>
     </div>
 </nav>
-
-
-
-
-
-<section class="d-none d-lg-block">
-
     <div class="below-bar ">
         <div class="dropdown">
             <a href="#" class="dropdown-toggle" id="categoriesDropdown" role="button" aria-expanded="false">

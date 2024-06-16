@@ -6,29 +6,30 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  constructor(private route: Router, private authService: AuthService) {
-
-  }
+  constructor(private route: Router, private authService: AuthService) {}
   isLoggedIn = false;
   userDetails: any;
   ngOnInit(): void {
-    // this.userDetails = this.authService.getUserCredentials();
-  
-    this.authService.isLoggedIn().subscribe((loggedIn: boolean) => {
-      if (loggedIn) {
-        this.userDetails = this.authService.getUserCredentials();
-        this.isLoggedIn = true;
-      } else {
-        this.isLoggedIn = false;
-        console.log('User is not logged in');
+    this.userDetails = this.authService.getUserCredentials();
 
-      }
-    });
+    // this.authService.isLoggedIn().subscribe((loggedIn: boolean) => {
+    //   if (loggedIn) {
+    //     this.userDetails = this.authService.getUserCredentials();
+    //     this.isLoggedIn = true;
+    //   } else {
+    //     this.isLoggedIn = false;
+    //     console.log('User is not logged in');
+    //   }
+    // });
   }
-  
+
+  capitalizeFirstLetter(value: string): string {
+    if (!value) return '';
+    return value?.charAt(0).toUpperCase() + value?.slice(1);
+  }
 
   goToDashboard(role: string) {
     this.route.navigate([`/core/${role}`]);
@@ -36,14 +37,14 @@ export class NavbarComponent implements OnInit {
   goToOrders(role: string) {
     this.route.navigate([`/core/${role}/orders`]);
   }
-  goToMyAccount(){
+  goToMyAccount() {
     this.route.navigate([`/core/my-account`]);
   }
-openMenu: boolean = false;
-closeMenu: boolean = false;
-toggleDropdown(){
-  this.openMenu = !this.openMenu;
-}
+  openMenu: boolean = false;
+  closeMenu: boolean = false;
+  toggleDropdown() {
+    this.openMenu = !this.openMenu;
+  }
   signUp() {
     this.route.navigate(['auth/sign-up']);
     window.scrollTo(0, 0);
@@ -53,6 +54,10 @@ toggleDropdown(){
     window.scrollTo(0, 0);
   }
   cart() {
+    this.route.navigate(['core/operation/shopping-cart']);
+    window.scrollTo(0, 0);
+  }
+  faqs() {
     this.route.navigate(['core/operation/shopping-cart']);
     window.scrollTo(0, 0);
   }
@@ -69,35 +74,32 @@ toggleDropdown(){
     window.scrollTo(0, 0);
   }
 
-
-
-  logout(){
+  logout() {
     Swal.fire({
-      title: "Log out",
-      text: "Are you sure you want to log out?",
-      icon: "warning",
+      title: 'Log out',
+      text: 'Are you sure you want to log out?',
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: "Yes",
-      cancelButtonText: "No",
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
       showClass: {
         popup: `
           animate__animated
           animate__fadeInDown
           animate__faster
-        `
+        `,
       },
       hideClass: {
         popup: `
           animate__animated
           animate__fadeOutDown
           animate__faster
-        `
-      }
+        `,
+      },
     }).then((result) => {
       if (result.isConfirmed) {
-       this.authService.logout();
+        this.authService.logout();
       }
     });
-
   }
 }

@@ -29,3 +29,9 @@
     font-weight: bold;
     font-size: 18px;
 }
+@media (max-width: 992px) {
+  .error-message {
+    font-size: 20px;
+    margin: 10px 0;
+}
+}
