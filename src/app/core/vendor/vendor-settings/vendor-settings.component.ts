@@ -122,6 +122,7 @@ export class VendorSettingsComponent implements OnInit {
       phoneNumber: [null, Validators.required],
       accountNumber: [''],
       bank: [''],
+      storeImage: [''],
       dob: [null],
       _id: [''],
       firstName: ['', Validators.required],
@@ -229,6 +230,9 @@ export class VendorSettingsComponent implements OnInit {
           this.uploadProgress = 0;
           this.uploadRequestLoading = false;
           this.imgUrl = event.body.secure_url;
+          this.form.patchValue({
+            storeImage: this.imgUrl,
+          });
           this.toggleModal('changePhotoModal', 'open');
         }
       },
