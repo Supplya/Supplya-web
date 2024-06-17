@@ -286,7 +286,10 @@
   
   <section class="zoom-in">
      <ng-container *ngIf="form.value.storeImage">
-                <img style="height: 250px; width: 500px; background-size: cover;" [src]="form.value.storeImage" alt="Profile Picture" class=" mt-3">
+      <div class="d-flex justify-content-center">
+
+        <img style=" background-size: cover;" [src]="form.value.storeImage" alt="Profile Picture" class=" mt-3">
+      </div>
           
         <!-- <label for="fileInput" class="content-button center-button" style="width: max-content; cursor: pointer;"> Change Photo</label> -->
         <div class="py-2 mt-3">
