@@ -1,40 +1,107 @@
 <app-navbar></app-navbar>
-<section style="background: url(/assets/Images/hero\ banner\ 4.png); background-size: cover;">
-    <div class="py-5 container">
-        <div class="row py-5 heroLeft" >
-            <div class="col-lg-6 py-5 d-flex align-items-center">
-                <div class="px-5 d-none d-lg-block">
 
-                    <!-- <h6 class="text-white">BUY, SELL, PAY AND SHIP IN ONE PLACE</h6> -->
-                    <h5 class="slide-left d-none d-lg-block">You’ve got 
-                      a Product?</h5>
-                    <h3 class="zoom-in mobile-only text-white">You’ve got 
-                      a Product?</h3>
-                    <p class="slide-right">Lets connect you to potential buyers, <br>
-                      Create a vendor account and start selling</p>
-                      <div class="py-2">
+<section>
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+        <!-- Indicators/dots -->
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
 
-                        <button class="btn slide-bottom" routerLink="/auth/sign-up">Become a Vendor</button>
-                      </div>
+        <!-- Carousel items -->
+        <div class="carousel-inner">
+            <!-- Slide 1 -->
+            <div class="carousel-item active slide-background-1">
+                <div class="py-5 container">
+                    <div class="row py-5 heroLeft">
+                        <div class="col-lg-6 py-5 d-flex align-items-center">
+                            <div class="px-5 d-none d-lg-block">
+                                <h5 class="slide-left">You’ve got a Product?</h5>
+                                <p class="slide-right">Lets connect you to potential buyers, <br>
+                                  Create a vendor account and start selling</p>
+                                <div class="py-2">
+                                    <button class="btn slide-bottom" routerLink="/auth/sign-up">Sign Up Now</button>
+                                </div>
+                            </div>
+                            <div class="px-3 mobile-only">
+                                <h3 class="zoom-in text-white mb-3">You’ve got a Product?</h3>
+                                <p class="slide-right">Lets connect you to potential <br> buyers. 
+                                  Create a vendor account<br> and start selling</p>
+                                <div class="py-3">
+                                    <button class="btn slide-bottom" routerLink="/auth/sign-up">Sign Up Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="px-3 mobile-only">
-
-                    <!-- <h6 class="text-white">BUY, SELL, PAY AND SHIP IN ONE PLACE</h6> -->
-                    <h5 class="slide-left d-none d-lg-block text-white">You’ve got 
-                      a Product?</h5>
-                    <h3 class="zoom-in mobile-only text-white">You’ve got 
-                      a Product?</h3>
-                    <p class="slide-right">Lets connect you to potential buyers, <br>
-                      Create a vendor account and start selling</p>
-                      <div class="py-2">
-
-                        <button class="btn slide-bottom" routerLink="/auth/sign-up">Become a Vendor</button>
-                      </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="carousel-item slide-background-1">
+                <div class="py-5 container">
+                    <div class="row py-5 heroLeft">
+                        <div class="col-lg-6 py-5 d-flex align-items-center">
+                            <div class="px-5 d-none d-lg-block">
+                                <h5 class="slide-left">Looking for something?</h5>
+                                <p class="slide-right">Find thousands of products from various vendors.</p>
+                                <div class="py-2">
+                                    <button class="btn slide-bottom" (click)="shop()">Shop Now</button>
+                                </div>
+                            </div>
+                            <div class="px-3 mobile-only">
+                                <h3 class="zoom-in text-white mb-3">Looking for something?</h3>
+                                <p class="slide-right">Find thousands of products <br> from various vendors.</p>
+                                <div class="py-3">
+                                    <button class="btn slide-bottom" (click)="shop()">Shop Now</button>
+                                </div>
+                            </div>
+                        </div>
+                
+                    </div>
+                </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="carousel-item slide-background-1">
+                <div class="py-5 container">
+                    <div class="row py-5 heroLeft">
+                        <div class="col-lg-6 py-5 d-flex align-items-center">
+                            <div class="px-5 d-none d-lg-block">
+                                <h5 class="slide-left">Join our community</h5>
+                                <p class="slide-right">Be a part of our growing community of buyers and sellers.</p>
+                                <div class="py-2">
+                                    <button class="btn slide-bottom" routerLink="/auth/sign-up">Join Now</button>
+                                </div>
+                            </div>
+                            <div class="px-3 mobile-only">
+                                <h3 class="zoom-in text-white mb-2">Join our <br> community</h3>
+                                <p class="slide-right">Be a part of our <br>growing community of <br> buyers and sellers.</p>
+                                <div class="py-3">
+                                    <button class="btn slide-bottom" routerLink="/auth/sign-up">Join Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- Controls -->
+        <!-- <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button> -->
     </div>
 </section>
+
+
+
+
+
+
 
 <!-- CATEGORIES -->
 <Section class="category py-5">
@@ -563,6 +630,15 @@
   </div>
   </section>
 
+  <section class="p-5 text-center" style="background: #0097A81A;
+">
+<p style="font-size: 16px;">Get personalized recommendation</p>
+<div class="mx-auto">
+  <button routerLink="/auth/sign-in" class="btn-modal-primary" style="padding: 13px 40px!important; font-size: 20px; font-weight: 600; border-radius: 35px!important;">Sign In</button>
+</div>
+<p class="new mt-3">New Customer? <span class="text-primary cursor-pointer" routerLink="/auth/sign-up">Get an account</span> </p>
+  </section>
+
   <section class="py-5">
     <div class="">
       <div class="row gx-3">
@@ -610,3 +686,14 @@
   
 
 <app-footer></app-footer>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Set a delay for the carousel to start cycling
+    setTimeout(function () {
+        $('#heroCarousel').carousel({
+            interval: 4000, // Interval between slides (4 seconds)
+            ride: 'carousel'
+        });
+    }, 4000); // Initial delay before the first slide (4 seconds)
+});
+</script>

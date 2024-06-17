@@ -164,20 +164,20 @@
   >
     <div class="d-flex justify-content-end">
 
-      <img 
+      <!-- <img 
         style="cursor: pointer"
         class=""
         (click)="toggleModal('signUpModal', 'close')"
         src="/assets/Images/dismiss.svg"
         alt=""
-      />
+      /> -->
     </div>
             <p class="modal-heading text-center">Select Account Type</p>
    <div class="container-sec mt-2">
-  <label class="option" [class.selected]="userType === 'retailer'" (click)="setUserType('retailer')">
+  <label class="option" [class.selected]="userType === 'customer'" (click)="setUserType('customer')">
     <div class="content">
-      <img [src]="userType === 'retailer' ? '/assets/Images/selected-retailer.svg' : '/assets/Images/retailer.png'" alt="Retailer">
-      <p class="py-2">Retailer</p>
+      <img [src]="userType === 'customer' ? '/assets/Images/selected-retailer.svg' : '/assets/Images/retailer.png'" alt="customer">
+      <p class="py-2">Customer</p>
     </div>
   </label>
 

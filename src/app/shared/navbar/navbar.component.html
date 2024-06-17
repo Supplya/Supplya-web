@@ -133,7 +133,7 @@
                         <a [routerLink]="'/cart'" class="text-center text-decoration-none position-relative cursor-pointer" data-bs-dismiss="offcanvas" aria-label="Close">
                             <i class="bi bi-basket-fill" style="font-size: 24px; font-weight: bold;"></i>
                             <div class="text">Cart</div>
-                            <span class="badge position-absolute top-0 start-100 translate-middle bg-warning text-black">0</span>
+                            <span class="badge position-absolute top-0 start-100 translate-middle bg-warning text-black">{{cartQuantity}}</span>
                         </a>
                     </div>
                 </div>
@@ -148,70 +148,70 @@
 
 
 
-<section class="d-none d-lg-block">
+<section class="d-none d-lg-block ">
+<div class="custom-navbar sticky-top bg-white  shadow-sm mb-0" style="z-index: 998;">
+    <div class="container py-1 d-flex align-items-center justify-content-between ">
+        <!-- Logo Section -->
+        <div class="logo-section">
+            <a href="#">
+                <img src="/assets/Images/logo.png" style="width: 100px; height: 100%;" alt="Supplya Logo">
+            </a>
+        </div>
 
-<nav class="navbar navbar-expand-lg bg-white sticky-top shadow-sm mb-0" style="z-index: 998;">
-    <div class="container">
-        <a class="navbar-brand" href="#">
-            <img src="/assets/Images/logo.png" style="width: 100px; height: 100%;" alt="Supplya Logo">
-        </a>
+        <!-- Search Section -->
+        <div class="search-section flex-grow-1 mx-3">
+            <form class="d-flex position-relative">
+                <i for="search" style="color: var(--primary-color)!important; padding: 4px 15px;" class="cursor-pointer bi bi-search position-absolute top-50 start-0 translate-middle-y ms-2"></i>
+                <input id="search" type="text" class="form-control ps-5" placeholder="Search for product" aria-label="Search" aria-describedby="basic-addon1">
+            </form>
+        </div>
 
-        <button data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
-            class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <!-- Menu Options Section -->
+        <div class="menu-options d-flex align-items-center">
+             <a [routerLink]="'/wishlist'" class="text-center text-decoration-none position-relative cursor-pointer me-5" data-bs-dismiss="offcanvas" aria-label="Close">
+                            <i class="bi bi-heart-fill" style="font-size: 24px; font-weight: bold;"></i>
+                            <div class="text">Wishlist</div>
+                            <span class="badge position-absolute top-0 start-100 translate-middle bg-warning text-black">0</span>
+                        </a>
+            <div class="nav-item text-center" (click)="cart()">
+                <a  class="text-center text-decoration-none position-relative cursor-pointer me-5" data-bs-dismiss="offcanvas" aria-label="Close">
+                            <i class="bi bi-basket-fill" style="font-size: 24px; font-weight: bold;"></i>
+                            <div class="text">Cart</div>
+                            <span class="badge position-absolute top-0 start-100 translate-middle bg-warning text-black">{{cartQuantity}}</span>
+                        </a>
+            </div>
+            <div class="nav-item text-center mx-2" *ngIf="!userDetails">
+            
+                 <a (click)="login()" class="text-center text-decoration-none position-relative cursor-pointer me-5" >
+                            <i class="bi bi-person" style="font-size: 24px; font-weight: bold;"></i>
+                            <div  class="text">My Account</div>
+                            <!-- <span class="badge position-absolute top-0 start-100 translate-middle bg-warning text-black">0</span> -->
+                        </a>
+            </div>
+            <div class="nav-item dropdown text-center" *ngIf="userDetails">
+                <a class="nav-link dropdown-toggle d-flex  align-items-center" href="#" id="userDropdown" role="button"
+                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img class="menu-icon" style="height: 50px;" src="/assets/Images/Container.png" alt="">
 
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <form class="d-flex">
-                        <div class="auth-input slide-left">
-                            <i class="bi bi-search"></i>
-                            <input type="text" class="auth form-control" placeholder="Search for product" aria-label="Search" aria-describedby="basic-addon1">
-                        </div>
-                    </form>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" routerLink="/core/{{userDetails?.role}}/dashboard">Dashboard</a>
+                    <a class="dropdown-item" routerLink="/core/{{userDetails?.role}}/orders">Orders</a>
+                    <a class="dropdown-item" routerLink="/core/my-account">My Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item cursor-pointer" (click)="logout()">Logout</a>
                 </div>
             </div>
-            
-            <ul class="navbar-nav ms-auto text-center">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="bi bi-heart"></i><br>
-                        Favourite
-                    </a>
-                </li>
-                <li class="nav-item" (click)="cart()">
-                    <a class="nav-link" >
-                        <i class="bi bi-cart"></i><br>
-                        Your Cart
-                    </a>
-                </li>
-                <li class="nav-item" *ngIf="!isLoggedIn">
-                    <a class="nav-link" (click)="login()">
-                        <i class="bi bi-person"></i><br>
-                        My Account
-                    </a>
-                </li>
-                <li class="nav-item dropdown" *ngIf="isLoggedIn">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-                        <img class="mt-2" style="height: 40px;" src="/assets/Images/Container.png" alt="">
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-right" id="userMenu" aria-labelledby="userDropdown">
-                        <li><a class="dropdown-item" routerLink="/core/{{userDetails.role}}/dashboard">Dashboard</a></li>
-                        <li><a class="dropdown-item" routerLink="/core/{{userDetails.role}}/orders">Orders</a></li>
-                        <li><a class="dropdown-item" routerLink="/core/my-account">My Profile</a></li>
-                        <hr>
-                        <li><a class="dropdown-item cursor-pointer" (click)="logout()">Logout</a></li>
-                        <!-- Add more dropdown items as needed -->
-                    </ul>
-                </li>
-            </ul>
-            
         </div>
     </div>
-</nav>
+</div>
+
+
+
+
+
+
+
     <div class="below-bar ">
         <div class="dropdown">
             <a href="#" class="dropdown-toggle" id="categoriesDropdown" role="button" aria-expanded="false">

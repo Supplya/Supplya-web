@@ -173,7 +173,7 @@ font-weight: 600;
 .badge {
     border-radius: 50%;
     padding: 0.5em;
-    font-size: 0.75em;
+    font-size: 1em;
 }
 .userName{
   border-radius: 4px;
@@ -275,3 +275,73 @@ font-size: 20px;
 }
 
 
+.custom-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* padding: 5px 0; */
+}
+
+.logo-section {
+    flex: 1;
+}
+
+.search-section {
+    flex: 2;
+    max-width: 600px;
+}
+
+.search-section .form-control {
+    width: 100%;
+    height: 50px;
+  padding: 17px 40px 17px 50px; 
+  border-radius: 35px;
+  border: 1px solid #ccc;
+  outline: none;
+
+}
+
+.menu-options {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+.menu-options div{
+    color: #999999;
+    font-weight: 500;
+}
+.menu-options .bi{
+    color: #999999;
+}
+.menu-icon {
+    font-size: 24px; /* Adjust the icon size if needed */
+    color: var(--primary-color)!important;
+}
+
+.menu-name {
+    font-size: 14px; /* Adjust the text size if needed */
+    margin-top: 5px; /* Space between icon and text */
+    white-space: nowrap; /* Prevent line breaks */
+}
+
+.custom-navbar
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media (max-width: 992px) {
+    .search-section {
+        flex: 1;
+    }
+
+    .logo-section, .menu-options {
+        flex: 1;
+    }
+
+    .search-section .form-control {
+        width: 100%;
+    }
+}
