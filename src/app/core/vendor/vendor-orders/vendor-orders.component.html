@@ -8,7 +8,7 @@
                 <p class="head-text">Total Order</p>
                 <img src="/assets/Images/orders.png" alt="">
             </div>
-            <h3 class="head-count">{{summary?.totalStock | number:'1.0-0'}}</h3>
+            <h3 class="head-count">{{summary?.totalOrders | number:'1.0-0'}}</h3>
             <p class="head-brief">+5,000 Today</p>
         </div>
     </div>
@@ -18,7 +18,7 @@
                 <p class="head-text">New Order</p>
                 <img src="/assets/Images/new-order.png" alt="">
             </div>
-            <h3 class="head-count">{{summary?.totalStock | number:'1.0-0'}}</h3>
+            <h3 class="head-count">{{summary?.newOrdersCount | number:'1.0-0'}}</h3>
             <p class="head-brief">+300 Today</p>
         </div>
     </div>
@@ -28,7 +28,7 @@
                 <p class="head-text">Pending Order</p>
                 <img src="/assets/Images/pending-order.png" alt="">
             </div>
-            <h3 class="head-count">{{summary?.totalStock | number:'1.0-0'}}</h3>
+            <h3 class="head-count">{{summary?.receivedOrdersCount | number:'1.0-0'}}</h3>
             <p class="head-brief">+20,000 New Order Today</p>
         </div>
     </div>
@@ -38,7 +38,7 @@
                 <p class="head-text">Fulfilled Order</p>
                 <img src="/assets/Images/fulfilled-order.png" alt="">
             </div>
-            <h3 class="head-count">{{summary?.totalStock | number:'1.0-0'}}</h3>
+            <h3 class="head-count">{{summary?.deliveredOrdersCount | number:'1.0-0'}}</h3>
             <p class="head-brief">+123 Completed Orders</p>
         </div>
     </div>

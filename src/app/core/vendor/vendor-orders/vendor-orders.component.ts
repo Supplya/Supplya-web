@@ -399,19 +399,22 @@ export class VendorOrdersComponent implements OnInit {
   }
 
   summary;
+  summaryLoading = false;
+  errorFetchingSummary = false;
   getVendorMetric() {
     this.ordersLoading = true;
-    this.productService.getVendorMetric().subscribe(
+    this.productService.getVendorOrderStats().subscribe(
       (data: any) => {
+        console.log(data);
         if (data.status === 'success') {
           this.summary = data.data;
         } else {
         }
-        // this.ordersLoading = false;
+        this.summaryLoading = false;
       },
       (error) => {
-        // this.errorFetchingProduct = true;
-        // this.ordersLoading = false;
+        this.errorFetchingSummary = true;
+        this.summaryLoading = false;
       }
     );
   }
