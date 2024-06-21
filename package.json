@@ -25,6 +25,7 @@
     "@fortawesome/fontawesome-free": "^6.5.0",
     "animate.css": "^4.1.1",
     "bootstrap": "^5.3.2",
+    "chart.js": "^4.4.3",
     "font-awesome": "^4.7.0",
     "ng-toasty": "^0.0.7",
     "ngx-online-status": "^2.0.0",

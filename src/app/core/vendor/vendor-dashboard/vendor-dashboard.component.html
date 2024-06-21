@@ -50,7 +50,25 @@
 
 
 <section>
-          <section class="content" *ngIf="ordersLoading && !allOrders && !errorFetchingProduct">
+
+<!-- Graph -->
+
+      <section class="container mt-2">
+        <div class="row">
+          <div class="col-lg-4 content">
+
+          </div>
+          <div class="col-lg-8 ">
+<div class="chart-container content" style="height: 40vh;">
+      <canvas  id="MyChart" >{{ chart }}</canvas>
+</div>
+          </div>
+        </div>
+
+
+      </section>
+
+                <section class="content" *ngIf="ordersLoading && !allOrders && !errorFetchingProduct">
 <div class="py-5 p-5 center">
     <div>
 
@@ -59,7 +77,6 @@
     </div>
 </div>
       </section >
-
       <section class="content center" *ngIf="!ordersLoading && !allOrders && errorFetchingProduct">
         <div class="py-5 ">
           <div class="py-3 text-center" >

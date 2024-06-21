@@ -50,6 +50,7 @@ const sharedRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     NgxPaginationModule,
+    
   ],
 
   providers: [],
@@ -72,6 +73,7 @@ CurrencyFormatDirective,
     ReactiveFormsModule,
     HttpClientModule,
     NgxPaginationModule,
+    
   ],
 })
 export class SharedModule {}
