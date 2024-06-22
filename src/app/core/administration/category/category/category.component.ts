@@ -35,7 +35,7 @@ export class CategoryComponent implements OnInit {
   getAllCategories() {
     this.productService.getAllCategories().subscribe(
       (data: any) => {
-        if (data.status === 'success') {
+        if (data.status) {
           this.categories = data?.categories;
           this.filteredRows = data?.categories;
           console.log(data, 'products');

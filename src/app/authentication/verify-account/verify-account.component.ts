@@ -119,7 +119,7 @@ export class VerifyAccountComponent implements OnInit {
       otp: this.getOtpCode(),
     };
     this.authService.resendOTP(data).subscribe((response) => {
-      if (response.status === 'success') {
+      if (response.status) {
         this.notify.success(response.message, 6000);
       } else {
         this.notify.danger(response.message, 6000);
@@ -139,7 +139,7 @@ export class VerifyAccountComponent implements OnInit {
         console.log(response)
         localStorage.setItem('spa-userToken', response.token);
         localStorage.setItem('spa-userData', JSON.stringify(response.data));
-        if (response.status === 'success') {
+        if (response.status) {
           this.loading = false;
           Swal.fire({
             title: 'Congratulations!',

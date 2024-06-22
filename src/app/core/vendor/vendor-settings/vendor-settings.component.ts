@@ -76,7 +76,7 @@ export class VendorSettingsComponent implements OnInit {
     this.authService.getUserById(this.userDetails?._id).subscribe(
       (data: any) => {
         this.requestLoading = false;
-        if (data.status === 'success') {
+        if (data.status) {
           this.userInfo = data['data'];
           this.form.patchValue(data['data']);
         } else {
@@ -256,7 +256,7 @@ export class VendorSettingsComponent implements OnInit {
       this.authService.validateShop(storeName).subscribe(
         (response: any) => {
           this.validatingShop = false;
-          if (response.status === 'success') {
+          if (response.status) {
             this.availableText = response.message;
             this.notAvailableText = '';
             this.unableToValidate = '';
@@ -281,7 +281,7 @@ export class VendorSettingsComponent implements OnInit {
       const formValues = this.passwordForm.value;
       this.authService.changePassword(formValues).subscribe(
         (response) => {
-          if (response.status === 'success') { 
+          if (response.status) { 
 
             this.notify.success('Password changed successfully');
             this.router.navigate(['/auth']);
@@ -302,7 +302,7 @@ export class VendorSettingsComponent implements OnInit {
     this.authService
       .updateUserById(this.userDetails?._id, this.form.value)
       .subscribe((data) => {
-        if (data?.status === 'success') {
+        if (data?.status) {
           localStorage.setItem('spa-userData', JSON.stringify(data.data));
           this.submitted = false;
           this.userDetails = data['data'];
@@ -318,7 +318,7 @@ export class VendorSettingsComponent implements OnInit {
       .updateUserById(this.userDetails?._id, this.form.value)
       .subscribe(
         (data) => {
-          if (data?.status === 'success') {
+          if (data?.status) {
             localStorage.setItem('spa-userData', JSON.stringify(data.data));
             this.submitted = false;
             this.userDetails = data['data'];

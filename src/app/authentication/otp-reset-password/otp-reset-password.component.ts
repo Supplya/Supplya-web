@@ -98,7 +98,7 @@ isInvalid(control: string) {
      
       this.authService.login(this.form.value).subscribe(
         (response) => {
-          if (response.status === 'success') {
+          if (response.status) {
             this.loading = false;
             console.table('Login success:', response);
             this.authService.setCredentials(response);

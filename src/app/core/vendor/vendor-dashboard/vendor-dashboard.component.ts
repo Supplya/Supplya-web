@@ -152,7 +152,7 @@ export class VendorDashboardComponent implements OnInit {
     this.ordersLoading = true;
     this.productService.getVendorMetric().subscribe(
       (data: any) => {
-        if (data.status === 'success') {
+        if (data.status) {
           this.summary = data.data;
           this.createChart(this.summary);
         } else {
@@ -214,7 +214,7 @@ export class VendorDashboardComponent implements OnInit {
   }
   delete(id: string) {
     this.productService.deleteProduct(id).subscribe((result) => {
-      if (result === 'success') {
+      if (result) {
         this.toast.success('Product deleted successfully');
         this.getAllProducts();
       }

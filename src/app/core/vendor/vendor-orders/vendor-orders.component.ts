@@ -406,7 +406,7 @@ export class VendorOrdersComponent implements OnInit {
     this.productService.getVendorOrderStats().subscribe(
       (data: any) => {
         console.log(data);
-        if (data.status === 'success') {
+        if (data.status) {
           this.summary = data.data;
         } else {
         }
@@ -460,7 +460,7 @@ export class VendorOrdersComponent implements OnInit {
   }
   delete(id: string) {
     this.productService.deleteProduct(id).subscribe((result) => {
-      if (result === 'success') {
+      if (result) {
         this.toast.success('Product deleted successfully');
         this.getAllProducts();
       }

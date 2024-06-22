@@ -44,7 +44,7 @@ export class VendorEditProductComponent implements OnInit {
   getProductByID() {
     this.productService.getProductId(this.id).subscribe(
       (details: any) => {
-        if (details.status === 'success') {
+        if (details.status) {
           
           this.form.patchValue({
             category: details.data.category.name
@@ -80,7 +80,7 @@ this.form.patchValue(details.data);
   getAllCategories() {
     this.productService.getAllCategories().subscribe(
       (data: any) => {
-        if (data.status === 'success') {
+        if (data.status) {
           this.categories = data['data'];
         } else {
           this.notify.danger(data?.msg);
@@ -223,7 +223,7 @@ this.form.patchValue(details.data);
     formData.images = this.images;
     if (this.form.valid) {
       this.productService.UpdateProduct(this.id, formData).subscribe((data) => {
-        if (data.status === 'success') {
+        if (data.status) {
           this.notify.success(data.message);
           this.route.navigate(['/core/vendor/products']);
         }

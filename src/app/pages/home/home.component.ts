@@ -106,7 +106,7 @@ export class HomeComponent implements OnInit {
 
     this.productService.getAllCategories().subscribe(
       (data: any) => {
-        if (data.status === 'success') {
+        if (data.status) {
           this.categories = data?.data;
           this.loading = false;
         } else {

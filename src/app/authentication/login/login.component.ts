@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe(
         (response) => {
-          if (response.status === 'success') {
+          if (response.status) {
             this.authService.setCredentials(response);
             this.notify.success('Login Successful', 4000);
           } else {

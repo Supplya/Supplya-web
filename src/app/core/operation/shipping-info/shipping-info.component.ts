@@ -158,7 +158,7 @@ export class ShippingInfoComponent implements OnInit {
         // alert(message);
        
         this.orderForm.value.paymentRef = response.reference;
-        if (response.status === 'success') {
+        if (response.status) {
           this.loading = true;
           this.createOrder();
         }

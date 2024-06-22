@@ -49,7 +49,7 @@ export class ProductDetailsComponent {
       if (foodID) {
         this.productService.getProductId(foodID).subscribe(
           (product: any) => {
-            if(product.status === 'success') {
+            if(product.status) {
 
               this.product = product.data;
               this.loading = false;

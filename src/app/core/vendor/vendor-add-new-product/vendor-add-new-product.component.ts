@@ -58,7 +58,7 @@ export class VendorAddNewProductComponent implements OnInit {
   getAllCategories() {
     this.productService.getAllCategories().subscribe(
       (data: any) => {
-        if (data.status === 'success') {
+        if (data.status) {
           this.categories = data['data'];
         } else {
           this.notify.danger(data?.msg);
@@ -202,7 +202,7 @@ export class VendorAddNewProductComponent implements OnInit {
     if (this.form.valid) {
       this.productService.vendorAddProduct(formData).subscribe(
         (data) => {
-          if (data.status === 'success') {
+          if (data.status) {
             this.notify.success(data.message);
             this.route.navigate(['/core/vendor/products']);
           }

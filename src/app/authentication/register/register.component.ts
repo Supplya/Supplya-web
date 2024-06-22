@@ -70,7 +70,7 @@ this.form = this.fb.group(
       this.form.value.role = this.userType;
       this.authService.register(this.form.value).subscribe((response) => {
         if (response) {
-          if (response.status === 'success') {
+          if (response.status) {
             this.authService.sendEmailForOTP(this.form.value.email);
             this.notify.success(response.message);
             this.route.navigate(['/auth/verify-account']);

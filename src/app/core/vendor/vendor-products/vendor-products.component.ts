@@ -82,7 +82,7 @@ export class VendorProductsComponent implements OnInit {
   }
   delete(id: string) {
     this.productService.deleteProduct(id).subscribe(result => { 
-      if (result === 'success') { 
+      if (result) { 
 
         this.toast.success("Product deleted successfully");
         this.getAllProducts();

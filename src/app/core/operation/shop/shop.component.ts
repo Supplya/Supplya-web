@@ -78,7 +78,7 @@ export class ShopComponent implements OnInit {
 
     this.productService.getAllCategories().subscribe(
       (data: any) => {
-        if (data.status === 'success') {
+        if (data.status) {
 
           this.categories = data?.categories;
           this.loading = false;
