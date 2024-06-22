@@ -19,6 +19,7 @@ import { AddNewUserComponent } from './users/add-new-user/add-new-user.component
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { RolePermissionComponent } from './role/role-permission/role-permission.component';
 import { SettingsComponent } from './settings/settings.component';
+import { EditProductComponent } from './product/edit-product/edit-product.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { SettingsComponent } from './settings/settings.component';
     AddNewUserComponent,
     AnalyticsComponent,
     RolePermissionComponent,
-    SettingsComponent
+    SettingsComponent,
+    EditProductComponent
   ],
   imports: [
     CommonModule,

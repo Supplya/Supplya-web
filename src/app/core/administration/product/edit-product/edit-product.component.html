@@ -1,17 +1,17 @@
 
 <form [formGroup]="form" (ngSubmit)="submit()">
-<section>
+<section *ngIf="!requestLoading && response && !errorFetching">
 
     <div class="pageRow row align-items-center mb-3 px-2">
         <div class="col-sm-6">
-          <div class="page-name mt-2">Add Product</div>
+          <div class="page-name mt-2">Edit Product</div>
 
         </div>
         <div class="col-sm-6">
             <div class="d-none d-lg-block">
                 <div class="btn-container">
-                  <button class="cancel" type="button"  (click)="resetForm()"> <i class="bi bi-x mt-1"></i> Cancel </button> &nbsp; &nbsp;
-                  <button class="add" type="submit"> <i class="bi bi-plus mt-1"></i> Add Product</button>
+                  <!-- <button class="cancel" type="button"  (click)="resetForm()"> <i class="bi bi-x mt-1"></i> Cancel </button> &nbsp; &nbsp; -->
+                  <button class="add" type="submit">  Update Product</button>
                 </div>
             </div>
         </div>
@@ -197,9 +197,9 @@
                       </div>
                 </div>
 
-                <div class="btn-container-sm mobile-only py-3">
-                    <button (click)="resetForm()" type="button" class="cancel"> <i class="bi bi-x mt-1"></i> Cancel </button> &nbsp; &nbsp;
-                    <button type="submit" class="add"> <i class="bi bi-plus mt-1"></i> Add Product</button>
+                <div class="btn-container-sm mobile-only py-3 mb-5">
+                    <!-- <button (click)="resetForm()" type="button" class="cancel"> <i class="bi bi-x mt-1"></i> Cancel </button> &nbsp; &nbsp; -->
+                    <button type="submit" class="add"> Edit Product</button>
                   </div>
             </section>
 
@@ -209,3 +209,24 @@
 </section>
 
 </form>
+
+    <section class="content" *ngIf="requestLoading && !response && !errorFetching">
+<div class="py-5 p-5 center">
+    <div>
+
+        <img src="/assets/Images/requestLoading.gif" alt="">
+        <p class="loading-text text-center text-muted">Loading...</p>
+    </div>
+</div>
+      </section >
+
+      <section class="content center" *ngIf="!requestLoading && !response && errorFetching">
+        <div class="py-5 ">
+          <div class="py-3 text-center" >
+            <img src="/assets/Images/oops.png" style="height: 200px;" alt="">
+            <p class="loading-text  text-muted py-3">Could not display products. Click 'Refresh' to try again.
+        </p>
+            <p class="refresh" (click)="refresh()">Refresh <i class="bi bi-arrow-repeat"></i></p>
+          </div>
+        </div>
+      </section>

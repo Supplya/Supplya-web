@@ -213,6 +213,52 @@ color: #fff!important;
   
     
 }
+.dropdown-item {
+    color: #848484;
+    padding: 10px;  /* Add padding for better spacing */
+    display: block; /* Ensure items are displayed as block elements */
+}
+
+.dropdowns {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.dropdowns a {
+    color: #333333;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 5px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: max-content;
+    font-size: 12px;
+    z-index: 1000;  /* Increased z-index */
+    border-radius: 9px;
+    top: -65px; /* Adjust to position correctly below the trigger */
+    right: 0;
+    box-shadow: 0px 0px 20px 0px #00000026;
+    max-height: 300px; /* Adjust as needed */
+    overflow-y: auto;  /* Add vertical scrollbar if needed */
+    white-space: nowrap; /* Prevent items from wrapping */
+}
+
+.info {
+    padding: 5px 20px;
+    display: flex;
+    align-items: center;
+}
+
+.dropdowns:hover .dropdown-content {
+    display: block;
+}
+
+
 
 .btn-container-sm {
   display: flex;

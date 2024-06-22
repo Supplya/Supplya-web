@@ -1,7 +1,191 @@
+<section>
+    
+    <div class="container">
+  <div class="pageRow row align-items-center mb-3">
+        <div class="col-sm-6">
+          <div class="page-name mt-2">Products</div>
+        </div>
+        <div class="col-sm-6">
+          <div class="btn-container">
+            <button class="add" routerLink="/core/admin/add-new-product"> <i class="bi bi-plus mt-1"></i> Add Product</button>
+          </div>
+        </div>
+      </div>
+        <div class="row mb-3">
+            <div class="col-lg-3">
+        <div class="container-content p-3 mb-2">
+            <div class="d-flex justify-content-between ">
+                <p class="head-text">Total Products</p>
+                <img src="/assets/Images/total-sales.png" alt="">
+            </div>
+            <h3 class="head-count">{{0 | number:'1.0-0'}}</h3>
+            <p class="head-brief">+ N45,000 Today</p>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="container-content p-3 mb-2">
+            <div class="d-flex justify-content-between ">
+                <p class="head-text">New Products</p>
+                <img src="/assets/Images/orders.png" alt="">
+            </div>
+            <h3 class="head-count">{{0 | number:'1.0-0'}}</h3>
+            <p class="head-brief">+300 Today</p>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="container-content p-3 mb-2">
+            <div class="d-flex justify-content-between ">
+                <p class="head-text">Active Products</p>
+                <img src="/assets/Images/stocks.png" alt="">
+            </div>
+            <h3 class="head-count">{{0 | number:'1.0-0'}}</h3>
+            <p class="head-brief">Available for sale</p>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="container-content p-3 MB-2">
+            <div class="d-flex justify-content-between ">
+                <p class="head-text">Inactive Products</p>
+                <img src="/assets/Images/pending.png" alt="">
+            </div>
+            <h3 class="head-count">{{ 0 | number:'1.0-0'}}</h3>
+            <p class="head-brief">Not Available for sale</p>
+        </div>
+    </div>
+    
 
-<app-reusable-table [title]="title" [headers]="tableHeaders" [buttons]="tableButtons" [rows]="tableRows"
-    [filteredRows]="tableRows" [showButton]="false"
-    [tableId]="'productTable'"></app-reusable-table>
+        </div>
+    </div>
+</section>
 
 
+
+<div class="container">
   
+
+      <section class="content" *ngIf="productLoading && !filteredRows && !errorFetchingProduct">
+<div class="py-5 p-5 center">
+    <div>
+
+        <img src="/assets/Images/requestLoading.gif" alt="">
+        <p class="loading-text text-center text-muted">Loading...</p>
+    </div>
+</div>
+      </section >
+
+      <section class="content center" *ngIf="!productLoading && !filteredRows && errorFetchingProduct">
+        <div class="py-5 ">
+          <div class="py-3 text-center" >
+            <img src="/assets/Images/oops.png" style="height: 200px;" alt="">
+            <p class="loading-text  text-muted py-3">Could not display products. Click 'Refresh' to try again.
+        </p>
+            <p class="refresh" (click)="refreshProducts()">Refresh <i class="bi bi-arrow-repeat"></i></p>
+          </div>
+        </div>
+      </section>
+     
+      <div class="row ">
+         <div class="col-lg-4">
+                        <input *ngIf="products?.length > 0" type="text" class="form-control search-input mb-3" placeholder="Search Product" [(ngModel)]="searchText"
+                          (input)="applyFilter()" />
+                      </div>
+                       <div class="col-lg-8 text-end" *ngIf="filteredRows?.length > 0">
+                    <p (click)="exportToExcel()" class="btn export">Export</p>
+                  </div>
+      </div>
+      
+      <div class="table-responsive" *ngIf="!productLoading && filteredRows?.length > 0">
+
+          <table class="table" style="overflow-y: auto;">
+            <thead>
+              <tr>
+                <th>Product Information</th>
+                <th>Category</th>
+                <th>Min. Order</th>
+                <th>Unit Price</th>
+                <th>Inventory</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of filteredRows | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
+                <td>
+                  <div class="product-info">
+                    <img class="product-image" [src]="item?.image" alt="Product Image">
+                    {{item?.name}}
+                  </div>
+                </td>
+                <td>{{item?.category?.name}}</td>
+                <td>{{item?.moq}}</td>
+                <!-- <td class="product-info">{{item?.price || 0 | currency:'₦':'':'1.0-0'}}</td> -->
+                <td>{{item?.unit_price || 0 | currency:'₦':true:'1.0-0'}}</td>
+                <td>{{item?.quantity}}</td>
+               <td >
+                <small [ngClass]="{'in-stock': item?.status === 'inStock', 'out-of-stock': item?.status !== 'inStock'}">
+                  {{ item?.status === 'inStock' ? 'In Stock' : 'Out of Stock' }}</small></td>
+
+                <td>
+                 <div class="dropdowns">
+            <img src="/assets/Images/dots (2).png" class="Pencil">
+            <div class="dropdown-content p-2">
+              <!-- <a (click)="toggleModal('vendorModal', 'open')" class="dropdown-item" style="cursor: pointer;"><img class="border-right p-2 mr-2" src="/assets/img/edit.png" alt=""> View Vendor</a> -->
+              <a class="dropdown-item border-bottom" routerLink="/core/admin/edit-product/{{item?._id}}" style="cursor: pointer;">Edit Product</a>
+              <a class="dropdown-item border-bottom" (click)="toggleModal('apartmentModal', 'open', item)" style="cursor: pointer;">View Vendor</a>
+              <a class="dropdown-item border-bottom text-danger" (click)="deleteProduct(item)" style="cursor: pointer;">Delete Product</a>
+            </div>
+          </div>
+                </td>
+              </tr>
+            </tbody>
+           
+          </table>
+
+          <div class="d-flex justify-content-between px-5" *ngIf="filteredRows?.length > 0">
+
+            <div class="pagination-info text-muted">
+                Now Showing {{ calculateStartRecord() }} - {{ calculateEndRecord() }} of {{ filteredRows?.length }} records
+              </div>
+
+              <div>
+                <pagination-controls *ngIf="filteredRows?.length > 0"
+                    (pageChange)="p = $event"
+                    previousLabel=""
+                    nextLabel=""
+                  ></pagination-controls>
+              </div>
+          </div>
+          
+      </div>
+
+      
+       <section class="content center" *ngIf="filteredRows?.length === 0">
+        <div class="py-5 ">
+          <div class="py-3 text-center" >
+            <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">
+            <div class=" py-5">
+
+              <p class="loading-text  text-muted">No product found for your search
+          </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="content center" *ngIf="filteredRows?.length === 0 && products?.length === 0">
+        <div class="py-5 ">
+          <div class="py-3 text-center" >
+            <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">
+          </div>
+           <div class=" py-3">
+
+              <p class="loading-text  text-muted">Your Product Catalog is Empty!
+          </p>
+           <small style="font-size: 16px!important;" class="text-muted">Start Selling! Add Your First Product</small>
+           <div class="btn-wrapper mt-3">
+            <button class="add" routerLink="/core/vendor/add-new-product"> <i class="bi bi-plus mt-1"></i> Add Product</button>
+          </div>
+            </div>
+        </div>
+      </section>
+  </div>

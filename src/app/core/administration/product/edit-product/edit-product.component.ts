@@ -1,7 +1,7 @@
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastyService } from 'ng-toasty';
 import { AuthService } from 'src/app/authentication/service/auth.service';
 import { ProductService } from 'src/app/core/operation/services/product/product.service';
@@ -9,12 +9,11 @@ import { HelperService } from 'src/app/shared/helpers/helper.service';
 import { MediaUploadService } from 'src/app/shared/services/mediaUpload.service';
 
 @Component({
-  selector: 'app-add-new-product',
-  templateUrl: './add-new-product.component.html',
-  styleUrls: ['./add-new-product.component.scss']
+  selector: 'app-edit-product',
+  templateUrl: './edit-product.component.html',
+  styleUrls: ['./edit-product.component.scss'],
 })
-
-export class AddNewProductComponent implements OnInit {
+export class EditProductComponent implements OnInit {
   categories: any;
   constructor(
     public productService: ProductService,
@@ -23,19 +22,51 @@ export class AddNewProductComponent implements OnInit {
     private authService: AuthService,
     private notify: ToastyService,
     private uploadService: MediaUploadService,
-    private route: Router
+    private route: Router,
+    private router: ActivatedRoute
   ) {}
 
   form!: FormGroup;
   loading: boolean = false;
   submitted: boolean = false;
   passwordVisible: boolean = false;
-
+  id: any;
   ngOnInit(): void {
+    this.router.paramMap.subscribe((params) => {
+      this.id = params.get('id');
+      this.getProductByID();
+    });
     this.getAllCategories();
     this.initForm();
   }
+  requestLoading: boolean = false;
+  errorFetching: boolean = false;
+  response: any;
+  getProductByID() {
+    this.requestLoading = true;
+    this.productService.getProductId(this.id).subscribe(
+      (details: any) => {
+        if (details.status) {
+          this.response = details?.data;
+          this.requestLoading = false;
 
+          this.form.patchValue({
+            category: details.data.category.name,
+          });
+          this.form.patchValue(details.data);
+          this.images = details.data.images;
+        }
+      },
+      (error) => {
+        this.requestLoading = false;
+        this.errorFetching = true;
+      }
+    );
+  }
+  refresh() {
+    this.errorFetching = false;
+    this.getProductByID()
+  }
   initForm() {
     this.form = this.fb.group({
       name: ['', Validators.required],
@@ -118,7 +149,6 @@ export class AddNewProductComponent implements OnInit {
 
   errorUploading: boolean = false;
   uploadProgress: number = 0;
-  requestLoading: boolean = false;
   uploadRequestLoading: boolean = false;
 
   removeImage(index: number) {
@@ -202,7 +232,7 @@ export class AddNewProductComponent implements OnInit {
     formData.image = this.images[0];
     formData.images = this.images;
     if (this.form.valid) {
-      this.productService.addNewProduct(formData).subscribe((data) => {
+      this.productService.UpdateProduct(this.id, formData).subscribe((data) => {
         if (data.status) {
           this.notify.success(data.message);
           this.route.navigate(['/core/admin/products']);

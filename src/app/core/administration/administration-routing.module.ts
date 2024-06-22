@@ -14,24 +14,38 @@ import { AnalyticsComponent } from './analytics/analytics.component';
 import { RolePermissionComponent } from './role/role-permission/role-permission.component';
 import { AddNewRoleComponent } from './role/add-new-role/add-new-role.component';
 import { SettingsComponent } from './settings/settings.component';
+import { EditProductComponent } from './product/edit-product/edit-product.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-  {path: 'dashboard', component: AdminDashboardComponent},
-  {path: 'analytics', component: AnalyticsComponent},
-  {path: 'products', component: ProductsComponent},
-  {path: 'add-new-product', component: AddNewProductComponent},
-  {path: 'view-product/:_id', component: ViewProductDetailsComponent},
-  {path: 'orders', component: OrdersComponent},
-  {path: 'categories', component: CategoryComponent},
-  {path: 'add-new-category', component: AddNewCategoryComponent},
-  {path: 'view-category/:_id', component: ViewCategoryDetailsComponent},
-  {path: 'users', component: UsersComponent},
-  {path: 'add-new-user', component: AddNewUserComponent},
-  {path: 'view-user/:_id', component: AddNewUserComponent},
-  {path: 'add-new-role', component: AddNewRoleComponent},
-  {path: 'role-permissions', component: RolePermissionComponent},
-  {path: 'settings', component: SettingsComponent},
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: 'dashboard', component: AdminDashboardComponent },
+  { path: 'analytics', component: AnalyticsComponent },
+  {
+    path: 'products',
+    component: ProductsComponent,
+    data: { title: 'All Products' },
+  },
+  {
+    path: 'add-new-product',
+    component: AddNewProductComponent,
+    data: { title: 'Add New Product' },
+  },
+  {
+    path: 'edit-product/:id',
+    component: EditProductComponent,
+    data: { title: 'Edit Product' },
+  },
+  { path: 'view-product/:_id', component: ViewProductDetailsComponent },
+  { path: 'orders', component: OrdersComponent },
+  { path: 'categories', component: CategoryComponent },
+  { path: 'add-new-category', component: AddNewCategoryComponent },
+  { path: 'view-category/:_id', component: ViewCategoryDetailsComponent },
+  { path: 'users', component: UsersComponent },
+  { path: 'add-new-user', component: AddNewUserComponent },
+  { path: 'view-user/:_id', component: AddNewUserComponent },
+  { path: 'add-new-role', component: AddNewRoleComponent },
+  { path: 'role-permissions', component: RolePermissionComponent },
+  { path: 'settings', component: SettingsComponent },
 ];
 
 @NgModule({

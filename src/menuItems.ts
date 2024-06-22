@@ -6,18 +6,18 @@ export const menuItems = {
       hasChild: false,
       icon: 'house',
     },
-    {
-      name: 'Analytics',
-      route: '/core/admin/analytics',
-      hasChild: false,
-      icon: 'file-earmark-text',
-    },
-    {
-      name: 'Wallet',
-      route: '/core/admin/wallet',
-      hasChild: false,
-      icon: 'wallet',
-    },
+    // {
+    //   name: 'Analytics',
+    //   route: '/core/admin/analytics',
+    //   hasChild: false,
+    //   icon: 'file-earmark-text',
+    // },
+    // {
+    //   name: 'Wallet',
+    //   route: '/core/admin/wallet',
+    //   hasChild: false,
+    //   icon: 'wallet',
+    // },
     {
       name: 'Orders',
       route: '/core/admin/orders',
@@ -36,11 +36,11 @@ export const menuItems = {
           route: '/core/admin/products',
           icon: 'list-ul',
         },
-        {
-          name: 'Add Product',
-          route: '/core/admin/add-new-product',
-          icon: 'plus-circle',
-        },
+        // {
+        //   name: 'Add Product',
+        //   route: '/core/admin/add-new-product',
+        //   icon: 'plus-circle',
+        // },
       ],
     },
     {
@@ -54,32 +54,32 @@ export const menuItems = {
           route: '/core/admin/categories',
           icon: 'list-ul',
         },
-        {
-          name: 'Add Category',
-          route: '/core/admin/add-new-category',
-          icon: 'plus-circle',
-        },
+        // {
+        //   name: 'Add Category',
+        //   route: '/core/admin/add-new-category',
+        //   icon: 'plus-circle',
+        // },
       ],
     },
 
-    {
-      name: 'Role Permissions',
-      route: '/core/admin/',
-      hasChild: true,
-      icon: 'box',
-      childMenu: [
-        {
-          name: 'Permissions',
-          route: '/core/admin/role-permissions',
-          icon: 'list-ul',
-        },
-        {
-          name: 'Add New Role',
-          route: '/core/admin/add-new-role',
-          icon: 'plus-circle',
-        },
-      ],
-    },
+    // {
+    //   name: 'Role Permissions',
+    //   route: '/core/admin/',
+    //   hasChild: true,
+    //   icon: 'box',
+    //   childMenu: [
+    //     {
+    //       name: 'Permissions',
+    //       route: '/core/admin/role-permissions',
+    //       icon: 'list-ul',
+    //     },
+    //     {
+    //       name: 'Add New Role',
+    //       route: '/core/admin/add-new-role',
+    //       icon: 'plus-circle',
+    //     },
+    //   ],
+    // },
 
     {
       name: 'User Management',
@@ -88,15 +88,21 @@ export const menuItems = {
       icon: 'people',
       childMenu: [
         {
-          name: 'All Users',
+          name: 'All Customers',
           route: '/core/admin/users',
           icon: 'people-fill',
         },
         {
-          name: 'Add New User',
-          route: '/core/admin/add-new-user',
-          icon: 'plus-circle',
+          name: 'All Vendors',
+          route: '/core/admin/users',
+          icon: 'people-fill',
         },
+        {
+          name: 'All Admins',
+          route: '/core/admin/users',
+          icon: 'people-fill',
+        },
+        
       ],
     },
 
