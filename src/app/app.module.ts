@@ -18,7 +18,6 @@ import { AuthInterceptor } from './shared/Interceptors/auth.interceptor';
 import { TitleService } from './shared/services/title.service';
 import { OnlineStatusModule } from 'ngx-online-status';
 import { CloudinaryModule } from '@cloudinary/ng';
-import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 
 @NgModule({
   declarations: [AppComponent, NotFoundPageComponent, LoaderComponent],
@@ -29,7 +28,6 @@ import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 
     BrowserAnimationsModule,
     OnlineStatusModule,
     CloudinaryModule,
-    SocialLoginModule,
   ],
   providers: [
     Server,
