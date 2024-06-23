@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { ToastyService } from 'ng-toasty';
 import { HelperService } from 'src/app/shared/helpers/helper.service';
+import { environment } from 'src/assets/environment/environment';
 declare const google: any;
 @Component({
   selector: 'app-login',
@@ -32,24 +33,40 @@ export class LoginComponent implements OnInit {
   }
   ngOnInit(): void {
     this.authService.clearCredentials();
-      google.accounts.id.initialize({
-        client_id:
-          'http://121288578512-okqit4t4bpccsr0etm3hboikerhdasqs.apps.googleusercontent.com',
+    google.accounts.id.initialize(
+      {
+        client_id: environment.google_Client,
         callback: (res: any) => {
-          console.log(res);
+          // console.log(res)
+          const credential = res.credential;
+          if (credential) {
+            const decodedToken = this.decodeJwtToken(credential);
+            // console.log('Decoded token:', decodedToken);
+
+            const firstName = decodedToken.given_name
+            const lastName = decodedToken.family_name
+            const email = decodedToken.email;
+            const name = decodedToken.name;
+            const profilePicture = decodedToken.picture;
+            // Add more fields as needed
+          }
         },
       },
-        (error => {
+      (error) => {
         console.log(error);
-      }));
+      }
+    );
 
-      google.accounts.id.renderButton(document.getElementById('google-btn'), {
-        theme: 'filled_black',
-        size: 'large',
-        shape: 'rectangle',
-        width: 300,
+    google.accounts.id.renderButton(document.getElementById('google-btn'), {
+      theme: 'filled_black',
+      size: 'large',
+      shape: 'rectangle',
+      width: 300,
+    });
+  }
 
-      });
+  decodeJwtToken(token: string) {
+    return JSON.parse(atob(token?.split('.')[1]));
   }
 
   toggleModal = (modalId, action: string, data?: any) => {
@@ -75,7 +92,6 @@ export class LoginComponent implements OnInit {
     this.passwordVisible = !this.passwordVisible;
   }
 
-
   login() {
     this.submitted = true;
     if (this.loginForm.valid) {
@@ -99,8 +115,6 @@ export class LoginComponent implements OnInit {
       );
     }
   }
-
- 
 
   signInWithGoogleCallback(response: any): void {
     if (response.error) {
