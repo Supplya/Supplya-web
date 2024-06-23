@@ -5,6 +5,7 @@ import { ToastyService } from 'ng-toasty';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Server } from 'src/assets/apConfig';
 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -13,8 +14,9 @@ export class AuthService {
     private http: HttpClient,
     private server: Server,
     private router: Router,
-    private notify: ToastyService
-  ) {}
+    private notify: ToastyService,
+  ) {
+  }
   private baseURL = this.server.baseUrl;
 
   register(user: any): Observable<any> {
@@ -30,6 +32,7 @@ export class AuthService {
     return this.http.post(url, user, { headers });
   }
 
+  
   updateUserById(userId: string, userData: any): Observable<any> {
     const url = `${this.baseURL}users/${userId}`;
     return this.http.patch<any>(url, userData);

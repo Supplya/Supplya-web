@@ -18,6 +18,7 @@ import { AuthInterceptor } from './shared/Interceptors/auth.interceptor';
 import { TitleService } from './shared/services/title.service';
 import { OnlineStatusModule } from 'ngx-online-status';
 import { CloudinaryModule } from '@cloudinary/ng';
+import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 
 @NgModule({
   declarations: [AppComponent, NotFoundPageComponent, LoaderComponent],
@@ -27,8 +28,8 @@ import { CloudinaryModule } from '@cloudinary/ng';
     SharedModule,
     BrowserAnimationsModule,
     OnlineStatusModule,
-    CloudinaryModule
-    // CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'mycloudname' })
+    CloudinaryModule,
+    SocialLoginModule,
   ],
   providers: [
     Server,
@@ -43,6 +44,7 @@ import { CloudinaryModule } from '@cloudinary/ng';
     LoaderService,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  
   ],
   bootstrap: [AppComponent],
 })

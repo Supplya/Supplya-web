@@ -222,3 +222,13 @@ text-decoration: underline;
     line-height: 48px;
     letter-spacing: 0.20000000298023224px;    
 }
+#google-btn {
+  height: 50px!important;
+  display: inline-flex; /* Ensures button respects height */
+  align-items: center; /* Centers content vertically */
+}
+
+#google-btn span {
+  font-size: 14px; /* Adjust font size as needed */
+  padding: 0 16px; /* Adjust padding as needed */
+}

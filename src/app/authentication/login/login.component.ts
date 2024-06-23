@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { ToastyService } from 'ng-toasty';
 import { HelperService } from 'src/app/shared/helpers/helper.service';
-
+declare const google: any;
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -32,6 +32,24 @@ export class LoginComponent implements OnInit {
   }
   ngOnInit(): void {
     this.authService.clearCredentials();
+      google.accounts.id.initialize({
+        client_id:
+          'http://121288578512-okqit4t4bpccsr0etm3hboikerhdasqs.apps.googleusercontent.com',
+        callback: (res: any) => {
+          console.log(res);
+        },
+      },
+        (error => {
+        console.log(error);
+      }));
+
+      google.accounts.id.renderButton(document.getElementById('google-btn'), {
+        theme: 'filled_black',
+        size: 'large',
+        shape: 'rectangle',
+        width: 300,
+
+      });
   }
 
   toggleModal = (modalId, action: string, data?: any) => {
@@ -40,7 +58,6 @@ export class LoginComponent implements OnInit {
     } else {
       document.getElementById(modalId).style.display = 'none';
     }
-    
   };
 
   getErrorMessage(control: string, message: string) {
@@ -57,6 +74,7 @@ export class LoginComponent implements OnInit {
   togglePasswordVisibility(): void {
     this.passwordVisible = !this.passwordVisible;
   }
+
 
   login() {
     this.submitted = true;
@@ -79,6 +97,30 @@ export class LoginComponent implements OnInit {
           console.error('HTTP error:', error.error);
         }
       );
+    }
+  }
+
+ 
+
+  signInWithGoogleCallback(response: any): void {
+    if (response.error) {
+      console.error('Google sign-in error:', response.error);
+      // Optionally handle error if Google sign-in fails
+    } else {
+      // Successful Google sign-in, handle the response
+      console.log('Google sign-in success:', response);
+      // Call your AuthService method to handle Google sign-in
+      // this.authService.signInWithGoogle(response.credential).subscribe(
+      //   (data) => {
+      //     // Handle success after AuthService completes sign-in process
+      //     console.log('AuthService sign-in with Google success:', data);
+      //   },
+      //   (error) => {
+      //     // Handle AuthService error if sign-in with Google fails
+      //     console.error('AuthService sign-in with Google error:', error);
+      //     // Optionally show error message to user
+      //   }
+      // );
     }
   }
 }
