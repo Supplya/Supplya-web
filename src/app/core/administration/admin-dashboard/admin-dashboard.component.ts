@@ -184,8 +184,21 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
               position: 'bottom',
               labels: {
                 usePointStyle: true, // Use circle for legend
+                padding: 20, // Adjust the padding to increase the gap between the labels
               },
             },
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  let value = context.raw as number;
+                  return context.dataset.label + ': ' + value;
+                },
+              },
+            },
+          },
+          hover: {
+            mode: 'nearest',
+            intersect: false,
           },
         },
       });

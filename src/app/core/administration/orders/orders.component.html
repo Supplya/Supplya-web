@@ -1,1 +1,273 @@
-<p>orders works!</p>
+<section>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-3">
+        <div class="container-content p-3 mb-2">
+            <div class="d-flex justify-content-between ">
+                <p class="head-text">Total Order</p>
+                <img src="/assets/Images/orders.png" alt="">
+            </div>
+            <h3 class="head-count">{{0 | number:'1.0-0'}}</h3>
+            <p class="head-brief">+5,000 Today</p>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="container-content p-3 mb-2">
+            <div class="d-flex justify-content-between ">
+                <p class="head-text">New Order</p>
+                <img src="/assets/Images/new-order.png" alt="">
+            </div>
+            <h3 class="head-count">{{0 | number:'1.0-0'}}</h3>
+            <p class="head-brief">+300 Today</p>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="container-content p-3 mb-2">
+            <div class="d-flex justify-content-between ">
+                <p class="head-text">Pending Order</p>
+                <img src="/assets/Images/pending-order.png" alt="">
+            </div>
+            <h3 class="head-count">{{0 | number:'1.0-0'}}</h3>
+            <p class="head-brief">+20,000 New Order Today</p>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="container-content p-3 MB-2">
+            <div class="d-flex justify-content-between ">
+                <p class="head-text">Fulfilled Order</p>
+                <img src="/assets/Images/fulfilled-order.png" alt="">
+            </div>
+            <h3 class="head-count">{{0 | number:'1.0-0'}}</h3>
+            <p class="head-brief">+123 Completed Orders</p>
+        </div>
+    </div>
+    
+
+        </div>
+    </div>
+</section>
+
+
+
+<section>
+          <section class="content" *ngIf="ordersLoading && !filteredRows && !errorFetchingProduct">
+<div class="py-5 p-5 center">
+    <div>
+
+        <img src="/assets/Images/requestLoading.gif" alt="">
+        <p class="loading-text text-center text-muted">Loading...</p>
+    </div>
+</div>
+      </section >
+
+      <section class="content center" *ngIf="!ordersLoading && !filteredRows && errorFetchingProduct">
+        <div class="py-5 ">
+          <div class="py-3 text-center" >
+            <img src="/assets/Images/oops.png" style="height: 200px;" alt="">
+            <p class="loading-text  text-muted py-3">Could not display products. Click 'Refresh' to try again.
+        </p>
+            <p class="refresh" (click)="refreshProducts()">Refresh <i class="bi bi-arrow-repeat"></i></p>
+          </div>
+        </div>
+      </section>
+     
+     
+      <div class="orders-section mt-4"  *ngIf="!ordersLoading && filteredRows?.length > 0">
+        <div class="px-4 d-flex justify-content-between align-items-center">
+            <div>
+
+                <p class="head-count mb-0 mt-2" style="font-size: 20px;">Orders</p>
+                <p class="head-text">Recent Orders</p>
+            </div>
+            <!-- <p class="view-all">View All</p> -->
+</div>
+      </div>
+      <div class="table-responsive" *ngIf="!ordersLoading && filteredRows?.length > 0">
+          <table class="table" style="overflow-y: auto;">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Date & Time</th>
+                <th>Price</th>
+                <th>Earnings</th>
+                <th>Customer</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of filteredRows | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
+                <td class="text-primary" style="font-size: 15px; font-weight: 500;">
+                    {{item?.orderId}}
+                </td>
+                <td>{{ item?.dateOrdered | date: 'MMM d, y hh:mm a' }}</td>
+                <td>{{item?.totalPrice || 0 | currency:'₦':true:'1.0-0'}}</td>
+                <td>{{ (item?.totalPrice - (item?.totalPrice * 0.01)) | currency:'₦':true:'1.0-0' }}</td>
+                <td>{{item?.user?.firstName}} {{item?.user?.lastName}}</td>
+               <td >
+                <small [ngClass]="{'completed': item?.orderStatus ===  'received' || 'completed', 'new': item?.orderStatus === 'new',
+                 'pending': item?.orderStatus === 'pending', 'cancelled': item?.orderStatus === 'cancelled'}">
+                  {{ capitalizeFirstLetter(item?.orderStatus) }}</small>
+                </td>
+
+                <td>
+                <span (click)="toggleModal('orderDetailsModal', 'open', item)" class="view-call text-decoration-underline text-primary cursor-pointer fw-bold">View</span>
+                </td>
+              </tr>
+            </tbody>
+           
+          </table>          
+      </div>
+
+      
+       <section class="content center" *ngIf="!ordersLoading && filteredRows?.length === 0">
+        <div class="py-5 ">
+          <div class="py-3 text-center" >
+            <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">
+            <div class=" py-5">
+
+              <p class="loading-text  text-muted">No order found 
+          </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+</section>
+
+
+
+
+
+
+
+ <div id="orderDetailsModal" class="modal">
+  <div
+    class="modal-center-content mx-auto pt-4 px-2 px-lg-5 pb-5"
+   
+  >
+    <div class="d-flex justify-content-between">
+            <p class="modal-heading text-center">Order Details</p>
+      <img 
+        style="cursor: pointer"
+        class=""
+        (click)="toggleModal('orderDetailsModal', 'close')"
+        src="/assets/Images/dismiss.svg"
+        alt=""
+      />
+    </div>
+<section>
+  <div class="row orderDetails">
+    <div class="col-lg-4">
+      <div>
+        <div class="details-head">Order Information</div>
+        <div class="contain mt-3">
+          <p class="name"> Created On:</p>
+          <p class="value">{{ selectedOrder?.dateOrdered | date: 'MMM d, y hh:mm a' }}</p>
+        </div>
+        <div class="contain">
+          <p class="name"> Product Status:</p>
+          <p class="value">
+            <span [ngClass]="{'completed': selectedOrder?.orderStatus === 'received' || 'completed', 'new': selectedOrder?.orderStatus === 'new',
+                 'pending': selectedOrder?.orderStatus === 'pending', 'cancelled': selectedOrder?.orderStatus === 'cancelled'}">
+                {{ capitalizeFirstLetter(selectedOrder?.orderStatus) }} 
+                </span>
+            </p>
+        </div>
+        <div class="contain">
+          <p class="name"> Payment Status:</p>
+          <p class="value">{{capitalizeFirstLetter(selectedOrder?.paymentMethod)}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div>
+        <div class="details-head">Customer Information</div>
+        <div class="contain mt-3">
+          <p class="name"> Name:</p>
+          <p class="value">{{selectedOrder?.user?.firstName}} {{selectedOrder?.user?.lastName}}</p>
+        </div>
+        <div class="contain">
+          <p class="name"> Email:</p>
+          <p class="value"><a href="{{selectedOrder?.email}}">{{selectedOrder?.email}}</a></p>
+        </div>
+        <div class="contain">
+          <p class="name"> Phone:</p>
+          <p class="value"><a href="tel:{{selectedOrder?.phone}}">{{selectedOrder?.phone}}</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div>
+        <div class="details-head">Shipping Information</div>
+        <div class="contain mt-3">
+          <p class="name"> Name:</p>
+          <p class="value">{{selectedOrder?.user?.firstName}} {{selectedOrder?.user?.lastName}}</p>
+        </div>
+        <div class="contain">
+          <p class="name">Address:</p>
+          <p class="value">{{selectedOrder?.address}}</p>
+        </div>
+     
+      </div>
+    </div>
+  </div>
+</section>
+<section class="py-2">
+   <div class="table-responsive" style="border-radius: 0px!important; box-shadow: none!important;" *ngIf="!ordersLoading && filteredRows?.length > 0">
+         <table class="table">
+  <thead>
+    <tr>
+      <th>Products</th>
+      <th>Variation</th>
+      <th>SKU</th>
+      <th>QTY</th>
+      <th>Unit Price</th>
+      <th>Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of selectedOrder?.orderItems | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
+      <td class="text-primary" style="font-size: 15px; font-weight: 500;">
+        {{ item?.product?.name }}
+      </td>
+      <td>{{ item?.product?.dateCreated | date: 'MMM d, y hh:mm a' }}</td>
+      <td>{{ item?.product?.sku || 0  }}</td>
+      <td>{{ item?.quantity }}</td>
+      <td>{{ item?.product?.unit_price | currency:'₦':true:'1.0-0' }}</td>
+      <td>{{ (item?.product?.unit_price * item?.quantity) | currency:'₦':true:'1.0-0' }}</td>
+    </tr>
+  </tbody>
+</table>
+
+      </div>
+</section>
+<section>
+  <div class="row d-flex justify-content-end ">
+<div class="col-4 d-flex justify-content-end align-items-center">
+  <div class="contain-total shadow-sm p-2">
+  <div class="d-flex border-bottom mt-2">
+    <p class="name">Total Price:</p>
+    <p class="value">{{ selectedOrder?.totalPrice | currency:'₦':true:'1.0-0' }}</p>
+  </div>
+  <div class="d-flex mt-3">
+    <p class="name">Commission (1%):</p>
+    <p class="value">{{ (selectedOrder?.totalPrice * 0.01) | currency:'₦':true:'1.0-0' }}</p>
+  </div>
+  <div class="d-flex">
+    <div class="details-head">Earnings</div>
+    <div class="details-head">{{ (selectedOrder?.totalPrice - (selectedOrder?.totalPrice * 0.01)) | currency:'₦':true:'1.0-0' }}</div>
+  </div>
+</div>
+
+</div>
+  </div>
+</section>
+  
+<!-- <div class="d-flex justify-content-center">
+
+    <button  class="btn-modal-primary mt-3" style="border-radius: 80px!important; padding: 13px 60px!important;">Continue</button>
+</div> -->
+  </div>
+</div>

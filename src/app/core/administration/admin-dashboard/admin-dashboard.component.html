@@ -29,7 +29,7 @@
                 <img src="/assets/Images/stocks.png" alt="">
             </div>
             <h3 class="head-count">{{0 | number:'1.0-0'}}</h3>
-            <p class="head-brief">+20,000 New Order Today</p>
+            <p class="head-brief">+20,000 Last 7 days</p>
         </div>
     </div>
     <div class="col-lg-3">
@@ -39,7 +39,7 @@
                 <img src="/assets/Images/pending.png" alt="">
             </div>
             <h3 class="head-count">{{0 | number:'1.0-0'}}</h3>
-            <p class="head-brief">+123 Completed Orders</p>
+            <p class="head-brief">+123 Last 7 days</p>
         </div>
     </div>
     
@@ -124,18 +124,20 @@
     <div class="col-lg-8 ">
       <section>
         <div class=" content">
-          <div class="d-flex justify-content-between mt-3 mb-2">
-            <div>
-              <h3 class="head-title mb-1">Total Sales Amount</h3>
-              <p class="text-muted">Monthly sales overview</p>
-            </div>
-            <div class="d-flex align-items-center year-selection">
-              <label class="me-3" for="month">Select Month:</label>
-              <select id="month" [(ngModel)]="selectedMonth" (change)="changeMonth($event)">
-                <option *ngFor="let month of months" [value]="month.value">{{ month.label }}</option>
-              </select>
-            </div>
-          </div>
+     <div class="d-flex flex-column flex-md-row justify-content-between mt-3 mb-2">
+  <div class=" mb-md-0 w-100">
+    <h3 class="head-title mb-1">Total Sales Amount</h3>
+    <p class="text-muted">Monthly sales overview</p>
+  </div>
+  <div class="d-flex align-items-center justify-content-end w-100 w-md-auto year-selection">
+    <label class="me-3" for="month">Select Month:</label>
+    <select id="month" [(ngModel)]="selectedMonth" (change)="changeMonth($event)">
+      <option *ngFor="let month of months" [value]="month.value">{{ month.label }}</option>
+    </select>
+  </div>
+</div>
+
+
           <canvas #mySalesLineChart id="MySalesLineChart"></canvas>
         </div>
       </section>
@@ -146,21 +148,20 @@
 </section>
 
 
-      <section>
-            <div class="chart-container content" >
-                 <div class="d-flex justify-content-between mt-3 mb-2">
-                    <div>
-
-                        <h3 class="head-title mb-1">User Statistics</h3>
-                        <p class="text-muted">New account signup</p>
-                    </div>
-        <div class="year-selection">
-          <label class="me-3" for="year">Select Year:</label>
-          <select id="year" [(ngModel)]="selectedYear" (change)="changeYear($event)">
-            <option *ngFor="let year of years">{{ year }}</option>
-          </select>
-        </div>
-          </div>
-      <canvas style="height: 30vh!important; width: 100%;" #myLineChart id="MyLineChart"></canvas>
+    <section>
+  <div class="chart-container content">
+    <div class="d-flex flex-column flex-md-row justify-content-between mt-3 mb-2">
+      <div class="mb-md-0 w-100">
+        <h3 class="head-title mb-1">User Statistics</h3>
+        <p class="text-muted">New account signup</p>
+      </div>
+      <div class="d-flex align-items-center justify-content-end year-selection w-100 w-md-auto">
+        <label class="me-3" for="year">Select Year:</label>
+        <select id="year" [(ngModel)]="selectedYear" (change)="changeYear($event)">
+          <option *ngFor="let year of years">{{ year }}</option>
+        </select>
+      </div>
     </div>
-      </section>
+    <canvas class="chart-canvas" #myLineChart id="MyLineChart"></canvas>
+  </div>
+</section>
