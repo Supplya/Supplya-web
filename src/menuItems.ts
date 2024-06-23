@@ -27,9 +27,9 @@ export const menuItems = {
 
     {
       name: 'Products',
-      route: '/core/admin/',
-      hasChild: true,
-      icon: 'box',
+      route: '/core/admin/products',
+      hasChild: false,
+      icon: 'list-ul',
       childMenu: [
         {
           name: 'All Products',
@@ -102,7 +102,6 @@ export const menuItems = {
           route: '/core/admin/users',
           icon: 'people-fill',
         },
-        
       ],
     },
 

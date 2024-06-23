@@ -1,17 +1,18 @@
 
-<div  class="d-flex flex-column flex-lg-row h-lg-full ">
-    <!-- Vertical Navbar -->
-<app-sidebar></app-sidebar>
-  
-    <!-- Main content -->
-    <div class="h-screen flex-grow-1 overflow-y-lg-auto">
-      <!-- Header -->
-     <app-header></app-header>
-      <main class="custom-container ">
-        <div class="d-flex justify-content-between">
+
+<div  class="d-flex flex-column flex-lg-row " style="background-color: #F8F8F8!important; height: 100vh!important;">
+  <!-- Vertical Navbar -->
+ <app-sidebar></app-sidebar>
+
+  <!-- Main content -->
+  <div class="h-screen flex-grow-1 overflow-y-lg-auto">
+    <!-- Header -->
+   <app-header></app-header>
+    <main class="custom-container">
+       <div class="d-flex justify-content-between">
 
           <div class="d-flex align-items-center mb-3 px-3">
-            <p class="mb-0 step-one pointer">
+            <p *ngIf="pageTitle !== 'Dashboard'" class="mb-0 step-one pointer">
               {{ 'Dashboard' }}
             </p>
             <!-- &nbsp;
@@ -38,7 +39,7 @@
             <div class="d-flex align-items-center">
               
               &nbsp;
-              <svg
+              <svg *ngIf="pageTitle !== 'Dashboard'"
                 width="12"
                 height="12"
                 viewBox="0 0 16 16"
@@ -64,14 +65,10 @@
           <app-back-button></app-back-button>
         </div>
 
-      <section>
+         <section>
         <app-internet-offline></app-internet-offline>
       </section>
-        <!-- Main Content -->
-        <div class=" ">
-
-          <router-outlet></router-outlet>
-        </div>
-      </main>
-    </div>
+      <router-outlet ></router-outlet>
+    </main>
   </div>
+</div>

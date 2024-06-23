@@ -18,7 +18,11 @@ import { EditProductComponent } from './product/edit-product/edit-product.compon
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: 'dashboard', component: AdminDashboardComponent },
+  {
+    path: 'dashboard',
+    component: AdminDashboardComponent,
+    data: { title: 'Dashboard' },
+  },
   { path: 'analytics', component: AnalyticsComponent },
   {
     path: 'products',
