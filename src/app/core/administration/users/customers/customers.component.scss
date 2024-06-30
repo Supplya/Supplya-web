@@ -237,3 +237,49 @@ border-radius: 10px;
 }
 
 }
+
+.orderDetails .name {
+  font-family: Open Sans;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.orderDetails .value, a {
+  font-family: Open Sans;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1D1F2C;
+  text-align: left!important;
+  margin-left: 12px; 
+}
+
+.orderDetails .contain {
+  display: flex;
+  flex-direction: row;
+}
+.modal-center-content{
+  border-radius: 10px !important; width: 65%!important;
+}
+
+.contain-total {
+border-radius: 10px;
+ border: 1px solid #F0F1F3!important;
+ 
+}
+.contain-total .value, a {
+  font-family: Open Sans;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1D1F2C;
+  text-align: left!important;
+  margin-left: 12px; 
+}
+@media (max-width: 700px) {
+
+.modal-center-content{
+  border-radius: 10px !important;
+  width: 95%!important;
+}
+
+}

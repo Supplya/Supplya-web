@@ -4,14 +4,12 @@ import { Observable } from 'rxjs';
 import { Server } from 'src/assets/apConfig';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class DashboardService {
   constructor(private http: HttpClient, private server: Server) {}
   // productUrl: string = "https://supplya.cyclic.app/";
   baseUrl = this.server.baseUrl;
-
 
   vendorAddProduct(product: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}products/create`, product);
@@ -24,7 +22,6 @@ export class DashboardService {
   getAllProducts(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}products`);
   }
-
 
   getProductStats(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}users/orders
@@ -48,7 +45,16 @@ export class DashboardService {
   getAllUsers(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/users`);
   }
+  getOrdersByID(id: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/orders/user/${id}`);
+  }
 
+  getProductsByUser(id: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/products/user/${id}`);
+  }
+  getUserByID(id: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/users/${id}`);
+  }
 
   UpdateProduct(id: any, product: any): Observable<any> {
     return this.http.patch<any>(`${this.baseUrl}products/${id}`, product);

@@ -23,6 +23,8 @@ import { EditProductComponent } from './product/edit-product/edit-product.compon
 import { CustomersComponent } from './users/customers/customers.component';
 import { VendorsComponent } from './users/vendors/vendors.component';
 import { AdminsComponent } from './users/admins/admins.component';
+import { ViewCustomersComponent } from './users/view-customers/view-customers.component';
+import { ViewVendorsComponent } from './users/view-vendors/view-vendors.component';
 
 
 @NgModule({
@@ -46,7 +48,9 @@ import { AdminsComponent } from './users/admins/admins.component';
     EditProductComponent,
     CustomersComponent,
     VendorsComponent,
-    AdminsComponent
+    AdminsComponent,
+    ViewCustomersComponent,
+    ViewVendorsComponent
   ],
   imports: [
     CommonModule,

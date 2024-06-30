@@ -1,57 +1,4 @@
-<section>
-    <div class="container" >
-
-        <div class="row">
-            <div class="col-lg-3">
-        <div class="container-content p-3 mb-2">
-            <div class="d-flex justify-content-between ">
-                <p class="head-text">Total Customers</p>
-                <img src="/assets/Images/total-sales.png" alt="">
-            </div>
-            <h3 class="head-count">{{summary?.totalCustomers | number:'1.0-0'}}</h3>
-            <p class="head-brief">+{{summary?.newCustomersLast7Days | number:'1.0-0'}} Last 7 days</p>
-        </div>
-    </div>
-    <div class="col-lg-3">
-        <div class="container-content p-3 mb-2">
-            <div class="d-flex justify-content-between ">
-                <p class="head-text">New Customers</p>
-<img src="/assets/Images/orders.png" alt="">
-            </div>
-            <h3 class="head-count">{{summary?.newCustomersToday | number:'1.0-0'}}</h3>
-            <p class="head-brief">+{{summary?.newCustomersToday | number:'1.0-0'}} Today</p>
-        </div>
-    </div>
-    <div class="col-lg-3">
-        <div class="container-content p-3 mb-2">
-            <div class="d-flex justify-content-between ">
-                <p class="head-text">Active Customers</p>
-                <img src="/assets/Images/stocks.png" alt="">
-            </div>
-            <h3 class="head-count">{{summary?.activeCustomers | number:'1.0-0'}}</h3>
-            <p class="head-brief">in the last 90 days</p>
-        </div>
-    </div>
-    <div class="col-lg-3">
-        <div class="container-content p-3 MB-2">
-            <div class="d-flex justify-content-between ">
-                <p class="head-text">Inactive Customers</p>
-<img src="/assets/Images/pending.png" alt="">
-            </div>
-            <h3 class="head-count">{{summary?.inactiveCustomers | number:'1.0-0'}}</h3>
-            <p class="head-brief">in the last 90 days</p>
-        </div>
-    </div>
-    
-
-        </div>
-    </div>
-</section>
-
-
-
-<section class="container">
-          <section class="content" *ngIf="summaryLoading && !summary && !errorFetchingProduct">
+      <section class="content" *ngIf="userLoading && !userInfo && !errorFetchingUser">
 <div class="py-5 p-5 center">
     <div>
 
@@ -61,68 +8,165 @@
 </div>
       </section >
 
-      <section class="content center" *ngIf="!summaryLoading && !summary && errorFetchingProduct">
+     <section class="content center" *ngIf="!userLoading && !userInfo && errorFetchingUser">
         <div class="py-5 ">
           <div class="py-3 text-center" >
             <img src="/assets/Images/oops.png" style="height: 200px;" alt="">
-            <p class="loading-text  text-muted py-3">Could not display products. Click 'Refresh' to try again.
+            <p class="loading-text  text-muted py-3">Could not fetch User Information. Click 'Refresh' to try again.
         </p>
-            <p class="refresh" (click)="refreshProducts()">Refresh <i class="bi bi-arrow-repeat"></i></p>
+            <p class="refresh" (click)="refreshUser()">Refresh <i class="bi bi-arrow-repeat"></i></p>
+          </div>
+        </div>
+      </section>
+<section  *ngIf="userInfo && !userLoading && !errorFetchingUser">
+    
+<section class="container">
+    <div class="row">
+        <div class="col-lg-6 mb-2">
+            <div class="card-content">
+<section class="p-lg-4">
+
+    <div class="d-flex justify-content-between align-items-center py-3 w-100">
+        <div class="img-name">
+    
+            <div class="profile-picture-container cursor-pointer">
+                <!-- Profile Picture -->
+                <img [src]="userInfo?.profileImage" alt="" class="profile-picture">
+                <!-- Camera Icon -->
+                <!-- <i class="bi bi-camera-fill camera-icon"></i> -->
+            </div>
+            <div>
+               
+                <p class="mb-0 name mb-1">{{userInfo?.firstName}} {{userInfo?.lastName}}</p>
+                <p class="sub mb-0 text-muted mt-1">User ID: {{userInfo?._id}}</p>
+                <p class="sub mb-0 mt-1">{{userInfo?.email}}</p>
+                <p class="sub mt-1">{{userInfo?.phoneNumber}}</p>
+           
+             
+            </div>
+        </div>
+        <p class="text-primary fw-bold cursor-pointer">Edit</p>
+        <!-- <button class="btn btn-save d-none d-lg-block">Change Picture</button> -->
+    </div>
+     <div class="d-flex justify-content-between">
+  <div class="">
+        <p class="name-sub me-3 mb-1">Reg. Date: <span class="text-muted"></span></p>
+        <p class="name-sub text-muted mb-1">{{ userInfo?.createdAt | date: 'MMM d, y hh:mm a' }}</p>
+    </div>
+  <div class="">
+        <p class="name-sub me-3 mb-1">Total Spent: <span class="text-muted"></span></p>
+        <p class="name-sub text-muted mb-1">{{''}}</p>
+    </div>
+  <div class="">
+        <p class="name-sub me-3 mb-1">Status: <span class="text-muted"></span></p>
+             <p [ngClass]="{'cancelled': userInfo?.blocked, 'completed': !userInfo?.blocked}">
+  {{ userInfo?.blocked ? 'Inactive' : 'Active' }}
+</p>
+    </div>
+                </div>
+</section>
+            </div>
+        </div>
+        <div class="col-lg-6">
+               <div class="card-content">
+<section class="p-lg-4">
+
+    <div class="d-flex justify-content-between align-items-center w-100">
+       <div>
+        <p class="name mt-3">Shipping Information</p>
+       </div>
+        <p class="text-primary fw-bold cursor-pointer">Edit</p>
+        <!-- <button class="btn btn-save d-none d-lg-block">Change Picture</button> -->
+    </div>
+    <div class="d-flex">
+        <p class="name-sub me-3 mb-1">Name: <span class="text-muted"></span></p>
+        <p class="name-sub text-muted mb-1">{{userInfo?.firstName}} {{userInfo?.lastName}}</p>
+    </div>
+    <div class="d-flex">
+        <p class="name-sub me-3 mb-1">Address: <span class="text-muted"></span></p>
+        <p class="name-sub text-muted mb-1">{{userInfo?.address}}</p>
+    </div>
+    <div class="d-flex">
+        <p class="name-sub me-3 mb-1">Email: <span class="text-muted"></span></p>
+        <p class="name-sub text-muted mb-1"><a class="text-primary" href="mailto:{{userInfo?.email}}">{{userInfo?.email}}</a></p>
+    </div>
+    <div class="d-flex mb-4">
+        <p class="name-sub me-3 mb-1">Phone Number: <span class="text-muted"></span></p>
+        <p class="name-sub text-muted mb-1"><a class="text-primary" href="tel:{{userInfo?.phoneNumber}}">{{userInfo?.phoneNumber}}</a></p>
+    </div>
+  
+</section>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+ <section>
+        <section>
+          <section class="content" *ngIf="ordersLoading && !orders && !errorFetchingOrders">
+<div class=" p-3 center">
+    <div>
+
+        <img src="/assets/Images/requestLoading.gif" alt="">
+        <p class="loading-text text-center text-muted">Loading...</p>
+    </div>
+</div>
+      </section >
+
+      <section class="content center" *ngIf="!ordersLoading && !orders && errorFetchingOrders">
+        <div class="py-3 ">
+          <div class="py-3 text-center" >
+            <img src="/assets/Images/oops.png" style="height: 200px;" alt="">
+            <p class="loading-text  text-muted py-3">Could not display orders. Click 'Refresh' to try again.
+        </p>
+            <p class="refresh" (click)="refreshOrders()">Refresh <i class="bi bi-arrow-repeat"></i></p>
           </div>
         </div>
       </section>
      
      
-      <div class="orders-section mt-4"  *ngIf="!summaryLoading && this.customers?.length > 0">
+      <div class="orders-section mt-4"  *ngIf="!ordersLoading && orders?.length > 0">
         <div class="px-4 d-flex justify-content-between align-items-center">
-            <div class="py-2">
-                <p class="head-count mb-0 mt-2" style="font-size: 20px;">Customers</p>
+            <div>
+
+                <p class="head-count mb-0 mt-2 fw-bold" style="font-size: 20px;">Order history</p>
+                <!-- <p class="head-text"> Order History</p> -->
             </div>
             <!-- <p class="view-all">View All</p> -->
 </div>
       </div>
-      <div class="table-responsive" *ngIf="!summaryLoading && this.customers?.length > 0">
+      <div class="table-responsive" *ngIf="!ordersLoading && orders?.length > 0">
           <table class="table" style="overflow-y: auto;">
             <thead>
               <tr>
-                <th>User ID</th>
-                <th>Name</th>
-                <th>Orders</th>
-                <th>Total Spent</th>
-                <th>Reg. Date</th>
+                <th>Order ID</th>
+                <th>Date & Time</th>
+                <th>Price</th>
+                <th>Earnings</th>
+                <th>Customer</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of this.customers | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
+              <tr *ngFor="let item of orders | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
                 <td class="text-primary" style="font-size: 15px; font-weight: 500;">
-                    {{item?._id}}
+                    {{item?.orderId}}
                 </td>
-               
-                <td>{{item?.firstName}} {{item?.lastName}}</td>
-                <td>{{ 20 | number:'1.0-0'}}</td>
+                <td>{{ item?.dateOrdered | date: 'MMM d, y hh:mm a' }}</td>
                 <td>{{item?.totalPrice || 0 | currency:'₦':true:'1.0-0'}}</td>
-                 <td>{{ item?.createdAt | date: 'MMM d, y hh:mm a' }}</td>
+                <td>{{ (item?.totalPrice - (item?.totalPrice * 0.01)) | currency:'₦':true:'1.0-0' }}</td>
+                <td>{{item?.user?.firstName}} {{item?.user?.lastName}}</td>
                <td >
-               <small [ngClass]="{'cancelled': item?.blocked, 'completed': !item?.blocked}">
-  {{ item?.blocked ? 'Inactive' : 'Active' }}
-</small>
+                <small [ngClass]="{'completed': item?.orderStatus ===  'received' || 'completed', 'new': item?.orderStatus === 'new',
+                 'pending': item?.orderStatus === 'pending', 'cancelled': item?.orderStatus === 'cancelled'}">
+                  {{ capitalizeFirstLetter(item?.orderStatus) }}</small>
+                </td>
 
-
-                <!-- <td>
+                <td>
                 <span (click)="toggleModal('orderDetailsModal', 'open', item)" class="view-call text-decoration-underline text-primary cursor-pointer fw-bold">View</span>
-                </td> -->
-                    <td>
-                 <div class="dropdowns">
-            <img src="/assets/Images/dots (2).png" class="Pencil">
-            <div class="dropdown-content p-2">
-              <!-- <a (click)="toggleModal('vendorModal', 'open')" class="dropdown-item" style="cursor: pointer;"><img class="border-right p-2 mr-2" src="/assets/img/edit.png" alt=""> View Vendor</a> -->
-              <a class="dropdown-item border-bottom" routerLink="/core/admin/view-customer/{{item?._id}}" style="cursor: pointer;">View Customer</a>
-              <!-- <a class="dropdown-item border-bottom text-danger" (click)="deactivate(item)" style="cursor: pointer;">Deactivate Customer</a> -->
-              <a class="dropdown-item border-bottom text-danger" (click)="deleteUser(item)" style="cursor: pointer;">Delete</a>
-            </div>
-          </div>
                 </td>
               </tr>
             </tbody>
@@ -131,13 +175,13 @@
       </div>
 
       
-       <section class="content center" *ngIf="!summaryLoading && this.customers?.length === 0">
-        <div class="py-5 ">
+       <section class="content center" *ngIf="!ordersLoading && orders?.length === 0">
+        <div class="py-3 ">
           <div class="py-3 text-center" >
-            <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">
+            <img class="mt-3" src="/assets/Images/product-cat.png" style="height: 100px;" alt="">
             <div class=" py-5">
 
-              <p class="loading-text  text-muted">No customer found 
+              <p class="loading-text  text-muted">No order found 
           </p>
             </div>
           </div>
@@ -260,11 +304,11 @@
 <div class="col-4 d-flex justify-content-end align-items-center">
   <div class="contain-total shadow-sm p-2">
   <div class="d-flex border-bottom mt-2">
-    <p class="name">Total Price:</p>
+    <p class="names">Total Price:</p>
     <p class="value">{{ selectedOrder?.totalPrice | currency:'₦':true:'1.0-0' }}</p>
   </div>
   <div class="d-flex mt-3">
-    <p class="name">Commission (1%):</p>
+    <p class="names">Commission (1%):</p>
     <p class="value">{{ (selectedOrder?.totalPrice * 0.01) | currency:'₦':true:'1.0-0' }}</p>
   </div>
   <div class="d-flex">
@@ -283,3 +327,6 @@
 </div> -->
   </div>
 </div>
+    </section>
+
+</section>

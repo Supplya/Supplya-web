@@ -84,12 +84,23 @@
         <div class="dropdown"> <!-- Toggle --> 
             <a  id="sidebarAvatar" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <div class="avatar-parent-child">
-        <ng-container *ngIf="userDetails?.storeImage; else placeholderIcon">
+        <ng-container *ngIf="userDetails?.storeImage; else profileImageContainer">
+    <img alt="Store Image" [src]="userDetails?.storeImage" class="avatar avatar- rounded-circle">
+  </ng-container>
+  <ng-template #profileImageContainer>
+    <ng-container *ngIf="userDetails?.profileImage; else placeholderIcon">
+      <img alt="Profile Picture" [src]="userDetails?.profileImage" class="avatar avatar- rounded-circle">
+    </ng-container>
+  </ng-template>
+  <ng-template #placeholderIcon>
+            <i class="bi bi-person-circle text-primary avatar avatar- rounded-circle" style="font-size: 2rem;"></i>
+        </ng-template>
+        <!-- <ng-container *ngIf="userDetails?.storeImage; else placeholderIcon">
             <img alt="Image Placeholder" [src]="userDetails?.storeImage" class="avatar avatar- rounded-circle">
         </ng-container>
         <ng-template #placeholderIcon>
             <i class="bi bi-person-circle text-primary avatar avatar- rounded-circle" style="font-size: 2rem;"></i>
-        </ng-template>
+        </ng-template> -->
         <span class="avatar-child avatar-badge bg-success"></span>
     </div>
 </a>

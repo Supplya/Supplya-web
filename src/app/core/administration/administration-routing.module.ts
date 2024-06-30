@@ -18,6 +18,8 @@ import { EditProductComponent } from './product/edit-product/edit-product.compon
 import { CustomersComponent } from './users/customers/customers.component';
 import { VendorsComponent } from './users/vendors/vendors.component';
 import { AdminsComponent } from './users/admins/admins.component';
+import { ViewVendorsComponent } from './users/view-vendors/view-vendors.component';
+import { ViewCustomersComponent } from './users/view-customers/view-customers.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -56,6 +58,16 @@ const routes: Routes = [
     path: 'vendors',
     component: VendorsComponent,
     data: { title: 'All Vendors' },
+  },
+  {
+    path: 'view-vendor/:id',
+    component: ViewVendorsComponent,
+    data: { title: 'Vendor Information' },
+  },
+  {
+    path: 'view-customer/:id',
+    component: ViewCustomersComponent,
+    data: { title: 'Customer Information' },
   },
   {
     path: 'administrators',
