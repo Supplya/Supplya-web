@@ -82,7 +82,7 @@ export const menuItems = {
     // },
 
     {
-      name: 'User Management',
+      name: 'Users',
       route: '/user-management',
       hasChild: true,
       icon: 'people',

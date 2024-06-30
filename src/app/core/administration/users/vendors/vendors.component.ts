@@ -9,10 +9,10 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-vendors',
   templateUrl: './vendors.component.html',
-  styleUrls: ['./vendors.component.scss']
+  styleUrls: ['./vendors.component.scss'],
 })
-
 export class VendorsComponent implements OnInit {
+  selectedTab: string = 'products';
   itemPerPage: number = 8;
   p: number = 1;
   filteredRows: any;
@@ -32,7 +32,6 @@ export class VendorsComponent implements OnInit {
   errorFetchingProduct: boolean = false;
   ordersLoading: boolean = false;
 
-
   summary;
   summaryLoading = false;
   errorFetchingSummary = false;
@@ -43,7 +42,7 @@ export class VendorsComponent implements OnInit {
         this.ordersLoading = false;
         if (data.status) {
           this.summary = data.data;
-          
+
           console.log(this.summary);
         } else {
         }

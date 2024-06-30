@@ -272,7 +272,7 @@ export class SettingsComponent implements OnInit {
           localStorage.setItem('spa-userData', JSON.stringify(data.data));
           this.submitted = false;
           this.userDetails = data['data'];
-          this.notify.success('Profile Picture Updated Successfully', 4000);
+          this.notify.success('Profile Updated Successfully', 4000);
           this.getUserByID();
         }
       });
@@ -289,7 +289,7 @@ export class SettingsComponent implements OnInit {
             this.submitted = false;
             this.userDetails = data['data'];
             this.toggleModal('changePhotoModal', 'close');
-            this.notify.success('Store Photo Updated Successfully', 4000);
+            this.notify.success('Photo Updated Successfully', 4000);
             this.getUserByID();
           }
         },

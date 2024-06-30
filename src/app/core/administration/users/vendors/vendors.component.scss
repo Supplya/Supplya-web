@@ -237,3 +237,21 @@ border-radius: 10px;
 }
 
 }
+.tab-navigation {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tab-navigation button {
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+  border: none;
+  background-color: #f0f0f0;
+}
+
+.tab-navigation button.active-tab {
+  background-color: #007bff;
+  color: white;
+}
