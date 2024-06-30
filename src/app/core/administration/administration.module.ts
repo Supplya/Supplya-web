@@ -20,6 +20,9 @@ import { AnalyticsComponent } from './analytics/analytics.component';
 import { RolePermissionComponent } from './role/role-permission/role-permission.component';
 import { SettingsComponent } from './settings/settings.component';
 import { EditProductComponent } from './product/edit-product/edit-product.component';
+import { CustomersComponent } from './users/customers/customers.component';
+import { VendorsComponent } from './users/vendors/vendors.component';
+import { AdminsComponent } from './users/admins/admins.component';
 
 
 @NgModule({
@@ -40,7 +43,10 @@ import { EditProductComponent } from './product/edit-product/edit-product.compon
     AnalyticsComponent,
     RolePermissionComponent,
     SettingsComponent,
-    EditProductComponent
+    EditProductComponent,
+    CustomersComponent,
+    VendorsComponent,
+    AdminsComponent
   ],
   imports: [
     CommonModule,

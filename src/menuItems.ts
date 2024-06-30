@@ -88,26 +88,26 @@ export const menuItems = {
       icon: 'people',
       childMenu: [
         {
-          name: 'All Customers',
-          route: '/core/admin/users',
+          name: 'Customers',
+          route: '/core/admin/customers',
           icon: 'people-fill',
         },
         {
-          name: 'All Vendors',
-          route: '/core/admin/users',
+          name: 'Vendors',
+          route: '/core/admin/vendors',
           icon: 'people-fill',
         },
         {
-          name: 'All Admins',
-          route: '/core/admin/users',
+          name: 'Administrators',
+          route: '/core/admin/administrators',
           icon: 'people-fill',
         },
       ],
     },
 
     {
-      name: 'Setting',
-      route: '/core/admin/settings',
+      name: 'Settings',
+      route: '/core/admin/profile-settings',
       hasChild: false,
       icon: 'gear-fill',
     },

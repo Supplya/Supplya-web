@@ -18,8 +18,8 @@
                 <p class="head-text">Total Products</p>
                 <img src="/assets/Images/total-sales.png" alt="">
             </div>
-            <h3 class="head-count">{{0 | number:'1.0-0'}}</h3>
-            <p class="head-brief">+ N45,000 Today</p>
+            <h3 class="head-count">{{summary?.totalProducts | number:'1.0-0'}}</h3>
+            <p class="head-brief">+{{summary?.newProductsAddedToday | number:'1.0-0'}} Today</p>
         </div>
     </div>
     <div class="col-lg-3">
@@ -28,8 +28,8 @@
                 <p class="head-text">New Products</p>
                 <img src="/assets/Images/orders.png" alt="">
             </div>
-            <h3 class="head-count">{{0 | number:'1.0-0'}}</h3>
-            <p class="head-brief">+300 Today</p>
+            <h3 class="head-count">{{summary?.newProductsAddedToday | number:'1.0-0'}}</h3>
+            <p class="head-brief">+{{summary?.totalProductsAddedLastWeek | number:'1.0-0'}} 7 days</p>
         </div>
     </div>
     <div class="col-lg-3">
@@ -38,7 +38,7 @@
                 <p class="head-text">Active Products</p>
                 <img src="/assets/Images/stocks.png" alt="">
             </div>
-            <h3 class="head-count">{{0 | number:'1.0-0'}}</h3>
+            <h3 class="head-count">{{summary?.totalProductsInStock | number:'1.0-0'}}</h3>
             <p class="head-brief">Available for sale</p>
         </div>
     </div>
@@ -48,7 +48,7 @@
                 <p class="head-text">Inactive Products</p>
                 <img src="/assets/Images/pending.png" alt="">
             </div>
-            <h3 class="head-count">{{ 0 | number:'1.0-0'}}</h3>
+            <h3 class="head-count">{{summary?.totalProductsOutOfStock | number:'1.0-0'}}</h3>
             <p class="head-brief">Not Available for sale</p>
         </div>
     </div>

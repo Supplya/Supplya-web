@@ -1,16 +1,16 @@
 <section>
     <div class="">
 
-        <div class="row" >
-        <!-- <div class="row" *ngIf="!productLoading && products && !errorFetchingProduct"> -->
+        <!-- <div class="row" > -->
+        <div class="row" *ngIf="!statsLoading && summary && !errorFetchingSummary">
             <div class="col-lg-3">
         <div class="container-content p-3 mb-2">
             <div class="d-flex justify-content-between ">
                 <p class="head-text">Total Revenue</p>
                 <img src="/assets/Images/total-sales.png" alt="">
             </div>
-            <h3 class="head-count">₦{{0 | number:'1.0-0'}}</h3>
-            <p class="head-brief">+5,000 Today</p>
+            <h3 class="head-count">₦{{summary?.totalRevenue | number:'1.0-0'}}</h3>
+            <p class="head-brief">+{{summary?.yesterdayRevenue | number:'1.0-0'}} Today</p>
         </div>
     </div>
     <div class="col-lg-3">
@@ -19,8 +19,8 @@
                 <p class="head-text">Total Orders</p>
                 <img src="/assets/Images/orders.png" alt="">
             </div>
-            <h3 class="head-count">{{0 | number:'1.0-0'}}</h3>
-            <p class="head-brief">+300 Today</p>
+            <h3 class="head-count">{{summary?.totalOrders | number:'1.0-0'}}</h3>
+            <p class="head-brief">+{{summary?.todayOrders | number:'1.0-0'}} Today</p>
         </div>
     </div>
     <div class="col-lg-3">
@@ -29,8 +29,8 @@
                 <p class="head-text">Total Customers</p>
                 <img src="/assets/Images/stocks.png" alt="">
             </div>
-            <h3 class="head-count">{{0 | number:'1.0-0'}}</h3>
-            <p class="head-brief">+20,000 Last 7 days</p>
+            <h3 class="head-count">{{summary?.totalCustomers | number:'1.0-0'}}</h3>
+            <p class="head-brief">+{{summary?.newCustomersLastWeek | number:'1.0-0'}} Last 7 days</p>
         </div>
     </div>
     <div class="col-lg-3">
@@ -39,8 +39,8 @@
                 <p class="head-text">Total Vendors</p>
                 <img src="/assets/Images/pending.png" alt="">
             </div>
-            <h3 class="head-count">{{0 | number:'1.0-0'}}</h3>
-            <p class="head-brief">+123 Last 7 days</p>
+            <h3 class="head-count">{{summary?.totalVendors | number:'1.0-0'}}</h3>
+            <p class="head-brief">+{{summary?.newVendorsLastWeek | number:'1.0-0'}} Last 7 days</p>
         </div>
     </div>
     
@@ -52,7 +52,7 @@
     </div>
     <div class="px-4">
 
-        <section class="content row" *ngIf="productLoading && !products && !errorFetchingProduct">
+        <section class="content row" *ngIf="statsLoading && !summary && !errorFetchingSummary">
     <div class="py-5 p-5 center">
         <div>
     
@@ -62,13 +62,13 @@
     </div>
           </section >
     
-          <section class="content center" *ngIf="!productLoading && !products && errorFetchingProduct">
+          <section class="content center" *ngIf="!statsLoading && !summary && errorFetchingSummary">
             <div class="py-5 ">
               <div class="py-3 text-center" >
                 <img src="/assets/Images/oops.png" style="height: 100px;" alt="">
-                <p class="loading-text  text-muted py-3">Could not display products. Click 'Refresh' to try again.
+                <p class="loading-text  text-muted py-3">Could not display summary. Click 'Refresh' to try again.
             </p>
-                <p class="refresh" (click)="refreshProducts()">Refresh <i class="bi bi-arrow-repeat"></i></p>
+                <p class="refresh" (click)="refreshSummary()">Refresh <i class="bi bi-arrow-repeat"></i></p>
               </div>
             </div>
           </section>
@@ -84,7 +84,7 @@
       <div class="content">
         <p class="head-title mt-2">Top Selling Products</p>
 
-        <section *ngIf="productLoading && !products && !errorFetchingProduct">
+        <section *ngIf="statsLoading && !summary && !errorFetchingSummary">
           <div class="py-5 p-5 center">
             <div>
               <img style="height: 100px;" src="/assets/Images/requestLoading.gif" alt="">
@@ -93,27 +93,27 @@
           </div>
         </section>
 
-        <section class="center" *ngIf="!productLoading && !products && errorFetchingProduct">
+        <section class="center" *ngIf="!statsLoading && !summary && errorFetchingSummary">
           <div class="py-5">
             <div class="py-3 text-center">
               <img src="/assets/Images/oops.png" style="height: 100px;" alt="">
-              <p class="loading-text text-muted py-3">Could not display products. Click 'Refresh' to try again.</p>
-              <p class="refresh" (click)="refreshProducts()">Refresh <i class="bi bi-arrow-repeat"></i></p>
+              <p class="loading-text text-muted py-3">Could not display summary. Click 'Refresh' to try again.</p>
+              <p class="refresh" (click)="refreshSummary()">Refresh <i class="bi bi-arrow-repeat"></i></p>
             </div>
           </div>
         </section>
 
-        <div *ngIf="!productLoading && products && !errorFetchingProduct">
-          <div style="border-top: 1px solid #0097a821;" *ngFor="let item of products | paginate: { itemsPerPage: 5, currentPage: 1 }; " class="d-flex justify-content-start align-items-center mb-3 mt-3 p-1">
+        <div *ngIf="!statsLoading && summary && !errorFetchingSummary">
+          <div style="border-top: 1px solid #0097a821;" *ngFor="let item of summary?.topSellingProducts | paginate: { itemsPerPage: 5, currentPage: 1 }; " class="d-flex justify-content-start align-items-center mb-3 mt-3 p-1">
             <img [src]="item?.image" alt="Event Image" class="prod-image me-3">
             <div class="event-details flex-grow-1">
               <div class="d-flex justify-content-between">
                 <div class="me-3">
-                  <p class="mb-0 prod-name">{{item?.name }}</p>
-                  <p class="mb-0 vendor">{{ item?.createdBy?.storeUrl }}</p>
+                  <p class="mb-0 prod-name">{{item?.product }}</p>
+                  <p class="mb-0 vendor">{{ item?.vendor }}</p>
                 </div>
                 <div class="event-date text-center">
-                  <p class="mb-0 prod-amount">N{{item?.unit_price || 0 | number:'1.0-0'}}</p>
+                  <p class="mb-0 prod-amount">{{item?.totalSold || 0 | number:'1.0-0'}}</p>
                 </div>
               </div>
             </div>
@@ -137,7 +137,6 @@
     </select>
   </div>
 </div>
-
 
           <canvas #mySalesLineChart id="MySalesLineChart"></canvas>
         </div>

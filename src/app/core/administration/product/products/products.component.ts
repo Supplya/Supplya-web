@@ -4,6 +4,7 @@ import { ExportService } from '../../services/export.service';
 import { ToastyService } from 'ng-toasty';
 import { applyGlobalSearch } from 'src/app/shared/helpers/global-table-search';
 import Swal from 'sweetalert2';
+import { DashboardService } from '../../services/dashboard.service';
 
 
 @Component({
@@ -18,9 +19,10 @@ export class ProductsComponent implements OnInit {
   title = 'Products';
   searchText: string = '';
   constructor(
-    private productService: ProductService,
+    private adminService: DashboardService,
     private exportService: ExportService,
-    private toast: ToastyService
+    private toast: ToastyService,
+    private productService: ProductService
   ) {}
   ngOnInit(): void {
     this.getAllProducts();
@@ -46,20 +48,30 @@ export class ProductsComponent implements OnInit {
 
   summary;
   statsLoading;
+  errorFetchingSummary;
   getProductMetric() {
     this.statsLoading = true;
-    this.productService.getVendorMetric().subscribe(
+    this.adminService.getProductMetric().subscribe(
       (data: any) => {
         this.statsLoading = false;
 
         if (data.status) {
           this.summary = data.data;
+          console.log(this.summary);
+  //         {
+  //   totalProducts: 9,
+  //   totalProductsAddedLastMonth: 0,
+  //   totalProductsAddedLastWeek: 0,
+  //   newProductsAddedToday: 0,
+  //   totalProductsInStock: 9,
+  //   totalProductsOutOfStock: 0
+  // }
         } else {
         }
         // this.ordersLoading = false;
       },
       (error) => {
-        // this.errorFetchingProduct = true;
+        this.errorFetchingSummary = true;
         // this.ordersLoading = false;
         this.statsLoading = false;
       }

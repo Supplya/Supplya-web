@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ProductService } from '../../operation/services/product/product.service';
 import { Chart, registerables } from 'chart.js';
+import { DashboardService } from '../services/dashboard.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -17,13 +18,40 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
   selectedMonth: string; // Selected month value
   years: number[] = [];
   months: { label: string; value: string }[] = [];
-  constructor(private productService: ProductService) {
+  constructor(
+    private productService: ProductService,
+    private adminService: DashboardService
+  ) {
     Chart.register(...registerables);
   }
   ngOnInit(): void {
-    this.getAllProducts();
+    this.getDashboardMetric();
   }
 
+  summary;
+  statsLoading;
+  errorFetchingSummary: boolean = false;
+  getDashboardMetric() {
+    this.statsLoading = true;
+    this.adminService.getDashboardMetric().subscribe(
+      (data: any) => {
+        this.statsLoading = false;
+        if (data.status) {
+          this.summary = data.data;
+        }
+        // this.ordersLoading = false;
+      },
+      (error) => {
+        this.errorFetchingSummary = true;
+        this.statsLoading = false;
+      }
+    );
+  }
+  refreshSummary() {
+    this.statsLoading = false;
+    this.errorFetchingSummary = true;
+    this.getDashboardMetric();
+  }
   ngAfterViewInit(): void {
     this.createLineChart();
     this.initializeYears();
@@ -248,25 +276,5 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
       dataset.data = this.generateRandomData();
     });
     this.lineChart.update();
-  }
-  errorFetchingProduct: boolean = false;
-  productLoading: boolean = false;
-  products: any;
-  getAllProducts() {
-    this.productLoading = true;
-    this.productService.getAllProducts().subscribe(
-      (data: any) => {
-        this.products = data?.data;
-        this.productLoading = false;
-      },
-      (error) => {
-        this.errorFetchingProduct = true;
-        this.productLoading = false;
-      }
-    );
-  }
-  refreshProducts() {
-    this.errorFetchingProduct = true;
-    this.getAllProducts();
   }
 }

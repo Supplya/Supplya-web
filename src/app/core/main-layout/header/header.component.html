@@ -39,12 +39,17 @@
          <div class="d-flex align-items-center">
   
            <div class="profile-picture">
-              <ng-container *ngIf="userDetails?.storeImage; else placeholderIcon">
-            <img alt="Profile Picture" [src]="userDetails?.storeImage" class="">
-        </ng-container>
-        <ng-template #placeholderIcon>
-            <i class="bi bi-person-circle text-primary avatar avatar- rounded-circle" style="font-size: 2rem;"></i>
-        </ng-template>
+<ng-container *ngIf="userDetails?.storeImage; else profileImageContainer">
+    <img alt="Store Image" [src]="userDetails?.storeImage" class="">
+  </ng-container>
+  <ng-template #profileImageContainer>
+    <ng-container *ngIf="userDetails?.profileImage; else placeholderIcon">
+      <img alt="Profile Picture" [src]="userDetails?.profileImage" class="">
+    </ng-container>
+  </ng-template>
+  <ng-template #placeholderIcon>
+    <i class="bi bi-person-circle text-primary avatar avatar-rounded-circle" style="font-size: 2rem;"></i>
+  </ng-template>
              <!-- <img src="/assets/Images/Container.png" alt="User Profile Picture"> -->
            </div>
            <img style="height: 30px;" src="/assets/Images/down-icon.png" alt="">

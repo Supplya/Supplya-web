@@ -71,6 +71,9 @@ export class ProductService {
   deleteProduct(id: any): Observable<any> {
     return this.http.delete<any>(`${this.productUrl}products/${id}`);
   }
+  deleteOrder(id: any): Observable<any> {
+    return this.http.delete<any>(`${this.productUrl}users/${id}`);
+  }
 
   // getAllFoodsBySearch(searchTerm: string): Observable<Product[]> {
   // return this.getAllProducts().pipe(

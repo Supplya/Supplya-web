@@ -1,0 +1,239 @@
+.head-text{
+font-family: Open Sans;
+font-size: 14.7px;
+font-weight: 400;
+color: #777980;
+
+
+}
+.head-count{
+font-family: Open Sans;
+font-size: 29.39px;
+font-weight: 600;
+color: #1D1F2C;
+
+
+}
+.orders-section{
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
+    background-color: white;
+    box-shadow: 0px 3.67px 27.54px 0px #2E2D740D;
+border: 0.92px solid #F0F1F3
+}
+.head-brief{
+    font-family: Open Sans;
+font-size: 14px;
+font-weight: 400;
+color: var(--primary-color);
+
+}
+.container-content{
+    box-shadow: 0px 3.67px 27.55px 0px #2E2D740D;
+background-color: white !important;
+border-radius: 11px;
+height: 135px;
+}
+
+
+.table .product-info {
+    display: flex;
+    align-items: center;
+    font-weight: 500!important;
+  }
+
+  .table .product-image {
+    width: 40.41px;
+    height: 40.41px;
+    border-radius: 7.35px 0px 0px 0px;
+    margin-right: 10px;
+  }
+
+  .in-stock {
+    background: #00FF661A;
+    font-family: Open Sans;
+    font-size: 14px;
+    font-weight: 600;
+    color: #0FB347;
+    padding: 7px 12px;
+    border-radius: 100px;
+  }
+  
+  .out-of-stock {
+    background: #FFF0EA;
+    font-family: Open Sans;
+    font-size: 14px;
+    font-weight: 600;
+    color: #F86624;
+    padding: 7px 12px;
+    border-radius: 100px;
+  }
+
+  .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .action-icons img{
+    cursor: pointer;
+  }
+
+  .view-all{
+    cursor: pointer; color: var(--primary-color);
+     font-size: 15px;
+      font-weight: 500;
+  }
+
+
+  .head-text{
+font-family: Open Sans;
+font-size: 14.7px;
+font-weight: 400;
+color: #777980;
+
+
+}
+.head-count{
+font-family: Open Sans;
+font-size: 29.39px;
+font-weight: 600;
+color: #1D1F2C;
+
+
+}
+.orders-section{
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
+    background-color: white;
+    box-shadow: 0px 3.67px 27.54px 0px #2E2D740D;
+border: 0.92px solid #F0F1F3
+}
+.head-brief{
+    font-family: Open Sans;
+font-size: 14px;
+font-weight: 400;
+color: var(--primary-color);
+
+}
+.container-content{
+    box-shadow: 0px 3.67px 27.55px 0px #2E2D740D;
+background-color: white !important;
+border-radius: 11px;
+height: 135px;
+}
+
+
+.table .product-info {
+    display: flex;
+    align-items: center;
+    font-weight: 500!important;
+  }
+
+  .table .product-image {
+    width: 40.41px;
+    height: 40.41px;
+    border-radius: 7.35px 0px 0px 0px;
+    margin-right: 10px;
+  }
+
+   .completed {
+    background: #00FF661A;
+    font-family: Open Sans;
+    font-size: 14px;
+    font-weight: 500;
+    color: #0FB347;
+    padding: 7px 12px;
+    border-radius: 100px;
+  }
+  
+  .new {
+    background: #3399FF1A;
+    font-family: Open Sans;
+    font-size: 14px;
+    font-weight: 500;
+    color: #3399FF;
+    padding: 7px 12px;
+    border-radius: 100px;
+  }
+
+  .cancelled {
+    background: #FFF0EA;
+    font-family: Open Sans;
+    font-size: 14px;
+    font-weight: 500;
+    color: #F86624;
+    padding: 7px 12px;
+    border-radius: 100px;
+  }
+  .pending {
+    background-color: #ffeb3b5c;
+  color: #000000;  
+    font-family: Open Sans;
+    font-size: 14px;
+    font-weight: 300;
+    padding: 7px 12px;
+    border-radius: 100px;
+  }
+
+  .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .action-icons img{
+    cursor: pointer;
+  }
+
+  .view-all{
+    cursor: pointer; color: var(--primary-color);
+     font-size: 15px;
+      font-weight: 500;
+  }
+
+.orderDetails .name {
+  font-family: Open Sans;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.orderDetails .value, a {
+  font-family: Open Sans;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1D1F2C;
+  text-align: left!important;
+  margin-left: 12px; 
+}
+
+.orderDetails .contain {
+  display: flex;
+  flex-direction: row;
+}
+.modal-center-content{
+  border-radius: 10px !important; width: 65%!important;
+}
+
+.contain-total {
+border-radius: 10px;
+ border: 1px solid #F0F1F3!important;
+ 
+}
+.contain-total .value, a {
+  font-family: Open Sans;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1D1F2C;
+  text-align: left!important;
+  margin-left: 12px; 
+}
+@media (max-width: 700px) {
+
+.modal-center-content{
+  border-radius: 10px !important;
+  width: 95%!important;
+}
+
+}

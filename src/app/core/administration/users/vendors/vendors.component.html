@@ -1,0 +1,149 @@
+<section>
+    <div class="container" >
+
+        <div class="row">
+            <div class="col-lg-3">
+        <div class="container-content p-3 mb-2">
+            <div class="d-flex justify-content-between ">
+                <p class="head-text">Total Vendors</p>
+                <img src="/assets/Images/total-sales.png" alt="">
+            </div>
+            <h3 class="head-count">{{summary?.totalVendors | number:'1.0-0'}}</h3>
+            <p class="head-brief">+{{summary?.newVendorsLast7Days | number:'1.0-0'}} Last 7 days</p>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="container-content p-3 mb-2">
+            <div class="d-flex justify-content-between ">
+                <p class="head-text">New Vendors</p>
+<img src="/assets/Images/orders.png" alt="">
+            </div>
+            <h3 class="head-count">{{summary?.newVendorsToday | number:'1.0-0'}}</h3>
+            <p class="head-brief">+{{summary?.newVendorsToday | number:'1.0-0'}} Today</p>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="container-content p-3 mb-2">
+            <div class="d-flex justify-content-between ">
+                <p class="head-text">Active Customers</p>
+                <img src="/assets/Images/stocks.png" alt="">
+            </div>
+            <h3 class="head-count">{{summary?.activeVendors | number:'1.0-0'}}</h3>
+            <p class="head-brief">in the last 90 days</p>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="container-content p-3 MB-2">
+            <div class="d-flex justify-content-between ">
+                <p class="head-text">Inactive Customers</p>
+<img src="/assets/Images/pending.png" alt="">
+            </div>
+            <h3 class="head-count">{{summary?.inactiveVendors | number:'1.0-0'}}</h3>
+            <p class="head-brief">in the last 90 days</p>
+        </div>
+    </div>
+    
+
+        </div>
+    </div>
+</section>
+
+
+
+<section class="container">
+          <section class="content" *ngIf="summaryLoading && !summary && !errorFetchingProduct">
+<div class="py-5 p-5 center">
+    <div>
+
+        <img src="/assets/Images/requestLoading.gif" alt="">
+        <p class="loading-text text-center text-muted">Loading...</p>
+    </div>
+</div>
+      </section >
+
+      <section class="content center" *ngIf="!summaryLoading && !summary && errorFetchingProduct">
+        <div class="py-5 ">
+          <div class="py-3 text-center" >
+            <img src="/assets/Images/oops.png" style="height: 200px;" alt="">
+            <p class="loading-text  text-muted py-3">Could not display products. Click 'Refresh' to try again.
+        </p>
+            <p class="refresh" >Refresh <i class="bi bi-arrow-repeat"></i></p>
+          </div>
+        </div>
+      </section>
+     
+     
+      <div class="orders-section mt-4"  *ngIf="!summaryLoading && this.vendors?.length > 0">
+        <div class="px-4 d-flex justify-content-between align-items-center">
+            <div class="py-2">
+                <p class="head-count mb-0 mt-2" style="font-size: 20px;">Vendors</p>
+            </div>
+            <!-- <p class="view-all">View All</p> -->
+</div>
+      </div>
+      <div class="table-responsive" *ngIf="!summaryLoading && this.vendors?.length > 0">
+          <table class="table" style="overflow-y: auto;">
+            <thead>
+              <tr>
+                <th>User ID</th>
+                <th>Name</th>
+                <th>Orders</th>
+                <th>Total Spent</th>
+                <th>Reg. Date</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of this.vendors | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
+                <td class="text-primary" style="font-size: 15px; font-weight: 500;">
+                    {{item?._id}}
+                </td>
+               
+                <td>{{item?.firstName}} {{item?.lastName}}</td>
+                <td>{{ 20 | number:'1.0-0'}}</td>
+                <td>{{item?.totalPrice || 0 | currency:'₦':true:'1.0-0'}}</td>
+                 <td>{{ item?.createdAt | date: 'MMM d, y hh:mm a' }}</td>
+               <td >
+               <small [ngClass]="{'cancelled': item?.blocked, 'completed': !item?.blocked}">
+  {{ item?.blocked ? 'Inactive' : 'Active' }}
+</small>
+
+
+                <!-- <td>
+                <span (click)="toggleModal('orderDetailsModal', 'open', item)" class="view-call text-decoration-underline text-primary cursor-pointer fw-bold">View</span>
+                </td> -->
+                    <td>
+                 <div class="dropdowns">
+            <img src="/assets/Images/dots (2).png" class="Pencil">
+            <div class="dropdown-content p-2">
+              <!-- <a (click)="toggleModal('vendorModal', 'open')" class="dropdown-item" style="cursor: pointer;"><img class="border-right p-2 mr-2" src="/assets/img/edit.png" alt=""> View Vendor</a> -->
+              <a class="dropdown-item border-bottom" style="cursor: pointer;">View Vendor</a>
+              <!-- <a class="dropdown-item border-bottom text-danger" (click)="deactivate(item)" style="cursor: pointer;">Deactivate Customer</a> -->
+              <a class="dropdown-item border-bottom text-danger" (click)="deleteUser(item)" style="cursor: pointer;">Delete</a>
+            </div>
+          </div>
+                </td>
+              </tr>
+            </tbody>
+           
+          </table>          
+      </div>
+
+      
+       <section class="content center" *ngIf="!summaryLoading && this.vendors?.length === 0">
+        <div class="py-5 ">
+          <div class="py-3 text-center" >
+            <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">
+            <div class=" py-5">
+
+              <p class="loading-text  text-muted">No customer found 
+          </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+</section>
+
+

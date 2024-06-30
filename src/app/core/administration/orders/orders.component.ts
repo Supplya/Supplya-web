@@ -4,13 +4,13 @@ import { ExportService } from '../services/export.service';
 import { ToastyService } from 'ng-toasty';
 import Swal from 'sweetalert2';
 import { applyGlobalSearch } from 'src/app/shared/helpers/global-table-search';
+import { DashboardService } from '../services/dashboard.service';
 
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.scss']
+  styleUrls: ['./orders.component.scss'],
 })
-
 export class OrdersComponent implements OnInit {
   itemPerPage: number = 8;
   p: number = 1;
@@ -20,10 +20,11 @@ export class OrdersComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private exportService: ExportService,
-    private toast: ToastyService
+    private toast: ToastyService,
+    private adminService: DashboardService
   ) {}
   ngOnInit(): void {
-    this.getAllProducts();
+    // this.getAllProducts();
     this.getVendorMetric();
   }
   errorFetchingProduct: boolean = false;
@@ -403,10 +404,12 @@ export class OrdersComponent implements OnInit {
   errorFetchingSummary = false;
   getVendorMetric() {
     this.ordersLoading = true;
-    this.productService.getVendorOrderStats().subscribe(
+    this.adminService.getOrderMetric().subscribe(
       (data: any) => {
+        this.ordersLoading = false;
         if (data.status) {
           this.summary = data.data;
+          console.log(this.summary);
         } else {
         }
         this.summaryLoading = false;
@@ -414,11 +417,12 @@ export class OrdersComponent implements OnInit {
       (error) => {
         this.errorFetchingSummary = true;
         this.summaryLoading = false;
+        this.ordersLoading = false;
       }
     );
   }
   applyFilter() {
-    this.filteredRows = applyGlobalSearch(this.allOrders, this.searchText, [
+    this.summary.orders = applyGlobalSearch(this.allOrders, this.searchText, [
       'name',
       'moq',
       'unit_price',
@@ -429,9 +433,9 @@ export class OrdersComponent implements OnInit {
     this.p = 1;
   }
 
-  deleteProduct(product: any) {
+  deleteOrder(item: any) {
     Swal.fire({
-      html: `<span style="color: #000; font-weight: 600; font-size: 19px;">Are you sure you want to delete this product "<span style="color: var(--primary-color);">${product.name}</span>"?</span>`,
+      html: `<span style="color: #000; font-weight: 600; font-size: 19px;">Are you sure you want to delete this order "<span style="color: var(--primary-color);">${item?.orderId}</span>"?</span>`,
       icon: 'warning',
       showCancelButton: true,
       allowOutsideClick: false,
@@ -453,15 +457,15 @@ export class OrdersComponent implements OnInit {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.delete(product._id);
+        this.delete(item._id);
       }
     });
   }
   delete(id: string) {
-    this.productService.deleteProduct(id).subscribe((result) => {
+    this.productService.deleteOrder(id).subscribe((result) => {
       if (result) {
-        this.toast.success('Product deleted successfully');
-        this.getAllProducts();
+        this.toast.success('Order deleted successfully');
+        this.getVendorMetric();
       }
     });
   }
@@ -489,6 +493,7 @@ export class OrdersComponent implements OnInit {
     }
     if (data) {
       this.selectedOrder = data;
+      // console.log(this.selectedOrder);
     }
   };
 

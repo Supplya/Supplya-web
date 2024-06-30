@@ -177,7 +177,7 @@ color: #fff!important;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: $secondary-color !important;
+    background-color:var(--primary-color) !important;
     /* Set the color of the scrollbar thumb */
     height: 2px!important;
     border-radius: 10px;
@@ -200,7 +200,7 @@ color: #fff!important;
   
   /* Style for the selected radio button (pink color) */
   .form-check-input:checked {
-    background-color: var($primary-color)!important; /* Change to your preferred color */
+    background-color: var(--primary-color)!important; /* Change to your preferred color */
     border-color: white!important; /* Change to your preferred color */
   }
 @media (min-width: 992px) {

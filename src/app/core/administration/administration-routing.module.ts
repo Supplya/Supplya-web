@@ -15,6 +15,9 @@ import { RolePermissionComponent } from './role/role-permission/role-permission.
 import { AddNewRoleComponent } from './role/add-new-role/add-new-role.component';
 import { SettingsComponent } from './settings/settings.component';
 import { EditProductComponent } from './product/edit-product/edit-product.component';
+import { CustomersComponent } from './users/customers/customers.component';
+import { VendorsComponent } from './users/vendors/vendors.component';
+import { AdminsComponent } from './users/admins/admins.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -38,6 +41,26 @@ const routes: Routes = [
     path: 'edit-product/:id',
     component: EditProductComponent,
     data: { title: 'Edit Product' },
+  },
+  {
+    path: 'profile-settings',
+    component: SettingsComponent,
+    data: { title: 'Profile Information' },
+  },
+  {
+    path: 'customers',
+    component: CustomersComponent,
+    data: { title: 'All Customers' },
+  },
+  {
+    path: 'vendors',
+    component: VendorsComponent,
+    data: { title: 'All Vendors' },
+  },
+  {
+    path: 'administrators',
+    component: AdminsComponent,
+    data: { title: 'All Administrators' },
   },
   { path: 'view-product/:_id', component: ViewProductDetailsComponent },
   { path: 'orders', component: OrdersComponent },
