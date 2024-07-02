@@ -74,3 +74,97 @@ margin-top: -10px;
     font-size: 14px;
     color: red!important;
 }
+
+
+.img-name{
+  display: flex;
+  align-items: center;
+}
+.prod-name{
+  display: flex;
+  align-items: center;
+}
+.name{
+    font-size: 16px; font-weight: 500; color: #000;
+}
+.name-sub{
+font-size: 15px;
+font-weight: 500;
+color: #191C1F;
+}
+@media (max-width: 700px) {
+.change-password{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.prod-name{
+  display: block;
+  align-items: center;
+
+}
+.profile-picture-container{
+  margin-right: 0px;
+  margin-bottom: 10px;
+  
+}
+}
+.profile-picture-container {
+    position: relative;
+    width: 50px;
+    height: 50px; 
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid var(--primary-color);
+}
+
+.profile-picture {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+
+
+.profile-picture-container{
+  margin-right: 20px;
+}
+
+
+
+
+.prod-profile-picture-container{
+  margin-right: 0px;
+  margin-bottom: 10px;
+  
+}
+
+.prod-profile-picture-container {
+    position: relative;
+    width: 70px;
+    height: 70px; 
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--primary-color);
+}
+
+.prod-profile-picture {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+
+
+.prod-profile-picture-container{
+  margin-right: 20px;
+}
+
+
+
+.pro-option{
+font-size: 14px!important;
+font-weight: 400!important;
+color: #4D5464!important;
+
+
+}

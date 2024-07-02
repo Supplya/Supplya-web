@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/authentication/service/auth.service';
 import { ProductService } from 'src/app/core/operation/services/product/product.service';
 import { HelperService } from 'src/app/shared/helpers/helper.service';
 import { MediaUploadService } from 'src/app/shared/services/mediaUpload.service';
+import { DashboardService } from '../../services/dashboard.service';
 
 @Component({
   selector: 'app-edit-product',
@@ -23,7 +24,8 @@ export class EditProductComponent implements OnInit {
     private notify: ToastyService,
     private uploadService: MediaUploadService,
     private route: Router,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    private adminService: DashboardService
   ) {}
 
   form!: FormGroup;
@@ -38,6 +40,7 @@ export class EditProductComponent implements OnInit {
     });
     this.getAllCategories();
     this.initForm();
+    this.getAllUsers();
   }
   requestLoading: boolean = false;
   errorFetching: boolean = false;
@@ -48,6 +51,7 @@ export class EditProductComponent implements OnInit {
       (details: any) => {
         if (details.status) {
           this.response = details?.data;
+          console.log(this.response);
           this.requestLoading = false;
 
           this.form.patchValue({
@@ -65,8 +69,86 @@ export class EditProductComponent implements OnInit {
   }
   refresh() {
     this.errorFetching = false;
-    this.getProductByID()
+    this.getProductByID();
   }
+
+  isSpecialOffer: boolean = false;
+  specialOfferType: string = '';
+
+  toggleSpecialOffer() {
+    if (!this.isSpecialOffer) {
+      this.specialOfferType = ''; // Reset if toggled off
+    }
+  }
+  handleToggle(event: Event) {
+    this.isSpecialOffer = (event.target as HTMLInputElement).checked;
+    if (!this.isSpecialOffer) {
+      this.specialOfferType = '';
+    }
+  }
+
+  handleSpecialOfferType(type: string) {
+    this.specialOfferType = type;
+  }
+
+  vendors: any[] = [];
+  transformedVendors: any[] = [];
+
+  getAllUsers() {
+    this.adminService.getAllUsers().subscribe(
+      (data: any) => {
+        if (data.status) {
+          this.vendors = data.data.filter(
+            (item: any) => item?.role === 'vendor'
+          );
+
+          // Transform vendors to only include objects with storeName
+          this.transformedVendors = this.vendors.map((vendor) => {
+            return {
+              id: vendor._id,
+              name: vendor.storeName || 'Unnamed Store',
+            };
+          });
+        }
+      },
+      (error) => {}
+    );
+  }
+
+  dropdownConfig = {
+    displayKey: 'name', // Key to be displayed
+    search: true,
+    height: '250',
+    placeholder: 'Select Store',
+    limitTo: this.transformedVendors.length,
+    noResultsFound: 'No results found!',
+    searchPlaceholder: 'Search',
+    searchOnKey: 'name',
+    clearOnSelection: false,
+    inputDirection: 'ltr',
+    multiple: true, // Enable multi-select if needed
+    selectAllLabel: 'Select All', // Optional: label for the select all option
+  };
+
+  selectedVendors: any[] = [];
+
+  onVendorChange(event: any) {
+    // console.log('Selected Vendors:', event);
+    event.forEach((vendor) => {
+      // console.log('Selected Vendor ID:', vendor.id);
+      // console.log('Selected Vendor Name:', vendor.name);
+    });
+  }
+
+  toggleModal = (modalId, action: string, data?: any) => {
+    if (action == 'open') {
+      document.getElementById(modalId).style.display = 'flex';
+    } else {
+      document.getElementById(modalId).style.display = 'none';
+    }
+    if (data) {
+    }
+  };
   initForm() {
     this.form = this.fb.group({
       name: ['', Validators.required],

@@ -74,7 +74,37 @@
   </div>
 </section>
 
+<section class="content container mb-3" *ngIf="response?.createdBy?.role === 'vendor'">
+    <p class="content-heading mb-2 mt-3">Vendor</p>
 
+    <div class="d-flex justify-content-between align-items-center py-3 w-100">
+        <div class="img-name">
+    
+            <div class="profile-picture-container cursor-pointer">
+             
+                <img [src]="response?.createdBy?.storeImage" alt="" class="profile-picture">
+
+            </div>
+            <div>
+               
+                <p class="mb-0 name mb-1">{{response?.createdBy?.firstName}} {{response?.createdBy?.lastName}}</p>
+                <p class="sub mb-0 mt-1  fw-bold"><a class="text-primary" href="http://{{response?.createdBy?.storeUrl}}">{{response?.createdBy?.storeUrl}}</a></p>
+                <!-- <p class="sub mt-1">{{response?.createdBy?.phoneNumber}}</p> -->
+           
+             
+            </div>
+        </div>
+       <button type="button" class="btn-save" (click)="toggleModal('assignVendorModal', 'open')">Re-assign</button>
+    </div>
+</section>
+<section class="content container mb-3" *ngIf="response?.createdBy?.role !== 'vendor'">
+    <p class="content-heading mb-2 mt-3">Vendor</p>
+
+    <div class=" py-3 w-100">
+     
+       <button type="button" class="btn-save" (click)="toggleModal('assignVendorModal', 'open')">Assign Vendor</button>
+    </div>
+</section>
 
 
 <section class="content container mb-3">
@@ -197,6 +227,42 @@
                       </div>
                 </div>
 
+              
+            </section>
+
+            <section class="">
+            
+        <div class="special-offer-container form-group">
+  <!-- <div class="d-flex justify-content-between align-items-center">
+    <p class="content-heading">Special Offer</p>
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" [(ngModel)]="isSpecialOffer" (change)="handleToggle($event)">
+    </div>
+  </div> -->
+  <!-- Options -->
+  <!-- <div *ngIf="isSpecialOffer" class="mt-2">
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="specialOfferType" id="featured" [value]="true" (change)="handleSpecialOfferType('Featured')">
+      <label class="form-check-label pro-option" for="featured">Featured</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="specialOfferType" id="flashSales" [value]="true" (change)="handleSpecialOfferType('Flash Sales')">
+      <label class="form-check-label .[pro-option"  for="flashSales">Flash Sales</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="specialOfferType" id="trendingProducts" [value]="true" (change)="handleSpecialOfferType('Trending Products')">
+      <label class="form-check-label pro-option" for="trendingProducts">Trending Products</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="specialOfferType" id="dealOfTheDay" [value]="true" (change)="handleSpecialOfferType('Deal of the Day')">
+      <label class="form-check-label pro-option" for="dealOfTheDay">Deal of the Day</label>
+    </div>
+  </div> -->
+</div>
+
+
+
+
                 <div class="btn-container-sm mobile-only py-3 mb-5">
                     <!-- <button (click)="resetForm()" type="button" class="cancel"> <i class="bi bi-x mt-1"></i> Cancel </button> &nbsp; &nbsp; -->
                     <button type="submit" class="add"> Edit Product</button>
@@ -230,3 +296,59 @@
           </div>
         </div>
       </section>
+
+
+       <div id="assignVendorModal" class="modal">
+  <div
+    class="modal-center-content mx-auto pt-4 px-2 px-lg-5 pb-5"
+   
+  >
+    <div class="d-flex justify-content-between">
+            <p class="modal-heading text-center" *ngIf="response?.createdBy?.role !== 'vendor'">Assign Vendor </p>
+            <p class="modal-heading text-center" *ngIf="response?.createdBy?.role === 'vendor'">Re-assign Vendor </p>
+      <img 
+        style="cursor: pointer"
+        class=""
+        (click)="toggleModal('assignVendorModal', 'close')"
+        src="/assets/Images/dismiss.svg"
+        alt=""
+      />
+    </div>
+<section>
+  <div class="d-flex justify-content-between align-items-center py-3 w-100">
+        <div class="prod-name">
+    
+            <div class="prod-profile-picture-container cursor-pointer">
+             
+                <img [src]="response?.image" alt="" class="prod-profile-picture">
+
+            </div>
+            <div>
+               
+                <p class="mb-0 name mb-1">{{response?.name}}</p>
+                <p class="sub mt-1 text-muted">{{response?.description}}</p>
+           
+             
+            </div>
+        </div>
+
+    </div>
+    <div>
+           <label for="vendor" class="content-label">Choose Vendor</label>
+          <ngx-select-dropdown
+  [config]="dropdownConfig"
+  [options]="transformedVendors"
+  [(ngModel)]="selectedVendors"
+  (change)="onVendorChange($event)">
+</ngx-select-dropdown>
+
+    </div>
+    <div>
+      <div class="d-flex justify-content-center py-5">
+        <button class="btn-save w-100">Assign Vendor</button>
+      </div>
+    </div>
+</section>
+
+  </div>
+</div>
