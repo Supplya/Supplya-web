@@ -173,14 +173,14 @@
 
         <!-- Menu Options Section -->
         <div class="menu-options d-flex align-items-center">
-             <a [routerLink]="'/wishlist'" class="text-center text-decoration-none position-relative cursor-pointer me-5" data-bs-dismiss="offcanvas" aria-label="Close">
-                            <i class="bi bi-heart-fill" style="font-size: 24px; font-weight: bold;"></i>
+             <!-- <a [routerLink]="'/wishlist'" class="text-center text-decoration-none position-relative cursor-pointer me-5" data-bs-dismiss="offcanvas" aria-label="Close">
+                            <i class="bi bi-heart-fill" style="font-size: 15px; font-weight: bold;"></i>
                             <div class="text">Wishlist</div>
                             <span class="badge position-absolute top-0 start-100 translate-middle bg-warning text-black">0</span>
-                        </a>
+                        </a> -->
             <div class="nav-item text-center" (click)="cart()">
                 <a  class="text-center text-decoration-none position-relative cursor-pointer me-5" data-bs-dismiss="offcanvas" aria-label="Close">
-                            <i class="bi bi-basket-fill" style="font-size: 24px; font-weight: bold;"></i>
+                            <i class="bi bi-basket-fill" style="font-size: 15px; font-weight: bold;"></i>
                             <div class="text">Cart</div>
                             <span class="badge position-absolute top-0 start-100 translate-middle bg-warning text-black">{{cartQuantity}}</span>
                         </a>
@@ -188,7 +188,7 @@
             <div class="nav-item text-center mx-2" *ngIf="!userDetails">
             
                  <a (click)="login()" class="text-center text-decoration-none position-relative cursor-pointer me-5" >
-                            <i class="bi bi-person" style="font-size: 24px; font-weight: bold;"></i>
+                            <i class="bi bi-person" style="font-size: 15px; font-weight: bold;"></i>
                             <div  class="text">My Account</div>
                             <!-- <span class="badge position-absolute top-0 start-100 translate-middle bg-warning text-black">0</span> -->
                         </a>
@@ -214,8 +214,8 @@
                     <a class="dropdown-item" routerLink="/core/{{userDetails?.role}}/dashboard">Dashboard</a>
                     <a class="dropdown-item" routerLink="/core/{{userDetails?.role}}/orders">Orders</a>
                     <a class="dropdown-item" routerLink="/core/my-account">My Profile</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item cursor-pointer" (click)="logout()">Logout</a>
+                    <!-- <div class="dropdown-divider"></div> -->
+                    <a class="dropdown-item border-0 cursor-pointer" (click)="logout()">Logout</a>
                 </div>
             </div>
         </div>

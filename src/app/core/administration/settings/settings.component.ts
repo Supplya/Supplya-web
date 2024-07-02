@@ -11,9 +11,8 @@ import { MediaUploadService } from 'src/app/shared/services/mediaUpload.service'
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+  styleUrls: ['./settings.component.scss'],
 })
-
 export class SettingsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
@@ -80,7 +79,7 @@ export class SettingsComponent implements OnInit {
         this.requestLoading = false;
         if (data.status) {
           this.userInfo = data['data'];
-          console.log(this.userInfo)
+          console.log(this.userInfo);
           this.form.patchValue(data['data']);
         } else {
           this.notify.danger(data.message);
@@ -298,4 +297,19 @@ export class SettingsComponent implements OnInit {
         }
       );
   }
+  dropdownConfig = {
+    displayKey: '',
+    search: true,
+    height: '250px', // make sure height is limited for overflow
+    placeholder: 'Select an option',
+    limitTo: this.states.length, // a number thats limits the no of options displayed in the UI similar to angular limitTo pipe
+    moreText: 'more', // text to be displayed when more than one items are selected like Option 1 + 5 more
+    noResultsFound: 'No results found!',
+    searchPlaceholder: 'Search',
+    multiple: true,
+    searchOnKey: '', // key on which search should be performed this will be selective search. if undefined this will be extensive search on all keys
+    clearOnSelection: false,
+    inputDirection: 'ltr', // the d
+    
+  };
 }

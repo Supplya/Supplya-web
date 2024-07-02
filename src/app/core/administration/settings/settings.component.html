@@ -146,12 +146,19 @@
     
                 <div class="mb-2 col-lg-6 slide-left">
                     <label for="state" class="content-label">State</label>
-                     <select formControlName="state" class=" content-select {{
+                     <!-- <select formControlName="state" class=" content-select {{
                                         isInvalid('state') ? 'error-input' : ''
                                       }}">
                             <option value="" selected  id="state">Select State</option>
                             <option *ngFor="let item of states" [value]="item">{{item}}</option>
-                        </select>
+                        </select> -->
+                        <ngx-select-dropdown
+  [config]="dropdownConfig"
+  [options]="states"
+  formControlName="state"
+  class=" {{ isInvalid('state') ? 'error-input' : '' }}"
+></ngx-select-dropdown>
+
                    
     
                                             <small class="error-text mb-4" *ngIf="isInvalid('state')">

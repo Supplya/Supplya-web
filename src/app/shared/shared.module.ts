@@ -17,6 +17,7 @@ import { BackButtonComponent } from './back-button/back-button.component';
 import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator.component';
 import { InternetOfflineComponent } from './internet-offline/internet-offline.component';
 import { CurrencyFormatDirective } from './helpers/currency-format.directive';
+import { SelectDropDownModule } from 'ngx-select-dropdown';
 
 
 
@@ -50,7 +51,7 @@ const sharedRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     NgxPaginationModule,
-    
+    SelectDropDownModule,
   ],
 
   providers: [],
@@ -66,14 +67,14 @@ const sharedRoutes: Routes = [
     SpinnerComponent,
     BackButtonComponent,
     LoadingIndicatorComponent,
-CurrencyFormatDirective,
+    CurrencyFormatDirective,
     // Modules
     ToastyModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     NgxPaginationModule,
-    
+    SelectDropDownModule,
   ],
 })
 export class SharedModule {}

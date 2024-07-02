@@ -169,11 +169,13 @@ font-weight: 600;
 // .bottom-nav a.border-end {
 //     border-right: 1px solid #ddd;
 // }
-
+.dropdown-menu-end .dropdown-item{
+border-bottom: 1px solid #ddd!important;
+}
 .badge {
     border-radius: 50%;
     padding: 0.5em;
-    font-size: 1em;
+    font-size: 0.9em;
 }
 .userName{
   border-radius: 4px;
