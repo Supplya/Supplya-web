@@ -52,6 +52,9 @@ export class DashboardService {
   getProductsByUser(id: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/products/user/${id}`);
   }
+  assignProductToVendor(payload: any): Observable<any[]> {
+    return this.http.post<any[]>(`${this.baseUrl}/admin/assign-product`, payload);
+  }
   getUserByID(id: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/users/${id}`);
   }

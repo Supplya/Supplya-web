@@ -51,7 +51,6 @@ export class EditProductComponent implements OnInit {
       (details: any) => {
         if (details.status) {
           this.response = details?.data;
-          console.log(this.response);
           this.requestLoading = false;
 
           this.form.patchValue({
@@ -131,12 +130,21 @@ export class EditProductComponent implements OnInit {
   };
 
   selectedVendors: any[] = [];
-
+  selectedVendor;
   onVendorChange(event: any) {
-    // console.log('Selected Vendors:', event);
-    event.forEach((vendor) => {
-      // console.log('Selected Vendor ID:', vendor.id);
-      // console.log('Selected Vendor Name:', vendor.name);
+    this.selectedVendor = event?.value
+  }
+  assignProduct() {
+    this.toggleModal('assignVendorModal', 'close');
+    const payload = {
+      productId: this.response?._id,
+      vendorId: this.selectedVendor?.id,
+    };
+    this.adminService.assignProductToVendor(payload).subscribe((data: any) => {
+      this.getProductByID();
+    },
+      (error: any) => {
+      
     });
   }
 
@@ -146,8 +154,8 @@ export class EditProductComponent implements OnInit {
     } else {
       document.getElementById(modalId).style.display = 'none';
     }
-    if (data) {
-    }
+   
+    this.selectedVendor === null;
   };
   initForm() {
     this.form = this.fb.group({
