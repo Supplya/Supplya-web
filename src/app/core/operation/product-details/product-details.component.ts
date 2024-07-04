@@ -13,7 +13,7 @@ import { ToastyService } from 'ng-toasty';
 })
 export class ProductDetailsComponent {
   selectedTab: string = 'description'; // Default selected tab
-  product: any;
+  product: any = null;
   cart: any;
   reviews: any;
   products: any;
@@ -43,49 +43,93 @@ export class ProductDetailsComponent {
     });
   }
   onSubmit: boolean = false;
+  productsError: boolean = false;
   ngOnInit(): void {
     this.loading = true;
 
+    this.getProduct();
+    this.getAllRelatedProducts();
+  }
+  id;
+  getProduct() {
     this.activatedRoute.params.subscribe((params) => {
       const foodID = params['id'];
+      this.id = params['id'];
       if (foodID) {
         this.productService.getProductId(foodID).subscribe(
           (product: any) => {
+            this.loading = false;
+
             if (product.status) {
               this.product = product.data;
+
+              if (this.product) {
+                this.initializeQuantity();
+              }
               this.loading = false;
-            } else {
-              this.notify.danger('Product not found');
+              this.productsError = true;
             }
           },
           (error) => {
-            // this.notify.danger('Error fetching product', 4000);
-            console.error('Error fetching product:', error);
-            // Handle the error here, e.g., display an error message to the user
+            this.loading = false;
           }
         );
       }
     });
-
-    this.getAllProducts();
   }
+  refreshProduct() {
+    this.productsError = false;
+    this.getProduct();
+  }
+  quantity: number = 1;
   toggleWishlist(product: any) {
     product.isWishlisted = !product.isWishlisted;
   }
-  getAllProducts() {
-    this.loading = true;
+  changeQuantity(delta: number) {
+    this.quantity += delta;
+    if (this.quantity < 1) {
+      this.quantity = 1;
+    }
 
-    this.productService.getAllProducts().subscribe(
+    // Update the cart if the product is already in it
+    if (this.ifAddedToCart(this.product)) {
+      this.cartService.changeQuantity(this.product._id, this.quantity);
+    }
+  }
+
+  initializeQuantity() {
+    const cart = this.cartService.getCart();
+    const cartItem = cart.items.find(
+      (item) => item.product._id === this.product._id
+    );
+    if (cartItem) {
+      this.quantity = cartItem.quantity;
+    } else {
+      // console.log('Cart item not found');
+    }
+  }
+
+  addToWishlist(): void {
+    this.product.isWishlisted = !this.product.isWishlisted;
+  }
+
+  relatedLoading: boolean = false;
+  relatedProductError: boolean = false;
+  similarProducts: any = null
+  getAllRelatedProducts() {
+    this.relatedLoading = true;
+
+    this.productService.getRelatedProducts(this.id).subscribe(
       (data: any) => {
-        this.products = data?.data;
-        this.loading = false;
+        this.similarProducts = data?.data;
+        console.log(data);
+
+        this.relatedLoading = false;
       },
       (error) => {
-        this.loading = false;
-        this.loading = false;
+        this.relatedLoading = false;
+        this.relatedProductError = true;
         console.error('Error fetching products:', error);
-
-        // Handle the error appropriately, for example, show a user-friendly error message.
       }
     );
   }

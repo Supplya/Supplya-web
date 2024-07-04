@@ -1,0 +1,57 @@
+<!-- BREADCRUMB -->
+<div class="breadcrumb-bg">
+    <nav aria-label="breadcrumb">
+        <div class="container">
+            <div class="py-4 px-5">
+                <!-- <h2 class="mb-2 menu-title animate__animated animate__fadeInDown">{{ currentPageLink }}</h2> -->
+                <div class="text-center animate__animated animate__fadeInDown" style="display: flex;">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item breadcrumb-text text-dark text-decoration-none"><a href="/">{{ HomeLink }} {{ searchResult }}</a></li>
+                        <!-- Add SVG Separator -->
+                        <li class="breadcrumb-separator">
+                            &nbsp;  <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M6.66666 3.3335L11.3088 7.97561L6.66666 12.6177"
+                              stroke="#14142B"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                          &nbsp;
+                        </li>
+                        <!-- Previous Link -->
+                        <li *ngIf="previousLink" class="breadcrumb-item text-black" aria-current="page">{{ previousLink }}</li>
+                        <!-- Add SVG Separator -->
+                        <li class="breadcrumb-separator">
+                            &nbsp; <svg
+          width="12"
+          height="12"
+          viewBox="0 0 16 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M6.66666 3.3335L11.3088 7.97561L6.66666 12.6177"
+            stroke="#14142B"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>   &nbsp;
+                        </li>
+                        <!-- Current Page Link -->
+                        <li class="breadcrumb-item active" aria-current="page">{{ currentPageLink }}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+<!-- BREADCRUMB END -->

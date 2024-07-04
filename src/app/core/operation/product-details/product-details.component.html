@@ -1,192 +1,234 @@
 <app-navbar></app-navbar>
 <!-- BREADCRUMB -->
-<app-breadcrumb currentPageLink="Product Details" previousLink="Shop"></app-breadcrumb>
+<!-- <app-breadcrumb currentPageLinkSmall="Product Details" previousLink="Shop"></app-breadcrumb> -->
+<app-mini-breadcrumb currentPageLink="Product Details" previousLink="Shop"></app-mini-breadcrumb>
 <!-- BREADCRUMB END -->
 
 
-<!-- PRODUCT DETAILS -->
-<section class="">
-    <div class="container py-2">
-<div class="row product">
-    <div class="col-lg-1"></div>
-    <div class="col-lg-10">
-        <div class="row  py-3">
-            <div class="col-lg-6">
-          
-                  <div class="row">
-                 
-                    <div class="col-lg-12 d-flex justify-content-start align-items-end animate__animated animate__fadeInUp">
-                        
-                        <img style="width: 100%; height: 400px;" [src]="product?.image" class="img-thumbnail  " alt="" >
-
-                        
-                    </div>
-                    <div class="col-lg-12">
-                       <div class="other-images">
-                    <div class="image" *ngFor="let image of product?.images">
-                      <img style="border-radius: 10px; height: 100px!important; background-size: contain;" class="img-fluid img-thumbnail mr-1"  [src]="image" alt="Other Image">
-                    </div>
-                  </div>
-                   
-                    </div>
-                   
-                    
-                </div>
-                
-            </div>
-            <div class="col-lg-6 align-items-center">
-              <!-- <p class="store-name py-1">Jamal Super Stores</p> -->
-                <h5 class="">{{product?.name}}</h5>
-                <div class="star-rating">
-                  <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
-                  <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>  <span class="text-black"> &nbsp; |  &nbsp;</span>  
-                  <span [ngClass]="{'stock': product?.status === 'inStock', 'text-danger': product?.status !== 'inStock'}">
-  {{product?.status === 'inStock' ? 'In Stock' : 'Out of Stock'}}
-</span>
- 
-              </div>
-             
-                <div class="d-flex justify-content-between border-bottom">
-
-                <h6 >{{ product?.unit_price  |
-                  currency: '₦' :'symbol':'1.0-0'}}</h6>
-                  <p class="fw-bold">Minimum Order: <span class="mini"> {{ product?.moq }}</span></p>
-                </div>
-<!-- Description -->
-                <div class="py-3">
-<p class="des-heading mb-2">Product Description</p>
-<p class="description text-muted">{{ product?.description }}</p>
-                </div>
-
-               
-                <div class="d-flex border-bottom mb-3">
-                    <p *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="btn cart">Add to Cart</p> 
-                    <p *ngIf="ifAddedToCart(product)" (click)="toCart()" class="btn cart">View Cart</p> 
-                </div>
-                <p class="tag">SKU &nbsp; &nbsp; &nbsp; <span class="">{{product?.sku}}</span></p>
-                <p class="tag">CATEGORY &nbsp; &nbsp; &nbsp; <span class="">{{product?.category?.name}}</span></p>
-
-            </div>
-
+ <section class="row" *ngIf="loading && !product && !productsError">
+    <div class="py-5 p-5 center">
+        <div>
+    
+            <img style="height: 100px;" src="/assets/Images/requestLoading.gif" alt="">
+            <p class="loading-text text-center text-muted">Loading...</p>
         </div>
     </div>
-    <div class="col-lg-1"></div>
-</div>
-    </div>
-</section>
-<!-- PRODUCT DETAILS  END-->
-
-<!-- REVIEWS AND DESCRIPTION -->
-<section class="reviews">
-    <div class="container py-5">
-        
-        <div class="container py-5">
-            <ul class="nav nav-tabs text-center">
-                <li class="nav-item" (click)="selectedTab = 'description'">
-                  <a class="nav-link" [ngClass]="{'active': selectedTab === 'description'}">Description</a>
-                </li>
-                <li class="nav-item" (click)="selectedTab = 'additionalInfo'">
-                  <a class="nav-link" [ngClass]="{'active': selectedTab === 'additionalInfo'}">Additional Info</a>
-                </li>
-                <li class="nav-item" (click)="selectedTab = 'reviews'">
-                  <a class="nav-link" [ngClass]="{'active': selectedTab === 'reviews'}">Reviews</a>
-                </li>
-                <li class="nav-item" (click)="selectedTab = 'video'">
-                  <a class="nav-link" [ngClass]="{'active': selectedTab === 'video'}">Video</a>
-                </li>
-              </ul>
-              
-              <div [ngSwitch]="selectedTab" class="p-5 des px-5">
-                <div *ngSwitchCase="'description'">
-                    <h6>Varius tempor.</h6>
-                  <p class="text-muted">Aliquam dis vulputate vulputate integer sagittis. Faucibus dolor ornare faucibus vel sed et eleifend habitasse amet. Montes, mauris varius ac est bibendum. Scelerisque a, risus ac ante. Velit consectetur neque, elit, aliquet. Non varius proin sed urna, egestas consequat laoreet diam tincidunt. Magna eget faucibus cras justo, tortor sed donec tempus. Imperdiet consequat, quis diam arcu, nulla lobortis justo netus dis. Eu in fringilla vulputate nunc nec. Dui, massa viverr .</p>
-                
-<div class="mt-4">
-    <h6>More Details</h6>
-    <p class="text-muted">Aliquam dis vulputate vulputate integer sagittis. Faucibus dolor ornare faucibus vel sed et eleifend habitasse amet. Montes, mauris varius ac est bibendum. Scelerisque a, risus ac ante. Velit consectetur neque, elit, aliquet. Non varius proin sed urna, egestas consequat laoreet diam tincidunt. Magna eget faucibus cras justo, tortor sed donec tempus. Imperdiet consequat, quis diam arcu, nulla lobortis justo netus dis. Eu in fringilla vulputate nunc nec. Dui, massa viverr .</p>
-</div>
-                  
-                </div>
-                <div *ngSwitchCase="'additionalInfo'">
-                  <p>Additional Info content</p>
-                </div>
-                <div *ngSwitchCase="'reviews'">
-                  <p>Reviews content</p>
-                </div>
-                <div *ngSwitchCase="'video'">
-                  <p>Video content</p>
-                </div>
+          </section >
+    
+          <section class=" center" *ngIf="!product && !loading && productsError">
+            <div class="py-5 ">
+              <div class="py-3 text-center" >
+                <img src="/assets/Images/oops.png" style="height: 100px;" alt="">
+                <p class="loading-text  text-muted py-3">Could not display product. Click 'Refresh' to try again.
+            </p>
+                <p class="refresh" (click)="refreshProduct()">Refresh <i class="bi bi-arrow-repeat"></i></p>
               </div>
-              
-        </div>
-    </div>
-</section>
-<!-- REVIEWS AND DESCRIPTION END -->
+            </div>
+          </section>
 
 
-<!-- SIMILAR PRODUCTS -->
-<section class="flash-sales py-3">
-  <div class="container">
-    <div class="py-2 mt-5" style="display: flex; justify-content: space-between;">
-  <div>
-    <p class="home-heading">Similar Products</p>
-  </div>
-  <div>
-    <p class="see-all mt-2">See All</p>
-  </div>
-    </div>
-  
-    <!-- Products -->
-    <div class="row">
+<section *ngIf="product !== null && !loading">
+
+  <!-- PRODUCT DETAILS -->
+  <section class="">
+      <div class="container">
+  <div class="row product " style="margin: 0 auto!important;">
+      <!-- <div class="col-lg-1"></div> -->
       <div class="col-lg-12">
-<div class="product-container">
-  <div class="d-flex flex-nowrap">
-    <!-- Product cards -->
-    <div class="col-lg-auto" *ngFor="let product of products">
-      <div class="card border-0  products me-4">
-        <!-- Placeholder background image -->
-        <div class="card-img-top placeholder-image" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
-          <!-- Love icon for wishlist -->
-          <span class="love-icon mt-2" (click)="toggleWishlist(product)"><i class="bi bi-heart"></i></span>
-          <!-- Product image -->
-          <img (click)="viewProduct(product?._id)" [src]="product?.image" alt="Product Image">
+  <div class="row py-3">
+    <div class="col-lg-6">
+      <div class="product-images">
+        <div class="main-image mb-2" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
+          <img class="img-thumbnail" [src]="product?.image" alt="Main Product Image">
         </div>
-        <div class="card-body">
-          <!-- Product name -->
-          <h5 class="card-title">
-            <div class="marquee">{{ product?.name }}</div>
-          </h5>
-          <!-- Star rating -->
-          <div class="star-rating">
-            <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
-            <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
-          </div>
-          <!-- Product amount and cart icon -->
-          <div class="price-and-cart">
-            <span class="product-amount">{{ product?.unit_price  | currency: '₦' :'symbol':'1.0-0' }}</span>
-            <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
-            <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
+        <div class="other-images px-lg-5 mb-2">
+          <div *ngFor="let image of product?.images" class="image-item">
+            <img class="img-thumbnail" [src]="image" alt="Product Image">
           </div>
         </div>
       </div>
     </div>
-    <!-- End of product cards -->
+    <div class="col-lg-6 align-items-center">
+      <h5 class="">{{ product?.name }}</h5>
+      <div class="star-rating">
+        <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
+        <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
+        <span class="text-black"> &nbsp; | &nbsp;</span>
+        <span [ngClass]="{ 'stock': product?.status === 'inStock', 'text-danger': product?.status !== 'inStock' }">
+          {{ product?.status === 'inStock' ? 'In Stock' : 'Out of Stock' }}
+        </span>
+      </div>
+      <div class="d-flex justify-content-between border-bottom mt-2">
+        <h6>{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0' }}</h6>
+        <p style="font-size: 17px;" class="fw-bold">Minimum Order Quantity: <span class="mini">{{ product?.moq }}</span></p>
+      </div>
+      <!-- Description -->
+      <div class="py-3">
+        <p class="des-heading mb-2">Product Description</p>
+        <p class="description text-muted">{{ product?.description }}</p>
+      </div>
+      <!-- Wishlist and Quantity Control -->
+      <div class="d-flex justify-content-between mb-3">
+        <div class="quantity-control">
+          <button (click)="changeQuantity(-1)" class="">-</button>
+          <span class="quantity">{{ quantity }}</span>
+          <button (click)="changeQuantity(1)" class=" ">+</button>
+        </div>
+        <button (click)="addToWishlist()" class="btn cart wish-btn">Add to Wishlist</button>
+      </div>
+      <div class="d-flex border-bottom mb-3">
+        <p *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="btn cart">Add to Cart</p>
+        <p *ngIf="ifAddedToCart(product)" (click)="toCart()" class="btn cart">View Cart</p>
+      </div>
+      <p class="tag">SKU &nbsp; &nbsp; &nbsp; <span class="">{{ product?.sku }}</span></p>
+      <p class="tag">CATEGORY &nbsp; &nbsp; &nbsp; <span class="">{{ product?.category?.name }}</span></p>
+    </div>
   </div>
-</div>
-
-
-
-</div>
-
-
-
-
+  
+  
+  
+  
       </div>
-    </div>
-    
-    
-
+      <!-- <div class="col-lg-1"></div> -->
+  </div>
+      </div>
   </section>
+  <!-- PRODUCT DETAILS  END-->
+  
+  <!-- REVIEWS AND DESCRIPTION -->
+  <section class="reviews">
+      <div class="container py-5">
+          
+          <div class="container py-5">
+              <ul class="nav nav-tabs text-center">
+                  <li class="nav-item" (click)="selectedTab = 'description'">
+                    <a class="nav-link" [ngClass]="{'active': selectedTab === 'description'}">Description</a>
+                  </li>
+                  <li class="nav-item" (click)="selectedTab = 'additionalInfo'">
+                    <a class="nav-link" [ngClass]="{'active': selectedTab === 'additionalInfo'}">Additional Info</a>
+                  </li>
+                  <li class="nav-item" (click)="selectedTab = 'reviews'">
+                    <a class="nav-link" [ngClass]="{'active': selectedTab === 'reviews'}">Reviews</a>
+                  </li>
+                  <li class="nav-item" (click)="selectedTab = 'video'">
+                    <a class="nav-link" [ngClass]="{'active': selectedTab === 'video'}">Video</a>
+                  </li>
+                </ul>
+                
+                <div [ngSwitch]="selectedTab" class="p-5 des px-5">
+                  <div *ngSwitchCase="'description'">
+                      <h6>Varius tempor.</h6>
+                    <p class="text-muted">Aliquam dis vulputate vulputate integer sagittis. Faucibus dolor ornare faucibus vel sed et eleifend habitasse amet. Montes, mauris varius ac est bibendum. Scelerisque a, risus ac ante. Velit consectetur neque, elit, aliquet. Non varius proin sed urna, egestas consequat laoreet diam tincidunt. Magna eget faucibus cras justo, tortor sed donec tempus. Imperdiet consequat, quis diam arcu, nulla lobortis justo netus dis. Eu in fringilla vulputate nunc nec. Dui, massa viverr .</p>
+                  
+  <div class="mt-4">
+      <h6>More Details</h6>
+      <p class="text-muted">Aliquam dis vulputate vulputate integer sagittis. Faucibus dolor ornare faucibus vel sed et eleifend habitasse amet. Montes, mauris varius ac est bibendum. Scelerisque a, risus ac ante. Velit consectetur neque, elit, aliquet. Non varius proin sed urna, egestas consequat laoreet diam tincidunt. Magna eget faucibus cras justo, tortor sed donec tempus. Imperdiet consequat, quis diam arcu, nulla lobortis justo netus dis. Eu in fringilla vulputate nunc nec. Dui, massa viverr .</p>
+  </div>
+                    
+                  </div>
+                  <div *ngSwitchCase="'additionalInfo'">
+                    <p>Additional Info content</p>
+                  </div>
+                  <div *ngSwitchCase="'reviews'">
+                    <p>Reviews content</p>
+                  </div>
+                  <div *ngSwitchCase="'video'">
+                    <p>Video content</p>
+                  </div>
+                </div>
+                
+          </div>
+      </div>
+  </section>
+  <!-- REVIEWS AND DESCRIPTION END -->
+  
+  
+
+   <section class="row" *ngIf="relatedLoading && !similarProducts && !relatedProductError">
+    <div class="py-5 p-5 center">
+        <div>
+    
+            <img style="height: 100px;" src="/assets/Images/requestLoading.gif" alt="">
+            <p class="loading-text text-center text-muted">Loading...</p>
+        </div>
+    </div>
+          </section >
+    
+          <section class=" center" *ngIf="!similarProducts && !relatedLoading && relatedProductError">
+            <div class="py-5 ">
+              <div class="py-3 text-center" >
+                <img src="/assets/Images/oops.png" style="height: 100px;" alt="">
+                <p class="loading-text  text-muted py-3">Could not display similar product. Click 'Refresh' to try again.
+            </p>
+                <p class="refresh" (click)="refreshProduct()">Refresh <i class="bi bi-arrow-repeat"></i></p>
+              </div>
+            </div>
+          </section>
+  <!-- SIMILAR PRODUCTS -->
+  <section class="flash-sales py-3" *ngIf="similarProducts !== null && relatedLoading">
+    <div class="container">
+      <div class="py-2 mt-5" style="display: flex; justify-content: space-between;">
+    <div>
+      <p class="home-heading">Similar Products</p>
+    </div>
+    <div>
+      <p class="see-all mt-2">See All</p>
+    </div>
+      </div>
+    
+      <!-- Products -->
+      <div class="row">
+        <div class="col-lg-12">
+  <div class="product-container">
+    <div class="d-flex flex-nowrap">
+      <!-- Product cards -->
+      <div class="col-lg-auto" *ngFor="let product of similarProducts">
+        <div class="card border-0  products me-4">
+          <!-- Placeholder background image -->
+          <div class="card-img-top placeholder-image" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
+            <!-- Love icon for wishlist -->
+            <span class="love-icon mt-2" (click)="toggleWishlist(product)"><i class="bi bi-heart"></i></span>
+            <!-- Product image -->
+            <img (click)="viewProduct(product?._id)" [src]="product?.image" alt="Product Image">
+          </div>
+          <div class="card-body">
+            <!-- Product name -->
+            <h5 class="card-title">
+              <div class="marquee">{{ product?.name }}</div>
+            </h5>
+            <!-- Star rating -->
+            <div class="star-rating">
+              <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
+              <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
+            </div>
+            <!-- Product amount and cart icon -->
+            <div class="price-and-cart">
+              <span class="product-amount">{{ product?.unit_price  | currency: '₦' :'symbol':'1.0-0' }}</span>
+              <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
+              <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End of product cards -->
+    </div>
+  </div>
+  
+  
+  
+  </div>
+  
+  
+  
+  
+        </div>
+      </div>
+      
+      
+  
+    </section>
+</section>
+
 
 <!-- PARTNERSHIP SECTION -->
 <section class="px-5 py-5 container">

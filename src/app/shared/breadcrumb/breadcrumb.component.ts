@@ -18,6 +18,8 @@ HomeLink = "Home";
 @Input()
 currentPageLink = "";
 @Input()
+currentPageLinkSmall = "";
+@Input()
 searchResult: any;
 @Input()
 previousLink = '';

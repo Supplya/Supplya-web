@@ -18,6 +18,7 @@ import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator
 import { InternetOfflineComponent } from './internet-offline/internet-offline.component';
 import { CurrencyFormatDirective } from './helpers/currency-format.directive';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
+import { MiniBreadcrumbComponent } from './mini-breadcrumb/mini-breadcrumb.component';
 
 
 
@@ -42,6 +43,7 @@ const sharedRoutes: Routes = [
     LoadingIndicatorComponent,
     InternetOfflineComponent,
     CurrencyFormatDirective,
+    MiniBreadcrumbComponent,
   ],
   imports: [
     RouterModule.forChild(sharedRoutes),
@@ -68,6 +70,8 @@ const sharedRoutes: Routes = [
     BackButtonComponent,
     LoadingIndicatorComponent,
     CurrencyFormatDirective,
+    MiniBreadcrumbComponent,
+
     // Modules
     ToastyModule,
     FormsModule,
