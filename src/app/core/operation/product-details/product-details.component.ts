@@ -9,7 +9,7 @@ import { ToastyService } from 'ng-toasty';
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
-  styleUrls: ['./product-details.component.css']
+  styleUrls: ['./product-details.component.css'],
 })
 export class ProductDetailsComponent {
   selectedTab: string = 'description'; // Default selected tab
@@ -20,14 +20,17 @@ export class ProductDetailsComponent {
   AllAddedItems: any;
   loading: boolean = false;
   reviewForm: FormGroup;
-  constructor(private activatedRoute: ActivatedRoute,
+  constructor(
+    private activatedRoute: ActivatedRoute,
     private productService: ProductService,
-    private route: Router, private cartService: CartService, private fb: FormBuilder, private notify: ToastyService) {
-
+    private route: Router,
+    private cartService: CartService,
+    private fb: FormBuilder,
+    private notify: ToastyService
+  ) {
     this.cartService.getCartObservable().subscribe((cart) => {
       this.cart = cart;
       this.AllAddedItems = cart.items;
-
     });
 
     this.reviewForm = this.fb.group({
@@ -37,8 +40,7 @@ export class ProductDetailsComponent {
       rating: [null],
       comment: ['', Validators.required],
       postedDate: [''],
-    })
-
+    });
   }
   onSubmit: boolean = false;
   ngOnInit(): void {
@@ -49,12 +51,10 @@ export class ProductDetailsComponent {
       if (foodID) {
         this.productService.getProductId(foodID).subscribe(
           (product: any) => {
-            if(product.status) {
-
+            if (product.status) {
               this.product = product.data;
               this.loading = false;
-            }else{
-
+            } else {
               this.notify.danger('Product not found');
             }
           },
@@ -64,15 +64,14 @@ export class ProductDetailsComponent {
             // Handle the error here, e.g., display an error message to the user
           }
         );
-
-
       }
     });
 
     this.getAllProducts();
-
   }
-
+  toggleWishlist(product: any) {
+    product.isWishlisted = !product.isWishlisted;
+  }
   getAllProducts() {
     this.loading = true;
 
@@ -85,16 +84,17 @@ export class ProductDetailsComponent {
         this.loading = false;
         this.loading = false;
         console.error('Error fetching products:', error);
-      
+
         // Handle the error appropriately, for example, show a user-friendly error message.
       }
     );
   }
 
-
   ifAddedToCart(product: any): boolean {
     // Check if the product is in the list of added items (cart)
-    const cartItem = this.AllAddedItems.find((item: any) => item.product._id === product._id);
+    const cartItem = this.AllAddedItems.find(
+      (item: any) => item.product._id === product._id
+    );
 
     // Return true if the product is in the cart, otherwise, return false
     return !!cartItem;
@@ -102,11 +102,11 @@ export class ProductDetailsComponent {
 
   getStarsArray(rating: number): number[] {
     return Array(Math.floor(rating)).fill(0);
-}
+  }
 
-getEmptyStarsArray(rating: number): number[] {
+  getEmptyStarsArray(rating: number): number[] {
     return Array(5 - Math.floor(rating)).fill(0);
-}
+  }
 
   addToCart(product: any) {
     this.cartService.addToCart(product);
@@ -122,5 +122,4 @@ getEmptyStarsArray(rating: number): number[] {
     this.route.navigate(['core/operation/shopping-cart']);
     window.scrollTo(0, 0);
   }
-
 }

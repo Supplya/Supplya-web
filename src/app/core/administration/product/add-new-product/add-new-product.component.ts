@@ -7,13 +7,13 @@ import { AuthService } from 'src/app/authentication/service/auth.service';
 import { ProductService } from 'src/app/core/operation/services/product/product.service';
 import { HelperService } from 'src/app/shared/helpers/helper.service';
 import { MediaUploadService } from 'src/app/shared/services/mediaUpload.service';
+import { DashboardService } from '../../services/dashboard.service';
 
 @Component({
   selector: 'app-add-new-product',
   templateUrl: './add-new-product.component.html',
-  styleUrls: ['./add-new-product.component.scss']
+  styleUrls: ['./add-new-product.component.scss'],
 })
-
 export class AddNewProductComponent implements OnInit {
   categories: any;
   constructor(
@@ -23,7 +23,8 @@ export class AddNewProductComponent implements OnInit {
     private authService: AuthService,
     private notify: ToastyService,
     private uploadService: MediaUploadService,
-    private route: Router
+    private route: Router,
+    private adminService: DashboardService
   ) {}
 
   form!: FormGroup;
@@ -34,6 +35,7 @@ export class AddNewProductComponent implements OnInit {
   ngOnInit(): void {
     this.getAllCategories();
     this.initForm();
+    this.getAllUsers();
   }
 
   initForm() {
@@ -46,6 +48,7 @@ export class AddNewProductComponent implements OnInit {
       brand: [''],
       category: ['', Validators.required],
       rating: [''],
+      vendorId: [''],
       numReviews: [],
       isFeatured: [false],
       hasDiscount: [false],
@@ -210,7 +213,61 @@ export class AddNewProductComponent implements OnInit {
       });
     }
   }
+  selectedVendor: any = null;
+  onVendorChange(event: any) {
+    this.selectedVendor = event?.value;
+  }
+  assign() {
+    this.form.value.vendorId = this.selectedVendor?.id;
+    this.toggleModal('assignVendorModal', 'close');
+  }
+  vendors: any[] = [];
+  transformedVendors: any[] = [];
+  getAllUsers() {
+    this.adminService.getAllUsers().subscribe(
+      (data: any) => {
+        if (data.status) {
+          this.vendors = data.data.filter(
+            (item: any) => item?.role === 'vendor'
+          );
 
+          // Transform vendors to only include objects with storeName
+          this.transformedVendors = this.vendors.map((vendor) => {
+            return {
+              id: vendor._id,
+              name: vendor.storeName || 'Unnamed Store',
+            };
+          });
+        }
+      },
+      (error) => {}
+    );
+  }
+
+  dropdownConfig = {
+    displayKey: 'name', // Key to be displayed
+    search: true,
+    height: '250',
+    placeholder: 'Select Store',
+    limitTo: this.transformedVendors.length,
+    noResultsFound: 'No results found!',
+    searchPlaceholder: 'Search',
+    searchOnKey: 'name',
+    clearOnSelection: false,
+    inputDirection: 'ltr',
+    multiple: true, // Enable multi-select if needed
+    selectAllLabel: 'Select All', // Optional: label for the select all option
+  };
+
+  toggleModal = (modalId, action: string, data?: any) => {
+    if (action == 'open') {
+      document.getElementById(modalId).style.display = 'flex';
+    } else {
+      document.getElementById(modalId).style.display = 'none';
+    }
+
+    this.selectedVendor === null;
+  };
   getErrorMessage(control: string, message: string) {
     return this.helperService.getError(this.form.get(control), message);
   }

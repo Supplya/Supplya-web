@@ -221,238 +221,321 @@
 </Section>
 
 <!-- FLASH SALES -->
-<section class="flash-sales py-3">
-<div class="container">
-  <div class="py-2" style="display: flex; justify-content: space-between;">
-<div>
-  <p class="home-heading">Flash Sales</p>
-</div>
-<div>
-  <p class="see-all mt-2">See All</p>
-</div>
-  </div>
 
-  <!-- Products -->
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="product-container">
-        <div class="d-flex flex-nowrap">
-          <!-- Product cards -->
-          <div class="col-lg-auto" *ngFor="let product of flashProducts">
-            <div class="card border-0 shadow-sm me-4">
-              <!-- Placeholder background image -->
-              <div class="card-img-top placeholder-image" >
-                <!-- Love icon for wishlist -->
-                <span class="love-icon mt-2"><i class="bi bi-heart"></i></span>
-                <!-- Product image -->
-                <img (click)="viewProduct(product._id)" [src]="product?.image" alt="Product Image">
-              </div>
-              <div class="card-body">
-                <!-- Product name -->
-                <h5 class="card-title" (click)="viewProduct(product._id)">{{product.name}}</h5>
-                <!-- Star rating -->
-                <!-- <div class="star-rating">
-                  <span class="bi bi-star-fill"></span>
-                  <span class="bi bi-star-fill"></span>
-                  <span class="bi bi-star-fill"></span>
-                  <span class="bi bi-star-fill"></span>
-                  <span class="bi bi-star"></span>
-                </div> -->
-                <div class="star-rating">
-                  <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product.rating); let i = index"></span>
-                  <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product.rating); let i = index"></span>
-              </div>
-              
-                <!-- Product amount and cart icon -->
-                <div class="price-and-cart">
-                  <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0'}}</span>
-                  <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
-                  <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
-                </div>
+<section id="flash-products" class="mb-3">
+
+
+   <section class="row" *ngIf="flashProductLoading && !flashProducts && !flashProductError">
+    <div class="py-5 p-5 center">
+        <div>
+    
+            <img style="height: 100px;" src="/assets/Images/requestLoading.gif" alt="">
+            <p class="loading-text text-center text-muted">Loading...</p>
+        </div>
+    </div>
+          </section >
+    
+          <section class=" center" *ngIf="!flashProducts && !flashProductLoading && flashProductError">
+            <div class="py-5 ">
+              <div class="py-3 text-center" >
+                <img src="/assets/Images/oops.png" style="height: 100px;" alt="">
+                <p class="loading-text  text-muted py-3">Could not display flash products. Click 'Refresh' to try again.
+            </p>
+                <p class="refresh" (click)="refreshFlashProducts()">Refresh <i class="bi bi-arrow-repeat"></i></p>
               </div>
             </div>
+          </section>
+  <section *ngIf="flashProducts?.length > 0 && !flashProductLoading && !flashProductError">
+  <div class="container">
+    <div class="py-2" style="display: flex; justify-content: space-between;">
+  <div>
+    <p class="home-heading">Flash Sales</p>
+  </div>
+  <div>
+    <p class="see-all mt-2">See All</p>
+  </div>
+    </div>
+  
+   <!-- FLASH SALES Products -->
+      <div class="row">
+        <div class="col-lg-12">
+  <div class="product-container">
+    <div class="d-flex flex-nowrap mb-3">
+      <!-- Product cards -->
+      <div class="col-lg-auto" *ngFor="let product of flashProducts">
+        <div class="card border-0  products me-4 mb-2">
+          <!-- Placeholder background image -->
+          <div class="card-img-top placeholder-image" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
+            <!-- Love icon for wishlist -->
+            <span class="love-icon mt-2" (click)="toggleWishlist(product)"><i class="bi bi-heart"></i></span>
+            <!-- Product image -->
+            <img (click)="viewProduct(product?._id)" [src]="product?.image" alt="Product Image">
           </div>
-          <!-- End of product cards -->
+          <div class="card-body">
+            <!-- Product name -->
+            <h5 class="card-title">
+              <div class="marquee" (click)="viewProduct(product?._id)">{{ product?.name }}</div>
+            </h5>
+            <!-- Star rating -->
+            <div class="star-rating">
+              <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
+              <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
+            </div>
+            <!-- Product amount and cart icon -->
+            <div class="price-and-cart">
+              <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0' }}</span>
+              <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
+              <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
+            </div>
+          </div>
         </div>
       </div>
+      <!-- End of product cards -->
     </div>
   </div>
   
   
-</div>
+  
+  </div>
+  
+  
+  
+  
+        </div>
+    
+    
+  </div>
+  </section>
 </section>
-<!-- DEALS OF THE DAY -->
-<section class="py-5 deals">
-<div class="container">
-  <div class="px-3" style="display: flex; justify-content: space-between; align-items: center; background-color: var(--primary-color);">
-    <div>
-      <p class="deals-heading mt-3">Deals of the day</p>
-    </div>
-    <div>
-      <p class="see-all-white mt-3">See All</p>
-    </div>
-      </div>
 
-      <!-- DEALS OF THE DAY -->
-      <!-- Products -->
-  <div class="row py-3">
-    <div class="col-lg-12">
-      <div class="product-container">
-        <div class="d-flex flex-nowrap mb-3">
-          <!-- Product cards -->
-          <div class="col-lg-auto" *ngFor="let product of newArrivals">
-            <div class="card border-0 shadow-sm me-4">
-              <!-- Placeholder background image -->
-              <div class="card-img-top placeholder-image">
-                <!-- Love icon for wishlist -->
-                <span class="love-icon mt-2"><i class="bi bi-heart"></i></span>
-                <!-- Product image -->
-                <img (click)="viewProduct(product?._id)" [src]="product?.image" alt="Product Image">
-              </div>
-              <div class="card-body">
-                <!-- Product name -->
-                <h5 class="card-title" (click)="viewProduct(product?._id)">{{product?.name}}</h5>
-                <!-- Star rating -->
-                <!-- <div class="star-rating">
-                  <span class="bi bi-star-fill"></span>
-                  <span class="bi bi-star-fill"></span>
-                  <span class="bi bi-star-fill"></span>
-                  <span class="bi bi-star-fill"></span>
-                  <span class="bi bi-star"></span>
-                </div> -->
-                <div class="star-rating">
-                  <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
-                  <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
-              </div>
-              
-                <!-- Product amount and cart icon -->
-                <div class="price-and-cart">
-                  <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0'}}</span>
-                  <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
-                  <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
-                </div>
+
+
+
+
+<!-- DEALS OF THE DAY -->
+
+<section id="new-arrivals" class="mb-3 deals">
+  <section class="row" *ngIf="newArrivalLoading && !newArrivals && !newArrivalError">
+    <div class="py-5 p-5 center">
+        <div>
+    
+            <img style="height: 100px;" src="/assets/Images/requestLoading.gif" alt="">
+            <p class="loading-text text-center text-muted">Loading...</p>
+        </div>
+    </div>
+          </section >
+    
+          <section class=" center" *ngIf="!newArrivals && !newArrivalLoading && newArrivalError">
+            <div class="py-5 ">
+              <div class="py-3 text-center" >
+                <img src="/assets/Images/oops.png" style="height: 100px;" alt="">
+                <p class="loading-text  text-muted py-3">Could not display Arrival products. Click 'Refresh' to try again.
+            </p>
+                <p class="refresh" (click)="refreshNewArrival()">Refresh <i class="bi bi-arrow-repeat"></i></p>
               </div>
             </div>
+          </section>
+  <section *ngIf="newArrivals?.length > 0 && !newArrivalLoading && !newArrivalError">
+  <div class="container">
+    <div class="px-3 mb-2" style="display: flex; justify-content: space-between; align-items: center; background-color: var(--primary-color);">
+      <div>
+        <p class="deals-heading mt-3">Deals of the day</p>
+      </div>
+      <div>
+        <p class="see-all-white mt-3">See All</p>
+      </div>
+        </div>
+  
+        <!-- DEALS OF THE DAY -->
+        <div class="row">
+        <div class="col-lg-12">
+  <div class="product-container">
+    <div class="d-flex flex-nowrap mb-3">
+      <!-- Product cards -->
+      <div class="col-lg-auto" *ngFor="let product of newArrivals">
+        <div class="card border-0  products me-4 mb-2">
+          <!-- Placeholder background image -->
+          <div class="card-img-top placeholder-image" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
+            <!-- Love icon for wishlist -->
+            <span class="love-icon mt-2" (click)="toggleWishlist(product)"><i class="bi bi-heart"></i></span>
+            <!-- Product image -->
+            <img (click)="viewProduct(product?._id)" [src]="product?.image" alt="Product Image">
           </div>
-          <!-- End of product cards -->
+          <div class="card-body">
+            <!-- Product name -->
+            <h5 class="card-title">
+              <div class="marquee" (click)="viewProduct(product?._id)">{{ product?.name }}</div>
+            </h5>
+            <!-- Star rating -->
+            <div class="star-rating">
+              <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
+              <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
+            </div>
+            <!-- Product amount and cart icon -->
+            <div class="price-and-cart">
+              <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0' }}</span>
+              <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
+              <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
+            </div>
+          </div>
         </div>
       </div>
+      <!-- End of product cards -->
     </div>
   </div>
-</div>
+  
+  
+  
+  </div>
+  
+  
+  
+  
+        </div>
+  </div>
+  </section>
 </section>
 
 
 <!-- POPULAR ITEMS -->
+
 <section class="mb-5 mt-3">
-  <div class="container">
 
-    <div class="py-2" style="display: flex; justify-content: space-between; align-items: center;">
-      <div>
-        <p class="home-heading mt-3">Special Deals</p>
-      </div>
-      <div>
-        <p class="see-all mt-3">See All</p>
-      </div>
+ <section class="row" *ngIf="loading && !products && !productsError">
+    <div class="py-5 p-5 center">
+        <div>
+    
+            <img style="height: 100px;" src="/assets/Images/requestLoading.gif" alt="">
+            <p class="loading-text text-center text-muted">Loading...</p>
         </div>
-
-        <div class="row">
-          <div class="col-lg-4" style="background: url(/assets/Images/discount.png);">
-
-          </div>
-          <div class="col-lg-8">
-            <div class="row mb-3">
-              <div class="col-lg-12">
-                <div class="product-container">
-                  <div class="d-flex flex-nowrap mb-3">
-                    <!-- Product cards -->
-                    <div class="col-lg-auto" *ngFor="let product of products">
-                      <div class="card border-0 shadow-sm me-4">
-                        <!-- Placeholder background image -->
-                        <div class="card-img-top placeholder-image">
-                          <!-- Love icon for wishlist -->
-                          <span class="love-icon mt-2"><i class="bi bi-heart"></i></span>
-                          <!-- Product image -->
-                          <img (click)="viewProduct(product._id)" [src]="product?.image" alt="Product Image">
-                        </div>
-                        <div class="card-body">
-                          <!-- Product name -->
-                          <h5 class="card-title" (click)="viewProduct(product._id)">{{product.name}}</h5>
-                          <!-- Star rating -->
-                          <!-- <div class="star-rating">
-                            <span class="bi bi-star-fill"></span>
-                            <span class="bi bi-star-fill"></span>
-                            <span class="bi bi-star-fill"></span>
-                            <span class="bi bi-star-fill"></span>
-                            <span class="bi bi-star"></span>
-                          </div> -->
-                          <div class="star-rating">
-                            <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product.rating); let i = index"></span>
-                            <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product.rating); let i = index"></span>
-                        </div>
-                        
-                          <!-- Product amount and cart icon -->
-                          <div class="price-and-cart">
-                            <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0'}}</span>
-                            <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
-                            <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- End of product cards -->
-                  </div>
-                </div>
+    </div>
+          </section >
+    
+          <section class=" center" *ngIf="!products && !loading && productsError">
+            <div class="py-5 ">
+              <div class="py-3 text-center" >
+                <img src="/assets/Images/oops.png" style="height: 100px;" alt="">
+                <p class="loading-text  text-muted py-3">Could not display products. Click 'Refresh' to try again.
+            </p>
+                <p class="refresh" (click)="refreshProducts()">Refresh <i class="bi bi-arrow-repeat"></i></p>
               </div>
             </div>
-            <div class="row mb-3 px-4">
-              <div class="col-lg-12">
-                <div class="product-container">
-                  <div class="d-flex flex-nowrap mb-3">
-                    <!-- Product cards -->
-                    <div class="col-lg-auto" *ngFor="let product of products">
-                      <div class="card border-0 shadow-sm me-4">
-                        <!-- Placeholder background image -->
-                        <div class="card-img-top placeholder-image">
-                          <!-- Love icon for wishlist -->
-                          <span class="love-icon mt-2"><i class="bi bi-heart"></i></span>
-                          <!-- Product image -->
-                          <img (click)="viewProduct(product._id)" [src]="product?.image" alt="Product Image">
-                        </div>
-                        <div class="card-body">
-                          <!-- Product name -->
-                          <h5 class="card-title" (click)="viewProduct(product._id)">{{product.name}}</h5>
-                          <!-- Star rating -->
-                          <!-- <div class="star-rating">
-                            <span class="bi bi-star-fill"></span>
-                            <span class="bi bi-star-fill"></span>
-                            <span class="bi bi-star-fill"></span>
-                            <span class="bi bi-star-fill"></span>
-                            <span class="bi bi-star"></span>
-                          </div> -->
-                          <div class="star-rating">
-                            <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product.rating); let i = index"></span>
-                            <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product.rating); let i = index"></span>
-                        </div>
-                        
-                          <!-- Product amount and cart icon -->
-                          <div class="price-and-cart">
-                            <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0'}}</span>
-                            <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
-                            <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- End of product cards -->
-                  </div>
-                </div>
-              </div>
+          </section>
+
+  <section *ngIf="products?.length > 0 && !loading && !productsError">
+    <div class="container">
+  
+      <div class="py-2" style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <p class="home-heading mt-3">Special Deals</p>
+        </div>
+        <div>
+          <p class="see-all mt-3">See All</p>
+        </div>
+          </div>
+  
+          <div class="row">
+            <div class="col-lg-4" style="background: url(/assets/Images/discount.png);">
+  
+            </div>
+            <div class="col-lg-8">
+              <div class="row">
+        <div class="col-lg-12">
+  <div class="product-container">
+    <div class="d-flex flex-nowrap mb-3">
+      <!-- Product cards -->
+      <div class="col-lg-auto" *ngFor="let product of products">
+        <div class="card border-0  products me-4 mb-2">
+          <!-- Placeholder background image -->
+          <div class="card-img-top placeholder-image" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
+            <!-- Love icon for wishlist -->
+            <span class="love-icon mt-2" (click)="toggleWishlist(product)"><i class="bi bi-heart"></i></span>
+            <!-- Product image -->
+            <img (click)="viewProduct(product?._id)" [src]="product?.image" alt="Product Image">
+          </div>
+          <div class="card-body">
+            <!-- Product name -->
+            <h5 class="card-title">
+              <div class="marquee" (click)="viewProduct(product?._id)">{{ product?.name }}</div>
+            </h5>
+            <!-- Star rating -->
+            <div class="star-rating">
+              <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
+              <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
+            </div>
+            <!-- Product amount and cart icon -->
+            <div class="price-and-cart">
+              <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0' }}</span>
+              <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
+              <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
             </div>
           </div>
         </div>
+      </div>
+      <!-- End of product cards -->
+    </div>
   </div>
+  
+  
+  
+  </div>
+  
+  
+  
+  
+        </div>
+ <div class="row">
+        <div class="col-lg-12">
+  <div class="product-container">
+    <div class="d-flex flex-nowrap mb-3">
+      <!-- Product cards -->
+      <div class="col-lg-auto" *ngFor="let product of products">
+        <div class="card border-0  products me-4 mb-2">
+          <!-- Placeholder background image -->
+          <div class="card-img-top placeholder-image" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
+            <!-- Love icon for wishlist -->
+            <span class="love-icon mt-2" (click)="toggleWishlist(product)"><i class="bi bi-heart"></i></span>
+            <!-- Product image -->
+            <img (click)="viewProduct(product?._id)" [src]="product?.image" alt="Product Image">
+          </div>
+          <div class="card-body">
+            <!-- Product name -->
+            <h5 class="card-title">
+              <div class="marquee" (click)="viewProduct(product?._id)">{{ product?.name }}</div>
+            </h5>
+            <!-- Star rating -->
+            <div class="star-rating">
+              <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
+              <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
+            </div>
+            <!-- Product amount and cart icon -->
+            <div class="price-and-cart">
+              <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0' }}</span>
+              <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
+              <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End of product cards -->
+    </div>
+  </div>
+  
+  
+  
+  </div>
+  
+  
+  
+  
+        </div>
+            </div>
+          </div>
+    </div>
+  </section>
 </section>
+
+
 
 <section class="mb-5 mt-3">
   <div class="container">
@@ -469,94 +552,96 @@
         <div class="row">
 
           <div class="col-lg-8">
-            <div class="row mb-3">
-              <div class="col-lg-12">
-                <div class="product-container">
-                  <div class="d-flex flex-nowrap mb-3">
-                    <!-- Product cards -->
-                    <div class="col-lg-auto" *ngFor="let product of products">
-                      <div class="card border-0 shadow-sm me-4">
-                        <!-- Placeholder background image -->
-                        <div class="card-img-top placeholder-image">
-                          <!-- Love icon for wishlist -->
-                          <span class="love-icon mt-2"><i class="bi bi-heart"></i></span>
-                          <!-- Product image -->
-                          <img (click)="viewProduct(product._id)" [src]="product?.image" alt="Product Image">
-                        </div>
-                        <div class="card-body">
-                          <!-- Product name -->
-                          <h5 class="card-title" (click)="viewProduct(product._id)">{{product.name}}</h5>
-                          <!-- Star rating -->
-                          <!-- <div class="star-rating">
-                            <span class="bi bi-star-fill"></span>
-                            <span class="bi bi-star-fill"></span>
-                            <span class="bi bi-star-fill"></span>
-                            <span class="bi bi-star-fill"></span>
-                            <span class="bi bi-star"></span>
-                          </div> -->
-                          <div class="star-rating">
-                            <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product.rating); let i = index"></span>
-                            <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product.rating); let i = index"></span>
-                        </div>
-                        
-                          <!-- Product amount and cart icon -->
-                          <div class="price-and-cart">
-                            <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0'}}</span>
-                            <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
-                            <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- End of product cards -->
-                  </div>
-                </div>
-              </div>
+            <div class="row">
+        <div class="col-lg-12">
+  <div class="product-container">
+    <div class="d-flex flex-nowrap mb-3">
+      <!-- Product cards -->
+      <div class="col-lg-auto" *ngFor="let product of products">
+        <div class="card border-0  products me-4 mb-2">
+          <!-- Placeholder background image -->
+          <div class="card-img-top placeholder-image" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
+            <!-- Love icon for wishlist -->
+            <span class="love-icon mt-2" (click)="toggleWishlist(product)"><i class="bi bi-heart"></i></span>
+            <!-- Product image -->
+            <img (click)="viewProduct(product?._id)" [src]="product?.image" alt="Product Image">
+          </div>
+          <div class="card-body">
+            <!-- Product name -->
+            <h5 class="card-title">
+              <div class="marquee" (click)="viewProduct(product?._id)">{{ product?.name }}</div>
+            </h5>
+            <!-- Star rating -->
+            <div class="star-rating">
+              <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
+              <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
             </div>
-            <div class="row mb-3 px-4">
-              <div class="col-lg-12">
-                <div class="product-container">
-                  <div class="d-flex flex-nowrap mb-3">
-                    <!-- Product cards -->
-                    <div class="col-lg-auto" *ngFor="let product of products">
-                      <div class="card border-0 shadow-sm me-4">
-                        <!-- Placeholder background image -->
-                        <div class="card-img-top placeholder-image">
-                          <!-- Love icon for wishlist -->
-                          <span class="love-icon mt-2"><i class="bi bi-heart"></i></span>
-                          <!-- Product image -->
-                          <img (click)="viewProduct(product._id)" [src]="product?.image" alt="Product Image">
-                        </div>
-                        <div class="card-body">
-                          <!-- Product name -->
-                          <h5 class="card-title" (click)="viewProduct(product._id)">{{product.name}}</h5>
-                          <!-- Star rating -->
-                          <!-- <div class="star-rating">
-                            <span class="bi bi-star-fill"></span>
-                            <span class="bi bi-star-fill"></span>
-                            <span class="bi bi-star-fill"></span>
-                            <span class="bi bi-star-fill"></span>
-                            <span class="bi bi-star"></span>
-                          </div> -->
-                          <div class="star-rating">
-                            <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product.rating); let i = index"></span>
-                            <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product.rating); let i = index"></span>
-                        </div>
-                        
-                          <!-- Product amount and cart icon -->
-                          <div class="price-and-cart">
-                            <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0'}}</span>
-                            <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
-                            <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- End of product cards -->
-                  </div>
-                </div>
-              </div>
+            <!-- Product amount and cart icon -->
+            <div class="price-and-cart">
+              <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0' }}</span>
+              <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
+              <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
             </div>
+          </div>
+        </div>
+      </div>
+      <!-- End of product cards -->
+    </div>
+  </div>
+  
+  
+  
+  </div>
+  
+  
+  
+  
+        </div>
+             <div class="row">
+        <div class="col-lg-12">
+  <div class="product-container">
+    <div class="d-flex flex-nowrap mb-3">
+      <!-- Product cards -->
+      <div class="col-lg-auto" *ngFor="let product of products">
+        <div class="card border-0  products me-4 mb-2">
+          <!-- Placeholder background image -->
+          <div class="card-img-top placeholder-image" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
+            <!-- Love icon for wishlist -->
+            <span class="love-icon mt-2" (click)="toggleWishlist(product)"><i class="bi bi-heart"></i></span>
+            <!-- Product image -->
+            <img (click)="viewProduct(product?._id)" [src]="product?.image" alt="Product Image">
+          </div>
+          <div class="card-body">
+            <!-- Product name -->
+            <h5 class="card-title">
+              <div class="marquee" (click)="viewProduct(product?._id)">{{ product?.name }}</div>
+            </h5>
+            <!-- Star rating -->
+            <div class="star-rating">
+              <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
+              <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
+            </div>
+            <!-- Product amount and cart icon -->
+            <div class="price-and-cart">
+              <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0' }}</span>
+              <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
+              <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End of product cards -->
+    </div>
+  </div>
+  
+  
+  
+  </div>
+  
+  
+  
+  
+        </div>
           </div>
           <div class="col-lg-4" style="background: url(/assets/Images/popular.png);">
 
@@ -569,7 +654,7 @@
 
 
 <!-- RECENTLY VIEW -->
-<section class="flash-sales py-3">
+<section class="flash-sales py-3" id="trending-products">
   <div class="container">
     <div class="py-2" style="display: flex; justify-content: space-between;">
   <div>
@@ -582,49 +667,50 @@
   
     <!-- Products -->
     <div class="row">
-      <div class="col-lg-12">
-        <div class="product-container">
-          <div class="d-flex flex-nowrap">
-            <!-- Product cards -->
-            <div class="col-lg-auto" *ngFor="let product of products">
-              <div class="card border-0 shadow-sm me-4">
-                <!-- Placeholder background image -->
-                <div class="card-img-top placeholder-image" >
-                  <!-- Love icon for wishlist -->
-                  <span class="love-icon mt-2"><i class="bi bi-heart"></i></span>
-                  <!-- Product image -->
-                  <img (click)="viewProduct(product._id)" [src]="product?.image" alt="Product Image">
-                </div>
-                <div class="card-body">
-                  <!-- Product name -->
-                  <h5 class="card-title" (click)="viewProduct(product._id)">{{product.name}}</h5>
-                  <!-- Star rating -->
-                  <!-- <div class="star-rating">
-                    <span class="bi bi-star-fill"></span>
-                    <span class="bi bi-star-fill"></span>
-                    <span class="bi bi-star-fill"></span>
-                    <span class="bi bi-star-fill"></span>
-                    <span class="bi bi-star"></span>
-                  </div> -->
-                  <div class="star-rating">
-                    <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product.rating); let i = index"></span>
-                    <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product.rating); let i = index"></span>
-                </div>
-                
-                  <!-- Product amount and cart icon -->
-                  <div class="price-and-cart">
-                    <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0'}}</span>
-                    <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
-                    <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
-                  </div>
-                </div>
-              </div>
+        <div class="col-lg-12">
+  <div class="product-container">
+    <div class="d-flex flex-nowrap mb-3">
+      <!-- Product cards -->
+      <div class="col-lg-auto" *ngFor="let product of products">
+        <div class="card border-0  products me-4 mb-2">
+          <!-- Placeholder background image -->
+          <div class="card-img-top placeholder-image" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
+            <!-- Love icon for wishlist -->
+            <span class="love-icon mt-2" (click)="toggleWishlist(product)"><i class="bi bi-heart"></i></span>
+            <!-- Product image -->
+            <img (click)="viewProduct(product?._id)" [src]="product?.image" alt="Product Image">
+          </div>
+          <div class="card-body">
+            <!-- Product name -->
+            <h5 class="card-title">
+              <div class="marquee" (click)="viewProduct(product?._id)">{{ product?.name }}</div>
+            </h5>
+            <!-- Star rating -->
+            <div class="star-rating">
+              <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
+              <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
             </div>
-            <!-- End of product cards -->
+            <!-- Product amount and cart icon -->
+            <div class="price-and-cart">
+              <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0' }}</span>
+              <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
+              <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
+            </div>
           </div>
         </div>
       </div>
+      <!-- End of product cards -->
     </div>
+  </div>
+  
+  
+  
+  </div>
+  
+  
+  
+  
+        </div>
     
     
   </div>
@@ -641,45 +727,46 @@
 
   <section class="py-5">
     <div class="">
-      <div class="row gx-3">
-        <div class="col-lg-1"></div>
-        <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
-          <div class="border p-3">
-            <!-- Content for Reasonable Prices -->
-            <h6 class="title"><span><img src="/assets/Images/cart.png" class="me-1" alt=""></span>Free Delivery</h6>
-            <p class="mb-0 px-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </div>
-        </div>
-        <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
-          <div class="border p-3">
-            <!-- Content for Worldwide Shipping -->
-            <h6 class="title"><span><img src="/assets/Images/secure.png" class="me-1" alt=""></span>100% Secure Payment</h6>
-            <p class="mb-0 px-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </div>
-        </div>
-        <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
-          <div class="border p-3">
-            <!-- Content for Best Ratings -->
-            <h6 class="title"><span><img src="/assets/Images/quality.png" class="me-1" alt=""></span> Quality Guarantee</h6>
-            <p class="mb-0 px-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </div>
-        </div>
-        <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
-          <div class="border p-3">
-            <!-- Content for Help Center -->
-            <h6 class="title"><span><img src="/assets/Images/saving.png" class="me-1" alt=""></span> Guaranteed Savings</h6>
-            <p class="mb-0 px-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-          </div>
-        </div>
-        <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
-          <div class="border p-3">
-            <!-- Content for Always Available -->
-            <h6 class="title"> <span><img src="/assets/Images/daily.png" class="me-1" alt=""></span>Daily offers</h6>
-            <p class="mb-0 px-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </div>
-        </div>
-        <div class="col-lg-1"></div>
-      </div>
+      <div class="row gx-3 listed">
+  <div class="col-lg-1"></div>
+  <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
+    <div class="border p-3">
+      <!-- Content for Reasonable Prices -->
+      <h6 class="title"><span><img src="/assets/Images/cart.png" class="me-1" alt=""></span>Free Delivery</h6>
+      <p class="mb-0 px-2">Get your order delivered to your shop for free.</p>
+    </div>
+  </div>
+  <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
+    <div class="border p-3">
+      <!-- Content for Worldwide Shipping -->
+      <h6 class="title"><span><img src="/assets/Images/secure.png" class="me-1" alt=""></span>100% Secure Payment</h6>
+      <p class="mb-0 px-2">Pay securely, conveniently and safely.</p>
+    </div>
+  </div>
+  <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
+    <div class="border p-3">
+      <!-- Content for Best Ratings -->
+      <h6 class="title"><span><img src="/assets/Images/quality.png" class="me-1" alt=""></span> Quality Guarantee</h6>
+      <p class="mb-0 px-2">Experience the best quality on every item purchase.</p>
+    </div>
+  </div>
+  <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
+    <div class="border p-3">
+      <!-- Content for Help Center -->
+      <h6 class="title"><span><img src="/assets/Images/saving.png" class="me-1" alt=""></span> Guaranteed Savings</h6>
+      <p class="mb-0 px-2">Shop smarter and Save big.</p>
+    </div>
+  </div>
+  <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
+    <div class="border p-3">
+      <!-- Content for Always Available -->
+      <h6 class="title"><span><img src="/assets/Images/daily.png" class="me-1" alt=""></span>Daily offers</h6>
+      <p class="mb-0 px-2">Look out for exciting offers and flash sales everyday!</p>
+    </div>
+  </div>
+  <div class="col-lg-1"></div>
+</div>
+
     </div>
   </section>
   

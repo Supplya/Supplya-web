@@ -47,7 +47,7 @@ export class ErrorHandlingInterceptor implements HttpInterceptor {
                   `,
          },
        });
-      return throwError("You're offline. No internet connection");
+      // return throwError("You're offline. No internet connection");
     }
 
     // Proceed with the HTTP request and handle errors

@@ -13,13 +13,13 @@ import { LoaderService } from 'src/app/shared/services/loader.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  products: any;
+  products: any = null;
   onSubmit: boolean = false;
   loading: boolean = false;
   AllAddedItems: any;
   categories: any;
   cart: any;
-  newArrivals: any;
+  newArrivals: any = null;
   constructor(
     private productService: ProductService,
     private loaderService: LoaderService,
@@ -40,22 +40,25 @@ export class HomeComponent implements OnInit {
     this.getAllFlashProducts();
   }
 
+  newArrivalLoading = false;
+  newArrivalError = false;
   getAllNewArrivals() {
+    this.newArrivalLoading = true;
     this.productService.getAllNewArrivals().subscribe(
       (data: any) => {
         this.newArrivals = data?.data;
-        this.loading = false;
+        this.newArrivalLoading = false;
       },
       (error) => {
-        this.loading = false;
-        this.loading = false;
-        this.notify.danger(error);
-
-        // Handle the error appropriately, for example, show a user-friendly error message.
+        this.newArrivalLoading = false;
+        this.newArrivalError = true;
       }
     );
   }
-
+  refreshNewArrival() {
+    this.newArrivalError = false;
+    this.getAllNewArrivals();
+  }
   shop() {
     this.route.navigate(['/core/operation/shop']);
     window.scrollTo(0, 0);
@@ -64,6 +67,7 @@ export class HomeComponent implements OnInit {
     this.route.navigate(['/auth/sign-up']);
     window.scrollTo(0, 0);
   }
+  productsError = false;
   getAllProducts() {
     this.loading = true;
 
@@ -74,32 +78,37 @@ export class HomeComponent implements OnInit {
       },
       (error) => {
         this.loading = false;
-        this.loading = false;
-        this.notify.danger(error.error.message);
-        console.error('Error fetching products:', error);
-
-        // Handle the error appropriately, for example, show a user-friendly error message.
+        this.productsError = false;
       }
     );
   }
-  flashProducts: any;
+  refreshProducts() {
+    this.getAllProducts();
+    this.productsError = false;
+  }
+  flashProducts: any = null;
+  flashProductLoading = false;
+  flashProductError = false;
   getAllFlashProducts() {
-    this.loading = true;
+    this.flashProductLoading = true;
 
     this.productService.getAllFlashProducts().subscribe(
       (data: any) => {
         this.flashProducts = data?.data;
-        this.loading = false;
+        this.flashProductLoading = false;
       },
       (error) => {
-        this.loading = false;
-        this.loading = false;
-        this.notify.danger(error.error.message);
-        console.error('Error fetching products:', error);
-
-        // Handle the error appropriately, for example, show a user-friendly error message.
+        this.flashProductLoading = false;
+        this.flashProductError = true;
       }
     );
+  }
+  refreshFlashProducts() {
+    this.flashProductError = false;
+    this.getAllFlashProducts();
+  }
+  toggleWishlist(product: any) {
+    product.isWishlisted = !product.isWishlisted;
   }
   getAllCategories() {
     this.loading = true;

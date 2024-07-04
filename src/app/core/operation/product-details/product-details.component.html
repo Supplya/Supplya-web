@@ -139,51 +139,53 @@
     <!-- Products -->
     <div class="row">
       <div class="col-lg-12">
-        <div class="product-container">
-          <div class="d-flex flex-nowrap">
-            <!-- Product cards -->
-            <div class="col-lg-auto" *ngFor="let product of products">
-              <div class="card border-0 shadow-sm me-4">
-                <!-- Placeholder background image -->
-                <div class="card-img-top placeholder-image" >
-                  <!-- Love icon for wishlist -->
-                  <span class="love-icon mt-2"><i class="bi bi-heart"></i></span>
-                  <!-- Product image -->
-                  <img (click)="viewProduct(product?._id)" [src]="product?.image" alt="Product Image">
-                </div>
-                <div class="card-body">
-                  <!-- Product name -->
-                  <h5 class="card-title" (click)="viewProduct(product?._id)">{{product?.name}}</h5>
-                  <!-- Star rating -->
-                  <!-- <div class="star-rating">
-                    <span class="bi bi-star-fill"></span>
-                    <span class="bi bi-star-fill"></span>
-                    <span class="bi bi-star-fill"></span>
-                    <span class="bi bi-star-fill"></span>
-                    <span class="bi bi-star"></span>
-                  </div> -->
-                  <div class="star-rating">
-                    <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
-                    <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
-                </div>
-                
-                  <!-- Product amount and cart icon -->
-                  <div class="price-and-cart">
-                    <span class="product-amount">{{ product?.price | currency: '₦' :'symbol':'1.0-0'}}</span>
-                    <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
-                    <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- End of product cards -->
+<div class="product-container">
+  <div class="d-flex flex-nowrap">
+    <!-- Product cards -->
+    <div class="col-lg-auto" *ngFor="let product of products">
+      <div class="card border-0  products me-4">
+        <!-- Placeholder background image -->
+        <div class="card-img-top placeholder-image" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
+          <!-- Love icon for wishlist -->
+          <span class="love-icon mt-2" (click)="toggleWishlist(product)"><i class="bi bi-heart"></i></span>
+          <!-- Product image -->
+          <img (click)="viewProduct(product?._id)" [src]="product?.image" alt="Product Image">
+        </div>
+        <div class="card-body">
+          <!-- Product name -->
+          <h5 class="card-title">
+            <div class="marquee">{{ product?.name }}</div>
+          </h5>
+          <!-- Star rating -->
+          <div class="star-rating">
+            <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
+            <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
+          </div>
+          <!-- Product amount and cart icon -->
+          <div class="price-and-cart">
+            <span class="product-amount">{{ product?.price | currency: '₦' :'symbol':'1.0-0' }}</span>
+            <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
+            <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
           </div>
         </div>
       </div>
     </div>
-    
-    
+    <!-- End of product cards -->
   </div>
+</div>
+
+
+
+</div>
+
+
+
+
+      </div>
+    </div>
+    
+    
+
   </section>
 
 <!-- PARTNERSHIP SECTION -->

@@ -228,40 +228,37 @@
 
 
 
-    <div class="below-bar ">
-        <div class="dropdown">
-            <a href="#" class="dropdown-toggle" id="categoriesDropdown" role="button" aria-expanded="false">
-                <i class="bi bi-list mt-3"></i> Categories
-            </a>
-            <ul class="dropdown-menu p-5" id="categoriesMenu" aria-labelledby="categoriesDropdown">
-                <div class="row">
-                    <div class="col-lg-4">
-    <!-- Dummy categories -->
-    <li><a class="dropdown-item" href="#">Category 1</a></li>
-    <li><a class="dropdown-item" href="#">Category 2</a></li>
-    <li><a class="dropdown-item" href="#">Category 3</a></li>
-    <li><a class="dropdown-item" href="#">Category 4</a></li>
-    <li><a class="dropdown-item" href="#">Category 5</a></li>
-    <li><a class="dropdown-item" href="#">Category 6</a></li>
-    <li><a class="dropdown-item" href="#">Category 7</a></li>
-                    </div>
-                    <div class="col-lg-8 bg-light"></div>
-                </div>
-            </ul>
+ <!-- Navbar component HTML -->
+<div class="below-bar">
+  <div class="dropdown">
+    <a href="#" class="dropdown-toggle" id="categoriesDropdown" role="button" aria-expanded="false">
+      <i class="bi bi-list mt-3"></i> Categories
+    </a>
+    <ul class="dropdown-menu p-5" id="categoriesMenu" aria-labelledby="categoriesDropdown">
+      <div class="row"  *ngFor="let item of categories">
+        <div class="col-12">
+          <li><a class="dropdown-item border-bottom cursor-pointer">{{item?.name}}</a></li>
+
         </div>
-        <div>
-            <ul class="mt-3" style="list-style: none; padding: 0; display: flex; justify-content: center; gap: 60px;">
-                <li><a href="#">New Arrivals</a></li>
-                <li><a href="#">Bundle Deals</a></li>
-                <li><a href="#">Trending Products</a></li>
-            </ul>
-        </div>
-        <div>
-            <ul class="mt-3" style="list-style: none; padding: 0; display: flex; justify-content: flex-end;">
-                <li><a href="#">Help</a></li>
-            </ul>
-        </div>
-    </div>
+        <!-- <div class="col-lg-8 bg-light"></div> -->
+      </div>
+    </ul>
+  </div>
+  <div>
+    <ul class="mt-3" style="list-style: none; padding: 0; display: flex; justify-content: center; gap: 60px;">
+      <li><a href="#new-arrivals" class="scroll-link">New Arrivals</a></li>
+      <li><a href="#flash-products" class="scroll-link">Flash Products</a></li>
+      <li><a href="#bundle-deals" class="scroll-link">Bundle Deals</a></li>
+      <li><a href="#trending-products" class="scroll-link">Trending Products</a></li>
+    </ul>
+  </div>
+  <div>
+    <ul class="mt-3" style="list-style: none; padding: 0; display: flex; justify-content: flex-end;">
+      <li><a href="#">Help</a></li>
+    </ul>
+  </div>
+</div>
+
 </section>
 
 

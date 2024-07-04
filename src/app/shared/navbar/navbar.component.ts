@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/authentication/service/auth.service';
 import { CartService } from 'src/app/core/operation/services/cart/cart.service';
+import { ProductService } from 'src/app/core/operation/services/product/product.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,13 +16,15 @@ export class NavbarComponent implements OnInit {
   constructor(
     private route: Router,
     private authService: AuthService,
-    private cartService: CartService
+    private cartService: CartService,
+    private renderer: Renderer2,
+    private productService: ProductService
   ) {
     this.cartService.getCartObservable().subscribe((newCart) => {
       this.cartQuantity = newCart.totalCount;
       const newQuantity = newCart.totalCount;
-      console.log(this.cartQuantity, 'newQuantity');
-      console.log(newCart, 'newCart');
+      // console.log(this.cartQuantity, 'newQuantity');
+      // console.log(newCart, 'newCart');
 
       this.previousCartQuantity = newQuantity; // Update previous quantity
     });
@@ -30,16 +33,41 @@ export class NavbarComponent implements OnInit {
   userDetails: any = null;
   ngOnInit(): void {
     this.userDetails = this.authService.getUserCredentials();
+    this.renderer.listen('window', 'click', (e: Event) => {
+      const target = e.target as HTMLElement;
+      if (target.classList.contains('scroll-link')) {
+        e.preventDefault();
+        const elementId = target.getAttribute('href')?.substring(1);
+        if (elementId) {
+          const element = document.getElementById(elementId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }
+    });
+    this.getAllCategories();
+  }
+  loading;
+  categories;
+  getAllCategories() {
+    this.loading = true;
 
-    // this.authService.isLoggedIn().subscribe((loggedIn: boolean) => {
-    //   if (loggedIn) {
-    //     this.userDetails = this.authService.getUserCredentials();
-    //     this.isLoggedIn = true;
-    //   } else {
-    //     this.isLoggedIn = false;
-    //     console.log('User is not logged in');
-    //   }
-    // });
+    this.productService.getAllCategories().subscribe(
+      (data: any) => {
+        if (data.status) {
+          this.categories = data?.data;
+          console.log(this.categories)
+          this.loading = false;
+        }
+      },
+      (error) => {
+        this.loading = false;
+        // this.notify.danger(error);
+        console.error('Error fetching categories:', error);
+        // Handle the error appropriately, for example, show a user-friendly error message.
+      }
+    );
   }
 
   capitalizeFirstLetter(value: string): string {

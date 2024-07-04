@@ -1,5 +1,4 @@
- /* HERO SECTION */
- @import '/src//variables';
+
  .heroLeft h6 {
     font-size: 14px;
     font-weight: 500;
@@ -90,121 +89,41 @@ text-decoration: underline;
 }
 
 
-.flash-sales .card {
-    width: 18rem;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-}
-
-.placeholder-image {
-    height: 200px;
-    background-color: #fff;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid #cccccc6a;
-    border-top: 1px solid #cccccc6a;
-    margin-top: 7px;
-    //  box-shadow: 0px 3.67px 27.55px 0px #2E2D740D;
-}
-
-.placeholder-image img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: cover; /* or object-fit: contain; */
-}
-
-.love-icon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #fff; /* White background color */
-    border-radius: 50%; /* Make it round */
-    padding: 10px; /* Equal padding on all sides */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-}
-
-.love-icon i {
-    color: #000; /* Black color for the icon */
-    font-size: 17px; /* Adjust font size as needed */
-    line-height: 1; /* Ensure icon is vertically centered */
-}
 
 
-.star-rating {
-    color: #ffc107; /* Color for the star icons */
-    margin-bottom: 10px;
+.listed{
+    .row {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.price-and-cart {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.col-lg-2,
+.col-md-4,
+.col-sm-6 {
+  display: flex;
+  align-items: stretch;
 }
 
-.product-amount {
-font-size: 22px;
-font-weight: 500;
-line-height: 25px;
-letter-spacing: 0.0038em;
-color: var(--primary-color);
-
+.border {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
 }
 
-.cart-icon {
-    
-    color: #fff;
-    background-color: var(--primary-color);
-    border-radius: 50%;
-    padding: 20px; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
 }
-.product-container {
-    overflow-x: auto;
-    white-space: nowrap;
-  }
-  .card-title{
-    cursor: pointer;
-  }
-  .card-img-top{
-    cursor: pointer;
-  }
-
-.cart-icon i{
-    font-size: 24px;
-}
-.cart-icon .view{
-    font-size: 15px!important;
-}
-.flash-sales .card-title{
-font-size: 20px;
-font-weight: 400;
-line-height: 24px;
+@media screen and (max-width: 767px) {
+ .home-heading{
+font-size: 25px;
+font-weight: 600;
+line-height: 38.4px;
 text-align: left;
 color: #000;
-cursor: pointer;
-overflow: hidden;
-white-space: nowrap;
-text-overflow: ellipsis;
 
 }
 
-.deals{
-
 }
+
 
 .deals .deals-heading{
 color: white;
@@ -254,7 +173,8 @@ line-height: 28.8px;
 
 .discount {
     border-radius: 20px;
-    background-color: #{$primary-color}1A;
+    background-color: var(--primary-color)1A;
+   
 }
 
 .discount h5 {
@@ -312,7 +232,7 @@ line-height: 28.8px;
     align-items: center!important;
 }
 .retail-mobile {
-   background-color: #{$primary-color};
+   background-color: var(--primary-color);
    border-radius: 30px 30px 30px 30px !important;
 }
 
