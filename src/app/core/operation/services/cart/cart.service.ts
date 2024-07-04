@@ -79,7 +79,8 @@ export class CartService {
 
   private setCartToLocalStorage(): void {
     this.cart.totalPrice = this.cart.items.reduce(
-      (prevSum, currentItem) => prevSum + currentItem.quantity * currentItem.product.price,
+      (prevSum, currentItem) =>
+        prevSum + currentItem.quantity * currentItem.product.unit_price,
       0
     );
     this.cart.totalCount = this.cart.items.reduce(
@@ -116,7 +117,7 @@ export class CartService {
     let cartItem = this.cart.items.find((item) => item.product._id === foodId);
     if (!cartItem) return;
     cartItem.quantity = quantity;
-    cartItem.price = quantity * cartItem.product.price;
+    cartItem.price = quantity * cartItem.product.unit_price;
     this.setCartToLocalStorage();
 
   }

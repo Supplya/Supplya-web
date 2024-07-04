@@ -5,7 +5,7 @@
 
 
 <!-- PRODUCT DETAILS -->
-<section class="py-5">
+<section class="">
     <div class="container py-2">
 <div class="row product">
     <div class="col-lg-1"></div>
@@ -48,7 +48,7 @@
              
                 <div class="d-flex justify-content-between border-bottom">
 
-                <h6 >{{ product?.price |
+                <h6 >{{ product?.unit_price  |
                   currency: '₦' :'symbol':'1.0-0'}}</h6>
                   <p class="fw-bold">Minimum Order: <span class="mini"> {{ product?.moq }}</span></p>
                 </div>
@@ -163,7 +163,7 @@
           </div>
           <!-- Product amount and cart icon -->
           <div class="price-and-cart">
-            <span class="product-amount">{{ product?.price | currency: '₦' :'symbol':'1.0-0' }}</span>
+            <span class="product-amount">{{ product?.unit_price  | currency: '₦' :'symbol':'1.0-0' }}</span>
             <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
             <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
           </div>

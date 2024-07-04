@@ -41,7 +41,7 @@ resetLink="RETURN TO SHOP"></app-no-data-available>
                     <!-- FOR MOBILE -->
                     <p class="mb-0 tag  mobile-only"> <span class="text-dark  fs-5 ">{{item.price || 0 | currency: '₦'
                         :'symbol':'1.0-0'}}</span></p>
-                        <small class="text-muted text-nowrap mobile-only"> {{item.product.price || 0 | currency: '₦'
+                        <small class="text-muted text-nowrap mobile-only"> {{item.product.unit_price || 0 | currency: '₦'
                           :'symbol':'1.0-0'}} / per item </small>
 
                     <div class="py-3 mobile-only ">
@@ -66,7 +66,7 @@ resetLink="RETURN TO SHOP"></app-no-data-available>
               <!-- Price -->
               <!-- FOR LARGE SCREEN -->
               <div class="col-lg-2 text-center align-self-center">
-                <p class="price d-lg-block d-none mt-2"> {{item.product.price || 0 | currency: '₦' :'symbol':'1.0-0'}}
+                <p class="price d-lg-block d-none mt-2"> {{item.product.unit_price || 0 | currency: '₦' :'symbol':'1.0-0'}}
                </p> 
               
               </div>
