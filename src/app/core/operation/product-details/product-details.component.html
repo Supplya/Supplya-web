@@ -49,18 +49,18 @@
       </div>
     </div>
     <div class="col-lg-6 align-items-center">
-      <h5 class="">{{ product?.name }}</h5>
+      <h5 class="name">{{ product?.name }}</h5>
       <div class="star-rating">
         <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
         <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
         <span class="text-black"> &nbsp; | &nbsp;</span>
-        <span [ngClass]="{ 'stock': product?.status === 'inStock', 'text-danger': product?.status !== 'inStock' }">
+        <span style="font-size: 16px;" class="fw-bold" [ngClass]="{ 'stock': product?.status === 'inStock', 'text-danger': product?.status !== 'inStock' }">
           {{ product?.status === 'inStock' ? 'In Stock' : 'Out of Stock' }}
         </span>
       </div>
-      <div class="d-flex justify-content-between border-bottom mt-2">
+      <div class="price-min border-bottom mt-2">
         <h6>{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0' }}</h6>
-        <p style="font-size: 17px;" class="fw-bold">Minimum Order Quantity: <span class="mini">{{ product?.moq }}</span></p>
+        <p >Minimum Order Quantity: <span class="mini">{{ product?.moq }}</span></p>
       </div>
       <!-- Description -->
       <div class="py-3">
