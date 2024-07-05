@@ -5,6 +5,7 @@ export class Product {
   image!: string;
   description!: string;
   rating!: string;
+  sku!: string;
   quantity!: number;
   price!: number;
   unit_price!: number;

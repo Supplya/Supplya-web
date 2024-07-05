@@ -1,112 +1,83 @@
 <app-navbar></app-navbar>
-<app-breadcrumb currentPageLink="Shopping Cart" previousLink="Shop"></app-breadcrumb>
+
 <app-no-data-available  [visible]="!cart || !cart.items.length" notFoundMessage="Your cart is currently empty."
 resetLink="RETURN TO SHOP"></app-no-data-available>
 
 
-<section class="py-5" style="display: flex; justify-content: center;" *ngIf="cart && cart.items.length">
+<section class="" style="display: flex; justify-content: center;" *ngIf="cart && cart.items.length">
 
 
-  <div class="container my-5 cart">
+  <div class="container  cart">
     <div class="row">
       <div class="col-lg-1"></div>
       <div class="col-lg-10">
-        <div class="row">
-          <!-- Cart Items Column -->
-          <div class="col-lg-8 ">
-            <h4 class="mb-4">Cart Items ({{cart.items.length}})</h4>
-           
-         
+        <app-breadcrumb currentPageLink="Shopping Cart" previousLink="Shop"></app-breadcrumb>
+        <div class="row py-5">
+ <!-- Cart Items Column -->
+<div class="col-lg-8">
+  <h4 class="mb-4">Cart Items ({{cart.items.length}})</h4>
 
-
-
-            <!-- Product 2 -->
-            <div class="row mb-4 border-bottom" *ngFor="let item of cart.items">
-              <!-- Product Image Column -->
-              <div class="col-lg-5 position-relative cart-product-img ">
-                <!-- Remove Icon -->
-                <span class="position-absolute top-0 start-1">
-                  <button class="btn" title="Remove this item" (click)="removeFromCart(item)">X</button>
-                </span>
-                <!-- Product Image -->
-                <div class="d-flex justify-content-start ">
-
-                  <img src="/assets/Images/Rectangle 134.png" style="width: 96px; height: 96px; margin-right: 10px;"
-                    alt="Product Image" class="img-fluid img-thumbnail mb-2">
-                  <!-- Product Details -->
-                  <div class="mt-2">
-                    <h5 class="mb-1 title">{{item.product.name}}</h5>
-                    <p class="mb-1 tag">Color: <span class="text-primary">Red</span></p>
-                    <p class="mb-0 tag">Size: <span class="text-primary">XL</span></p>
-                    <!-- FOR MOBILE -->
-                    <p class="mb-0 tag  mobile-only"> <span class="text-dark  fs-5 ">{{item.price || 0 | currency: '₦'
-                        :'symbol':'1.0-0'}}</span></p>
-                        <small class="text-muted text-nowrap mobile-only"> {{item.product.unit_price || 0 | currency: '₦'
-                          :'symbol':'1.0-0'}} / per item </small>
-
-                    <div class="py-3 mobile-only ">
-
-                      <div class="quantity-selector-mobile ">
-
-                        <!-- <button (click)="changeQuantity(-1, cartItem)" class="quantity-button">-</button>
-<input type="number" [(ngModel)]="cartItem.quantity" readonly class="quantity-input no-border-padding form-control">
-<button (click)="changeQuantity(1, cartItem)" class="quantity-button">+</button> -->
-
-                        <button (click)="changeQuantity(-1, item)" class="quantity-button">-</button>
-                        <input type="number" [(ngModel)]="item.quantity" readonly
-                          class="quantity-input no-border-padding form-control">
-                        <button (click)="changeQuantity(1, item)" class="quantity-button">+</button>
-
-                      </div>
-                    </div>
-                    <!-- FOR MOBILE END -->
-                  </div>
-                </div>
-              </div>
-              <!-- Price -->
-              <!-- FOR LARGE SCREEN -->
-              <div class="col-lg-2 text-center align-self-center">
-                <p class="price d-lg-block d-none mt-2"> {{item.product.unit_price || 0 | currency: '₦' :'symbol':'1.0-0'}}
-               </p> 
-              
-              </div>
-              <!-- Quantity -->
-              <div class="col-lg-3 d-flex justify-content-center align-items-center">
-                <!-- FOR LARGE SCREEN                    -->
-
-                <div class="d-lg-block d-none">
-
-                  <div class="quantity-selector ">
-
-                    <button (click)="changeQuantity(-1, item)" class="quantity-button">-</button>
-                    <input type="number" [(ngModel)]="item.quantity" readonly
-                      class="quantity-input no-border-padding form-control">
-                    <button (click)="changeQuantity(1, item)" class="quantity-button">+</button>
-
-                    <!-- <button (click)="changeQuantity(-1, quantity)" class="quantity-button">-</button>
-                    <input type="number" [(ngModel)]="item.quantity" readonly
-                      class="quantity-input no-border-padding form-control">
-                    <button (click)="changeQuantity(1, quantity)" class="quantity-button">+</button> -->
-                  </div>
-                </div>
-              </div>
-              <!-- Total -->
-              <div class="col-lg-2 text-center align-self-center">
-                <!-- <p class="price  d-none d-lg-block"> $70,000.00</p> -->
-                <p class="price d-lg-block d-none mt-2"> {{item.price || 0 | currency: '₦' :'symbol':'1.0-0'}}</p>
-
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-end clear-section mb-3">
-
-              <button class="btn" (click)="clearCart()">Clear Cart</button>
-            </div>
+  <!-- Product Items -->
+  <div class="mb-2 border-bottom" *ngFor="let item of cart.items">
+    <!-- Product Container -->
+    <div class="d-flex ">
+      <!-- Product Image Column -->
+      <div class="flex-shrink-0 img-sec">
+        <div class="image-container" style="height: 100%;">
+          <img src="/assets/Images/Rectangle 134.png" alt="Product Image" class="img-fluid  h-100">
+        </div>
+      </div>
+      <!-- Product Details -->
+      <div class="flex-grow-1 p-3 cart-contain">
+        <!-- First Row: Product Name and Remove Icon -->
+        <div class="d-flex justify-content-between">
+          <div>
+            <h5 class="mb-1">{{item.product.name}}</h5>
+            <p  class="mb-1 ">Seller: <span class="text-primary">{{item.product?.createdBy?.storeUrl}}</span></p>
+            <p class="mb-1">SKU: <span>{{item?.product?.sku}}</span></p>
           </div>
+          <div class="text-center">
+            <button class="btn" style="font-size: 25px;" title="Remove this item" (click)="removeFromCart(item)">X</button>
+            <p class="mt-2" style="font-size: 20px; font-weight: 400;">{{item.price || 0 | currency: '₦' :'symbol':'1.0-0'}}</p>
+          </div>
+        </div>
+        <!-- Second Row: Controls, Unit Price, and Product Status -->
+        <div class="d-flex justify-content-between align-items-center">
+          <!-- Controls -->
+
+           <div class="quantity-control">
+          <button (click)="changeQuantity(-1, item)" class="">-</button>
+          <span class="quantity" [(ngModel)]="item.quantity">{{ item.quantity }}</span>
+          <button (click)="changeQuantity(1, item)" class=" ">+</button>
+        </div>
+          <!-- <div class="d-flex align-items-center">
+            <button (click)="changeQuantity(-1, item)" class="quantity-button">-</button>
+            <input type="number" [(ngModel)]="item.quantity" readonly class="quantity-input no-border-padding form-control mx-2">
+            <button (click)="changeQuantity(1, item)" class="quantity-button">+</button>
+          </div> -->
+          <!-- Unit Price -->
+          <div>
+            <p class="mb-0  text-primary" style="font-size: 16px; font-weight: 500;">{{item.product.unit_price || 0 | currency: '₦' :'symbol':'1.0-0'}} / Per item</p>
+          </div>
+          <!-- Product Status -->
+          <div>
+            <p [ngClass]="{ 'stock': item.product?.status === 'inStock', 'text-danger': item.product?.status !== 'inStock' }" class="mb-0 ">{{item.product?.status === 'inStock' ? 'In Stock' : 'Out of Stock'}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-end clear-section mb-3">
+    <button class="btn" (click)="clearCart()">Clear Cart</button>
+  </div>
+</div>
+
+
 
           <!-- Cart Totals Column -->
           <div class="col-lg-4 text-center">
-            <h4 class="heading mb-5">Cart Totals</h4>
+            <h4 class="heading mb-5"></h4>
 
             <div class="card shadow-0 border total">
 
