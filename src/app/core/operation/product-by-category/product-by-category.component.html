@@ -1,6 +1,8 @@
 <app-navbar></app-navbar>
 
 <app-breadcrumb currentPageLink="{{category}}" previousLink="Shop"></app-breadcrumb>
+<app-no-data-available  [visible]="!products?.length && !loading && !productsError" notFoundMessage="Not product found for this category"
+resetLink="RETURN TO SHOP"></app-no-data-available>
 
 <section class="row" *ngIf="loading && !products && !productsError">
    <div class="py-5 p-5 center">

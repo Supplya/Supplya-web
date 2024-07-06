@@ -50,13 +50,13 @@ export class ProductByCategoryComponent {
   }
   refreshProducts() {
     this.getAllProducts();
-    this.productsError;
+    this.productsError = false;
   }
   getAllProducts() {
     this.loading = true;
 
-    this.productService.getAllProducts().subscribe(
-      // this.productService.getProductByCategory(this.category).subscribe(
+    // this.productService.getAllProducts().subscribe(
+      this.productService.getProductByCategory(this.category).subscribe(
       (data: any) => {
         this.products = data?.data;
         console.log(this.products, 'getCartObservable');
