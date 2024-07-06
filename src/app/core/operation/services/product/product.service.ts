@@ -21,7 +21,7 @@ export class ProductService {
   products!: Product;
 
   addNewProduct(product: any): Observable<any> {
-    return this.http.post<any>(`${this.productUrl}`, product);
+    return this.http.post<any>(`${this.productUrl}products/create`, product);
   }
   vendorAddProduct(product: any): Observable<any> {
     return this.http.post<any>(`${this.productUrl}products/create`, product);
