@@ -237,7 +237,7 @@
     <ul class="dropdown-menu p-5" id="categoriesMenu" aria-labelledby="categoriesDropdown">
       <div class="row"  *ngFor="let item of categories">
         <div class="col-12">
-          <li><a class="dropdown-item border-bottom cursor-pointer">{{item?.name}}</a></li>
+          <li><a routerLink="/core/operation/products/{{item?.name}}" class="dropdown-item border-bottom cursor-pointer">{{item?.name}}</a></li>
 
         </div>
         <!-- <div class="col-lg-8 bg-light"></div> -->

@@ -6,29 +6,42 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { ShippingInfoComponent } from './shipping-info/shipping-info.component';
 import { OrderCompletedComponent } from './order-completed/order-completed.component';
 import { ProductCategoryComponent } from './product-category/product-category.component';
+import { ProductByCategoryComponent } from './product-by-category/product-by-category.component';
 
 const routes: Routes = [
   {
-    path: '', redirectTo: 'shop', pathMatch: 'full'
+    path: '',
+    redirectTo: 'shop',
+    pathMatch: 'full',
   },
   {
-    path: 'shop', component: ShopComponent,
+    path: 'shop',
+    component: ShopComponent,
   },
   {
-    path: 'product-details/:id', component: ProductDetailsComponent
+    path: 'product-details/:id',
+    component: ProductDetailsComponent,
   },
   {
-    path: 'category/:id', component: ProductCategoryComponent
+    path: 'category/:id',
+    component: ProductCategoryComponent,
   },
   {
-    path: 'shopping-cart', component: ShoppingCartComponent
+    path: 'products/:category',
+    component: ProductByCategoryComponent,
   },
   {
-    path: 'checkout', component: ShippingInfoComponent
+    path: 'shopping-cart',
+    component: ShoppingCartComponent,
   },
   {
-    path: 'order-completed', component: OrderCompletedComponent
-  }
+    path: 'checkout',
+    component: ShippingInfoComponent,
+  },
+  {
+    path: 'order-completed',
+    component: OrderCompletedComponent,
+  },
 ];
 
 @NgModule({

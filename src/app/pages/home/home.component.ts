@@ -107,12 +107,9 @@ export class HomeComponent implements OnInit {
     this.flashProductError = false;
     this.getAllFlashProducts();
   }
-  toggleWishlist(product: any) {
-    product.isWishlisted = !product.isWishlisted;
-  }
   getAllCategories() {
     this.loading = true;
-
+    
     this.productService.getAllCategories().subscribe(
       (data: any) => {
         if (data.status) {
@@ -129,6 +126,9 @@ export class HomeComponent implements OnInit {
         // Handle the error appropriately, for example, show a user-friendly error message.
       }
     );
+  }
+  toggleWishlist(product: any) {
+    product.isWishlisted = !product.isWishlisted;
   }
   ifAddedToCart(product: any): boolean {
     const cartItem = this.AllAddedItems.find(

@@ -35,6 +35,9 @@ export class ProductService {
       `${this.productUrl}products/${id}/get-related`
     );
   }
+  getProductByCategory(name: any): Observable<any> {
+    return this.http.get<any>(`${this.productUrl}/products/category/${name}`);
+  }
 
 
   getAllProducts(): Observable<Product[]> {

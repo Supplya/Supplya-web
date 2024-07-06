@@ -1,0 +1,129 @@
+<app-navbar></app-navbar>
+
+<app-breadcrumb currentPageLink="{{category}}" previousLink="Shop"></app-breadcrumb>
+
+<section class="row" *ngIf="loading && !products && !productsError">
+   <div class="py-5 p-5 center">
+       <div>
+   
+           <img style="height: 100px;" src="/assets/Images/requestLoading.gif" alt="">
+           <p class="loading-text text-center text-muted">Loading...</p>
+       </div>
+   </div>
+         </section >
+   
+         <section class=" center" *ngIf="!products && !loading && productsError">
+           <div class="py-5 ">
+             <div class="py-3 text-center" >
+               <img src="/assets/Images/oops.png" style="height: 100px;" alt="">
+               <p class="loading-text  text-muted py-3">Could not display products. Click 'Refresh' to try again.
+           </p>
+               <p class="refresh" (click)="refreshProducts()">Refresh <i class="bi bi-arrow-repeat"></i></p>
+             </div>
+           </div>
+         </section>
+
+
+<div class="container mt-4" *ngIf="products?.length > 0 && !loading && !productsError">
+
+ <div class="row">
+  <!-- Filter Options Column -->
+  <div class="col-lg-3 filter-column" style="border-right: 1px solid #ccc;">
+    <h5 class="filter-heading mb-5">Filter Option</h5>
+    <div class="filter-option ">
+      <!-- <div class="category">
+        <h3>Subcategories</h3>
+        <ul>
+          <li>Electronics & Gadgets</li>
+          <li>Home</li>
+          <li>Accessories</li>
+          <li>Men</li>
+          <li>Women</li>
+          <li>Shoes</li>
+        </ul>
+      </div> -->
+
+      <div class="price-range">
+        <h3>Unit Price</h3>
+        <input type="range" [min]="unitPriceMin" [max]="unitPriceMax" step="1" [(ngModel)]="unitPriceMax" (input)="updateUnitPriceInput()" class="slider" id="unitPriceRange">
+        <div class="range-inputs">
+          <input type="number" [(ngModel)]="unitPriceMin" readonly>
+          <input type="number" [(ngModel)]="unitPriceMax" (input)="updateUnitPriceRange()">
+        </div>
+      </div>
+
+      <div class="price-range">
+        <h3>Minimum Order</h3>
+        <input type="range" [min]="minOrderMin" [max]="minOrderMax" step="1" [(ngModel)]="minOrderMax" (input)="updateMinOrderInput()" class="slider" id="minOrderRange">
+        <div class="range-inputs">
+          <input type="number" [(ngModel)]="minOrderMin" readonly>
+          <input type="number" [(ngModel)]="minOrderMax" (input)="updateMinOrderRange()">
+        </div>
+      </div>
+
+      <button (click)="applyFilters()">Apply</button>
+    </div>
+  </div>
+
+  <!-- Product Items Column -->
+  <div class="col-lg-9 product-column">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div>
+        <span>Page 1</span>
+      </div>
+      <div>
+        <select class="content-select" aria-label="Sort by">
+          <option selected>High to low price</option>
+          <option value="1">Low to high price</option>
+          <option value="2">Best sellers</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="product-container-custom">
+          <div class="row">
+            <!-- Product cards -->
+            <div class="col-lg-4 col-md-4 col-6 mb-4" *ngFor="let product of products">
+              <div class="card border-0 products">
+                <!-- Placeholder background image -->
+                <div class="card-img-top placeholder-image" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
+                  <!-- Love icon for wishlist -->
+                  <span class="love-icon mt-2" (click)="toggleWishlist(product)"><i class="bi bi-heart"></i></span>
+                  <!-- Product image -->
+                  <img (click)="viewProduct(product?._id)" [src]="product?.image" alt="Product Image">
+                </div>
+                <div class="card-body">
+                  <!-- Product name -->
+                  <h5 class="card-title">
+                    <div class="marquee" (click)="viewProduct(product?._id)">{{ product?.name }}</div>
+                  </h5>
+                  <!-- Star rating -->
+                  <div class="star-rating">
+                    <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
+                    <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
+                  </div>
+                  <!-- Product amount and cart icon -->
+                  <div class="price-and-cart">
+                    <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0' }}</span>
+                    <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
+                    <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End of product cards -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+
+
+<app-footer></app-footer>

@@ -1,0 +1,163 @@
+/* Page Styles */
+.page-heading {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.breadcrumb {
+  background: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: '>';
+}
+
+/* Filter Section */
+.filter-heading {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.filter-section {
+  margin-bottom: 20px;
+}
+
+.filter-section h6 {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.filter-section ul {
+  padding-left: 0;
+}
+
+.filter-section ul li {
+  list-style: none;
+  margin-bottom: 10px;
+}
+
+.filter-section ul li input {
+  margin-right: 10px;
+}
+
+/* Product Card */
+.card {
+  border: none;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card-img-top {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.card-text {
+  font-size: 14px;
+  color: #555;
+}
+
+.card-footer {
+  background: none;
+  border-top: none;
+}
+
+.pagination {
+  margin-top: 20px;
+}
+
+.page-link {
+  color: #000;
+}
+
+.page-link:hover {
+  color: #007bff;
+}
+
+
+.filter-option {
+//   padding: 20px;
+//   background: #f9f9f9;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.category h3,
+.price-range h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.category ul {
+  list-style: none;
+  padding: 0;
+}
+
+.category ul li {
+  margin-bottom: 5px;
+}
+
+.price-range .slider {
+  width: 100%;
+}
+
+.range-inputs {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.range-inputs input {
+  width: 48%;
+  padding: 10px 12px;
+  border: 1px solid #8B8B8B;
+  border-radius: 20px;
+}
+
+button {
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+button:hover {
+//   background: darken(var(--primary-color), 10%);
+}
+
+.filter-column {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  padding-right: 20px;
+//   background-color: #f8f9fa;
+}
+
+
+.product-column {
+  height: 100vh;
+  overflow-y: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.product-column::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari, and Opera */
+}
