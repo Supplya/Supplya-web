@@ -27,7 +27,11 @@ const routes: Routes = [
     component: ProductCategoryComponent,
   },
   {
-    path: 'products/:category',
+    path: 'products/category/:category',
+    component: ProductByCategoryComponent,
+  },
+  {
+    path: 'products/keyword/:keyword',
     component: ProductByCategoryComponent,
   },
   {

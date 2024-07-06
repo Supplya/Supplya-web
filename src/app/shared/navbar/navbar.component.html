@@ -164,12 +164,13 @@
         </div>
 
         <!-- Search Section -->
-        <div class="search-section flex-grow-1 mx-3">
-            <form class="d-flex position-relative">
-                <i for="search" style="color: var(--primary-color)!important; padding: 4px 15px;" class="cursor-pointer bi bi-search position-absolute top-50 start-0 translate-middle-y ms-2"></i>
-                <input id="search" type="text" class="form-control ps-5" placeholder="Search for product" aria-label="Search" aria-describedby="basic-addon1">
-            </form>
-        </div>
+       <div class="search-section flex-grow-1 mx-3">
+  <form (ngSubmit)="onSearch()" class="d-flex position-relative">
+    <i style="color: var(--primary-color)!important; padding: 4px 15px;" class="cursor-pointer bi bi-search position-absolute top-50 start-0 translate-middle-y ms-2"></i>
+    <input [(ngModel)]="searchTerm" name="search" id="search" type="text" class="form-control ps-5" placeholder="Search for product" aria-label="Search" aria-describedby="basic-addon1">
+  </form>
+</div>
+
 
         <!-- Menu Options Section -->
         <div class="menu-options d-flex align-items-center">
@@ -237,7 +238,7 @@
     <ul class="dropdown-menu p-5" id="categoriesMenu" aria-labelledby="categoriesDropdown">
       <div class="row"  *ngFor="let item of categories">
         <div class="col-12">
-          <li><a routerLink="/core/operation/products/{{item?.name}}" class="dropdown-item border-bottom cursor-pointer">{{item?.name}}</a></li>
+          <li><a routerLink="/core/operation/products/category/{{item?.name}}" class="dropdown-item border-bottom cursor-pointer">{{item?.name}}</a></li>
 
         </div>
         <!-- <div class="col-lg-8 bg-light"></div> -->

@@ -34,14 +34,20 @@ export class ProductByCategoryComponent {
       this.AllAddedItems = cart.items;
     });
   }
-  category;
+
   productsError;
+  category: string | null = null;
+  keyword: string | null = null;
   ngOnInit(): void {
     this.router.paramMap.subscribe((params) => {
       this.category = params.get('category');
+      this.keyword = params.get('keyword');
+
       if (this.category) {
+        this.getAllProducts();
+      } else if (this.keyword) {
+        this.searchProducts();
       }
-      this.getAllProducts();
     });
     this.unitPriceMin = this.getMinUnitPrice();
     this.unitPriceMax = this.getMaxUnitPrice();
@@ -56,7 +62,23 @@ export class ProductByCategoryComponent {
     this.loading = true;
 
     // this.productService.getAllProducts().subscribe(
-      this.productService.getProductByCategory(this.category).subscribe(
+    this.productService.getProductByCategory(this.category).subscribe(
+      (data: any) => {
+        this.products = data?.data;
+
+        this.loading = false;
+      },
+      (error) => {
+        this.loading = false;
+        this.productsError = false;
+      }
+    );
+  }
+  searchProducts() {
+    this.loading = true;
+
+    // this.productService.getAllProducts().subscribe(
+    this.productService.searchProduct(this.keyword).subscribe(
       (data: any) => {
         this.products = data?.data;
         console.log(this.products, 'getCartObservable');

@@ -29,6 +29,7 @@ export class NavbarComponent implements OnInit {
       this.previousCartQuantity = newQuantity; // Update previous quantity
     });
   }
+  searchTerm: string = '';
   isLoggedIn = false;
   userDetails: any = null;
   ngOnInit(): void {
@@ -57,7 +58,6 @@ export class NavbarComponent implements OnInit {
       (data: any) => {
         if (data.status) {
           this.categories = data?.data;
-          console.log(this.categories)
           this.loading = false;
         }
       },
@@ -116,6 +116,12 @@ export class NavbarComponent implements OnInit {
   shop() {
     this.route.navigate(['/core/operation/shop']);
     window.scrollTo(0, 0);
+  }
+
+  onSearch(): void {
+    if (this.searchTerm.trim()) {
+      this.route.navigate(['/core/operation/products/keyword', this.searchTerm.trim()]);
+    }
   }
 
   logout() {
