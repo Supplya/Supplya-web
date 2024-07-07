@@ -122,7 +122,7 @@ export class ProductDetailsComponent {
     this.productService.getRelatedProducts(this.id).subscribe(
       (data: any) => {
         this.similarProducts = data?.data;
-        console.log(data);
+        // console.log(data);
 
         this.relatedLoading = false;
       },

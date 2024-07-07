@@ -40,7 +40,20 @@ export class ShoppingCartComponent implements OnInit {
       // console.log(this.cartItems);
       this.loading = false;
     });
+    this.loadCart();
   }
+
+  loadCart(): void {
+    this.cart = this.cartService.getCart();
+    this.initializeQuantity();
+  }
+
+  initializeQuantity(): void {
+    this.cart.items.forEach((item: any) => {
+      item.quantity = item?.quantity || 1;
+    });
+  }
+
   toggleModal = (modalId, action: string, data?: any) => {
     if (action == 'open') {
       document.getElementById(modalId).style.display = 'flex';
