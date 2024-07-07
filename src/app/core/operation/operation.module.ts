@@ -10,6 +10,7 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { ShopComponent } from './shop/shop.component';
 import { ProductCategoryComponent } from './product-category/product-category.component';
 import { ProductByCategoryComponent } from './product-by-category/product-by-category.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { ProductByCategoryComponent } from './product-by-category/product-by-cat
   ],
   imports: [
     CommonModule,
+    FormsModule,
     OperationRoutingModule,
     SharedModule
   ]

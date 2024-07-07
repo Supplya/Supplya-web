@@ -16,7 +16,7 @@ declare var PaystackPop: any;
 @Component({
   selector: 'app-shipping-info',
   templateUrl: './shipping-info.component.html',
-  styleUrls: ['./shipping-info.component.css']
+  styleUrls: ['./shipping-info.component.css'],
 })
 export class ShippingInfoComponent implements OnInit {
   quantity: number = 1;
@@ -27,19 +27,25 @@ export class ShippingInfoComponent implements OnInit {
   orderForm!: FormGroup;
   order!: Order;
   userInfo: any;
-  constructor(private cartService: CartService, private notify: ToastyService, private orderService: OrderService, private route: Router, private fb: FormBuilder, private authService: AuthService) {
-    
+  constructor(
+    private cartService: CartService,
+    private notify: ToastyService,
+    private orderService: OrderService,
+    private route: Router,
+    private fb: FormBuilder,
+    private authService: AuthService
+  ) {
     this.orderForm = fb.group({
       phone: [''],
       email: [''],
-      country: ['Nigeria'],
+      country: [''],
       zip: [''],
       city: [''],
       user: [''],
       firstName: [''],
       lastName: [''],
       address: [''],
-      paymentMethod: ['cashOnDelivery'],
+      paymentMethod: ['', Validators.required],
       paymentRef: [''],
       orderNote: [''],
       orderStatus: [''],
@@ -50,27 +56,20 @@ export class ShippingInfoComponent implements OnInit {
     this.cartService.getCartObservable().subscribe((cart) => {
       this.cart = cart;
       this.cartItems = cart.items;
-      console.log(this.cart, 'getCartObservable');
+      // console.log(this.cart, 'getCartObservable');
     });
     // this.orderForm.value.paymentMethod = 'cashOnDelivery';
   }
 
   ngOnInit(): void {
     this.getUserCredentials();
+    this.userInfo = this.authService.getUserCredentials();
     this.getOrderInfo();
-    // this.orderForm.value.paymentMethod = 'cashOnDelivery';
-    this.authService.isLoggedIn().subscribe((log: any) => {
-      this.isLoggedIn = log;
-      console.log(log, 'isLoggedIn');
-    });
-
+ this.toggleModal('paymentTypeModal', 'open');
   }
-
-
 
   getUserCredentials() {
     this.userInfo = this.authService.getUserCredentials();
-    console.log(this.userInfo, 'getUserCredentials');
   }
 
   getOrderInfo() {
@@ -80,7 +79,8 @@ export class ShippingInfoComponent implements OnInit {
       email: this.userInfo?.email,
       phone: this.userInfo?.phoneNumber,
       user: this.userInfo?._id,
-    })
+      country: this.userInfo?.country,
+    });
   }
 
   viewProduct(route: number) {
@@ -90,13 +90,12 @@ export class ShippingInfoComponent implements OnInit {
   // selectedPaymentMethod: string = 'cashOnDelivery';
 
   onPaymentButtonClick(method: string): void {
-    console.log(this.orderForm.value.paymentMethod, 'payment')
+    console.log(this.orderForm.value.paymentMethod, 'payment');
     if (this.orderForm.value.paymentMethod === method) {
       this.placeOrder();
     } else if (this.orderForm.value.paymentMethod === method) {
       this.proceedToPayment();
     }
-
   }
 
   placeOrder(): void {
@@ -111,43 +110,15 @@ export class ShippingInfoComponent implements OnInit {
   }
 
   // PAYSTACK INTEGRATION
-  email: string = 'pius1ash@gmail.com';
-  // amount = this.cart.totalPrice;
 
-  // payWithPaystack(e: { preventDefault: () => void; }) {
-  //   e.preventDefault();
-
-  //   let handler = PaystackPop.setup({
-  //     key: 'pk_test_db114057f7e1e073f3bc5d5551869e8eef51b9b1', // Replace with your public key
-  //     email: this.email,
-  //     amount: this.cart.totalPrice * 100,
-  //     ref: '' + Math.floor((Math.random() * 1000000000) + 1),
-  //     onClose: function () {
-  //       alert('Window closed.');
-  //       console.log('window closed', handler);
-  //     },
-  //     callback: function (response: any) {
-  //       let message = 'Payment complete! Reference: ' + response.reference;
-  //       alert(message);
-
-  //         this.createOrder();
-
-  //       console.log('window response', response);
-
-  //     }
-  //   });
-
-  //   handler.openIframe();
-  // }
-
-  payWithPaystack(e: { preventDefault: () => void; }) {
+  payWithPaystack(e: { preventDefault: () => void }) {
     e.preventDefault();
     this.loading = true;
     let handler = PaystackPop.setup({
       key: 'pk_test_58c4e5396a1b0b3f3d3c9e0100d0b1348affa82d',
       email: this.orderForm.value.email,
       amount: this.cart.totalPrice * 100,
-      ref: '' + Math.floor((Math.random() * 1000000000) + 1),
+      ref: '' + Math.floor(Math.random() * 1000000000 + 1),
       onClose: () => {
         this.loading = false;
         alert('Window closed.');
@@ -156,22 +127,20 @@ export class ShippingInfoComponent implements OnInit {
       callback: (response: any) => {
         let message = 'Payment complete! Reference: ' + response.reference;
         // alert(message);
-       
+
         this.orderForm.value.paymentRef = response.reference;
         if (response.status) {
-          this.loading = true;
+          // this.loading = true;
           this.createOrder();
         }
         console.log('window response', response);
-      }
+      },
     });
 
     handler.openIframe();
   }
 
-
   createOrder() {
-    
     console.log('create order Initiated');
     var orderDetails = {
       orderItems: this.cart.items,
@@ -184,26 +153,34 @@ export class ShippingInfoComponent implements OnInit {
       lastName: this.orderForm.value.lastName,
       address: this.orderForm.value.address,
       paymentMethod: this.orderForm.value.paymentMethod,
-      paymentRef: this.orderForm.value.paymentRef,
+      paymentRefId: this.orderForm.value.paymentRef,
       orderNote: this.orderForm.value.orderNote,
       orderStatus: this.orderForm.value.orderStatus,
       vendorId: this.orderForm.value.vendorId,
       totalPrice: this.cart?.totalPrice,
-    }
-    this.orderService.createOrder(orderDetails).subscribe((response) => {
-      this.loading = false;
-      this.notify.success('Order created successfully', 4000);
-      this.route.navigate(['/core/operation/order-completed']);
-      console.log('create order', orderDetails, response);
-
-    },
+    };
+    this.orderService.createOrder(orderDetails).subscribe(
+      (response) => {
+        this.loading = false;
+        this.notify.success('Order created successfully', 4000);
+        this.route.navigate(['/core/operation/order-completed']);
+        console.log('create order', orderDetails, response);
+      },
       (error) => {
         this.notify.danger('An error occurred when creating order', 4000);
         this.loading = false;
         console.error('create order failed', error);
       }
-    )
-
-
+    );
   }
+  toggleModal = (modalId, action: string, data?: any) => {
+    if (action == 'open') {
+      document.getElementById(modalId).style.display = 'flex';
+    } else {
+      document.getElementById(modalId).style.display = 'none';
+    }
+    if (data) {
+      // this.selectedOrder = data;
+    }
+  };
 }

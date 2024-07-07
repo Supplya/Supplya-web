@@ -98,7 +98,7 @@ resetLink="RETURN TO SHOP"></app-no-data-available>
 
                 <p class=" ship-text py-3">Shipping & taxes calculated at checkout</p>
                 <div class="mt-3">
-                  <a class="btn  w-100 shadow-0 mb-2 proceed" (click)="checkoutRoute()"> Proceed to Checkout
+                  <a class="btn  w-100 shadow-0 mb-2 proceed" (click)="toggleModal('paymentTypeModal', 'open')"> Place Order
                   </a>
 
                 </div>
@@ -116,5 +116,167 @@ resetLink="RETURN TO SHOP"></app-no-data-available>
   </div>
 </section>
 
+<div id="paymentTypeModal" class="modal">
+  <div
+    class="modal-center-content mx-auto pt-4 px-4 px-lg-5"
+    style="border-radius: 10px !important"
+  >
+    <div class="d-flex justify-content-end">
+     
+      <img 
+        style="cursor: pointer"
+        class=""
+        (click)="toggleModal('paymentTypeModal', 'close')"
+        src="/assets/Images/dismiss.svg"
+        alt=""
+      />
+    </div>
+  <section class="p-3">
+    <p class="modal-heading text-center">How would you like to Pay</p>
+    <p class="text-center py-2">Complete your purchase with your preferred payment method</p>
+    
+    <div class="form-checks">
+        <input 
+            class="form-check-input me-3" 
+            type="radio" 
+            name="paymentMethod" 
+            id="payOnDelivery" 
+            [(ngModel)]="selectedPaymentMethod" 
+            value="payOnDelivery"
+        />
+        <label class="form-check-label" for="payOnDelivery">
+            Pay on delivery
+        </label>
+    </div>
+    <div class="form-checks d-flex justify-content-between">
+        <div>
+            <input 
+                class="form-check-input me-3" 
+                type="radio" 
+                name="paymentMethod" 
+                id="paystack" 
+                [(ngModel)]="selectedPaymentMethod" 
+                value="paystack"
+            />
+            <label class="form-check-label" for="paystack">
+                Bank Transfer
+            </label>
+        </div>
+        <img style="height: 18px;" src="/assets/Images/paystack_logo.svg.png" alt="paystack logo" class="payment-logo" />
+    </div>
+    <div class="form-checks d-flex justify-content-between">
+        <div>
+            <input 
+                class="form-check-input me-3" 
+                type="radio" 
+                name="paymentMethod" 
+                id="supplyaPay" 
+                [(ngModel)]="selectedPaymentMethod" 
+                value="supplyaPay"
+            />
+            <label class="form-check-label" for="supplyaPay">
+                SupplyaPAY
+            </label>
+        </div>
+        <img style="height: 20px;" src="/assets/Images/Supplya Pay.png" alt="supplyaPay logo" class="payment-logo" />
+    </div>
+    <div class="text-center py-4" *ngIf="selectedPaymentMethod === ''">
+        <button 
+            type="button" 
+            class="btn btn-primary w-100" 
+            style="border-radius: 50px!important;"
+        >
+            Continue
+        </button>
+    </div>
+    <div class="text-center py-4" *ngIf="selectedPaymentMethod !== ''">
+        <button  *ngIf="selectedPaymentMethod === 'paystack'" (click)="payWithPaystack($event)" 
+            type="button" 
+            class="btn btn-primary w-100" 
+            style="border-radius: 50px!important;"
+        >
+            Pay Now
+        </button>
+        <button *ngIf="selectedPaymentMethod !== 'paystack'" (click)="createOrder()" 
+            type="button" 
+            class="btn btn-primary w-100" 
+            style="border-radius: 50px!important;"
+        >
+            Continue
+        </button>
+    </div>
+</section>
 
+  </div>
+</div>
+
+<div id="successModal" class="modal">
+  <div
+    class="modal-center-content mx-auto pt-4 px-4 px-lg-5"
+    style="border-radius: 10px !important"
+  >
+    <div class="d-flex justify-content-end">
+     
+      <img 
+        style="cursor: pointer"
+        class=""
+        (click)="toggleModal('successModal', 'close')"
+        src="/assets/Images/dismiss.svg"
+        alt=""
+      />
+    </div>
+  <section class="p-3">
+    <h5 class="modal-headings text-center" style="font-size: 25px;">Order Placed Successfully!</h5>
+    <div class="d-flex justify-content-center py-3">
+      <img style="height: 100px;" src="/assets/Images/fulfilled-order.png" alt="">
+    </div>
+    <p class="text-center py-2" style="font-size: 17px;">Thank you for your order! It’s being processed and you’ll receive a confirmation email soon.</p>
+    
+    <div class="text-center py-4">
+     
+        <button routerLink="/core/{{userInfo?.role}}/orders"
+            type="button" 
+            class="btn btn-primary w-100" 
+            style="border-radius: 50px!important;"
+        >
+            View Orders
+        </button>
+    </div>
+</section>
+
+  </div>
+</div>
+
+<div id="processModal" class="modal">
+  <div
+    class="modal-center-content mx-auto pt-4 px-4 px-lg-5"
+    style="border-radius: 10px !important"
+  >
+    <div class="d-flex justify-content-end">
+     
+      <!-- <img 
+        style="cursor: pointer"
+        class=""
+        (click)="toggleModal('successModal', 'close')"
+        src="/assets/Images/dismiss.svg"
+        alt=""
+      /> -->
+    </div>
+  <section class="p-3">
+    <div class="py-5">
+
+      <h5 class="modal-headings text-center" style="font-size: 25px;">Please wait..</h5>
+      
+      <p class="text-center py-2 mt-3" style="font-size: 17px;">
+      We’ve received your order and are currently processing it.
+      </p>
+    </div>
+  
+</section>
+
+  </div>
+</div>
 <app-footer></app-footer>
+<!-- Your Order is Completed!
+Thank you for your order! Your order is being processed and will be completed within 3-6 hours.
+You will receive an email confirmation when your order is completed. -->
