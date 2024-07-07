@@ -37,8 +37,8 @@ export class ShoppingCartComponent implements OnInit {
     this.cartService.getCartObservable().subscribe((cart) => {
       this.cart = cart;
       this.cartItems = cart.items;
+      // console.log(this.cartItems);
       this.loading = false;
-   
     });
   }
   toggleModal = (modalId, action: string, data?: any) => {
@@ -51,6 +51,10 @@ export class ShoppingCartComponent implements OnInit {
       // this.selectedOrder = data;
     }
   };
+  // Check if any item in the cart does not meet the MOQ condition
+  isOrderValid(): boolean {
+    return this.cart.items.every((item) => item.product.moq <= item.quantity);
+  }
   removeFromCart(cartItem: CartItem) {
     this.cartService.removeFromCart(cartItem.product._id);
   }
@@ -74,7 +78,7 @@ export class ShoppingCartComponent implements OnInit {
     this.route.navigate(['core/operation/shop']);
     window.scrollTo(0, 0);
   }
-paystackResult
+  paystackResult;
   payWithPaystack(e: { preventDefault: () => void }) {
     this.toggleModal('paymentTypeModal', 'close');
     e.preventDefault();
@@ -129,7 +133,7 @@ paystackResult
         this.loading = false;
         this.toggleModal('processModal', 'close');
         this.toggleModal('successModal', 'open');
-   this.clearCart();
+        this.clearCart();
       },
       (error) => {
         this.loading = false;
