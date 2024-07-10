@@ -72,14 +72,29 @@ export class ShoppingCartComponent implements OnInit {
     this.cartService.removeFromCart(cartItem.product._id);
   }
 
+  // changeQuantity(delta: number, cartItem: CartItem) {
+  //   cartItem.quantity += delta;
+  //   if (cartItem.quantity < 1) {
+  //     cartItem.quantity = 1;
+  //   }
+  //   this.cartService.changeQuantity(cartItem.product._id, cartItem.quantity);
+  // }
+  moqProduct: any;
   changeQuantity(delta: number, cartItem: CartItem) {
-    cartItem.quantity += delta;
+    const newQuantity = cartItem.quantity + delta;
+
+    if (newQuantity < cartItem.product.moq && delta < 0) {
+      this.moqProduct = cartItem.product;
+      this.toggleModal('moqModal', 'open');
+      return; // Prevent reducing the quantity below MOQ
+    }
+
+    cartItem.quantity = newQuantity;
     if (cartItem.quantity < 1) {
       cartItem.quantity = 1;
     }
     this.cartService.changeQuantity(cartItem.product._id, cartItem.quantity);
   }
-
   clearCart() {
     this.cartService.clearCart();
   }

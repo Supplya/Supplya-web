@@ -138,7 +138,7 @@
                         <a [routerLink]="'/cart'" class="text-center text-decoration-none position-relative cursor-pointer" data-bs-dismiss="offcanvas" aria-label="Close">
                             <i class="bi bi-basket-fill" style="font-size: 24px; font-weight: bold;"></i>
                             <div class="text">Cart</div>
-                            <span class="badge position-absolute top-0 start-100 translate-middle bg-warning text-black">{{cartQuantity}}</span>
+                            <span class="badge position-absolute top-0 start-100 translate-middle bg-warning text-black">{{cartItem}}</span>
                         </a>
                     </div>
                 </div>
@@ -183,7 +183,7 @@
                 <a  class="text-center text-decoration-none position-relative cursor-pointer me-5" data-bs-dismiss="offcanvas" aria-label="Close">
                             <i class="bi bi-basket-fill" style="font-size: 15px; font-weight: bold;"></i>
                             <div class="text">Cart</div>
-                            <span class="badge position-absolute top-0 start-100 translate-middle bg-warning text-black">{{cartQuantity}}</span>
+                            <span class="badge position-absolute top-0 start-100 translate-middle bg-warning text-black">{{cartItem}}</span>
                         </a>
             </div>
             <div class="nav-item text-center mx-2" *ngIf="!userDetails">

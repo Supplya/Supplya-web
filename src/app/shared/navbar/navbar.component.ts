@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 })
 export class NavbarComponent implements OnInit {
   cartQuantity: number = 1;
+  cartItem: number = 1;
   previousCartQuantity: number = 0;
   constructor(
     private route: Router,
@@ -23,8 +24,9 @@ export class NavbarComponent implements OnInit {
     this.cartService.getCartObservable().subscribe((newCart) => {
       this.cartQuantity = newCart.totalCount;
       const newQuantity = newCart.totalCount;
+      this.cartItem = newCart?.items?.length;
       // console.log(this.cartQuantity, 'newQuantity');
-      // console.log(newCart, 'newCart');
+
 
       this.previousCartQuantity = newQuantity; // Update previous quantity
     });

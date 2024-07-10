@@ -85,8 +85,27 @@ export class ProductDetailsComponent {
   toggleWishlist(product: any) {
     product.isWishlisted = !product.isWishlisted;
   }
+  // changeQuantity(delta: number) {
+  //   this.quantity += delta;
+  //   if (this.quantity < 1) {
+  //     this.quantity = 1;
+  //   }
+
+  //   // Update the cart if the product is already in it
+  //   if (this.ifAddedToCart(this.product)) {
+  //     this.cartService.changeQuantity(this.product._id, this.quantity);
+  //   }
+  // }
   changeQuantity(delta: number) {
-    this.quantity += delta;
+    const newQuantity = this.quantity + delta;
+
+    if (newQuantity < this.product.moq && delta < 0) {
+      // this.moqProduct = this.product;
+      this.toggleModal('moqModal', 'open');
+      return; // Prevent reducing the quantity below MOQ
+    }
+
+    this.quantity = newQuantity;
     if (this.quantity < 1) {
       this.quantity = 1;
     }
@@ -96,7 +115,6 @@ export class ProductDetailsComponent {
       this.cartService.changeQuantity(this.product._id, this.quantity);
     }
   }
-
   initializeQuantity() {
     const cart = this.cartService.getCart();
     const cartItem = cart.items.find(
@@ -115,7 +133,7 @@ export class ProductDetailsComponent {
 
   relatedLoading: boolean = false;
   relatedProductError: boolean = false;
-  similarProducts: any = null
+  similarProducts: any = null;
   getAllRelatedProducts() {
     this.relatedLoading = true;
 
@@ -153,9 +171,25 @@ export class ProductDetailsComponent {
   }
 
   addToCart(product: any) {
-    this.cartService.addToCart(product);
+    if (this.quantity < product.moq) {
+      this.toggleModal('moqModal', 'open');
+      return;
+    } else {
+      this.cartService.addToCart(product);
+    }
+
     // this.notify.success(`${product.name} Added to Cart successfully`)
     // this.route.navigateByUrl('/core/operation/shopping-cart');
+  }
+  buyNow(product: any) {
+    if (this.quantity < product.moq) {
+      this.toggleModal('moqModal', 'open');
+      return;
+    } else {
+      this.cartService.addToCart(product);
+      this.route.navigate(['core/operation/shopping-cart']);
+      window.scrollTo(0, 0);
+    }
   }
 
   viewProduct(route: number) {
@@ -166,4 +200,14 @@ export class ProductDetailsComponent {
     this.route.navigate(['core/operation/shopping-cart']);
     window.scrollTo(0, 0);
   }
+
+  toggleModal = (modalId, action: string, data?: any) => {
+    if (action == 'open') {
+      document.getElementById(modalId).style.display = 'flex';
+    } else {
+      document.getElementById(modalId).style.display = 'none';
+    }
+    if (data) {
+    }
+  };
 }

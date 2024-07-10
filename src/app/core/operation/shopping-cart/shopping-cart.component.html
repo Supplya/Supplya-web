@@ -32,12 +32,12 @@ resetLink="RETURN TO SHOP"></app-no-data-available>
         <!-- First Row: Product Name and Remove Icon -->
         <div class="d-flex justify-content-between">
           <div>
-            <h5 class="mb-1">{{item.product.name}}</h5>
+            <h5 class="mb-1 me-4">{{item.product.name}}</h5>
             <p  class="mb-1 ">Seller: <span class="text-primary">{{item.product?.createdBy?.storeUrl}}</span></p>
             <p class="mb-1">SKU: <span>{{item?.product?.sku}}</span></p>
           </div>
           <div class="text-center">
-            <button class="btn" style="font-size: 25px;" title="Remove this item" (click)="removeFromCart(item)">X</button>
+            <button class="btn text-danger" style="font-size: 17px; font-weight: 500;" title="Remove this item" (click)="removeFromCart(item)">Remove</button>
             <p class="mt-2" style="font-size: 20px; font-weight: 400;">{{item.price || 0 | currency: '₦' :'symbol':'1.0-0'}}</p>
           </div>
         </div>
@@ -61,15 +61,15 @@ resetLink="RETURN TO SHOP"></app-no-data-available>
           </div>
         </div>
          <!-- MOQ Message -->
-      <div *ngIf="item.product.moq > item.quantity" class="text-danger">
+      <!-- <div *ngIf="item.product.moq > item.quantity" class="text-danger">
         The minimum order quantity is {{item.product.moq}}
-      </div>
+      </div> -->
       </div>
     </div>
   </div>
 
   <div class="d-flex justify-content-end clear-section mb-3">
-    <button class="btn" (click)="clearCart()">Clear Cart</button>
+    <!-- <button class="btn" (click)="clearCart()">Clear Cart</button> -->
   </div>
 </div>
 
@@ -280,3 +280,35 @@ resetLink="RETURN TO SHOP"></app-no-data-available>
 <!-- Your Order is Completed!
 Thank you for your order! Your order is being processed and will be completed within 3-6 hours.
 You will receive an email confirmation when your order is completed. -->
+
+
+<div id="moqModal" class="modal">
+  <div
+    class="modal-center-content mx-auto pt-4 px-4 px-lg-5"
+    style="border-radius: 10px !important"
+  >
+    <div class="d-flex justify-content-end">
+      <!-- <p class="modal-heading text-center">Purchase Quantity Error</p> -->
+      <img
+        style="cursor: pointer"
+        class=""
+        (click)="toggleModal('moqModal', 'close')"
+        src="/assets/Images/dismiss.svg"
+        alt="Close"
+      />
+    </div>
+    <div class="modal-body text-center">
+      <p class="modal-heading text-center">Purchase Quantity</p>
+
+      <p class="py-2" style="font-size: 18px; font-weight: 400;">
+        The quantity you are trying to purchase is below the minimum order quantity (MOQ) for this product.
+        Please increase the quantity to at least {{moqProduct?.moq}}.
+
+      </p>
+
+      <div class="d-flex justify-content-center mb-3">
+        <button   (click)="toggleModal('moqModal', 'close')" class="btn-primary">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
