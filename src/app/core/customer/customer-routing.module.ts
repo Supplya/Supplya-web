@@ -3,12 +3,32 @@ import { RouterModule, Routes } from '@angular/router';
 import { CustomerDashboardComponent } from './customer-dashboard/customer-dashboard.component';
 import { CustomerOrderComponent } from './customer-order/customer-order.component';
 import { CustomerWalletComponent } from './customer-wallet/customer-wallet.component';
+import { CustomerSettingsComponent } from './customer-settings/customer-settings.component';
+import { TrackOrderComponent } from './track-order/track-order.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-  {path: 'dashboard', component: CustomerDashboardComponent},
-  {path: 'orders', component: CustomerOrderComponent},
-  {path: 'wallet', component: CustomerWalletComponent},
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  {
+    path: 'dashboard',
+    component: CustomerDashboardComponent,
+    data: { title: 'Account Overview' },
+  },
+  {
+    path: 'settings',
+    component: CustomerSettingsComponent,
+    data: { title: 'Account Preference' },
+  },
+  {
+    path: 'orders',
+    component: CustomerOrderComponent,
+    data: { title: 'Orders' },
+  },
+  {
+    path: 'track-order',
+    component: TrackOrderComponent,
+    data: { title: 'Orders' },
+  },
+  { path: 'wallet', component: CustomerWalletComponent },
 ];
 
 @NgModule({

@@ -126,6 +126,12 @@ export const menuItems = {
     //   icon: "person-circle",
     // },
     {
+      name: 'Track Order',
+      route: '/core/customer/track-order',
+      hasChild: false,
+      icon: 'wallet',
+    },
+    {
       name: 'Orders',
       route: '/core/customer/orders',
       hasChild: false,
@@ -133,18 +139,11 @@ export const menuItems = {
     },
 
     {
-      name: 'Wallet',
-      route: '/core/customer/wallet',
+      name: 'Preference',
+      route: '/core/customer/settings',
       hasChild: false,
-      icon: 'wallet',
+      icon: 'gear-fill',
     },
-
-    // {
-    //   name: "Settings",
-    //   route: "/core/customer/settings",
-    //   hasChild: false,
-    //   icon: "gear-fill",
-    // },
   ],
   vendor: [
     {
