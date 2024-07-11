@@ -203,6 +203,10 @@ color: #fff!important;
     background-color: var(--primary-color)!important; /* Change to your preferred color */
     border-color: white!important; /* Change to your preferred color */
   }
+  .small-checkbox:checked {
+    background-color: var(--primary-color)!important; /* Change to your preferred color */
+    border-color: white!important; /* Change to your preferred color */
+  }
 @media (min-width: 992px) {
     .mobile-only {
         display: none !important;

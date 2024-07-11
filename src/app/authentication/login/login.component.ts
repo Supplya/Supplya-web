@@ -27,11 +27,13 @@ export class LoginComponent implements OnInit {
       {
         email: ['', [Validators.required, Validators.email]],
         password: ['', Validators.required],
+        rememberMe: [false],
       },
       { updateOn: 'change' }
     ); // Trigger validation on change
   }
   ngOnInit(): void {
+    this.loadRememberedCredentials();
     this.authService.clearCredentials();
     google.accounts.id.initialize(
       {
@@ -43,8 +45,8 @@ export class LoginComponent implements OnInit {
             const decodedToken = this.decodeJwtToken(credential);
             // console.log('Decoded token:', decodedToken);
 
-            const firstName = decodedToken.given_name
-            const lastName = decodedToken.family_name
+            const firstName = decodedToken.given_name;
+            const lastName = decodedToken.family_name;
             const email = decodedToken.email;
             const name = decodedToken.name;
             const profilePicture = decodedToken.picture;
@@ -76,6 +78,17 @@ export class LoginComponent implements OnInit {
       document.getElementById(modalId).style.display = 'none';
     }
   };
+  loadRememberedCredentials() {
+    const rememberedEmail = localStorage.getItem('rememberedEmail');
+    const rememberedPassword = localStorage.getItem('rememberedPassword'); // This is insecure
+    if (rememberedEmail && rememberedPassword) {
+      this.loginForm.patchValue({
+        email: rememberedEmail,
+        password: rememberedPassword,
+        rememberMe: true,
+      });
+    }
+  }
 
   getErrorMessage(control: string, message: string) {
     return this.helperService.getError(this.loginForm.get(control), message);
@@ -95,9 +108,18 @@ export class LoginComponent implements OnInit {
   login() {
     this.submitted = true;
     if (this.loginForm.valid) {
+     
       this.authService.login(this.loginForm.value).subscribe(
         (response) => {
           if (response.status) {
+              const { email, password, rememberMe } = this.loginForm.value;
+              if (rememberMe) {
+                localStorage.setItem('rememberedEmail', email);
+                localStorage.setItem('rememberedPassword', password); // This is insecure
+              } else {
+                localStorage.removeItem('rememberedEmail');
+                localStorage.removeItem('rememberedPassword');
+              }
             this.authService.setCredentials(response);
             this.notify.success('Login Successful', 4000);
           } else {

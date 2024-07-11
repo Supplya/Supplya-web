@@ -68,10 +68,33 @@
                                           </div>
                                                                             </div>
                 
-                                    <div class="sec">
+                                    <!-- <div class="sec">
+                                      <div class="d-flex">
+
                                         <p class="remember"> Remember</p>
+                                      </div>
                                         <p class="forget"> <a style="text-decoration: none; color: var(--primary-color);" routerLink="/auth/forget-password">Forget Password</a> </p>
-                                    </div>
+                                    </div> -->
+                                     <!-- <div class="sec">
+              <label>
+                <input type="checkbox" class="small-checkbox" formControlName="rememberMe"> Remember Me
+              </label>
+              <p class="forget">
+                <a style="text-decoration: none; color: var(--primary-color);" routerLink="/auth/forget-password">Forget
+                  Password</a>
+              </p>
+            </div> -->
+             <div class="sec">
+              <label class="custom-checkbox-label">
+                <input type="checkbox" class="small-checkbox" formControlName="rememberMe">
+                <span class="custom-checkbox"></span>
+                Remember Me
+              </label>
+              <p class="forget">
+                <a style="text-decoration: none; color: var(--primary-color);" routerLink="/auth/forget-password">Forget
+                  Password</a>
+              </p>
+            </div>
                 
                                     <button class="submit">Login</button>
                 
