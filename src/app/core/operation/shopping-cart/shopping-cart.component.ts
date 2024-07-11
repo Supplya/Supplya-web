@@ -6,6 +6,7 @@ import { CartItem } from 'src/app/models/operation/cartItem';
 import { AuthService } from 'src/app/authentication/service/auth.service';
 import { OrderService } from '../services/order/order.service';
 import { ToastyService } from 'ng-toasty';
+import { environment } from 'src/assets/environment/environment';
 
 declare var PaystackPop: any;
 
@@ -111,7 +112,7 @@ export class ShoppingCartComponent implements OnInit {
     this.toggleModal('paymentTypeModal', 'close');
     e.preventDefault();
     let handler = PaystackPop.setup({
-      key: 'pk_test_58c4e5396a1b0b3f3d3c9e0100d0b1348affa82d',
+      key: environment.PAYSTACK_KEY,
       email: this.userInfo.email,
       amount: this.cart.totalPrice * 100,
       ref: '' + Math.floor(Math.random() * 1000000000 + 1),

@@ -2,14 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Server } from 'src/assets/apConfig';
+import { environment } from 'src/assets/environment/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DashboardService {
-  constructor(private http: HttpClient, private server: Server) {}
+  constructor(private http: HttpClient) {}
   // productUrl: string = "https://supplya.cyclic.app/";
-  baseUrl = this.server.baseUrl;
+  baseUrl = environment.BASE_URL;
 
   vendorAddProduct(product: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}products/create`, product);

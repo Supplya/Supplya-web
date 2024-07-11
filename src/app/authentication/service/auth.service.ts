@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastyService } from 'ng-toasty';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Server } from 'src/assets/apConfig';
+import { environment } from 'src/assets/environment/environment';
 
 
 @Injectable({
@@ -12,12 +13,11 @@ import { Server } from 'src/assets/apConfig';
 export class AuthService {
   constructor(
     private http: HttpClient,
-    private server: Server,
     private router: Router,
     private notify: ToastyService,
   ) {
   }
-  private baseURL = this.server.baseUrl;
+  private baseURL = environment.BASE_URL;
 
   register(user: any): Observable<any> {
     const url = `${this.baseURL}auth/sign-up`;
@@ -30,6 +30,14 @@ export class AuthService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return this.http.post(url, user, { headers });
+  }
+  forgetPassword(user: any): Observable<any> {
+    const url = `${this.baseURL}/auth/forgot-password`;
+    return this.http.post(url, user);
+  }
+  changeAuthPassword(user: any): Observable<any> {
+    const url = `${this.baseURL}/auth/change-password`;
+    return this.http.post(url, user);
   }
 
   
@@ -54,6 +62,10 @@ export class AuthService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return this.http.post(url, user, { headers });
+  }
+  verifyOTP(user: any): Observable<any> {
+    const url = `${this.baseURL}auth/verify-otp`;
+    return this.http.post(url, user);
   }
   resendOTP(user: any): Observable<any> {
     const url = `${this.baseURL}auth/verify-otp`;

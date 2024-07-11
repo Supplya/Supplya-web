@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
@@ -11,7 +11,7 @@ import { HelperService } from 'src/app/shared/helpers/helper.service';
   styleUrls: ['./otp-reset-password.component.scss']
 })
 
-export class OtpResetPasswordComponent {
+export class OtpResetPasswordComponent implements OnInit {
   form: FormGroup;
   loading: boolean = false;
   submitted: boolean = false;
@@ -26,6 +26,13 @@ export class OtpResetPasswordComponent {
       digit6: ['', [Validators.required]],
   });
 
+  }
+  ngOnInit(): void {
+  if (this.authService.getEmailForOTP() == null) {
+    this.route.navigate(['/auth/sign-in']);
+  } else {
+    this.form.value.email = this.authService.getEmailForOTP();
+  }
   }
  
 
@@ -65,19 +72,8 @@ isInvalid(control: string) {
   }
 
   // OTP AS STRING
-  // getOtpCode(): string {
-  //   return [
-  //     this.digit1.nativeElement.value,
-  //     this.digit2.nativeElement.value,
-  //     this.digit3.nativeElement.value,
-  //     this.digit4.nativeElement.value,
-  //     this.digit5.nativeElement.value,
-  //     this.digit6.nativeElement.value
-  //   ].join('');
-  // }
-
-  getOtpCode(): number {
-    const otpString = [
+  getOtpCode(): string {
+    return [
       this.digit1.nativeElement.value,
       this.digit2.nativeElement.value,
       this.digit3.nativeElement.value,
@@ -85,24 +81,37 @@ isInvalid(control: string) {
       this.digit5.nativeElement.value,
       this.digit6.nativeElement.value
     ].join('');
-  
-    return parseInt(otpString, 10);
   }
+
+  // getOtpCode(): number {
+  //   const otpString = [
+  //     this.digit1.nativeElement.value,
+  //     this.digit2.nativeElement.value,
+  //     this.digit3.nativeElement.value,
+  //     this.digit4.nativeElement.value,
+  //     this.digit5.nativeElement.value,
+  //     this.digit6.nativeElement.value
+  //   ].join('');
+  
+  //   return parseInt(otpString, 10);
+  // }
   
 
   submitOTP() {
     this.submitted = true;
-    const otpCode = this.getOtpCode();
+     const data = {
+       email: this.authService.getEmailForOTP(),
+       otp: this.getOtpCode(),
+     };
     // alert(otpCode);
     if (this.form.valid) {
      
-      this.authService.login(this.form.value).subscribe(
+      this.authService.verifyOTP(data).subscribe(
         (response) => {
           if (response.status) {
             this.loading = false;
-            console.table('Login success:', response);
-            this.authService.setCredentials(response);
-            this.notify.success('Login Successful', 4000);
+            this.notify.success(response?.message, 4000);
+            this.route.navigate(['/auth/change-password']);
           } else {
             // Handle login error
             this.submitted = false;
@@ -115,7 +124,6 @@ isInvalid(control: string) {
           // Handle HTTP error
           this.notify.danger(error.error.msg, 4000);
           console.error('HTTP error:', error.error.msg);
-          
         }
       );
     }

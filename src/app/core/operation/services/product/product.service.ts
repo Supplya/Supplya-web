@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Server } from 'src/assets/apConfig';
 import { Product } from 'src/app/models/operation/product';
+import { environment } from 'src/assets/environment/environment';
 
 
 
@@ -11,9 +12,9 @@ import { Product } from 'src/app/models/operation/product';
 })
 export class ProductService {
 
-  constructor(private http: HttpClient, private server: Server) { }
+  constructor(private http: HttpClient) { }
   // productUrl: string = "https://supplya.cyclic.app/";
-  productUrl = this.server.baseUrl;
+  productUrl = environment.BASE_URL;
 
   private productsSubject = new BehaviorSubject<Product[]>([]);
   products$: Observable<Product[]> = this.productsSubject.asObservable();

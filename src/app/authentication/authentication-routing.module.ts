@@ -25,6 +25,9 @@ const routes: Routes = [
     path: 'reset-password', component: OtpResetPasswordComponent
   },
   {
+    path: 'change-password', component: CreateNewPasswordComponent
+  },
+  {
     path: 'verify-account', component: VerifyAccountComponent
   },
   {
