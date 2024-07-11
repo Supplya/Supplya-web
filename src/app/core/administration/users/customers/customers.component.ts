@@ -71,12 +71,11 @@ export class CustomersComponent implements OnInit {
   customers
   getAllUsers() {
     this.ordersLoading = true;
-    this.adminService.getAllUsers().subscribe(
+    this.adminService.getAllCustomers().subscribe(
       (data: any) => {
         this.ordersLoading = false;
         if (data.status) {
-this.customers = data.data.filter((item: any) =>item?.role === "customer");
-          // console.log(this.customers);
+          this.customers = data.data;
         } else {
         }
         this.summaryLoading = false;

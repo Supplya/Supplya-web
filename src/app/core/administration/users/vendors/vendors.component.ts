@@ -27,7 +27,7 @@ export class VendorsComponent implements OnInit {
   ngOnInit(): void {
     // this.getAllProducts();
     this.getVendorMetric();
-    this.getAllUsers();
+    
   }
   errorFetchingProduct: boolean = false;
   ordersLoading: boolean = false;
@@ -42,6 +42,7 @@ export class VendorsComponent implements OnInit {
         this.ordersLoading = false;
         if (data.status) {
           this.summary = data.data;
+          this.vendors = data.data.vendors;
 
           console.log(this.summary);
         } else {
@@ -58,13 +59,11 @@ export class VendorsComponent implements OnInit {
   vendors;
   getAllUsers() {
     this.ordersLoading = true;
-    this.adminService.getAllUsers().subscribe(
+    this.adminService.getAllVendor().subscribe(
       (data: any) => {
         this.ordersLoading = false;
         if (data.status) {
-          this.vendors = data.data.filter(
-            (item: any) => item?.role === 'vendor'
-          );
+          this.vendors = data;
           // console.log(this.customers);
         } else {
         }
