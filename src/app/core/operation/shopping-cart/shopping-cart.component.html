@@ -23,8 +23,8 @@ resetLink="RETURN TO SHOP"></app-no-data-available>
     <div class="d-flex ">
       <!-- Product Image Column -->
       <div class="flex-shrink-0 img-sec">
-        <div class="image-container" style="height: 100%;">
-          <img src="/assets/Images/Rectangle 134.png" alt="Product Image" class="img-fluid  h-100">
+        <div class="image-container border" style="height: 100%;">
+          <img [src]="item?.product?.image" alt="Product Image" class="img-fluid  h-100">
         </div>
       </div>
       <!-- Product Details -->

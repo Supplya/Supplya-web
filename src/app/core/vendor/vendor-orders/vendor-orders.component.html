@@ -1,5 +1,5 @@
 <section>
-    <div class="container">
+    <div class="">
 
         <div class="row">
             <div class="col-lg-3">
@@ -9,7 +9,7 @@
                 <img src="/assets/Images/orders.png" alt="">
             </div>
             <h3 class="head-count">{{summary?.totalOrders | number:'1.0-0'}}</h3>
-            <p class="head-brief">+5,000 Today</p>
+            <!-- <p class="head-brief">+5,000 Today</p> -->
         </div>
     </div>
     <div class="col-lg-3">
@@ -18,8 +18,8 @@
                 <p class="head-text">New Order</p>
                 <img src="/assets/Images/new-order.png" alt="">
             </div>
-            <h3 class="head-count">{{summary?.newOrdersCount | number:'1.0-0'}}</h3>
-            <p class="head-brief">+300 Today</p>
+            <h3 class="head-count">{{summary?.totalNewOrdersCount | number:'1.0-0'}}</h3>
+            <!-- <p class="head-brief">+300 Today</p> -->
         </div>
     </div>
     <div class="col-lg-3">
@@ -28,8 +28,8 @@
                 <p class="head-text">Pending Order</p>
                 <img src="/assets/Images/pending-order.png" alt="">
             </div>
-            <h3 class="head-count">{{summary?.receivedOrdersCount | number:'1.0-0'}}</h3>
-            <p class="head-brief">+20,000 New Order Today</p>
+            <h3 class="head-count">{{summary?.totalStock | number:'1.0-0'}}</h3>
+            <!-- <p class="head-brief">+20,000 New Order Today</p> -->
         </div>
     </div>
     <div class="col-lg-3">
@@ -38,8 +38,8 @@
                 <p class="head-text">Fulfilled Order</p>
                 <img src="/assets/Images/fulfilled-order.png" alt="">
             </div>
-            <h3 class="head-count">{{summary?.deliveredOrdersCount | number:'1.0-0'}}</h3>
-            <p class="head-brief">+123 Completed Orders</p>
+            <h3 class="head-count">{{summary?.totalDeliveredOrdersCount | number:'1.0-0'}}</h3>
+            <!-- <p class="head-brief">+123 Completed Orders</p> -->
         </div>
     </div>
     
@@ -51,7 +51,7 @@
 
 
 <section>
-          <section class="content" *ngIf="ordersLoading && !filteredRows && !errorFetchingProduct">
+          <section class="content" *ngIf="ordersLoading && filteredRows?.length == 0 && !errorFetchingProduct">
 <div class="py-5 p-5 center">
     <div>
 
@@ -61,7 +61,7 @@
 </div>
       </section >
 
-      <section class="content center" *ngIf="!ordersLoading && !filteredRows && errorFetchingProduct">
+      <section class="content center" *ngIf="!ordersLoading && filteredRows?.length == 0 && errorFetchingProduct">
         <div class="py-5 ">
           <div class="py-3 text-center" >
             <img src="/assets/Images/oops.png" style="height: 200px;" alt="">
@@ -121,7 +121,7 @@
       </div>
 
       
-       <section class="content center" *ngIf="!ordersLoading && filteredRows?.length === 0">
+       <section class="content center mt-2" *ngIf="!ordersLoading && filteredRows?.length === 0">
         <div class="py-5 ">
           <div class="py-3 text-center" >
             <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">

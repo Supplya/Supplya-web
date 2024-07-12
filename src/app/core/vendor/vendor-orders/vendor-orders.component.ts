@@ -22,7 +22,7 @@ export class VendorOrdersComponent implements OnInit {
     private toast: ToastyService
   ) {}
   ngOnInit(): void {
-    this.getAllProducts();
+    // this.getAllProducts();
     this.getVendorMetric();
   }
   errorFetchingProduct: boolean = false;
@@ -405,12 +405,17 @@ export class VendorOrdersComponent implements OnInit {
     this.ordersLoading = true;
     this.productService.getVendorOrderStats().subscribe(
       (data: any) => {
-        console.log(data);
         if (data.status) {
           this.summary = data.data;
+          this.allOrders = data?.data?.orders;
+          this.filteredRows = data?.data?.orders;
+          console.log(this.summary);
         } else {
+          this.summaryLoading = false;
+          this.ordersLoading = false;
         }
         this.summaryLoading = false;
+        this.ordersLoading = false;
       },
       (error) => {
         this.errorFetchingSummary = true;
