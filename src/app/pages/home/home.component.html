@@ -104,17 +104,36 @@
 
 
 <!-- CATEGORIES -->
-<Section class="category py-5">
+ <Section class="category py-5">
+  <div class="container">
+    <div class="row">
+      <div [routerLink]="['/core/operation/products/category', category.name]" class="col-lg-3 cursor-pointer" *ngFor="let category of productCategories">
+        <div class="card border-0">
+          <div class="d-flex justify-between align-items-center">
+            <div class="me-2">
+              <img [src]="category.imgSrc" alt="">
+            </div>
+            <div>
+              <P >{{ category.displayName }}</P>
+            </div>
+            &nbsp;&nbsp;&nbsp;
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Section>
+<!-- <Section class="category py-5">
 <div class="container">
   <div class="row">
     <div class="col-lg-3">
   <div class="card border-0">
   <div  class="d-flex justify-between align-items-center">
     <div>
-      <img src="/assets/Images/phone.png" alt="">
+      <img src="/assets/Images/Fruits-veg.png" alt="">
     </div>
     <div>
-      <p>Phones, Tablets & Accessories</p>
+      <p>Fruits and Vegetables</p>
     </div>
     &nbsp;&nbsp;&nbsp;
   </div>
@@ -124,11 +143,11 @@
   <div class="card border-0">
   <div  class="d-flex justify-between align-items-center">
     <div>
-      <img src="/assets/Images/furniture.png" alt="">
+      <img src="/assets/Images/Meat-poultry.png" alt="">
     </div>
     &nbsp;&nbsp;&nbsp;
     <div>
-      <p>Home & Furniture</p>
+      <p>Meat and Poultry </p>
     </div>
     
   </div>
@@ -138,11 +157,11 @@
   <div class="card border-0">
   <div  class="d-flex justify-between align-items-center">
     <div>
-      <img src="/assets/Images/apparel.png" alt="">
+      <img src="/assets/Images/Dairy.png" alt="">
     </div>
     &nbsp;&nbsp;&nbsp;
     <div>
-      <p>Men & Women Apparel</p>
+      <p>Dairy</p>
     </div>
   </div>
   </div>
@@ -151,11 +170,11 @@
   <div class="card border-0">
   <div  class="d-flex justify-between align-items-center">
     <div>
-      <img src="/assets/Images/games.png" alt="">
+      <img src="/assets/Images/snack.png" alt="">
     </div>
     &nbsp;&nbsp;&nbsp;
     <div>
-      <p>Games & Toys</p>
+      <p>Baking</p>
     </div>
   </div>
   </div>
@@ -164,11 +183,11 @@
   <div class="card border-0">
   <div  class="d-flex justify-between align-items-center">
     <div>
-      <img src="/assets/Images/books.png" alt="">
+      <img src="/assets/Images/Grains-Flour.png" alt="">
     </div>
     &nbsp;&nbsp;&nbsp;
     <div>
-      <p>Books & Stationary</p>
+      <p>Grains & Flour</p>
     </div>
   
   </div>
@@ -179,11 +198,11 @@
       <div class="card border-0">
       <div class="d-flex justify-between align-items-center">
         <div>
-          <img src="/assets/Images/health.png" alt="">
+          <img src="/assets/Images/condiments-seasoning.png" alt="">
         </div>
         &nbsp;&nbsp;&nbsp;
         <div>
-          <p>Health & Wellness</p>
+          <p>Condiments & Seasonings</p>
         </div>
       </div>
       </div>
@@ -193,12 +212,12 @@
   <div class="card border-0">
   <div class="d-flex justify-between align-items-center">
     <div>
-      <img src="/assets/Images/beauty.png" alt="">
+      <img src="/assets/Images/Drinks-beverages.png" alt="">
     </div>
   
     &nbsp;&nbsp;&nbsp;
     <div>
-      <p>Beauty & Personal Care</p>
+      <p>Drinks & Beverages</p>
     </div>
   </div>
   </div>
@@ -208,17 +227,17 @@
   <div class="card border-0">
   <div class="d-flex justify-between align-items-center">
     <div>
-      <img src="/assets/Images/sport.png" alt="">
+      <img src="/assets/Images/Oil.png" alt="">
     </div>
     <div>
-      <p>Sports & Outdoors</p>
+      <p>Oil</p>
     </div>
   </div>
   </div>
     </div>
   </div>
 </div>
-</Section>
+</Section> -->
 
 <!-- FLASH SALES -->
 

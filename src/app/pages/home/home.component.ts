@@ -33,6 +33,41 @@ export class HomeComponent implements OnInit {
       this.AllAddedItems = cart.items;
     });
   }
+
+  productCategories = [
+    {
+      name: 'Fruits and Vegetables',
+      displayName: 'Fruits and Vegetables',
+      imgSrc: '/assets/Images/Fruits-veg.png',
+    },
+    {
+      name: 'Meat and Poultry',
+      displayName: 'Meat and Poultry',
+      imgSrc: '/assets/Images/Meat-poultry.png',
+    },
+    { name: 'Dairy', displayName: 'Dairy', imgSrc: '/assets/Images/Dairy.png' },
+    {
+      name: 'Baking',
+      displayName: 'Baking',
+      imgSrc: '/assets/Images/snack.png',
+    },
+    {
+      name: 'Grains & Flour',
+      displayName: 'Grains & Flour',
+      imgSrc: '/assets/Images/Grains-Flour.png',
+    },
+    {
+      name: 'Condiments & Seasonings',
+      displayName: 'Condiments & Seasonings',
+      imgSrc: '/assets/Images/condiments-seasoning.png',
+    },
+    {
+      name: 'Drinks & Beverages',
+      displayName: 'Drinks & Beverages',
+      imgSrc: '/assets/Images/Drinks-beverages.png',
+    },
+    { name: 'Oil', displayName: 'Oil', imgSrc: '/assets/Images/Oil.png' },
+  ];
   ngOnInit(): void {
     this.getAllProducts();
     this.getAllCategories();
@@ -109,7 +144,7 @@ export class HomeComponent implements OnInit {
   }
   getAllCategories() {
     this.loading = true;
-    
+
     this.productService.getAllCategories().subscribe(
       (data: any) => {
         if (data.status) {
