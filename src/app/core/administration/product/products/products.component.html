@@ -111,9 +111,9 @@
             <tbody>
               <tr *ngFor="let item of filteredRows | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
                 <td>
-                  <div class="product-info">
+                  <div class="product-info" routerLink="/core/admin/edit-product/{{item?._id}}" style="cursor: pointer;">
                     <img class="product-image" [src]="item?.image" alt="Product Image">
-                    {{item?.name}}
+                    {{ item?.name | shortenText }}
                   </div>
                 </td>
                 <td>{{item?.category?.name}}</td>

@@ -19,6 +19,7 @@ import { InternetOfflineComponent } from './internet-offline/internet-offline.co
 import { CurrencyFormatDirective } from './helpers/currency-format.directive';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { MiniBreadcrumbComponent } from './mini-breadcrumb/mini-breadcrumb.component';
+import { ShortenProductNamePipe } from './helpers/shorten-length.pipe';
 
 
 
@@ -44,6 +45,7 @@ const sharedRoutes: Routes = [
     InternetOfflineComponent,
     CurrencyFormatDirective,
     MiniBreadcrumbComponent,
+    ShortenProductNamePipe,
   ],
   imports: [
     RouterModule.forChild(sharedRoutes),
@@ -79,6 +81,7 @@ const sharedRoutes: Routes = [
     HttpClientModule,
     NgxPaginationModule,
     SelectDropDownModule,
+    ShortenProductNamePipe,
   ],
 })
 export class SharedModule {}

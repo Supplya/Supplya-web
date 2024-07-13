@@ -53,11 +53,20 @@ export class EditProductComponent implements OnInit {
           this.response = details?.data;
           this.requestLoading = false;
 
-          this.form.patchValue({
-            category: details.data.category.name,
-          });
-          this.form.patchValue(details.data);
+          // Extract category _id
+          const formData = {
+            ...details.data,
+            category: details.data.category._id, // Use _id for the category form control
+          };
+
+          // Patch the transformed formData
+          this.form.patchValue(formData);
+          console.log(this.form.value);
+
+          // Set the images
           this.images = details.data.images;
+           const mainImageUrl = details.data.image;
+           this.mainImageIndex = this.images.indexOf(mainImageUrl);
         }
       },
       (error) => {
@@ -66,6 +75,7 @@ export class EditProductComponent implements OnInit {
       }
     );
   }
+
   refresh() {
     this.errorFetching = false;
     this.getProductByID();
@@ -132,7 +142,7 @@ export class EditProductComponent implements OnInit {
   selectedVendors: any[] = [];
   selectedVendor;
   onVendorChange(event: any) {
-    this.selectedVendor = event?.value
+    this.selectedVendor = event?.value;
   }
   assignProduct() {
     this.toggleModal('assignVendorModal', 'close');
@@ -140,12 +150,12 @@ export class EditProductComponent implements OnInit {
       productId: this.response?._id,
       vendorId: this.selectedVendor?.id,
     };
-    this.adminService.assignProductToVendor(payload).subscribe((data: any) => {
-      this.getProductByID();
-    },
-      (error: any) => {
-      
-    });
+    this.adminService.assignProductToVendor(payload).subscribe(
+      (data: any) => {
+        this.getProductByID();
+      },
+      (error: any) => {}
+    );
   }
 
   toggleModal = (modalId, action: string, data?: any) => {
@@ -154,7 +164,7 @@ export class EditProductComponent implements OnInit {
     } else {
       document.getElementById(modalId).style.display = 'none';
     }
-   
+
     this.selectedVendor === null;
   };
   initForm() {
@@ -205,9 +215,9 @@ export class EditProductComponent implements OnInit {
           this.uploadRequestLoading = false;
           const uploadedImageUrl = event.body.secure_url;
           this.images.push(uploadedImageUrl);
-          if (this.images.length === 1) {
-            this.mainImageIndex = 0;
-          }
+          // if (this.images.length === 1) {
+          //   this.mainImageIndex = 0;
+          // }
         }
       },
       (err) => {
@@ -228,9 +238,9 @@ export class EditProductComponent implements OnInit {
         reader.onload = (e: any) => {
           // this.images.push(e.target.result);
           this.uploadImages(e.target.result);
-          if (this.images.length === 1) {
-            this.mainImageIndex = 0;
-          }
+          // if (this.images.length === 1) {
+          //   this.mainImageIndex = 0;
+          // }
         };
         reader.readAsDataURL(files[i]);
       }
@@ -251,6 +261,11 @@ export class EditProductComponent implements OnInit {
 
   setMainImage(index: number) {
     this.mainImageIndex = index;
+    const mainImageUrl = this.images[index];
+    this.form.patchValue({
+      image: mainImageUrl,
+    });
+    console.log(this.form.value.image);
   }
 
   onDragOver(event: any) {
@@ -292,9 +307,9 @@ export class EditProductComponent implements OnInit {
           this.images.push(e.target.result);
           // If it's the first image, set it as the main image
           this.uploadImages(e.target.result);
-          if (this.images.length === 1) {
-            this.mainImageIndex = 0;
-          }
+          // if (this.images.length === 1) {
+          //   this.mainImageIndex = 0;
+          // }
         };
         reader.readAsDataURL(files[i]);
       }
@@ -319,7 +334,7 @@ export class EditProductComponent implements OnInit {
   submit() {
     this.submitted = true;
     const formData = this.form.value;
-    formData.image = this.images[0];
+    // formData.image = this.images[0];
     formData.images = this.images;
     if (this.form.valid) {
       this.productService.UpdateProduct(this.id, formData).subscribe((data) => {

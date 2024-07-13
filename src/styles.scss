@@ -141,6 +141,10 @@ color: #fff!important;
     border-radius: 8px !important;
     cursor: pointer;
 }
+.form-check-input[type=checkbox] {
+box-shadow: none!important;
+
+}
 .remove-btn-secondary{
     background-color:var(--secondary-color) !important;
     border: none !important;

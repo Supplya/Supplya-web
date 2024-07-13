@@ -10,7 +10,7 @@
         <div class="col-sm-6">
             <div class="d-none d-lg-block">
                 <div class="btn-container">
-                  <button class="cancel" type="button"  (click)="resetForm()"> <i class="bi bi-x mt-1"></i> Cancel </button> &nbsp; &nbsp;
+                  <button class="cancel" type="button"  (click)="resetForm()"> <i class="bi bi-x mt-1"></i> Clear </button> &nbsp; &nbsp;
                   <button class="add" type="submit"> <i class="bi bi-plus mt-1"></i> Add Product</button>
                 </div>
             </div>
@@ -243,11 +243,41 @@
                       </div>
                 </div>
 
-                <div class="btn-container-sm mobile-only py-3">
-                    <button (click)="resetForm()" type="button" class="cancel"> <i class="bi bi-x mt-1"></i> Cancel </button> &nbsp; &nbsp;
+             
+            </section>
+       <section class="content container mb-3">
+  <div class="py-3">
+    <div class="d-flex justify-content-between">
+
+      <p class="content-heading">Special Offer</p>
+        <label class="switch">
+        <input type="checkbox" formControlName="specialOffer">
+        <span class="slider round"></span>
+      </label>
+    </div>
+    <div class="py-3" *ngIf="form.get('specialOffer').value">
+      <div class="form-check">
+        <input class="form-check-input " type="checkbox" formControlName="isFeatured" id="trendingProducts">
+        <label class="form-check-label " for="trendingProducts">Trending Products</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" formControlName="flashSale" id="flashSales">
+        <label class="form-check-label" for="flashsales">Flash sales</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" formControlName="deal" id="dealsOfTheDay">
+        <label class="form-check-label" for="dealsOfTheDay">Deals of the day</label>
+      </div>
+    </div>
+  </div>
+     <div class="btn-container-sm mobile-only py-3">
+                    <button (click)="resetForm()" type="button" class="cancel"> <i class="bi bi-x mt-1"></i> Clear </button> &nbsp; &nbsp;
                     <button type="submit" class="add"> <i class="bi bi-plus mt-1"></i> Add Product</button>
                   </div>
-            </section>
+</section>
+
+
+
 
 
         </div>
