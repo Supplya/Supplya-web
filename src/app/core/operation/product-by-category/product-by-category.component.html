@@ -43,18 +43,6 @@
   <div class="col-lg-3 filter-column" style="border-right: 1px solid #ccc;">
     <h5 class="filter-heading mb-5">Filter Option</h5>
     <div class="filter-option ">
-      <!-- <div class="category">
-        <h3>Subcategories</h3>
-        <ul>
-          <li>Electronics & Gadgets</li>
-          <li>Home</li>
-          <li>Accessories</li>
-          <li>Men</li>
-          <li>Women</li>
-          <li>Shoes</li>
-        </ul>
-      </div> -->
-
       <div class="price-range">
         <h3>Unit Price</h3>
         <input type="range" [min]="unitPriceMin" [max]="unitPriceMax" step="1" [(ngModel)]="unitPriceMax" (input)="updateUnitPriceInput()" class="slider" id="unitPriceRange">
@@ -119,6 +107,7 @@
                   <!-- Product amount and cart icon -->
                   <div class="price-and-cart">
                     <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0' }}</span>
+                    <!-- <span style="width: max-content!important;" class=" cart-btn">Add to cart</span> -->
                     <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
                     <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
                   </div>

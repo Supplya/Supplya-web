@@ -86,6 +86,34 @@ outline: none!important;
     background-color: red !important;
     color: black !important;
   } */
+/* styles.css or app.component.css */
+
+/* Transition effect for main image */
+.main-product-image {
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.main-product-image:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* Transition effect for other images */
+.other-product-image {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.other-product-image:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+/* Optional: active state for clicked image */
+.image-item:active .other-product-image {
+  transform: scale(1.2);
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+}
 
 .nav-tabs {
     border: none;
@@ -212,11 +240,12 @@ color: var(--primary-color);
 
 .main-image {
   width: 100%;
-  max-width: 550px;
+  /* max-width: 550px; */
   height: auto;
   aspect-ratio: 1 / 1;
   background-color: #f0f0f0;
   display: flex;
+  cursor: move;
   justify-content: center;
   align-items: center;
 }

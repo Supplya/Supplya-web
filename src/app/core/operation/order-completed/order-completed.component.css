@@ -22,3 +22,9 @@ font-weight: 600;
     background: var(--primary-color);
     font-weight: 600; 
 }
+@media (max-width: 700px) {
+.completed h5{
+  font-size: 25px;
+}
+
+}

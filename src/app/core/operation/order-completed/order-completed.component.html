@@ -1,20 +1,20 @@
 <app-navbar></app-navbar>
-<app-breadcrumb currentPageLink="Order Completed" previousLink="Shipping Info"></app-breadcrumb>
+<!-- <app-breadcrumb currentPageLink="Order Completed" previousLink="Shipping Info"></app-breadcrumb> -->
 <section class="py-5">
     <div class="container py-3">
         <div class="row">
 <div class="col-lg-2"></div>
 <div class="col-lg-8">
     <div class="container  completed text-center ">
-        <div class="row">
+        <div class="row py-5">
             <div class="col-lg-1"></div>
             <div class="col-lg-10">
-                <img src="/assets/Images/correct.png" alt="">
-                <h5>Your Order is Completed!</h5>
+                <img style="height: 100px;" src="/assets/Images/fulfilled-order.png" alt="">
+                <h5 class="mt-3">Your Order is Completed!</h5>
 <p>Thank you for your order! Your order is being processed and will be completed within 3-6
     hours. <br> You will receive an email confirmation when your order is completed.
     </p>
-    <button class="btn btn-primary" (click)="goToDashboard(user.role)">View in Dashboard</button>
+    <button class="btn btn-primary" (click)="goToOrders(user?.role)">View Orders</button>
             </div>
             <div class="col-lg-1"></div>
         </div>

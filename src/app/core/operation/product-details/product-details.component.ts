@@ -51,6 +51,11 @@ export class ProductDetailsComponent {
     this.getAllRelatedProducts();
   }
   id;
+  selectedImage: string | null = null;
+
+  setMainImage(image: string) {
+    this.selectedImage = image;
+  }
   getProduct() {
     this.activatedRoute.params.subscribe((params) => {
       const foodID = params['id'];
@@ -62,6 +67,7 @@ export class ProductDetailsComponent {
 
             if (product.status) {
               this.product = product.data;
+              this.selectedImage = product?.data?.image;
 
               if (this.product) {
                 this.initializeQuantity();

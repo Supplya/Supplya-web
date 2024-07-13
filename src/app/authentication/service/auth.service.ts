@@ -32,11 +32,15 @@ export class AuthService {
     return this.http.post(url, user, { headers });
   }
   forgetPassword(user: any): Observable<any> {
-    const url = `${this.baseURL}/auth/forgot-password`;
+    const url = `${this.baseURL}auth/forgot-password`;
+    return this.http.post(url, user);
+  }
+  resetPassword(user: any): Observable<any> {
+    const url = `${this.baseURL}auth/reset-password`;
     return this.http.post(url, user);
   }
   changeAuthPassword(user: any): Observable<any> {
-    const url = `${this.baseURL}/auth/change-password`;
+    const url = `${this.baseURL}auth/change-password`;
     return this.http.post(url, user);
   }
 

@@ -70,9 +70,14 @@ export class ShoppingCartComponent implements OnInit {
     return this.cart.items.every((item) => item.product.moq <= item.quantity);
   }
   removeFromCart(cartItem: CartItem) {
+    this.toggleModal('removeModal', 'close');
     this.cartService.removeFromCart(cartItem.product._id);
   }
-
+  selectedCart: any;
+  confirmCartRemoval(item) {
+    this.toggleModal('removeModal', 'open');
+    this.selectedCart = item;
+}
   // changeQuantity(delta: number, cartItem: CartItem) {
   //   cartItem.quantity += delta;
   //   if (cartItem.quantity < 1) {
@@ -107,14 +112,20 @@ export class ShoppingCartComponent implements OnInit {
     this.route.navigate(['core/operation/shop']);
     window.scrollTo(0, 0);
   }
+
+  transferOption = false;
+  selectOption() {
+    this.transferOption = true;
+  }
   paystackResult;
   payWithPaystack(e: { preventDefault: () => void }) {
+    this.transferOption = false;
     this.toggleModal('paymentTypeModal', 'close');
     e.preventDefault();
     let handler = PaystackPop.setup({
       key: environment.PAYSTACK_KEY,
-      email: this.userInfo.email,
-      amount: this.cart.totalPrice * 100,
+      email: this.userInfo?.email,
+      amount: this.cart?.totalPrice * 100,
       ref: '' + Math.floor(Math.random() * 1000000000 + 1),
       onClose: () => {
         // alert('Window closed.');
@@ -123,14 +134,9 @@ export class ShoppingCartComponent implements OnInit {
       callback: (response: any) => {
         this.paystackResult = response;
         let message = 'Payment complete! Reference: ' + response.reference;
-        // alert(message);
-
-        // this.orderForm.value.paymentRef = response.reference;
         if (response.status) {
-          // this.loading = true;
           this.createOrder();
         }
-        // console.log('window response', response);
       },
     });
 
@@ -138,18 +144,19 @@ export class ShoppingCartComponent implements OnInit {
   }
   orderNote: string = '';
   createOrder() {
+    this.transferOption = false;
     this.toggleModal('paymentTypeModal', 'close');
     this.toggleModal('processModal', 'open');
     var orderDetails = {
       orderItems: this.cart.items,
-      phone: this.userInfo.phoneNumber,
-      country: this.userInfo.country,
-      zip: this.userInfo.zip,
+      phone: this.userInfo?.phoneNumber,
+      country: this.userInfo?.country,
+      zip: this.userInfo?.zip,
       city: this.userInfo?.city || 'Mainland',
       user: this.userInfo?._id,
-      firstName: this.userInfo.firstName,
-      lastName: this.userInfo.lastName,
-      address: this.userInfo.address,
+      firstName: this.userInfo?.firstName,
+      lastName: this.userInfo?.lastName,
+      address: this.userInfo?.address,
       paymentMethod: this.selectedPaymentMethod,
       paymentRefId: this.paystackResult?.reference,
       orderNote: this.orderNote,
@@ -161,7 +168,44 @@ export class ShoppingCartComponent implements OnInit {
       (response) => {
         this.loading = false;
         this.toggleModal('processModal', 'close');
-        this.toggleModal('successModal', 'open');
+        this.clearCart();
+        this.orderService.setOrderCompleted(true);
+        this.route.navigate(['/core/operation/order-completed']);
+      },
+      (error) => {
+        this.loading = false;
+        this.toggleModal('processModal', 'close');
+      }
+    );
+  }
+
+  placeOrder() {
+    this.transferOption = false;
+    this.toggleModal('paymentTypeModal', 'close');
+    // this.toggleModal('processModal', 'open');
+    var orderDetails = {
+      orderItems: this.cart?.items,
+      phone: this.userInfo?.phoneNumber,
+      country: this.userInfo?.country,
+      zip: this.userInfo?.zip,
+      city: this.userInfo?.city || 'Mainland',
+      user: this.userInfo?._id,
+      firstName: this.userInfo?.firstName,
+      lastName: this.userInfo?.lastName,
+      address: this.userInfo?.address,
+      paymentMethod: this.selectedPaymentMethod,
+      paymentRefId: this.paystackResult?.reference,
+      orderNote: this.orderNote,
+      // orderStatus: this.orderForm.value.orderStatus,
+      // vendorId: this.orderForm.value.vendorId,
+      totalPrice: this.cart?.totalPrice,
+    };
+    this.orderService.createOrder(orderDetails).subscribe(
+      (response) => {
+        this.loading = false;
+        this.toggleModal('processModal', 'close');
+        this.orderService.setOrderCompleted(true);
+        this.route.navigate(['/core/operation/order-completed']);
         this.clearCart();
       },
       (error) => {

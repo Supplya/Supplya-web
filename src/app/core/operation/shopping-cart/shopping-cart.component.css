@@ -152,6 +152,8 @@
     font-weight: 500;
     padding: 16px;
     border-radius: 50px;
+    outline: none;
+    box-shadow: none;
 }
 
 .total input {

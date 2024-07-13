@@ -5,29 +5,36 @@ import { Server } from 'src/assets/apConfig';
 import { environment } from 'src/assets/environment/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OrderService {
+  constructor(private http: HttpClient) {}
+  baseUrl = environment.BASE_URL;
+  // createOrder(order: any): Observable<any> {
+  //   const url = `${this.baseUrl}orders/create`;
+  //   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-constructor(private http: HttpClient) { }
-baseUrl = environment.BASE_URL
-// createOrder(order: any): Observable<any> {
-//   const url = `${this.baseUrl}orders/create`;
-//   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  //   return this.http.post(url, order, { headers });
+  // }
+  private orderCompleted: boolean = false;
 
-//   return this.http.post(url, order, { headers });
-// }
-createOrder(order: any): Observable<any> {
-  const url = `${this.baseUrl}orders/create`;
-  
-  const token = localStorage.getItem('userToken');
+  setOrderCompleted(completed: boolean) {
+    this.orderCompleted = completed;
+  }
 
-  const headers = new HttpHeaders({ 
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`
-  });
+  isOrderCompleted(): boolean {
+    return this.orderCompleted;
+  }
+  createOrder(order: any): Observable<any> {
+    const url = `${this.baseUrl}orders/create`;
 
-  return this.http.post(url, order, { headers });
-}
+    const token = localStorage.getItem('userToken');
 
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.post(url, order, { headers });
+  }
 }

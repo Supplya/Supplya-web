@@ -5,19 +5,15 @@ import { AuthService } from 'src/app/authentication/service/auth.service';
 @Component({
   selector: 'app-order-completed',
   templateUrl: './order-completed.component.html',
-  styleUrls: ['./order-completed.component.css']
+  styleUrls: ['./order-completed.component.css'],
 })
 export class OrderCompletedComponent implements OnInit {
-  constructor(private authService: AuthService, private router: Router) {
-
-  }
+  constructor(private authService: AuthService, private router: Router) {}
   user: any;
   ngOnInit(): void {
     this.user = this.authService.getUserCredentials();
-    console.log(this.user, 'user role');
   }
-
-  goToDashboard(role: string) {
-    this.router.navigate([`/core/${role}/`]);
+  goToOrders(role: string) {
+    this.router.navigate([`/core/${role}/orders`]);
   }
 }

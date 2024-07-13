@@ -36,18 +36,31 @@
       <!-- <div class="col-lg-1"></div> -->
       <div class="col-lg-12">
   <div class="row py-3">
-    <div class="col-lg-6">
+<div class="col-lg-6">
+  <div class="product-images">
+    <div class="main-image mb-2" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
+      <img class="img-thumbnail main-product-image" [src]="selectedImage || product?.image" alt="Main Product Image">
+    </div>
+    <div class="other-images mb-2">
+      <div *ngFor="let image of product?.images" class="image-item">
+        <img class="img-thumbnail other-product-image" [src]="image" alt="Product Image" (click)="setMainImage(image)">
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- <div class="col-lg-6">
       <div class="product-images">
         <div class="main-image mb-2" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
-          <img class="img-thumbnail" [src]="product?.image" alt="Main Product Image">
+          <img class="img-thumbnail" [src]="selectedImage" alt="Main Product Image">
         </div>
         <div class="other-images px-lg-5 mb-2">
           <div *ngFor="let image of product?.images" class="image-item">
-            <img class="img-thumbnail" [src]="image" alt="Product Image">
+            <img class="img-thumbnail" [src]="image" alt="Product Image" (click)="setMainImage(image)">
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="col-lg-6 align-items-center">
       <h5 class="name">{{ product?.name }}</h5>
       <div class="star-rating">

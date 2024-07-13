@@ -37,7 +37,7 @@ resetLink="RETURN TO SHOP"></app-no-data-available>
             <p class="mb-1">SKU: <span>{{item?.product?.sku}}</span></p>
           </div>
           <div class="text-center">
-            <button class="btn text-danger" style="font-size: 17px; font-weight: 500;" title="Remove this item" (click)="removeFromCart(item)">Remove</button>
+            <button class="btn text-danger" style="font-size: 17px; font-weight: 500; box-shadow: none!important;" title="Remove this item" (click)="confirmCartRemoval(item)">Remove</button>
             <p class="mt-2" style="font-size: 20px; font-weight: 400;">{{item.price || 0 | currency: '₦' :'symbol':'1.0-0'}}</p>
           </div>
         </div>
@@ -164,7 +164,7 @@ resetLink="RETURN TO SHOP"></app-no-data-available>
         </div>
         <img style="height: 18px;" src="/assets/Images/paystack_logo.svg.png" alt="paystack logo" class="payment-logo" />
     </div>
-    <div class="form-checks d-flex justify-content-between">
+    <!-- <div class="form-checks d-flex justify-content-between">
         <div>
             <input 
                 class="form-check-input me-3" 
@@ -179,31 +179,46 @@ resetLink="RETURN TO SHOP"></app-no-data-available>
             </label>
         </div>
         <img style="height: 20px;" src="/assets/Images/Supplya Pay.png" alt="supplyaPay logo" class="payment-logo" />
-    </div>
-    <div class="text-center py-4" *ngIf="selectedPaymentMethod === ''">
-        <button 
-            type="button" 
-            class="btn btn-primary w-100" 
-            style="border-radius: 50px!important;"
-        >
-            Continue
-        </button>
-    </div>
-    <div class="text-center py-4" *ngIf="selectedPaymentMethod !== ''">
-        <button  *ngIf="selectedPaymentMethod === 'paystack'" (click)="payWithPaystack($event)" 
-            type="button" 
-            class="btn btn-primary w-100" 
-            style="border-radius: 50px!important;"
-        >
-            Pay Now
-        </button>
-        <button *ngIf="selectedPaymentMethod !== 'paystack'" (click)="createOrder()" 
-            type="button" 
-            class="btn btn-primary w-100" 
-            style="border-radius: 50px!important;"
-        >
-            Continue
-        </button>
+    </div> -->
+    <div class="py-4">
+<p class="text-center text-danger" *ngIf="selectedPaymentMethod === '' && transferOption">Please select a payment method (e.g., Bank Transfer or Pay on Delivery) to proceed with your order.</p>
+      <div >
+    <div class="text-center" *ngIf="selectedPaymentMethod === ''">
+           <button (click)="selectOption()"
+               type="button" 
+               class="btn btn-primary w-100" 
+               style="border-radius: 50px!important;"
+           >
+               Continue
+           </button>
+       </div>
+       <div class="text-center">
+           <button  *ngIf="selectedPaymentMethod === 'paystack'" (click)="payWithPaystack($event)" 
+               type="button" 
+               class="btn btn-primary w-100" 
+               style="border-radius: 50px!important;"
+           >
+               Pay Now
+           </button>
+           <button *ngIf="selectedPaymentMethod == 'payOnDelivery'" (click)="placeOrder()" 
+               type="button" 
+               class="btn btn-primary w-100" 
+               style="border-radius: 50px!important;"
+           >
+               Place Order
+           </button>
+       </div>
+      </div>
+   
+      <div class="py-2 mt-2">
+          <button (click)="toggleModal('paymentTypeModal', 'close');selectedPaymentMethod === ''"
+               type="button" 
+               class="btn btn-secondary w-100" 
+               style="border-radius: 50px!important; color: #000!important;"
+           >
+               Cancel
+           </button>
+      </div>
     </div>
 </section>
 
@@ -270,6 +285,37 @@ resetLink="RETURN TO SHOP"></app-no-data-available>
       <p class="text-center py-2 mt-3" style="font-size: 17px;">
       We’ve received your order and are currently processing it.
       </p>
+    </div>
+  
+</section>
+
+  </div>
+</div>
+
+<div id="removeModal" class="modal">
+  <div
+    class="modal-center-content mx-auto pt-4 px-4 px-lg-5"
+    style="border-radius: 10px !important"
+  >
+    <div class="d-flex justify-content-end">
+     
+      <img 
+        style="cursor: pointer"
+        class=""
+        (click)="toggleModal('removeModal', 'close')"
+        src="/assets/Images/dismiss.svg"
+        alt=""
+      />
+    </div>
+  <section class="p-3">
+    <div class="py-4">
+
+      <P class="text-center" style="font-size: 20px; font-weight: 600;">Are you sure you want to remove <br><span class="text-primary">{{selectedCart?.product?.name}}</span> <br> from cart?</P>
+      
+     <div class="d-flex justify-content-center py-3">
+      <button class="remove-btn-primary me-3" (click)="removeFromCart(selectedCart)">Yes, remove</button>
+      <button class="remove-btn-secondary" (click)="toggleModal('removeModal', 'close')">No</button>
+     </div>
     </div>
   
 </section>

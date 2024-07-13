@@ -25,7 +25,7 @@ export class CreateNewPasswordComponent {
   ) {
     this.form = this.fb.group(
       {
-        currentPassword: ['', Validators.required],
+        // email: ['', Validators.required],
         newPassword: ['', Validators.required],
         confirmPassword: ['', Validators.required],
       },
@@ -60,7 +60,7 @@ export class CreateNewPasswordComponent {
   changeAuthPassword() {
     this.submitted = true;
     if (this.form.valid) {
-      this.authService.changeAuthPassword(this.form.value).subscribe(
+      this.authService.resetPassword(this.form.value).subscribe(
         (response) => {
           if (response.status) {
             this.loading = false;

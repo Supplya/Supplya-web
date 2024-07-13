@@ -7,6 +7,7 @@ import { ShippingInfoComponent } from './shipping-info/shipping-info.component';
 import { OrderCompletedComponent } from './order-completed/order-completed.component';
 import { ProductCategoryComponent } from './product-category/product-category.component';
 import { ProductByCategoryComponent } from './product-by-category/product-by-category.component';
+import { OrderGuard } from 'src/app/shared/Guard/order.guard';
 
 const routes: Routes = [
   {
@@ -45,6 +46,7 @@ const routes: Routes = [
   {
     path: 'order-completed',
     component: OrderCompletedComponent,
+    canActivate: [OrderGuard],
   },
 ];
 
