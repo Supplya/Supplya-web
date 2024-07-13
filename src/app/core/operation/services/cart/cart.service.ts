@@ -70,7 +70,7 @@ export class CartService {
   clearCart() {
     this.cart = new Cart();
     this.setCartToLocalStorage();
-    this.notify.success('Cart cleared successfully');
+    // this.notify.success('Cart cleared successfully');
   }
 
   updateCartItems(items: CartItem[]): void {
