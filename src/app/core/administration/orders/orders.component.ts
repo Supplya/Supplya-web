@@ -409,7 +409,7 @@ export class OrdersComponent implements OnInit {
         this.ordersLoading = false;
         if (data.status) {
           this.summary = data.data;
-          console.log(this.summary);
+          // console.log(this.summary);
         } else {
         }
         this.summaryLoading = false;
@@ -496,6 +496,20 @@ export class OrdersComponent implements OnInit {
       // console.log(this.selectedOrder);
     }
   };
+
+  selectedStatus = '';
+  statuses = ['New', 'Confirmed', 'Package', 'Shipping', 'Delivered'];
+  updateOrderStatus(item, status) {
+    item.orderStatus = status;
+    console.log(item);
+    // Call your API to update status on the server.
+    this.productService.UpdateOrder(item, item?._id).subscribe((result) => {
+      if (result) {
+        this.toast.success('Order Status Updated Successfully');
+        this.getVendorMetric();
+      }
+    });
+  }
 
   capitalizeFirstLetter(value: string): string {
     if (!value) return '';

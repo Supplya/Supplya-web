@@ -267,6 +267,7 @@ padding: 30px;
 }
 }
 .dropdown-item {
+  z-index: 1000!important;
     color: #848484;
     padding: 10px;  /* Add padding for better spacing */
     display: block; /* Ensure items are displayed as block elements */
@@ -1031,6 +1032,29 @@ input[type=number]::-webkit-outer-spin-button {
 }
 @media screen and (min-width: 992px) {
   .modal-center-content {
+      width: 32% !important; 
+    }
+}
+
+
+.modal-center-content-sm, .modal-center-custom  {
+  position: absolute;
+  animation: slideTop 0.8s ease forwards;
+  background-color: #fefefe;
+  overflow-y: auto;
+  max-height: calc(100vh - 50px);
+  overflow-y: auto;
+  border: none;
+  border-radius: 5px;
+  width: 90% !important; /* Could be more or less, depending on screen size */
+}
+@media screen and (min-width: 768px) {
+  .modal-center-content-sm {
+      width: 60% !important; 
+    }
+}
+@media screen and (min-width: 992px) {
+  .modal-center-content-sm {
       width: 32% !important; 
     }
 }

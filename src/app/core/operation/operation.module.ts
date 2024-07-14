@@ -21,13 +21,14 @@ import { FormsModule } from '@angular/forms';
     ShoppingCartComponent,
     ProductDetailsComponent,
     ProductCategoryComponent,
-    ProductByCategoryComponent
+    ProductByCategoryComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     OperationRoutingModule,
-    SharedModule
-  ]
+    SharedModule,
+    FormsModule,
+  ],
 })
-export class OperationModule { }
+export class OperationModule {}

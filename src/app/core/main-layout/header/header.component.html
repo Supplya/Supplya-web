@@ -4,11 +4,11 @@
       <div class="row align-items-center">
   <!-- Title and Search -->
   <div class="col-sm-5 col-12">
-    <div class="search-container d-flex align-items-center">
+    <div class="search-container d-flex align-items-center" (click)="onSearch()">
       <div class="icon-circle">
         <i class="search-icon bi bi-search" style="font-size: 14px!important;"></i>
       </div>
-      <input type="text" class="search-input" placeholder="Search...">
+      <input type="text" [(ngModel)]="searchTerm" class="search-input" placeholder="Search...">
     </div>
   </div>
 
@@ -23,7 +23,7 @@
       <!-- Notification Icon -->
       <div class="notification-container">
         <i class="bi bi-bell-fill notification-icon" style="font-size: 25px!important"></i>
-        <div class="notification-count">99+</div>
+        <div class="notification-count">0</div>
       </div>
 
       <!-- User Profile Picture -->

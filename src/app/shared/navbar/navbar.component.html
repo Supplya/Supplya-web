@@ -50,7 +50,7 @@
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sidebarAvatar"> 
                     <a  class="dropdown-item cursor-pointer" (click)="goToDashboard(userDetails?.role)">Dashboard</a>
                     <a  class="dropdown-item cursor-pointer" (click)="goToOrders(userDetails?.role)">Orders</a> 
-                    <a  class="dropdown-item cursor-pointer" (click)="goToMyAccount()">My Account</a> 
+                    <!-- <a  class="dropdown-item cursor-pointer" (click)="goToMyAccount()">My Account</a>  -->
                     <hr class="dropdown-divider"> 
                     <a  class="dropdown-item" (click)="logout()">Logout</a>
                 </div>
@@ -214,7 +214,7 @@
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                     <a class="dropdown-item" routerLink="/core/{{userDetails?.role}}/dashboard">Dashboard</a>
                     <a class="dropdown-item" routerLink="/core/{{userDetails?.role}}/orders">Orders</a>
-                    <a class="dropdown-item" routerLink="/core/my-account">My Profile</a>
+                    <!-- <a class="dropdown-item" routerLink="/core/my-account">My Profile</a> -->
                     <!-- <div class="dropdown-divider"></div> -->
                     <a class="dropdown-item border-0 cursor-pointer" (click)="logout()">Logout</a>
                 </div>

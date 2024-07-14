@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/authentication/service/auth.service';
 import Swal from 'sweetalert2';
 
@@ -12,7 +13,12 @@ export class HeaderComponent implements OnInit {
   userDetails: any;
   todayDate: Date = new Date();
   formattedDate: string | null;
-  constructor(private datePipe: DatePipe, private authService: AuthService) {
+
+  constructor(
+    private datePipe: DatePipe,
+    private authService: AuthService,
+    private route: Router
+  ) {
     this.formattedDate = this.formatDate(this.todayDate);
   }
   ngOnInit(): void {
@@ -69,5 +75,15 @@ export class HeaderComponent implements OnInit {
         this.authService.logout();
       }
     });
+  }
+  searchTerm: string = '';
+
+  onSearch(): void {
+    if (this.searchTerm.trim()) {
+      this.route.navigate([
+        '/core/operation/products/keyword',
+        this.searchTerm.trim(),
+      ]);
+    }
   }
 }

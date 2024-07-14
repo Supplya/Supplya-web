@@ -61,12 +61,12 @@ export class EditProductComponent implements OnInit {
 
           // Patch the transformed formData
           this.form.patchValue(formData);
-          console.log(this.form.value);
+          // console.log(this.form.value);
 
           // Set the images
           this.images = details.data.images;
-           const mainImageUrl = details.data.image;
-           this.mainImageIndex = this.images.indexOf(mainImageUrl);
+          const mainImageUrl = details.data.image;
+          this.mainImageIndex = this.images.indexOf(mainImageUrl);
         }
       },
       (error) => {
@@ -175,12 +175,16 @@ export class EditProductComponent implements OnInit {
       description: ['', Validators.required],
       quantity: [, Validators.required],
       brand: [''],
+      specialOffer: [false],
       category: ['', Validators.required],
       rating: [''],
+      vendorId: [''],
       numReviews: [],
       isFeatured: [false],
+      isTrending: [false],
       hasDiscount: [false],
       flashsale: [false],
+      isDealOfTheDay: [false],
       saleCount: [],
       status: ['', Validators.required],
       sku: ['', Validators.required],

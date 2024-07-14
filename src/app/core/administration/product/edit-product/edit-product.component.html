@@ -230,44 +230,41 @@
               
             </section>
 
-            <section class="">
-            
-        <div class="special-offer-container form-group">
-  <!-- <div class="d-flex justify-content-between align-items-center">
-    <p class="content-heading">Special Offer</p>
-    <div class="form-check form-switch">
-      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" [(ngModel)]="isSpecialOffer" (change)="handleToggle($event)">
+        
+                <section class="content container mb-3">
+  <div class="py-3">
+    <div class="d-flex justify-content-between">
+
+      <p class="content-heading">Special Offer</p>
+        <label class="switch">
+        <input type="checkbox" formControlName="isFeatured">
+        <span class="slider round"></span>
+      </label>
     </div>
-  </div> -->
-  <!-- Options -->
-  <!-- <div *ngIf="isSpecialOffer" class="mt-2">
-    <div class="form-check">
-      <input class="form-check-input" type="radio" name="specialOfferType" id="featured" [value]="true" (change)="handleSpecialOfferType('Featured')">
-      <label class="form-check-label pro-option" for="featured">Featured</label>
-    </div>
-    <div class="form-check">
-      <input class="form-check-input" type="radio" name="specialOfferType" id="flashSales" [value]="true" (change)="handleSpecialOfferType('Flash Sales')">
-      <label class="form-check-label .[pro-option"  for="flashSales">Flash Sales</label>
-    </div>
-    <div class="form-check">
-      <input class="form-check-input" type="radio" name="specialOfferType" id="trendingProducts" [value]="true" (change)="handleSpecialOfferType('Trending Products')">
-      <label class="form-check-label pro-option" for="trendingProducts">Trending Products</label>
-    </div>
-    <div class="form-check">
-      <input class="form-check-input" type="radio" name="specialOfferType" id="dealOfTheDay" [value]="true" (change)="handleSpecialOfferType('Deal of the Day')">
-      <label class="form-check-label pro-option" for="dealOfTheDay">Deal of the Day</label>
-    </div>
-  </div> -->
+  <div class="py-3" *ngIf="form.get('isFeatured').value">
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" formControlName="isTrending" id="trendingProducts">
+    <label class="form-check-label" for="trendingProducts">Trending Products</label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" formControlName="flashsale" id="flashSales">
+    <label class="form-check-label" for="flashSales">Flash sales</label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" formControlName="isDealOfTheDay" id="dealsOfTheDay">
+    <label class="form-check-label" for="dealsOfTheDay">Deals of the day</label>
+  </div>
 </div>
 
+  </div>
+   <div class="btn-container-sm mobile-only   border-top">
+    <div class="py-5">
 
-
-
-                <div class="btn-container-sm mobile-only py-3 mb-5">
-                    <!-- <button (click)="resetForm()" type="button" class="cancel"> <i class="bi bi-x mt-1"></i> Cancel </button> &nbsp; &nbsp; -->
-                    <button type="submit" class="add"> Edit Product</button>
+      <!-- <button (click)="resetForm()" type="button" class="cancel"> <i class="bi bi-x mt-1"></i> Cancel </button> &nbsp; &nbsp; -->
+      <button type="submit" class="add"> Edit Product</button>
+    </div>
                   </div>
-            </section>
+</section>
 
 
         </div>
@@ -290,7 +287,7 @@
         <div class="py-5 ">
           <div class="py-3 text-center" >
             <img src="/assets/Images/oops.png" style="height: 200px;" alt="">
-            <p class="loading-text  text-muted py-3">Could not display products. Click 'Refresh' to try again.
+            <p class="loading-text  text-muted py-3">Could not display product. Click 'Refresh' to try again.
         </p>
             <p class="refresh" (click)="refresh()">Refresh <i class="bi bi-arrow-repeat"></i></p>
           </div>

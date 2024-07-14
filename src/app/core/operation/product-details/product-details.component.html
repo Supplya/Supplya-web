@@ -39,7 +39,7 @@
 <div class="col-lg-6">
   <div class="product-images">
     <div class="main-image mb-2" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
-      <img class="img-thumbnail main-product-image" [src]="selectedImage || product?.image" alt="Main Product Image">
+      <img class="main-product-image" [src]="selectedImage || product?.image" alt="Main Product Image">
     </div>
     <div class="other-images mb-2">
       <div *ngFor="let image of product?.images" class="image-item">
@@ -112,43 +112,33 @@
   
   <!-- REVIEWS AND DESCRIPTION -->
   <section class="reviews">
-      <div class="container py-5">
+      <div class="container">
           
           <div class="container py-5">
               <ul class="nav nav-tabs text-center">
                   <li class="nav-item" (click)="selectedTab = 'description'">
                     <a class="nav-link" [ngClass]="{'active': selectedTab === 'description'}">Description</a>
                   </li>
-                  <li class="nav-item" (click)="selectedTab = 'additionalInfo'">
-                    <a class="nav-link" [ngClass]="{'active': selectedTab === 'additionalInfo'}">Additional Info</a>
-                  </li>
                   <li class="nav-item" (click)="selectedTab = 'reviews'">
                     <a class="nav-link" [ngClass]="{'active': selectedTab === 'reviews'}">Reviews</a>
                   </li>
-                  <li class="nav-item" (click)="selectedTab = 'video'">
-                    <a class="nav-link" [ngClass]="{'active': selectedTab === 'video'}">Video</a>
+                  <li class="nav-item" (click)="selectedTab = 'policy'">
+                    <a class="nav-link" [ngClass]="{'active': selectedTab === 'policy'}">Shipping & Refund Policy</a>
                   </li>
                 </ul>
                 
-                <div [ngSwitch]="selectedTab" class="p-5 des px-5">
-                  <div *ngSwitchCase="'description'">
-                      <h6>Varius tempor.</h6>
-                    <p class="text-muted">Aliquam dis vulputate vulputate integer sagittis. Faucibus dolor ornare faucibus vel sed et eleifend habitasse amet. Montes, mauris varius ac est bibendum. Scelerisque a, risus ac ante. Velit consectetur neque, elit, aliquet. Non varius proin sed urna, egestas consequat laoreet diam tincidunt. Magna eget faucibus cras justo, tortor sed donec tempus. Imperdiet consequat, quis diam arcu, nulla lobortis justo netus dis. Eu in fringilla vulputate nunc nec. Dui, massa viverr .</p>
-                  
-  <div class="mt-4">
-      <h6>More Details</h6>
-      <p class="text-muted">Aliquam dis vulputate vulputate integer sagittis. Faucibus dolor ornare faucibus vel sed et eleifend habitasse amet. Montes, mauris varius ac est bibendum. Scelerisque a, risus ac ante. Velit consectetur neque, elit, aliquet. Non varius proin sed urna, egestas consequat laoreet diam tincidunt. Magna eget faucibus cras justo, tortor sed donec tempus. Imperdiet consequat, quis diam arcu, nulla lobortis justo netus dis. Eu in fringilla vulputate nunc nec. Dui, massa viverr .</p>
-  </div>
+                <div [ngSwitch]="selectedTab" class=" des p-3">
+                  <div *ngSwitchCase="'description'" class="slide-bottom">
+        <p class="description text-muted">{{ product?.description }}</p>
+
+ 
                     
                   </div>
-                  <div *ngSwitchCase="'additionalInfo'">
-                    <p>Additional Info content</p>
-                  </div>
-                  <div *ngSwitchCase="'reviews'">
+                  <div *ngSwitchCase="'reviews'" class="slide-bottom">
                     <p>Reviews content</p>
                   </div>
-                  <div *ngSwitchCase="'video'">
-                    <p>Video content</p>
+                  <div *ngSwitchCase="'policy'" class="slide-bottom">
+                    <p>policy content</p>
                   </div>
                 </div>
                 

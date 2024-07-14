@@ -189,6 +189,10 @@
 
 .img-sec{
     width: 150px !important;
+    height: 172px !important;
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
 }
 
 .cart-contain{

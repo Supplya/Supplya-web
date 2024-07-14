@@ -89,7 +89,10 @@ export class ProductService {
     return this.http.delete<any>(`${this.productUrl}products/${id}`);
   }
   deleteOrder(id: any): Observable<any> {
-    return this.http.delete<any>(`${this.productUrl}users/${id}`);
+    return this.http.delete<any>(`${this.productUrl}orders/${id}`);
+  }
+  UpdateOrder(data: any, id: any): Observable<any> {
+    return this.http.put<any>(`${this.productUrl}orders/${id}`, data);
   }
 
   // getAllFoodsBySearch(searchTerm: string): Observable<Product[]> {

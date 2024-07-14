@@ -11,63 +11,163 @@ resetLink="RETURN TO SHOP"></app-no-data-available>
     <div class="row">
       <div class="col-lg-1"></div>
       <div class="col-lg-10">
-        <app-breadcrumb currentPageLink="Shopping Cart" previousLink="Shop"></app-breadcrumb>
-        <div class="row py-5">
+        <app-breadcrumb class="d-none d-lg-block" currentPageLink="Shopping Cart" previousLink="Shop"></app-breadcrumb>
+        <app-mini-breadcrumb class="mobile-only" currentPageLink="Shopping Cart" previousLink="Shop"></app-mini-breadcrumb>
+        <div class="row">
  <!-- Cart Items Column -->
 <div class="col-lg-8">
   <h4 class="mb-4">Cart Items ({{cart.items.length}})</h4>
 
+
+  
   <!-- Product Items -->
-  <div class="mb-2 border-bottom" *ngFor="let item of cart.items">
+   <section class="">
+
+     <div class="mb-2 border-bottom" *ngFor="let item of cart.items">
+       <!-- Product Container -->
+       <div class="d-flex ">
+         <!-- Product Image Column -->
+         <div class="flex-shrink-0 img-sec">
+           <div class="image-container border" style="height: 100%;">
+             <img [src]="item?.product?.image" alt="Product Image" class="img-fluid  h-100">
+           </div>
+         </div>
+         <!-- Product Details -->
+         <div class="flex-grow-1 p-3 cart-contain">
+           <!-- First Row: Product Name and Remove Icon -->
+           <div class="d-flex justify-content-between">
+             <div>
+               <h5 class="mb-1 me-4">{{item.product.name}}</h5>
+               <p  class="mb-1 ">Seller: <span class="text-primary">{{item.product?.createdBy?.storeUrl}}</span></p>
+               <p class="mb-1">SKU: <span>{{item?.product?.sku}}</span></p>
+             </div>
+             <div class="text-center">
+               <button class="btn text-danger" style="font-size: 17px; font-weight: 500; box-shadow: none!important;" title="Remove this item" (click)="confirmCartRemoval(item)">Remove</button>
+               <p class="mt-2" style="font-size: 20px; font-weight: 400;">{{item.price || 0 | currency: '₦' :'symbol':'1.0-0'}}</p>
+             </div>
+           </div>
+           <!-- Second Row: Controls, Unit Price, and Product Status -->
+           <div class="d-flex justify-content-between align-items-center">
+             <!-- Controls -->
+   
+              <div class="quantity-control">
+             <button (click)="changeQuantity(-1, item)" class="">-</button>
+             <span class="quantity" [(ngModel)]="item.quantity">{{ item.quantity }}</span>
+             <button (click)="changeQuantity(1, item)" class=" ">+</button>
+           </div>
+          
+             <!-- Unit Price -->
+             <div>
+               <p class="mb-0  text-primary" style="font-size: 16px; font-weight: 500;">{{item.product.unit_price || 0 | currency: '₦' :'symbol':'1.0-0'}} / Per item</p>
+             </div>
+             <!-- Product Status -->
+             <div>
+               <p [ngClass]="{ 'stock': item.product?.status === 'inStock', 'text-danger': item.product?.status !== 'inStock' }" class="mb-0 ">{{item.product?.status === 'inStock' ? 'In Stock' : 'Out of Stock'}}</p>
+             </div>
+           </div>
+            <!-- MOQ Message -->
+         <!-- <div *ngIf="item.product.moq > item.quantity" class="text-danger">
+           The minimum order quantity is {{item.product.moq}}
+         </div> -->
+         </div>
+       </div>
+     </div>
+   </section>
+
+<!-- Mobile view -->
+<section class="mobile-only d-none">
+  <div class="mb-2 border-bottom bg-white" *ngFor="let item of cart.items">
     <!-- Product Container -->
-    <div class="d-flex ">
-      <!-- Product Image Column -->
-      <div class="flex-shrink-0 img-sec">
-        <div class="image-container border" style="height: 100%;">
-          <img [src]="item?.product?.image" alt="Product Image" class="img-fluid  h-100">
+    <div class="d-flex flex-column">
+      <div class="d-flex ">
+        <!-- Product Image Column -->
+        <div class="mobile-img-sec mr-3">
+          <div class="mobile-image-container border">
+            <img [src]="item?.product?.image" alt="Product Image" class="img-fluid">
+          </div>
         </div>
-      </div>
-      <!-- Product Details -->
-      <div class="flex-grow-1 p-3 cart-contain">
-        <!-- First Row: Product Name and Remove Icon -->
-        <div class="d-flex justify-content-between">
+        <!-- Product Details Column -->
+        <div class="p-2 flex-grow-1 mobile-cart-contain">
+          <!-- First Row: Product Name and Remove Icon -->
           <div>
-            <h5 class="mb-1 me-4">{{item.product.name}}</h5>
-            <p  class="mb-1 ">Seller: <span class="text-primary">{{item.product?.createdBy?.storeUrl}}</span></p>
+            <h5 class="mb-1">{{item.product.name}}</h5>
+            <p class="mb-1">Seller: <span class="text-primary">{{item.product?.createdBy?.storeUrl}}</span></p>
             <p class="mb-1">SKU: <span>{{item?.product?.sku}}</span></p>
           </div>
-          <div class="text-center">
-            <button class="btn text-danger" style="font-size: 17px; font-weight: 500; box-shadow: none!important;" title="Remove this item" (click)="confirmCartRemoval(item)">Remove</button>
-            <p class="mt-2" style="font-size: 20px; font-weight: 400;">{{item.price || 0 | currency: '₦' :'symbol':'1.0-0'}}</p>
+          <!-- Second Row: Controls, Unit Price, and Product Status -->
+          <div class="d-flex justify-content-between align-items-center mt-2">
+            <!-- Controls -->
+            <div class="mobile-quantity-control">
+              <button (click)="changeQuantity(-1, item)" class="">-</button>
+              <span class="quantity" [(ngModel)]="item.quantity">{{ item.quantity }}</span>
+              <button (click)="changeQuantity(1, item)" class=" ">+</button>
+            </div>
           </div>
-        </div>
-        <!-- Second Row: Controls, Unit Price, and Product Status -->
-        <div class="d-flex justify-content-between align-items-center">
-          <!-- Controls -->
 
-           <div class="quantity-control">
-          <button (click)="changeQuantity(-1, item)" class="">-</button>
-          <span class="quantity" [(ngModel)]="item.quantity">{{ item.quantity }}</span>
-          <button (click)="changeQuantity(1, item)" class=" ">+</button>
-        </div>
-       
-          <!-- Unit Price -->
-          <div>
-            <p class="mb-0  text-primary" style="font-size: 16px; font-weight: 500;">{{item.product.unit_price || 0 | currency: '₦' :'symbol':'1.0-0'}} / Per item</p>
-          </div>
-          <!-- Product Status -->
-          <div>
-            <p [ngClass]="{ 'stock': item.product?.status === 'inStock', 'text-danger': item.product?.status !== 'inStock' }" class="mb-0 ">{{item.product?.status === 'inStock' ? 'In Stock' : 'Out of Stock'}}</p>
+          <div class="d-flex justify-content-between align-items-center mt-2">
+            <div>
+              <p class="mb-0 text-primary" style="font-size: 14px; font-weight: 500;">{{item.product?.unit_price || 0 | currency: '₦' :'symbol':'1.0-0'}} / Per item</p>
+            </div>
+            <!-- Product Status -->
+            <div>
+              <p [ngClass]="{ 'stock': item.product?.status === 'inStock', 'text-danger': item.product?.status !== 'inStock' }" class="mb-0">{{item.product?.status === 'inStock' ? 'In Stock' : 'Out of Stock'}}</p>
+            </div>
           </div>
         </div>
-         <!-- MOQ Message -->
-      <!-- <div *ngIf="item.product.moq > item.quantity" class="text-danger">
-        The minimum order quantity is {{item.product.moq}}
-      </div> -->
       </div>
     </div>
   </div>
+</section>
 
+
+<style>
+  /* Mobile view styles */
+.mobile-img-sec {
+  flex: 0 0 auto; /* Allow image to shrink as per its size */
+  margin-right: 10px; /* Adjust margin as per your design */
+}
+
+.mobile-image-container {
+  max-width: 100px;
+  max-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.mobile-image-container img {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+.mobile-cart-contain {
+  box-shadow: 0px 3.67px 27.55px 0px #2E2D740D;
+  border: 1px solid #7c7c7c17 !important;
+  flex: 1 1 auto;
+  padding: 10px;
+}
+
+.mobile-quantity-control {
+  display: flex;
+  align-items: center;
+}
+
+.mobile-quantity-control button {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+}
+
+.mobile-quantity-control .quantity {
+  padding: 0 10px;
+  font-size: 16px;
+}
+
+</style>
   <div class="d-flex justify-content-end clear-section mb-3">
     <!-- <button class="btn" (click)="clearCart()">Clear Cart</button> -->
   </div>

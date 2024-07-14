@@ -10,7 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorHandlingInterceptor } from './shared/Interceptors/error-handling.interceptor';
 import { MenuService } from './shared/services/menu.service';
-import { DatePipe } from '@angular/common';
+import { DatePipe, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { LoaderService } from './shared/services/loader.service';
 import { LoaderInterceptor } from './shared/Interceptors/loader-interceptor.service';
 import { LoaderComponent } from './shared/loader/loader.component';
@@ -42,7 +42,7 @@ import { CloudinaryModule } from '@cloudinary/ng';
     LoaderService,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-  
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent],
 })
