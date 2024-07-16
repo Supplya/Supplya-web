@@ -56,9 +56,7 @@ export class CategoryComponent implements OnInit {
 
         if (data.status) {
           this.summary = data.data;
-        } else {
-        }
-        // this.ordersLoading = false;
+        } 
       },
       (error) => {
         this.errorFetchingSummary = true;
@@ -119,7 +117,7 @@ export class CategoryComponent implements OnInit {
     });
   }
   delete(id: string) {
-    this.productService.deleteProduct(id).subscribe((result) => {
+    this.productService.deleteCategory(id).subscribe((result) => {
       if (result) {
         this.toast.success('category deleted successfully');
         this.getAllCategories();

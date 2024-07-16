@@ -87,6 +87,10 @@ export class ProductService {
   getCategoryById(id: any): Observable<any> {
     return this.http.get<any>(`${this.productUrl}categories/` + id);
   }
+
+  deleteCategory(id: any): Observable<any> {
+    return this.http.delete<any>(`${this.productUrl}categories/${id}`);
+  }
   UpdateProduct(id: any, product: any): Observable<any> {
     return this.http.patch<any>(`${this.productUrl}products/${id}`, product);
   }
