@@ -25,6 +25,7 @@ import { VendorsComponent } from './users/vendors/vendors.component';
 import { AdminsComponent } from './users/admins/admins.component';
 import { ViewCustomersComponent } from './users/view-customers/view-customers.component';
 import { ViewVendorsComponent } from './users/view-vendors/view-vendors.component';
+import { EditCategoryComponent } from './category/edit-category/edit-category.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { ViewVendorsComponent } from './users/view-vendors/view-vendors.componen
     VendorsComponent,
     AdminsComponent,
     ViewCustomersComponent,
-    ViewVendorsComponent
+    ViewVendorsComponent,
+    EditCategoryComponent
   ],
   imports: [
     CommonModule,

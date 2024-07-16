@@ -34,6 +34,9 @@ export class DashboardService {
   getProductMetric(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/admin/dashboard/product`);
   }
+  getCategoryMetric(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/admin/dashboard/product`);
+  }
   getOrderMetric(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/admin/dashboard/order`);
   }

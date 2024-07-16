@@ -1,121 +1,176 @@
-<app-back-button></app-back-button>
-<section class="container py-5" >
-    <div class="row">
-        <!-- TABLE COLUMN -->
-        <div class="col-lg-7 px-lg-5">
-            <div class="w3-animate-zoom">
-                <div class="row mt-2" style="align-items: center!important;">
-                  <div class="col-lg-10">
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <p class="table-title px-3">{{ title }}</p>
-                      </div>
-                      <div class="col-lg-6">
-                        <input type="text" class="form-control mb-3" placeholder="Search anything here..." [(ngModel)]="searchText"
-                          (input)="applyFilter()" />
-                      </div>
-                    </div>
-                  </div>
-                  <!-- <div class="col-lg-4">
-                  </div> -->
-                  <div class="col-lg-2 text-end" *ngIf="filteredRows?.length > 0">
-                    <p (click)="exportToExcel()" class="btn export">Export</p>
-                  </div>
-                </div>
-            
-            
-                <div class="py-5 text-center" *ngIf="filteredRows?.length < 1">
-                  <p class="no-data">No data available</p>
-                </div>
-                <table class="table" *ngIf="filteredRows?.length > 0">
-                  <thead>
-                    <tr>
-            
-                      <th scope="col">Category</th>
-                      <th scope="col">Description</th>
-                      <th scope="col">Date Created</th>
-                      <th scope="col"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let item of filteredRows   | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
-            
-                      <td>{{item.name}}</td>
-                      <td>{{item.description}}</td>
-                      <td>{{item.createdAt  | date: 'dd-MMM-yyy'}}</td>
-                      <td > <small class="edit-text"><i class="bi bi-pencil-square"></i></small></td>
-            
-                    </tr>
-            
-            
-                  </tbody>
-                </table>
-                <pagination-controls *ngIf="filteredRows?.length > 0"
-                  (pageChange)="p = $event"
-                  previousLabel=""
-                  nextLabel=""
-                ></pagination-controls>
-              </div>
+<section>
+    
+    <div class="container">
+  <div class="pageRow row align-items-center mb-3">
+        <div class="col-6">
+          <div class="page-name mt-2">{{title}}</div>
         </div>
-
-
-
-        <!-- ADD COLUMNS -->
-        <div class="col-lg-5" style="border: 1px solid rgba(0, 0, 0, 0.127);">
-            <section class="container p-lg-5">
-                <div class="row">
-                  <form>
-  <p class="table-title text-center">Add New Category</p>
-    <div class="row mb-lg-3"> 
-        <div>
-            <p class="form-label" for="subject"> Name <span class="text-danger">*</span></p>
-            <input
-            type="text"
-            formControlName="name"
-            class="form-control {{
-              isInvalid('name') ? 'error-input' : ''
-            }}"
-            placeholder="Enter category name"
-          />
-           
-            <small
-              class="text-sm error-dark"
-              *ngIf="isInvalid('name')"
-              >{{
-                getErrorMessage(
-                  "name",
-                  "Kindly enter role name"
-                )
-              }}</small
-            >
+        <div class="col-6">
+          <div class="btn-container">
+            <button class="add" routerLink="/core/admin/add-new-category"> <i class="bi bi-plus mt-1"></i> Add Category</button>
           </div>
+        </div>
       </div>
-    <div class="row mb-lg-3"> 
-        <div>
-            <p class="form-label" for="subject"> Description <span class="text-danger">*</span></p>
-            <textarea formControlName="name"
-            class="form-control {{
-              isInvalid('name') ? 'error-input' : ''
-            }}"></textarea>
-           
-            <small
-              class="text-sm error-dark"
-              *ngIf="isInvalid('name')"
-              >{{
-                getErrorMessage(
-                  "name",
-                  "Kindly enter role name"
-                )
-              }}</small
-            >
-          </div>
-      </div>
- <button class="btn-primary-submit">Add <i class="bi bi-plus-circle"></i></button>
-</form>
-                </div>
-            </section>
+        <div class="row mb-3">
+            <div class="col-lg-3">
+        <div class="container-content p-3 mb-2">
+            <div class="d-flex justify-content-between ">
+                <p class="head-text">Total Categories</p>
+                <img src="/assets/Images/total-sales.png" alt="">
+            </div>
+            <h3 class="head-count">{{summary?.totalProducts | number:'1.0-0'}}</h3>
+            <p class="head-brief"></p>
+        </div>
+    </div>
 
+    <div class="col-lg-3">
+        <div class="container-content p-3 mb-2">
+            <div class="d-flex justify-content-between ">
+                <p class="head-text">Active Categories</p>
+                <img src="/assets/Images/stocks.png" alt="">
+            </div>
+            <h3 class="head-count">{{summary?.totalProductsInStock | number:'1.0-0'}}</h3>
+            <p class="head-brief"></p>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="container-content p-3 MB-2">
+            <div class="d-flex justify-content-between ">
+                <p class="head-text">Inactive Categories</p>
+                <img src="/assets/Images/pending.png" alt="">
+            </div>
+            <h3 class="head-count">{{summary?.totalProductsOutOfStock | number:'1.0-0'}}</h3>
+            <p class="head-brief"></p>
+        </div>
+    </div>
+    
 
         </div>
     </div>
 </section>
+
+
+
+<div class="container">
+  
+
+      <section class="content" *ngIf="categoryLoading && !filteredRows && !errorFetchingCategory">
+<div class="py-5 p-5 center">
+    <div>
+
+        <img src="/assets/Images/requestLoading.gif" alt="">
+        <p class="loading-text text-center text-muted">Loading...</p>
+    </div>
+</div>
+      </section >
+
+      <section class="content center" *ngIf="!categoryLoading && !filteredRows && errorFetchingCategory">
+        <div class="py-5 ">
+          <div class="py-3 text-center" >
+            <img src="/assets/Images/oops.png" style="height: 200px;" alt="">
+            <p class="loading-text  text-muted py-3">Could not display categories. Click 'Refresh' to try again.
+        </p>
+            <p class="refresh" (click)="refreshCategory()">Refresh <i class="bi bi-arrow-repeat"></i></p>
+          </div>
+        </div>
+      </section>
+     
+      <div class="row ">
+         <div class="col-lg-4">
+                        <input *ngIf="categories?.length > 0" type="text" class="form-control search-input mb-3" placeholder="Search category" [(ngModel)]="searchText"
+                          (input)="applyFilter()" />
+                      </div>
+                       <div class="col-lg-8 text-end" *ngIf="filteredRows?.length > 0">
+                    <p (click)="exportToExcel()" class="btn export">Export</p>
+                  </div>
+      </div>
+      
+      <div class="table-responsive" *ngIf="!categoryLoading && filteredRows?.length > 0">
+
+          <table class="table" style="overflow-y: auto;">
+            <thead>
+              <tr>
+                <th>Category Information</th>
+                <th>Total Products</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of filteredRows | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
+                <td>
+                  <div class="product-info" routerLink="/core/admin/edit-category/{{item?._id}}" style="cursor: pointer;">
+                    <img class="product-image" [src]="item?.image" alt="Product Image">
+                    {{ item?.name | shortenText }}
+                  </div>
+                </td>
+                <td>{{item?.moq}}</td>
+             
+               <td >
+                <small [ngClass]="{'in-stock': item?.status === 'Active', 'out-of-stock': item?.status !== 'inStock'}">
+                  {{ item?.status === 'Active' ? 'Active' : 'Inactive' }}</small></td>
+
+                <td>
+                 <div class="dropdowns">
+            <img src="/assets/Images/dots (2).png" class="Pencil">
+            <div class="dropdown-content p-2">
+              <!-- <a (click)="toggleModal('vendorModal', 'open')" class="dropdown-item" style="cursor: pointer;"><img class="border-right p-2 mr-2" src="/assets/img/edit.png" alt=""> View Vendor</a> -->
+              <a class="dropdown-item border-bottom" routerLink="/core/admin/edit-category/{{item?._id}}" style="cursor: pointer;">Edit category</a>
+              <a class="dropdown-item border-bottom" (click)="toggleModal('apartmentModal', 'open', item)" style="cursor: pointer;">View Vendor</a>
+              <a class="dropdown-item border-bottom text-danger" (click)="deleteCategory(item)" style="cursor: pointer;">Delete category</a>
+            </div>
+          </div>
+                </td>
+              </tr>
+            </tbody>
+           
+          </table>
+
+          <div class="d-flex justify-content-between px-5" *ngIf="filteredRows?.length > 0">
+
+            <div class="pagination-info text-muted">
+                Now Showing {{ calculateStartRecord() }} - {{ calculateEndRecord() }} of {{ filteredRows?.length }} records
+              </div>
+
+              <div>
+                <pagination-controls *ngIf="filteredRows?.length > 0"
+                    (pageChange)="p = $event"
+                    previousLabel=""
+                    nextLabel=""
+                  ></pagination-controls>
+              </div>
+          </div>
+          
+      </div>
+
+      
+       <section class="content center" *ngIf="filteredRows?.length === 0">
+        <div class="py-5 ">
+          <div class="py-3 text-center" >
+            <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">
+            <div class=" py-5">
+
+              <p class="loading-text  text-muted">No category found for your search
+          </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="content center" *ngIf="filteredRows?.length === 0 && categories?.length === 0">
+        <div class="py-5 ">
+          <div class="py-3 text-center" >
+            <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">
+          </div>
+           <div class=" py-3">
+
+              <p class="loading-text  text-muted">Your category Catalog is Empty!
+          </p>
+           <small style="font-size: 16px!important;" class="text-muted">Start Selling! Add Your First category</small>
+           <div class="btn-wrapper mt-3">
+            <button class="add" routerLink="/core/vendor/add-new-category"> <i class="bi bi-plus mt-1"></i> Add category</button>
+          </div>
+            </div>
+        </div>
+      </section>
+  </div>

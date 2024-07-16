@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastyService } from 'ng-toasty';
 import { ProductService } from 'src/app/core/operation/services/product/product.service';
-import { applyGlobalSearch } from 'src/app/shared/helpers/global-table-search';
 import { ExportService } from '../../services/export.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HelperService } from 'src/app/shared/helpers/helper.service';
+import { ToastyService } from 'ng-toasty';
+import { applyGlobalSearch } from 'src/app/shared/helpers/global-table-search';
+import Swal from 'sweetalert2';
+import { DashboardService } from '../../services/dashboard.service';
 
 @Component({
   selector: 'app-category',
@@ -12,72 +12,143 @@ import { HelperService } from 'src/app/shared/helpers/helper.service';
   styleUrls: ['./category.component.scss'],
 })
 export class CategoryComponent implements OnInit {
-  categories: any;
-  filteredRows: any;
-  title = 'All Categories';
-  searchText: string = '';
   itemPerPage: number = 8;
   p: number = 1;
-  form!: FormGroup;
-  submitted: boolean = false;
+  filteredRows: any;
+  title = 'Categories';
+  searchText: string = '';
   constructor(
-    private productService: ProductService,
-    private fb: FormBuilder,
-    private helper: HelperService,
-    private notify: ToastyService,
-    private exportService: ExportService
+    private adminService: DashboardService,
+    private exportService: ExportService,
+    private toast: ToastyService,
+    private productService: ProductService
   ) {}
   ngOnInit(): void {
     this.getAllCategories();
-    this.initForm();
+    this.getCategoryMetrics();
   }
-
+  errorFetchingCategory: boolean = false;
+  categoryLoading: boolean = false;
+  categories: any;
   getAllCategories() {
+    this.categoryLoading = true;
     this.productService.getAllCategories().subscribe(
       (data: any) => {
-        if (data.status) {
-          this.categories = data?.categories;
-          this.filteredRows = data?.categories;
-          console.log(data, 'products');
-        } else {
-          this.notify.danger(data?.msg);
-        }
+        this.categories = data?.data;
+        this.filteredRows = data?.data;
+        this.categoryLoading = false;
       },
       (error) => {
-        console.error('Error fetching categories:', error);
-        // Handle the error appropriately, for example, show a user-friendly error message.
+        this.errorFetchingCategory = true;
+        this.categoryLoading = false;
       }
     );
   }
 
+  summary;
+  statsLoading;
+  errorFetchingSummary;
+  getCategoryMetrics() {
+    this.statsLoading = true;
+    this.adminService.getProductMetric().subscribe(
+      (data: any) => {
+        this.statsLoading = false;
+
+        if (data.status) {
+          this.summary = data.data;
+        } else {
+        }
+        // this.ordersLoading = false;
+      },
+      (error) => {
+        this.errorFetchingSummary = true;
+        // this.ordersLoading = false;
+        this.statsLoading = false;
+      }
+    );
+  }
+  selectedOrder: any;
+  toggleModal = (modalId, action: string, data?: any) => {
+    if (action == 'open') {
+      document.getElementById(modalId).style.display = 'flex';
+    } else {
+      document.getElementById(modalId).style.display = 'none';
+    }
+    if (data) {
+      this.selectedOrder = data;
+    }
+  };
   applyFilter() {
     this.filteredRows = applyGlobalSearch(this.categories, this.searchText, [
       'name',
-      'description',
-      'createdAt',
+      'moq',
+      'unit_price',
+      'unit_price',
+      'status',
+      'quantity',
     ]);
     this.p = 1;
   }
 
+  deleteCategory(category: any) {
+    Swal.fire({
+      html: `<span style="color: #000; font-weight: 600; font-size: 19px;">Are you sure you want to delete this category "<span style="color: var(--primary-color);">${category.name}</span>"?</span>`,
+      icon: 'warning',
+      showCancelButton: true,
+      allowOutsideClick: false,
+      confirmButtonText: 'Yes, delete',
+      cancelButtonText: 'No',
+      showClass: {
+        popup: `
+                  animate__animated
+                  animate__fadeInDown
+                  animate__faster
+                `,
+      },
+      hideClass: {
+        popup: `
+                  animate__animated
+                  animate__fadeOutDown
+                  animate__faster
+                `,
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.delete(category._id);
+      }
+    });
+  }
+  delete(id: string) {
+    this.productService.deleteProduct(id).subscribe((result) => {
+      if (result) {
+        this.toast.success('category deleted successfully');
+        this.getAllCategories();
+      }
+    });
+  }
   exportToExcel() {
     this.exportService.exportToExcel(this.filteredRows, this.title);
   }
-
-  private initForm(): void {
-    this.form = this.fb.group({
-      name: ['', Validators.required],
-      description: [''],
-      createdAt: [''],
-    });
+  refreshCategory() {
+    this.errorFetchingCategory = false;
+    this.getAllCategories();
   }
-
-  getErrorMessage(control: string, message: string) {
-    return this.helper.getError(this.form.get(control), message);
-  }
-  isInvalid(control: string) {
-    return (
-      (this.form.get(control)?.touched && this.form.get(control)?.invalid) ||
-      (this.submitted && this.form.get(control)?.invalid)
+  get productsToShow(): any[] {
+    const startIndex = (this.p - 1) * this.itemPerPage;
+    const endIndex = Math.min(
+      startIndex + this.itemPerPage,
+      this.filteredRows?.length
     );
+    return this.filteredRows?.slice(startIndex, endIndex);
+  }
+
+  // Method to calculate the start record number shown on the current page
+  calculateStartRecord(): number {
+    return (this.p - 1) * this.itemPerPage + 1;
+  }
+
+  // Method to calculate the end record number shown on the current page
+  calculateEndRecord(): number {
+    return Math.min(this.p * this.itemPerPage, this.filteredRows?.length);
   }
 }

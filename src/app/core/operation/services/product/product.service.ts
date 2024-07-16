@@ -8,11 +8,10 @@ import { environment } from 'src/assets/environment/environment';
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
   // productUrl: string = "https://supplya.cyclic.app/";
   productUrl = environment.BASE_URL;
 
@@ -37,18 +36,16 @@ export class ProductService {
     );
   }
   getRelatedProducts(id: any): Observable<any> {
-    return this.http.get<any>(
-      `${this.productUrl}products/${id}/get-related`
-    );
+    return this.http.get<any>(`${this.productUrl}products/${id}/get-related`);
   }
   getProductByCategory(name: any): Observable<any> {
     return this.http.get<any>(`${this.productUrl}products/category/${name}`);
   }
 
-
   getAllProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.productUrl}products`);
   }
+
   getAllFlashProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.productUrl}products/flashsale`);
   }
@@ -76,12 +73,20 @@ export class ProductService {
     return this.http.get<Product[]>(`${this.productUrl}users/orders`);
   }
   getAllNewArrivals(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.productUrl}products/newly-arrived-brands`);
+    return this.http.get<Product[]>(
+      `${this.productUrl}products/newly-arrived-brands`
+    );
   }
   getAllCategories(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.productUrl}categories`);
   }
+  addCategory(product: any): Observable<any> {
+    return this.http.post<any>(`${this.productUrl}categories/create`, product);
+  }
 
+  getCategoryById(id: any): Observable<any> {
+    return this.http.get<any>(`${this.productUrl}categories/` + id);
+  }
   UpdateProduct(id: any, product: any): Observable<any> {
     return this.http.patch<any>(`${this.productUrl}products/${id}`, product);
   }
@@ -100,5 +105,4 @@ export class ProductService {
   //   map(products => products.filter(x => x.category.toLowerCase().includes(searchTerm.toLowerCase())))
   // );
   // }
-
 }

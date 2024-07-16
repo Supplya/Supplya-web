@@ -44,9 +44,9 @@ export const menuItems = {
       ],
     },
     {
-      name: 'Category',
-      route: '/category',
-      hasChild: true,
+      name: 'Categories',
+      route: '/core/admin/categories',
+      hasChild: false,
       icon: 'box',
       childMenu: [
         {

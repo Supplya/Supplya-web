@@ -20,6 +20,7 @@ import { VendorsComponent } from './users/vendors/vendors.component';
 import { AdminsComponent } from './users/admins/admins.component';
 import { ViewVendorsComponent } from './users/view-vendors/view-vendors.component';
 import { ViewCustomersComponent } from './users/view-customers/view-customers.component';
+import { EditCategoryComponent } from './category/edit-category/edit-category.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -74,14 +75,25 @@ const routes: Routes = [
     component: AdminsComponent,
     data: { title: 'All Administrators' },
   },
-  { path: 'view-product/:_id', component: ViewProductDetailsComponent },
   { path: 'orders', component: OrdersComponent },
-  { path: 'categories', component: CategoryComponent },
-  { path: 'add-new-category', component: AddNewCategoryComponent },
-  { path: 'view-category/:_id', component: ViewCategoryDetailsComponent },
+  {
+    path: 'categories',
+    component: CategoryComponent,
+    data: { title: 'All Categories' },
+  },
+  {
+    path: 'edit-category/:id',
+    component: EditCategoryComponent,
+    data: { title: 'Edit Category' },
+  },
+  {
+    path: 'add-new-category',
+    component: AddNewCategoryComponent,
+    data: { title: 'Add New Category' },
+  },
   { path: 'users', component: UsersComponent },
   { path: 'add-new-user', component: AddNewUserComponent },
-  { path: 'view-user/:_id', component: AddNewUserComponent },
+  { path: 'view-user/:id', component: AddNewUserComponent },
   { path: 'add-new-role', component: AddNewRoleComponent },
   { path: 'role-permissions', component: RolePermissionComponent },
   { path: 'settings', component: SettingsComponent },
