@@ -48,7 +48,7 @@ height: 135px;
     margin-right: 10px;
   }
 
-  .in-stock {
+  .active {
     background: #00FF661A;
     font-family: Open Sans;
     font-size: 14px;
@@ -58,7 +58,7 @@ height: 135px;
     border-radius: 100px;
   }
   
-  .out-of-stock {
+  .inactive {
     background: #FFF0EA;
     font-family: Open Sans;
     font-size: 14px;

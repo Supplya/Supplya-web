@@ -81,13 +81,16 @@ export class ProductService {
     return this.http.get<Product[]>(`${this.productUrl}categories`);
   }
   addCategory(product: any): Observable<any> {
-    return this.http.post<any>(`${this.productUrl}categories/create`, product);
+    return this.http.post<any>(`${this.productUrl}categories`, product);
   }
 
   getCategoryById(id: any): Observable<any> {
     return this.http.get<any>(`${this.productUrl}categories/` + id);
   }
 
+  updateCategory(id: any, category: any): Observable<any> {
+    return this.http.put<any>(`${this.productUrl}categories/${id}`, category);
+  }
   deleteCategory(id: any): Observable<any> {
     return this.http.delete<any>(`${this.productUrl}categories/${id}`);
   }

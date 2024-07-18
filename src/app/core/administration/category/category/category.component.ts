@@ -50,13 +50,14 @@ export class CategoryComponent implements OnInit {
   errorFetchingSummary;
   getCategoryMetrics() {
     this.statsLoading = true;
-    this.adminService.getProductMetric().subscribe(
+    this.adminService.getCategoryMetric().subscribe(
       (data: any) => {
         this.statsLoading = false;
 
         if (data.status) {
           this.summary = data.data;
-        } 
+          console.log(this.summary);
+        }
       },
       (error) => {
         this.errorFetchingSummary = true;

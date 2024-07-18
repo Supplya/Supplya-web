@@ -7,7 +7,7 @@
         </div>
         <div class="col-6">
           <div class="btn-container">
-            <button class="add" routerLink="/core/admin/add-new-category"> <i class="bi bi-plus mt-1"></i> Add Category</button>
+            <button class="add" routerLink="/core/admin/add-new-category">Add Category</button>
           </div>
         </div>
       </div>
@@ -18,7 +18,7 @@
                 <p class="head-text">Total Categories</p>
                 <img src="/assets/Images/total-sales.png" alt="">
             </div>
-            <h3 class="head-count">{{summary?.totalProducts | number:'1.0-0'}}</h3>
+            <h3 class="head-count">{{summary?.totalCategories | number:'1.0-0'}}</h3>
             <p class="head-brief"></p>
         </div>
     </div>
@@ -29,7 +29,7 @@
                 <p class="head-text">Active Categories</p>
                 <img src="/assets/Images/stocks.png" alt="">
             </div>
-            <h3 class="head-count">{{summary?.totalProductsInStock | number:'1.0-0'}}</h3>
+            <h3 class="head-count">{{summary?.activeCategories | number:'1.0-0'}}</h3>
             <p class="head-brief"></p>
         </div>
     </div>
@@ -39,7 +39,7 @@
                 <p class="head-text">Inactive Categories</p>
                 <img src="/assets/Images/pending.png" alt="">
             </div>
-            <h3 class="head-count">{{summary?.totalProductsOutOfStock | number:'1.0-0'}}</h3>
+            <h3 class="head-count">{{summary?.inactiveCategories | number:'1.0-0'}}</h3>
             <p class="head-brief"></p>
         </div>
     </div>
@@ -104,11 +104,11 @@
                     {{ item?.name | shortenText }}
                   </div>
                 </td>
-                <td>{{item?.moq}}</td>
+                <td>{{item?.totalProduct}}</td>
              
                <td >
-                <small [ngClass]="{'in-stock': item?.status === 'Active', 'out-of-stock': item?.status !== 'inStock'}">
-                  {{ item?.status === 'Active' ? 'Active' : 'Inactive' }}</small></td>
+                <small [ngClass]="{'active': item?.status === 'active', 'inactive': item?.status !== 'active'}">
+                  {{ item?.status === 'active' ? 'Active' : 'Inactive' }}</small></td>
 
                 <td>
                  <div class="dropdowns">

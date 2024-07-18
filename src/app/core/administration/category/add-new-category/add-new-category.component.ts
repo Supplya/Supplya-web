@@ -44,8 +44,8 @@ export class AddNewCategoryComponent implements OnInit {
     this.form = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      status: ['', Validators.required],
-      image: ['', Validators.required], // Set image as required
+      // status: [''],
+      image: [''], // Set image as required
       showOnHomepage: [false],
     });
   }
@@ -133,7 +133,7 @@ export class AddNewCategoryComponent implements OnInit {
       this.productService.addCategory(formData).subscribe((data) => {
         if (data.status) {
           this.notify.success(data.message);
-          this.route.navigate(['/core/admin/category']);
+          this.route.navigate(['/core/admin/categories']);
         }
       });
     }
