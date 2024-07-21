@@ -8,6 +8,7 @@ export class Product {
   sku!: string;
   quantity!: number;
   price!: number;
+  moq!: number;
   unit_price!: number;
   numReviews!: number;
   isFeatured!: boolean;

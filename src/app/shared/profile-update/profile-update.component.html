@@ -1,0 +1,61 @@
+  <form [formGroup]="form" (ngSubmit)="updateProfile()">
+<div>
+    <h1 class="headings mt-3 slide-top">
+                                        <span style="color:var(--primary-color);">Hello</span>&nbsp;<span style="color: black!important;"></span>{{userDetails?.firstName}}!
+                                    </h1>
+                                    <p class="text-muted">To ensure a smooth and seamless checkout process, please update your profile with the necessary details below.</p>
+<section class="">
+    <section>
+         <div class="row mb-3">
+    
+                <div class="mb-3 col-lg-12 slide-left"  *ngIf="userDetails?.phoneNumber === '' || this.userDetails?.phoneNumber === null">
+                    <label for="phoneNumber" class="content-label">Phone Number</label>
+                    <input type="text" formControlName="phoneNumber" id="phoneNumber" class=" content-input {{
+                                            isInvalid('phoneNumber') ? 'error-input' : ''
+                                          }}" placeholder="Enter phone number">
+    
+                                            <small class="error-text mb-2" *ngIf="isInvalid('phoneNumber')">
+                                                {{ getErrorMessage('phoneNumber', 'This field is required') }}
+                                              </small>
+                  </div>
+             
+                  <div class="mb-2 col-lg-12 slide-right" *ngIf="userDetails?.address === '' || this.userDetails?.address === null">
+                    <label for="address" class="content-label"> Address</label>
+                    <input type="text" (change)="onAddressChange()" formControlName="address" id="address" class=" content-input {{
+                                            isInvalid('address') ? 'error-input' : ''
+                                          }}" placeholder="Enter address">
+    
+                                            <small class="error-text mb-2" *ngIf="isInvalid('address')">
+                                                {{ getErrorMessage('address', 'This field is required') }}
+                                              </small>
+                  </div>
+                  
+                <div class="mb-2 col-lg-12 slide-left" *ngIf="userDetails?.state === '' || this.userDetails?.state === null">
+                    <label for="state" class="content-label">State</label>
+                        <ngx-select-dropdown
+  [config]="dropdownConfig"
+  [options]="states"
+  formControlName="state"
+  class=" {{ isInvalid('state') ? 'error-input' : '' }}"
+></ngx-select-dropdown>
+
+                   
+    
+                                            <small class="error-text mb-4" *ngIf="isInvalid('state')">
+                                                {{ getErrorMessage('state', 'This field is required') }}
+                                              </small>
+                  </div>
+            </div>
+     
+   
+    
+
+            <div class="d-flex justify-content-center mb-3">
+<button style="height: 45px!important;" class="btn btn-save w-100">Update Profile</button>
+
+            </div>
+    </section>
+</section>
+
+</div>
+</form>

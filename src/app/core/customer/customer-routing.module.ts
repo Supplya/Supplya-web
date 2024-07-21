@@ -14,7 +14,7 @@ const routes: Routes = [
     data: { title: 'Account Overview' },
   },
   {
-    path: 'settings',
+    path: 'profile-settings',
     component: CustomerSettingsComponent,
     data: { title: 'Account Preference' },
   },

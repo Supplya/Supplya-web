@@ -1,26 +1,25 @@
 import { HttpEvent, HttpEventType } from '@angular/common/http';
-import { AfterViewInit, Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, NgZone, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastyService } from 'ng-toasty';
 import { AuthService } from 'src/app/authentication/service/auth.service';
-import { HelperService } from 'src/app/shared/helpers/helper.service';
-import { PasswordMatchValidator } from 'src/app/shared/helpers/password-match.validator';
-import { MediaUploadService } from 'src/app/shared/services/mediaUpload.service';
+import { HelperService } from '../helpers/helper.service';
+import { PasswordMatchValidator } from '../helpers/password-match.validator';
+import { MediaUploadService } from '../services/mediaUpload.service';
+import { Subscription } from 'rxjs';
 declare const google: any; 
 @Component({
-  selector: 'app-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss'],
+  selector: 'app-profile-update',
+  templateUrl: './profile-update.component.html',
+  styleUrls: ['./profile-update.component.scss'],
 })
-export class SettingsComponent implements OnInit, AfterViewInit {
-  @ViewChild('search', { static: false }) searchElementRef!: ElementRef;
-  @ViewChild('mapElement', { static: false }) mapElementRef!: ElementRef;
-
-  map!: any; // Use 'any' type for map variable
-  autocomplete: any; // Autocomplete variable
-
-  mapVisible: boolean = false;
+export class ProfileUpdateComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
+  
+  @Output() UpdateSuccess = new EventEmitter<void>();
+  @Output() UpdateStart = new EventEmitter<void>();
   constructor(
     private fb: FormBuilder,
     private helperService: HelperService,
@@ -30,7 +29,21 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     private ngZone: NgZone,
     private uploadService: MediaUploadService
   ) {}
-
+  @ViewChild('search', { static: false }) searchElementRef!: ElementRef;
+  @ViewChild('mapElement', { static: false }) mapElementRef!: ElementRef;
+  ngOnDestroy(): void {
+    if (this.credentialsSubscription) {
+      this.credentialsSubscription.unsubscribe();
+    }
+  }
+  map!: any; // Use 'any' type for map variable
+  autocomplete: any; // Autocomplete variable
+  private credentialsSubscription: Subscription;
+  form: FormGroup;
+  loading: boolean = false;
+  submitted: boolean = false;
+  passwordVisible: boolean = false;
+  mapVisible: boolean = false;
   states = [
     'Abia',
     'Adamawa',
@@ -76,51 +89,50 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.initForm();
     this.userDetails = this.authService.getUserCredentials();
-    this.getUserByID();
+    if (this.userDetails) {
+      this.form.patchValue(this.userDetails);
+    }
+    // this.credentialsSubscription = this.authService
+    //   .getUserCredentialsObservable()
+    //   .subscribe((credentials) => {
+    //     this.userDetails = credentials;
+    //   });
+//     if (this.userDetails) { 
+// this.getUserByID();
+//     } 
   }
   requestLoading;
-  userInfo;
-  getUserByID() {
-    this.form.reset();
-    this.requestLoading = true;
-    this.authService.getUserById(this.userDetails?._id).subscribe(
-      (data: any) => {
-        this.requestLoading = false;
-        if (data.status) {
-          this.userInfo = data['data'];
-          
-          this.form.patchValue(data['data']);
-        } else {
-          this.notify.danger(data.message);
-        }
-      },
-      (error) => {
-        this.requestLoading = false;
-        this.errorFetching = true;
-      }
-    );
-  }
+  // userInfo;
+  // getUserByID() {
+  //   this.requestLoading = true;
+  //   this.authService.getUserById(this.userDetails?._id).subscribe(
+  //     (data: any) => {
+  //       this.requestLoading = false;
+  //       if (data.status) {
+  //         this.userInfo = data['data'];
+
+  //         this.form.patchValue(data['data']);
+  //       } else {
+  //         this.notify.danger(data.message);
+  //       }
+  //     },
+  //     (error) => {
+  //       this.requestLoading = false;
+  //       this.errorFetching = true;
+  //     }
+  //   );
+  // }
   errorFetching;
   refreshUser() {
     this.errorFetching = false;
-    this.getUserByID();
+    // this.getUserByID();
   }
-  form: FormGroup;
-  passwordForm: FormGroup;
-  submitted: boolean = false;
-  selectedTab: string = 'profile';
-  showPassword: boolean = false;
-  showNewPassword: boolean = false;
-  showConfirmPassword: boolean = false;
 
   imgUrl: string | null = null;
   // imgUrl: string | null = '/assets/Images/Rectangle 136.png';
   uploadProgress: number = 0;
   uploadRequestLoading: boolean = false;
-  errorUploading: boolean = false;
-  selectTab(tab: string) {
-    this.selectedTab = tab;
-  }
+
   initForm() {
     this.form = this.fb.group({
       country: ['', Validators.required],
@@ -128,24 +140,8 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       address: ['', Validators.required],
       city: [''],
       postalCode: [''],
-      profileImage: [''],
       phoneNumber: [null, Validators.required],
-      accountNumber: [''],
-      bank: [''],
-      dob: [null],
-      _id: [''],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', Validators.required],
     });
-    this.passwordForm = this.fb.group(
-      {
-        currentPassword: ['', Validators.required],
-        newPassword: ['', Validators.required],
-        confirmPassword: ['', Validators.required],
-      },
-      { validator: PasswordMatchValidator('newPassword', 'confirmPassword') }
-    );
   }
   getErrorMessage(control: string, message: string) {
     return this.helperService.getError(this.form.get(control), message);
@@ -157,27 +153,6 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     );
   }
 
-  submittedPass;
-  getErrorMessagePass(control: string, message: string) {
-    return this.helperService.getError(this.passwordForm.get(control), message);
-  }
-  isInvalidPass(control: string) {
-    return (
-      (this.passwordForm.get(control)?.touched &&
-        this.passwordForm.get(control)?.invalid) ||
-      (this.submittedPass && this.passwordForm.get(control)?.invalid)
-    );
-  }
-
-  togglePasswordVisibility(field: string) {
-    if (field === 'password') {
-      this.showPassword = !this.showPassword;
-    } else if (field === 'newPassword') {
-      this.showNewPassword = !this.showNewPassword;
-    } else if (field === 'confirmPassword') {
-      this.showConfirmPassword = !this.showConfirmPassword;
-    }
-  }
   toggleModal = (modalId, action: string, data?: any) => {
     if (action == 'open') {
       document.getElementById(modalId).style.display = 'flex';
@@ -192,123 +167,30 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     this.form.reset();
     this.submitted = false;
   }
-  addImage(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.uploadImage(e.target.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  }
-
-  onDragOver(event: any) {
-    event.preventDefault();
-  }
-
-  onDragEnter(event: any) {
-    event.preventDefault();
-    event.currentTarget.classList.add('drag-over');
-  }
-
-  onDragLeave(event: any) {
-    event.preventDefault();
-    event.currentTarget.classList.remove('drag-over');
-  }
-
-  onDrop(event: any) {
-    event.preventDefault();
-    event.currentTarget.classList.remove('drag-over');
-    const file = event.dataTransfer.files[0];
-    if (file) {
-      this.uploadImage(file);
-    }
-  }
-
-  uploadImage(file: File) {
-    this.toggleModal('changePhotoModal', 'close');
-    this.uploadProgress = 0;
-    this.uploadRequestLoading = true;
-
-    this.uploadService.uploadImages(file).subscribe(
-      (event: HttpEvent<any>) => {
-        if (event.type === HttpEventType.UploadProgress && event.total) {
-          this.uploadProgress = Math.round((event.loaded / event.total) * 100);
-        } else if (event.type === HttpEventType.Response) {
-          this.uploadProgress = 0;
-          this.uploadRequestLoading = false;
-          this.imgUrl = event.body.secure_url;
-          this.form.patchValue({
-            profileImage: this.imgUrl,
-          });
-          this.toggleModal('changePhotoModal', 'open');
-        }
-      },
-      (err) => {
-        this.errorUploading = true;
-        this.uploadRequestLoading = false;
-      }
-    );
-  }
-
-  changePassword(): void {
-    if (this.passwordForm.valid) {
-      const formValues = this.passwordForm.value;
-      this.authService.changePassword(formValues).subscribe(
-        (response) => {
-          if (response.status) {
-            this.notify.success('Password changed successfully');
-            this.router.navigate(['/auth']);
-          } else {
-            this.notify.danger(response.message);
-          }
-        },
-        (error) => {
-          this.selectedTab = 'security';
-        }
-      );
-    }
-  }
 
   updateProfile(): void {
+   
     this.submitted = true;
     if (this.form.valid) {
-      
+       this.UpdateStart.emit();
       this.authService
         .updateUserById(this.userDetails?._id, this.form.value)
         .subscribe((data) => {
           if (data?.status) {
-            localStorage.setItem('spa-userData', JSON.stringify(data.data));
+            localStorage.setItem('spa-userData', JSON.stringify(data?.data));
             this.submitted = false;
             this.userDetails = data['data'];
+              if (this.userDetails) {
+                this.form.patchValue(this.userDetails);
+              }
+            this.UpdateSuccess.emit();
             this.notify.success('Profile Updated Successfully', 4000);
-            this.getUserByID();
+            // this.getUserByID();
           }
         });
     }
   }
-  updatePicture(): void {
-    this.toggleModal('changePhotoModal', 'close');
-    this.submitted = true;
-    this.authService
-      .updateUserById(this.userDetails?._id, this.form.value)
-      .subscribe(
-        (data) => {
-          if (data?.status) {
-            this.authService.setCredentialsOnly(data?.data)
-            this.submitted = false;
-            this.userDetails = data['data'];
-            this.toggleModal('changePhotoModal', 'close');
-            this.notify.success('Photo Updated Successfully', 4000);
-            this.getUserByID();
-          }
-        },
-        (error) => {
-          this.toggleModal('changePhotoModal', 'open');
-        }
-      );
-  }
+
   dropdownConfig = {
     displayKey: '',
     search: true,

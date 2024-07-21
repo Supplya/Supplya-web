@@ -138,9 +138,15 @@ export const menuItems = {
       icon: 'file-earmark-text',
     },
 
+    // {
+    //   name: 'Preference',
+    //   route: '/core/customer/settings',
+    //   hasChild: false,
+    //   icon: 'gear-fill',
+    // },
     {
-      name: 'Preference',
-      route: '/core/customer/settings',
+      name: 'Settings',
+      route: '/core/customer/profile-settings',
       hasChild: false,
       icon: 'gear-fill',
     },

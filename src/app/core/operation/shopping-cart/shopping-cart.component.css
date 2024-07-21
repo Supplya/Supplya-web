@@ -249,7 +249,9 @@ p {
 /* .remove-texts{
   font-size: 20px!important; font-weight: 600;
 } */
+ 
 }
+
 @media screen and (max-width: 769px) {
   .label, .value {
     font-size: 16px;
@@ -264,6 +266,120 @@ p {
 }
 
 }
+
+.mobile-cart{
+  .mobile-cart-container {
+  padding: 16px;
+  background-color: #f8f9fa;
+}
+
+.mobile-cart-item {
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid #cccccc67;
+   /* box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important; */
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  margin-bottom: 10px;
+  overflow: hidden;
+  padding: 10px 10px 2px 10px;
+}
+
+.mobile-cart-item-inner {
+  display: flex;
+  align-items: flex-start;
+}
+
+.product-image img {
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.product-details {
+  display: flex;
+  flex-direction: column;
+  margin-left: 16px;
+  flex: 1;
+}
+
+.product-name {
+  font-size: 17px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  
+}
+
+.seller-info {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.seller-info span {
+  color: var(--primary-color);
+}
+
+.product-attributes {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.product-price {
+  font-size: 18px;
+  font-weight: 500;
+  /* margin-bottom: 8px; */
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.quantity-control button {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.quantity {
+  margin: 0 8px;
+  font-size: 18px;
+}
+
+.product-status {
+  font-size: 14px;
+}
+
+.in-stock {
+  color: green;
+}
+
+.out-of-stock {
+  color: red;
+}
+
+.remove-item {
+  background-color: transparent !important;
+  color: #ff0000;
+  border: none;
+  font-size: 15px;
+}
+.remove-item:hover {
+  background-color: transparent !important;
+  color: #ff0000;
+  border: none;
+  font-size: 15px;
+}
+
+}
+
 .form-checks{
   border-bottom: 1px solid var(--stroke, #E6E6E6);
   padding: 15px 0px;

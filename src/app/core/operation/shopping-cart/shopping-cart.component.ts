@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from '../services/cart/cart.service';
 import { Cart } from 'src/app/models/operation/cart';
@@ -7,6 +7,8 @@ import { AuthService } from 'src/app/authentication/service/auth.service';
 import { OrderService } from '../services/order/order.service';
 import { ToastyService } from 'ng-toasty';
 import { environment } from 'src/assets/environment/environment';
+import { Subscription } from 'rxjs';
+import Swal from 'sweetalert2';
 
 declare var PaystackPop: any;
 
@@ -21,7 +23,6 @@ export class ShoppingCartComponent implements OnInit {
   cart!: Cart;
   cartItems: CartItem[] = [];
   loading: boolean = false;
-
   constructor(
     private cartService: CartService,
     private notify: ToastyService,
@@ -29,16 +30,24 @@ export class ShoppingCartComponent implements OnInit {
     private authService: AuthService,
     private orderService: OrderService
   ) {}
+
+ 
   userInfo;
   selectedPaymentMethod: string = '';
   ngOnInit(): void {
     this.userInfo = this.authService.getUserCredentials();
-    // this.toggleModal('processModal', 'open');
+
+    // this.toggleModal('updateProfileModal', 'open');
+    // this.credentialsSubscription = this.authService
+    //   .getUserCredentialsObservable()
+    //   .subscribe((credentials) => {
+    //     this.userInfo = credentials;
+    //     console.log(this.userInfo);
+    //   });
     this.loading = true;
     this.cartService.getCartObservable().subscribe((cart) => {
       this.cart = cart;
       this.cartItems = cart.items;
-      // console.log(this.cartItems);
       this.loading = false;
     });
     this.loadCart();
@@ -70,14 +79,38 @@ export class ShoppingCartComponent implements OnInit {
     return this.cart.items.every((item) => item.product.moq <= item.quantity);
   }
   removeFromCart(cartItem: CartItem) {
-    this.toggleModal('removeModal', 'close');
     this.cartService.removeFromCart(cartItem.product._id);
   }
-  selectedCart: any;
-  confirmCartRemoval(item) {
-    this.toggleModal('removeModal', 'open');
-    this.selectedCart = item;
-}
+
+
+  confirmCartRemoval(item: any) {
+    Swal.fire({
+      html: `<span style="color: #000; font-weight: 600; font-size: 19px;">Are you sure you want to remove "<span style="color: var(--primary-color);">${item?.product?.name}</span>" from cart?</span>`,
+      icon: 'warning',
+      showCancelButton: true,
+      allowOutsideClick: false,
+      confirmButtonText: 'Yes, remove',
+      cancelButtonText: 'No',
+      showClass: {
+        popup: `
+                  animate__animated
+                  animate__fadeInDown
+                  animate__faster
+                `,
+      },
+      hideClass: {
+        popup: `
+                  animate__animated
+                  animate__fadeOutDown
+                  animate__faster
+                `,
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.removeFromCart(item);
+      }
+    });
+  }
   // changeQuantity(delta: number, cartItem: CartItem) {
   //   cartItem.quantity += delta;
   //   if (cartItem.quantity < 1) {
@@ -113,6 +146,35 @@ export class ShoppingCartComponent implements OnInit {
     window.scrollTo(0, 0);
   }
 
+  checkStatusOrder() {
+    if (this.userInfo) {
+      if (
+        this.userInfo?.phoneNumber === null ||
+        this.userInfo?.phoneNumber === '' ||
+        this.userInfo?.address === null ||
+        this.userInfo?.address === '' ||
+        this.userInfo?.state === null ||
+        this.userInfo?.state === ''
+      ) {
+        this.toggleModal('updateProfileModal', 'open');
+      } else {
+        this.toggleModal('paymentTypeModal', 'open');
+      }
+    } else {
+      this.toggleModal('loginModal', 'open');
+    }
+  }
+
+  updateSuccess() {
+    this.userInfo = this.authService.getUserCredentials();
+    this.toggleModal('paymentTypeModal', 'open');
+  }
+
+  onLoginSuccess() {
+    this.toggleModal('loginModal', 'close');
+    this.toggleModal('paymentTypeModal', 'open');
+    this.userInfo = this.authService.getUserCredentials();
+  }
   transferOption = false;
   selectOption() {
     this.transferOption = true;
@@ -152,7 +214,7 @@ export class ShoppingCartComponent implements OnInit {
       phone: this.userInfo?.phoneNumber,
       country: this.userInfo?.country,
       zip: this.userInfo?.zip,
-      city: this.userInfo?.city || 'Mainland',
+      city: this.userInfo?.city,
       user: this.userInfo?._id,
       firstName: this.userInfo?.firstName,
       lastName: this.userInfo?.lastName,

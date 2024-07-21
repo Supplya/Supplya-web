@@ -14,9 +14,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private notify: ToastyService,
-  ) {
-  }
+    private notify: ToastyService
+  ) {}
   private baseURL = environment.BASE_URL;
 
   register(user: any): Observable<any> {
@@ -44,7 +43,6 @@ export class AuthService {
     return this.http.post(url, user);
   }
 
-  
   updateUserById(userId: string, userData: any): Observable<any> {
     const url = `${this.baseURL}users/${userId}`;
     return this.http.patch<any>(url, userData);
@@ -80,6 +78,7 @@ export class AuthService {
 
   private loggedIn = new BehaviorSubject<boolean>(false);
   private userType = new BehaviorSubject<string>('');
+  private userCredentials = new BehaviorSubject<any>(null);
 
   private userTypeToRouteMap: { [key: string]: string } = {
     customer: '/core/customer',
@@ -87,10 +86,89 @@ export class AuthService {
     admin: '/core/admin',
   };
 
+  // setCredentials(data: any) {
+  //   if (data && data.data.role) {
+  //     this.loggedIn.next(true);
+  //     this.userType.next(data.data.role);
+  //     localStorage.setItem('spa-userToken', data.token);
+  //     localStorage.setItem('spa-userData', JSON.stringify(data.data));
+  //     const route = this.userTypeToRouteMap[data.data.role] || '/auth';
+
+  //     if (this.router.url.includes(data.data.role)) {
+  //       this.router.navigateByUrl(this.router.url);
+  //     } else {
+  //       this.router.navigate([route]);
+  //     }
+  //   }
+  // }
+  // setCredentialsOnly(data: any) {
+  //     this.loggedIn.next(true);
+  //     this.userType.next(data.data.role);
+  //     localStorage.setItem('spa-userToken', data.token);
+  //     localStorage.setItem('spa-userData', JSON.stringify(data.data));
+
+  // }
+
+  // sendEmailForOTP(data: any) {
+  //   localStorage.setItem('spa-OTPEmail', data);
+  // }
+
+  // getEmailForOTP(): any {
+  //   const email = localStorage.getItem('spa-OTPEmail');
+  //   return email;
+  // }
+
+  // getUserCredentials(): any {
+  //   const userDataString = localStorage.getItem('spa-userData');
+  //   if (userDataString != null) {
+  //     this.loggedIn.next(true);
+  //   } else {
+  //     this.loggedIn.next(false);
+  //   }
+  //   return userDataString ? JSON.parse(userDataString) : null;
+  // }
+
+  // logout() {
+  //   localStorage.removeItem('spa-userType');
+  //   localStorage.removeItem('spa-userData');
+  //   localStorage.removeItem('spa-userToken');
+  //   localStorage.removeItem('spa-OTPEmail');
+  //   this.loggedIn.next(false);
+  //   this.userType.next('');
+  //   this.notify.success('Logged out Successfully', 4000);
+  //   this.router.navigate(['/auth']);
+  // }
+  // clearCredentials() {
+  //   localStorage.removeItem('spa-userType');
+  //   localStorage.removeItem('spa-userData');
+  //   localStorage.removeItem('spa-userToken');
+  //   this.loggedIn.next(false);
+  //   this.userType.next('');
+  //   this.router.navigate(['/auth']);
+  // }
+
+  // isLoggedIn() {
+  //   return this.loggedIn.asObservable();
+  // }
+
+  // getUserType() {
+  //   return this.userType.asObservable();
+  // }
+
+  // // Additional methods for auth guard
+  // isLoggedInValue(): boolean {
+  //   return this.loggedIn.value;
+  // }
+
+  // getUserTypeValue(): string {
+  //   return this.userType.value;
+  // }
+
   setCredentials(data: any) {
     if (data && data.data.role) {
       this.loggedIn.next(true);
       this.userType.next(data.data.role);
+      this.userCredentials.next(data.data);
       localStorage.setItem('spa-userToken', data.token);
       localStorage.setItem('spa-userData', JSON.stringify(data.data));
       const route = this.userTypeToRouteMap[data.data.role] || '/auth';
@@ -101,6 +179,14 @@ export class AuthService {
         this.router.navigate([route]);
       }
     }
+  }
+
+  setCredentialsOnly(data: any) {
+    this.loggedIn.next(true);
+    this.userType.next(data.role);
+    this.userCredentials.next(data.data);
+    localStorage.setItem('spa-userToken', data.token);
+    localStorage.setItem('spa-userData', JSON.stringify(data.data));
   }
 
   sendEmailForOTP(data: any) {
@@ -119,7 +205,9 @@ export class AuthService {
     } else {
       this.loggedIn.next(false);
     }
-    return userDataString ? JSON.parse(userDataString) : null;
+    const userData = userDataString ? JSON.parse(userDataString) : null;
+    this.userCredentials.next(userData);
+    return userData;
   }
 
   logout() {
@@ -129,27 +217,33 @@ export class AuthService {
     localStorage.removeItem('spa-OTPEmail');
     this.loggedIn.next(false);
     this.userType.next('');
+    this.userCredentials.next(null);
     this.notify.success('Logged out Successfully', 4000);
     this.router.navigate(['/auth']);
   }
+
   clearCredentials() {
     localStorage.removeItem('spa-userType');
     localStorage.removeItem('spa-userData');
     localStorage.removeItem('spa-userToken');
     this.loggedIn.next(false);
     this.userType.next('');
+    this.userCredentials.next(null);
     this.router.navigate(['/auth']);
   }
 
-  isLoggedIn() {
+  isLoggedIn(): Observable<boolean> {
     return this.loggedIn.asObservable();
   }
 
-  getUserType() {
+  getUserType(): Observable<string> {
     return this.userType.asObservable();
   }
 
-  // Additional methods for auth guard
+  getUserCredentialsObservable(): Observable<any> {
+    return this.userCredentials.asObservable();
+  }
+
   isLoggedInValue(): boolean {
     return this.loggedIn.value;
   }

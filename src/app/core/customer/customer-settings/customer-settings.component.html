@@ -1,3 +1,368 @@
-<section class="withdrawal-section p-5">
-<h3 class="text-center  py-5">Coming Soon</h3>
+
+
+
+
+    <section class="content" *ngIf="requestLoading && !userInfo && !errorFetching">
+<div class="py-5 p-5 center">
+    <div>
+
+        <img src="/assets/Images/requestLoading.gif" alt="">
+        <p class="loading-text text-center text-muted">Loading...</p>
+    </div>
+</div>
+      </section >
+
+      <section class="content center" *ngIf="!requestLoading && !userInfo && errorFetching">
+        <div class="py-5 ">
+          <div class="py-3 text-center" >
+            <img src="/assets/Images/oops.png" style="height: 200px;" alt="">
+            <p class="loading-text  text-muted py-3">Could not display User Profile. Click 'Refresh' to try again.
+        </p>
+            <p class="refresh" (click)="refreshUser()">Refresh <i class="bi bi-arrow-repeat"></i></p>
+          </div>
+        </div>
+      </section>
+      <!-- <div class="content">
+
+          <p class="m-0 py-2">Update your profile, Shipping information and preferences to personalize your experience</p>
+      </div> -->
+
+<section class="setting-section" *ngIf="!requestLoading && userInfo && !errorFetching">
+      <!-- <h2>Account Overview</h2> -->
+           <div class="tabs p-2 mobile-only">
+    <div 
+      class="tab" 
+      [ngClass]="{'active': selectedTab === 'profile', 'inactive': selectedTab !== 'profile'}" 
+      (click)="selectTab('profile')">
+Profile
+    </div>
+    <div 
+      class="tab" 
+      [ngClass]="{'active': selectedTab === 'shipping', 'inactive': selectedTab !== 'shipping'}" 
+      (click)="selectTab('shipping')">
+ Shipping
+    </div>
+    <div 
+      class="tab" 
+      [ngClass]="{'active': selectedTab === 'security', 'inactive': selectedTab !== 'security'}" 
+      (click)="selectTab('security')">
+     Password
+    </div>
+  </div>
+<div class="row p-3">
+    <div class="col-lg-3 d-none d-lg-block" style="border-right: 1px solid #D1D1D1">
+          <div class="tabs p-4 ">
+    <div 
+      class="tab" 
+      [ngClass]="{'active': selectedTab === 'profile', 'inactive': selectedTab !== 'profile'}" 
+      (click)="selectTab('profile')">
+<i class="bi bi-shop me-3"></i> Profile Information
+    </div>
+    <div 
+      class="tab" 
+      [ngClass]="{'active': selectedTab === 'shipping', 'inactive': selectedTab !== 'shipping'}" 
+      (click)="selectTab('shipping')">
+     <i class="bi bi-truck me-3"></i> Shipping Information
+    </div>
+    <div 
+      class="tab" 
+      [ngClass]="{'active': selectedTab === 'security', 'inactive': selectedTab !== 'security'}" 
+      (click)="selectTab('security')">
+     <i class="bi bi-shield-lock me-3"></i> Password
+    </div>
+  </div>
+    </div>
+    <div class="col-lg-9">
+
+
+<section [ngSwitch]="selectedTab" class=" p-4">
+  <form [formGroup]="form" (ngSubmit)="updateProfile()">
+<div *ngSwitchCase="'profile'">
+<div class="d-flex justify-content-between align-items-center" style="border-bottom: 1px solid #D1D1D1">
+<div class="mb-2">
+<p class="mb-0" style="font-size: 24px; font-weight: 500; color: #000;">Profile Information</p>
+<p style="font-size: 14px; font-weight: 400; color: #000;">Update your profile to personalize your experience</p>
+</div>
+<button class="btn btn-save d-none d-lg-block">Update Profile</button>
+</div>
+<section class="p-lg-4">
+
+    <div class="d-flex justify-content-between align-items-center py-3 w-100">
+        <div class="img-name">
+    
+            <div class="profile-picture-container cursor-pointer" (click)="toggleModal('changePhotoModal', 'open')">
+                <!-- Profile Picture -->
+                <img [src]="form.value.profileImage" alt="" class="profile-picture">
+                <!-- Camera Icon -->
+                <i class="bi bi-camera-fill camera-icon"></i>
+            </div>
+            <div>
+                <p class="mb-0" style="font-size: 22px; font-weight: 500; color: #000;">{{form.get('firstName')?.value}} {{form.get('lastName')?.value}}</p>
+                <p class="sub mb-0">{{form.get('email')?.value}}</p>
+                <p class="sub">{{form.get('phoneNumber')?.value}}</p>
+            </div>
+        </div>
+        <!-- <button class="btn btn-save d-none d-lg-block">Change Picture</button> -->
+    </div>
+    <section>
+         <div class="row mb-3">
+    
+                <div class="mb-2 col-lg-6 slide-left">
+                    <label for="firstName" class="content-label">First Name</label>
+                    <input type="text" formControlName="firstName" id="firstName" class=" content-input {{
+                                            isInvalid('firstName') ? 'error-input' : ''
+                                          }}" placeholder="Enter first Name">
+    
+                                            <small class="error-text mb-4" *ngIf="isInvalid('firstName')">
+                                                {{ getErrorMessage('firstName', 'This field is required') }}
+                                              </small>
+                  </div>
+                  <div class="mb-2 col-lg-6 slide-right">
+                    <label for="lastName" class="content-label">LastName</label>
+                    <input type="text"   id="lastName" formControlName="lastName" class=" content-input {{
+                                            isInvalid('lastName') ? 'error-input' : ''
+                                          }}" placeholder="Enter product last Name">
+                                           <small class="error-text mb-4" *ngIf="isInvalid('lastName')">
+                                                {{ getErrorMessage('lastName', 'This field is required') }}
+                                              </small>
+                </div>
+            </div>
+         <div class="row mb-3">
+    
+                <div class="mb-2 col-lg-6 slide-left">
+                    <label for="phoneNumber" class="content-label">Phone Number</label>
+                    <input type="text" formControlName="phoneNumber" id="phoneNumber" class=" content-input {{
+                                            isInvalid('phoneNumber') ? 'error-input' : ''
+                                          }}" placeholder="Enter phone number">
+    
+                                            <small class="error-text mb-4" *ngIf="isInvalid('phoneNumber')">
+                                                {{ getErrorMessage('phoneNumber', 'This field is required') }}
+                                              </small>
+                  </div>
+                  <div class="mb-2 col-lg-6 slide-right">
+                    <label for="email" class="content-label">Email</label>
+                    <input type="text"   id="email" formControlName="email" class=" content-input {{
+                                            isInvalid('email') ? 'error-input' : ''
+                                          }}" placeholder="Enter email address">
+                                           <small class="error-text mb-4" *ngIf="isInvalid('email')">
+                                                {{ getErrorMessage('email', 'This field is required') }}
+                                              </small>
+                </div>
+            </div>
+     
+       
+
+            <div class="d-flex justify-content-center mobile-only">
+<button class="btn btn-save w-100 py-2">Update Profile</button>
+
+            </div>
+    </section>
 </section>
+
+</div>
+</form>
+
+  <form [formGroup]="shippingForm" (ngSubmit)="updateShippingInfo()">
+<div *ngSwitchCase="'shipping'">
+<div class="d-flex justify-content-between align-items-center" style="border-bottom: 1px solid #D1D1D1">
+<div class="mb-2">
+<p class="mb-0" style="font-size: 24px; font-weight: 500; color: #000;">Shipping Information</p>
+<p style="font-size: 14px; font-weight: 400; color: #000;">Update your shipping Information to personalize your experience</p>
+</div>
+<button class="btn btn-save d-none d-lg-block">Update</button>
+</div>
+<section class="p-lg-4">
+
+    <div class="d-flex justify-content-between align-items-center py-3 w-100">
+    </div>
+    <section>
+         <div class="row mb-3">
+    
+                
+            </div>
+     
+         <div class="row mb-3">
+    
+                <div class="mb-2 col-lg-6 slide-left">
+                    <label for="address" class="content-label"> Address</label>
+                    <input type="text" formControlName="address"  (change)="onAddressChange()" id="address" class=" content-input {{
+                                            isInvalidShip('address') ? 'error-input' : ''
+                                          }}" placeholder="Enter Address ">
+    
+                                            <small class="error-text mb-4" *ngIf="isInvalidShip('address')">
+                                                {{ getErrorMessageShip('address', 'This field is required') }}
+                                              </small>
+                  </div>
+                  <div class="mb-2 col-lg-6 slide-right">
+                    <label for="postalCode" class="content-label">Postal/zip Code</label>
+                    <input type="text"   id="postalCode" formControlName="postalCode" class=" content-input {{
+                                            isInvalidShip('postalCode') ? 'error-input' : ''
+                                          }}" placeholder="Enter postal/zip code">
+                                           <small class="error-text mb-4" *ngIf="isInvalidShip('postalCode')">
+                                                {{ getErrorMessageShip('postalCode', 'This field is required') }}
+                                              </small>
+                </div>
+            </div>
+         <div class="row mb-3">
+    
+                <div class="mb-2 col-lg-6 slide-left">
+                    <label for="state" class="content-label">State</label>
+                     <!-- <select formControlName="state" class=" content-select {{
+                                        isInvalid('state') ? 'error-input' : ''
+                                      }}">
+                            <option value="" selected  id="state">Select State</option>
+                            <option *ngFor="let item of states" [value]="item">{{item}}</option>
+                        </select> -->
+                        <ngx-select-dropdown
+  [config]="dropdownConfig"
+  [options]="states"
+  formControlName="state"
+  class=" {{ isInvalidShip('state') ? 'error-input' : '' }}"
+></ngx-select-dropdown>
+
+                   
+    
+                                            <small class="error-text mb-4" *ngIf="isInvalidShip('state')">
+                                                {{ getErrorMessageShip('state', 'This field is required') }}
+                                              </small>
+                  </div>
+                  <div class="mb-2 col-lg-6 slide-right">
+                    <label for="country" class="content-label">Country</label>
+                    <!-- <select formControlName="country" class=" content-select {{
+                                        isInvalid('country') ? 'error-input' : ''
+                                      }}">
+                            <option value="Nigeria" selected  id="country">Select Country</option>
+                            <option *ngFor="let item of countries">{{item}}</option>
+                        </select> -->
+                        <input type="text" value="Nigeria" readonly   id="country" formControlName="country" class=" content-input {{
+                                            isInvalidShip('country') ? 'error-input' : ''
+                                          }}" placeholder="Enter country">
+                                           <small class="error-text mb-4" *ngIf="isInvalidShip('country')">
+                                                {{ getErrorMessageShip('country', 'This field is required') }}
+                                              </small>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center mobile-only">
+<button class="btn btn-save w-100 py-2">Update</button>
+
+            </div>
+    </section>
+</section>
+
+</div>
+</form>
+ <form [formGroup]="passwordForm" (ngSubmit)="changePassword()">
+<div *ngSwitchCase="'security'">
+<div class="mb-2" style="border-bottom: 1px solid #D1D1D1">
+<p class="mb-0" style="font-size: 24px; font-weight: 500; color: #000;">Security</p>
+<p class="" style="font-size: 14px; font-weight: 400; color: #000;">Keep Your Account Secure</p>
+</div>
+<section class="change-password">
+  <p class="mb-0 mt-5 mb-4" style="font-size: 20px; font-weight: 500; color: #000;">Change your password</p>
+  
+  <div class="mb-2 slide-left">
+    <label for="password" class="content-label">Current Password</label>
+    <div class="position-relative">
+      <input [type]="showPassword ? 'text' : 'password'" formControlName="currentPassword" id="password" class="content-input {{
+                                      isInvalidPass('currentPassword') ? 'error-input' : ''
+                                    }}" placeholder="Enter your password">
+      <i (click)="togglePasswordVisibility('password')" [class]="showPassword ? 'bi bi-eye-slash password-toggle-icon' : 'bi bi-eye password-toggle-icon'"></i>
+    </div>
+    <small class="error-text mb-4" *ngIf="isInvalidPass('currentPassword')">
+      {{ getErrorMessagePass('currentPassword', 'This field is required') }}
+    </small>
+  </div>
+  
+  <div class="mb-3 slide-right">
+    <label for="newPassword" class="content-label">New Password</label>
+    <div class="position-relative">
+      <input [type]="showNewPassword ? 'text' : 'password'" formControlName="newPassword" id="newPassword" class="content-input {{
+                                      isInvalidPass('newPassword') ? 'error-input' : ''
+                                    }}" placeholder="Enter your new password">
+      <i (click)="togglePasswordVisibility('newPassword')" [class]="showNewPassword ? 'bi bi-eye-slash password-toggle-icon' : 'bi bi-eye password-toggle-icon'"></i>
+    </div>
+    <small class="error-text mb-4" *ngIf="isInvalidPass('newPassword')">
+      {{ getErrorMessagePass('newPassword', 'This field is required') }}
+    </small>
+  </div>
+  
+  <div class="mb-3 slide-left">
+    <label for="confirmPassword" class="content-label">Confirm New Password</label>
+    <div class="position-relative">
+      <input [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmPassword" id="confirmPassword" class="content-input {{
+                                      isInvalidPass('confirmPassword') ? 'error-input' : ''
+                                    }}" placeholder="Confirm your password">
+      <i (click)="togglePasswordVisibility('confirmPassword')" [class]="showConfirmPassword ? 'bi bi-eye-slash password-toggle-icon' : 'bi bi-eye password-toggle-icon'"></i>
+    </div>
+    <small class="error-text mb-4" *ngIf="isInvalidPass('confirmPassword')">
+      {{ getErrorMessagePass('confirmPassword', 'This field is required') }}
+    </small>
+    <small class="error-text mb-4" *ngIf="passwordForm?.get('confirmPassword')?.touched && passwordForm.get('newPassword')?.value && passwordForm.get('confirmPassword')?.value && passwordForm.errors?.['passwordsMismatch']">
+        Passwords do not match
+      </small>
+  </div>
+
+  <div class="py-3">
+    <button class="btn-curve-primary w-100">Change Password</button>
+  </div>
+</section>
+</div>
+</form>
+</section>
+
+    </div>
+</div>
+</section>
+
+
+
+ <div id="changePhotoModal" class="modal">
+  <div
+    class="modal-center-content mx-auto pt-4 px-4 px-lg-5"
+    style="border-radius: 10px !important"
+  >
+      <div class="d-flex justify-content-between">
+            <p class="modal-heading text-center">Profile photo</p>
+      <img 
+        style="cursor: pointer"
+        class=""
+        (click)="toggleModal('changePhotoModal', 'close')"
+        src="/assets/Images/dismiss.svg"
+        alt=""
+      />
+    </div>
+  
+  <section class="zoom-in">
+     <ng-container *ngIf="form.value.profileImage">
+      <div class="d-flex justify-content-center">
+
+        <img style=" background-size: cover;" [src]="form.value.profileImage" alt="Profile Picture" class=" mt-3">
+      </div>
+          
+        <!-- <label for="fileInput" class="content-button center-button" style="width: max-content; cursor: pointer;"> Change Photo</label> -->
+        <div class="py-2 mt-3">
+          <p (click)="profileInput.click()" class="text-center mb-3" style="color: #000; font-size: 16px; font-weight: 400; cursor: pointer;">Change Photo</p>
+            <button class="btn-curve-primary w-100 mb-2" (click)="updatePicture()">Set Profile Photo</button>
+            <p (click)="toggleModal('changePhotoModal', 'close')" class="text-center" style="color: #948E8E; font-size: 18px; font-weight: 400; cursor: pointer;">Cancel</p>
+        </div>
+
+          </ng-container>
+ <ng-container  *ngIf="!form.value.profileImage">
+            <section class="mb-5 mt-3 media-div zoom-in text-center" (dragover)="onDragOver($event)" 
+    (dragenter)="onDragEnter($event)" 
+    (dragleave)="onDragLeave($event)" 
+    (drop)="onDrop($event)">
+
+                <div class="">
+    <img src="/assets/Images/image-icon.png" alt="">
+                    <p class="mb-4 mt-3" >Drag and drop image here, or click add photo</p>
+        <label for="fileInput" class="content-button center-button" style="width: max-content; cursor: pointer;"> <i class="bi bi-plus mt-1"></i> Add Photo</label>
+                </div>
+            </section>
+           
+          </ng-container>
+<input type="file" #profileInput accept="image/*" (change)="addImage($event)" style="display: none;" id="fileInput">
+</section>
+  </div>
+</div>

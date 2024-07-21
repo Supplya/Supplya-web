@@ -1,5 +1,6 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/authentication/service/auth.service';
 import { CartService } from 'src/app/core/operation/services/cart/cart.service';
 import { ProductService } from 'src/app/core/operation/services/product/product.service';
@@ -10,7 +11,8 @@ import Swal from 'sweetalert2';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
+  private credentialsSubscription: Subscription;
   cartQuantity: number = 1;
   cartItem: number = 1;
   previousCartQuantity: number = 0;
@@ -27,7 +29,6 @@ export class NavbarComponent implements OnInit {
       this.cartItem = newCart?.items?.length;
       // console.log(this.cartQuantity, 'newQuantity');
 
-
       this.previousCartQuantity = newQuantity; // Update previous quantity
     });
   }
@@ -35,7 +36,12 @@ export class NavbarComponent implements OnInit {
   isLoggedIn = false;
   userDetails: any = null;
   ngOnInit(): void {
-    this.userDetails = this.authService.getUserCredentials();
+    // this.userDetails = this.authService.getUserCredentials();
+    this.credentialsSubscription = this.authService
+      .getUserCredentialsObservable()
+      .subscribe((credentials) => {
+        this.userDetails = credentials;
+      });
     this.renderer.listen('window', 'click', (e: Event) => {
       const target = e.target as HTMLElement;
       if (target.classList.contains('scroll-link')) {
@@ -53,6 +59,12 @@ export class NavbarComponent implements OnInit {
   }
   loading;
   categories;
+
+  ngOnDestroy(): void {
+    if (this.credentialsSubscription) {
+      this.credentialsSubscription.unsubscribe();
+    }
+  }
   getAllCategories() {
     this.loading = true;
 
@@ -122,7 +134,10 @@ export class NavbarComponent implements OnInit {
 
   onSearch(): void {
     if (this.searchTerm.trim()) {
-      this.route.navigate(['/core/operation/products/keyword', this.searchTerm.trim()]);
+      this.route.navigate([
+        '/core/operation/products/keyword',
+        this.searchTerm.trim(),
+      ]);
     }
   }
 

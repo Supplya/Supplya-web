@@ -22,7 +22,48 @@ export class CartService {
     return this.cartSubject.value;
   }
 
-  addToCart(product: Product, quantity: number = 1): void {
+  addToCart(product: Product): void {
+    const quantity = product.moq;
+    // Check if the product is already in the cart
+    const existingCartItem = this.cart.items.find(
+      (item) => item.product._id === product._id
+    );
+
+    if (existingCartItem) {
+      // Product is already in the cart, update its quantity
+      existingCartItem.quantity += quantity;
+      // this.notify.info('Product quantity updated in the cart');
+    } else {
+      // Product is not in the cart, add it
+      const cartItem = new CartItem(product);
+      cartItem.quantity = quantity;
+      this.cart.items.push(cartItem);
+      this.notify.success('Product added to cart');
+    }
+
+    this.setCartToLocalStorage();
+  }
+  // addToCart(product: Product, quantity: number = 1): void {
+  //   // Check if the product is already in the cart
+  //   const existingCartItem = this.cart.items.find(
+  //     (item) => item.product._id === product._id
+  //   );
+
+  //   if (existingCartItem) {
+  //     // Product is already in the cart, update its quantity
+  //     existingCartItem.quantity += quantity;
+  //     this.notify.info('Product quantity updated in the cart');
+  //   } else {
+  //     // Product is not in the cart, add it
+  //     const cartItem = new CartItem(product);
+  //     cartItem.quantity = quantity;
+  //     this.cart.items.push(cartItem);
+  //     this.notify.success('Product added to the cart');
+  //   }
+
+  //   this.setCartToLocalStorage();
+  // }
+  addProductToCart(product: Product, quantity: number): void {
     // Check if the product is already in the cart
     const existingCartItem = this.cart.items.find(
       (item) => item.product._id === product._id

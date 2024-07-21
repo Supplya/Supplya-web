@@ -65,20 +65,46 @@ export class OtpResetPasswordComponent implements OnInit {
     }, 0);
   }
 
+  // moveToNextOrPreviousInput(
+  //   event: KeyboardEvent,
+  //   currentInput: HTMLInputElement,
+  //   nextInput: HTMLInputElement | null,
+  //   previousInput: HTMLInputElement | null
+  // ) {
+  //   if (currentInput.value && currentInput.value.length > 0 && nextInput) {
+  //     nextInput.focus();
+  //   } else if (
+  //     event.key === 'Backspace' &&
+  //     currentInput.value.length === 0 &&
+  //     previousInput
+  //   ) {
+  //     previousInput.focus();
+  //   }
+  // }
+
   moveToNextOrPreviousInput(
     event: KeyboardEvent,
     currentInput: HTMLInputElement,
     nextInput: HTMLInputElement | null,
     previousInput: HTMLInputElement | null
   ) {
-    if (currentInput.value && currentInput.value.length > 0 && nextInput) {
+    if (event.key === 'Backspace') {
+      if (currentInput.selectionStart === 0 && previousInput) {
+        previousInput.value = '';
+        previousInput.focus();
+      } else {
+        currentInput.value = '';
+      }
+    } else if (event.key === 'ArrowRight' && nextInput) {
       nextInput.focus();
-    } else if (
-      event.key === 'Backspace' &&
-      currentInput.value.length === 0 &&
-      previousInput
-    ) {
+    } else if (event.key === 'ArrowLeft' && previousInput) {
       previousInput.focus();
+    } else if (
+      currentInput.value &&
+      currentInput.value.length > 0 &&
+      nextInput
+    ) {
+      nextInput.focus();
     }
   }
 
@@ -107,16 +133,18 @@ export class OtpResetPasswordComponent implements OnInit {
   changeAuthPassword() {
     this.submitted = true;
     if (this.passwordForm.valid) {
-
       const data = {
         newPassword: this.passwordForm.value.newPassword,
         confirmPassword: this.passwordForm.value.confirmPassword,
+        token: this.verifiedToken,
       };
       // console.log(data)
       this.authService.resetPassword(data).subscribe(
         (response) => {
-          if (response.status) {
-            this.notify.danger(response.msg, 4000);
+          if (response.status === true) {
+            this.notify.success(
+              'Password changed successfully. Login to continue'
+            );
             this.route.navigate(['/auth/sign-in']);
             this.submitted = false;
           } else {
@@ -141,8 +169,6 @@ export class OtpResetPasswordComponent implements OnInit {
       (this.submitted && this.form.get(control)?.invalid)
     );
   }
-
-  
 
   // OTP AS STRING
   getOtpCode(): string {
@@ -171,19 +197,20 @@ export class OtpResetPasswordComponent implements OnInit {
 
   currentForm: string = 'otp';
   // currentForm: string = 'changePassword';
-
+  verifiedToken;
   submitOTP() {
     this.submitted = true;
     const data = {
       email: this.authService.getEmailForOTP(),
       otp: this.getOtpCode(),
     };
-    console.log(data);
     if (this.form.valid) {
       this.authService.verifyOTP(data).subscribe(
         (response) => {
           if (response.status) {
             this.loading = false;
+            this.submitted = false;
+            this.verifiedToken = response?.token;
             this.notify.success(response?.message, 4000);
             this.currentForm = 'changePassword';
 

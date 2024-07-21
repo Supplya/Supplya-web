@@ -20,6 +20,8 @@ import { CurrencyFormatDirective } from './helpers/currency-format.directive';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { MiniBreadcrumbComponent } from './mini-breadcrumb/mini-breadcrumb.component';
 import { ShortenProductNamePipe } from './helpers/shorten-length.pipe';
+import { SharedLoginComponent } from './shared-login/shared-login.component';
+import { ProfileUpdateComponent } from './profile-update/profile-update.component';
 
 
 
@@ -46,6 +48,8 @@ const sharedRoutes: Routes = [
     CurrencyFormatDirective,
     MiniBreadcrumbComponent,
     ShortenProductNamePipe,
+    SharedLoginComponent,
+    ProfileUpdateComponent,
   ],
   imports: [
     RouterModule.forChild(sharedRoutes),
@@ -73,7 +77,8 @@ const sharedRoutes: Routes = [
     LoadingIndicatorComponent,
     CurrencyFormatDirective,
     MiniBreadcrumbComponent,
-
+    SharedLoginComponent,
+ProfileUpdateComponent,
     // Modules
     ToastyModule,
     FormsModule,

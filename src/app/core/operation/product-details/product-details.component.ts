@@ -56,6 +56,7 @@ export class ProductDetailsComponent {
   setMainImage(image: string) {
     this.selectedImage = image;
   }
+  quantity: number;
   getProduct() {
     this.activatedRoute.params.subscribe((params) => {
       const foodID = params['id'];
@@ -67,6 +68,7 @@ export class ProductDetailsComponent {
 
             if (product.status) {
               this.product = product.data;
+              this.quantity = this.product?.moq
               this.selectedImage = product?.data?.image;
 
               if (this.product) {
@@ -87,7 +89,7 @@ export class ProductDetailsComponent {
     this.productsError = false;
     this.getProduct();
   }
-  quantity: number = 1;
+
   toggleWishlist(product: any) {
     product.isWishlisted = !product.isWishlisted;
   }
@@ -177,25 +179,18 @@ export class ProductDetailsComponent {
   }
 
   addToCart(product: any) {
-    if (this.quantity < product.moq) {
-      this.toggleModal('moqModal', 'open');
-      return;
-    } else {
-      this.cartService.addToCart(product);
-    }
-
-    // this.notify.success(`${product.name} Added to Cart successfully`)
-    // this.route.navigateByUrl('/core/operation/shopping-cart');
+    this.cartService.addProductToCart(product, product?.moq);
+    // if (this.quantity < product.moq) {
+    //   this.toggleModal('moqModal', 'open');
+    //   return;
+    // } else {
+    //   this.cartService.addProductToCart(product, product.moq);
+    // }
   }
   buyNow(product: any) {
-    if (this.quantity < product.moq) {
-      this.toggleModal('moqModal', 'open');
-      return;
-    } else {
-      this.cartService.addToCart(product);
-      this.route.navigate(['core/operation/shopping-cart']);
-      window.scrollTo(0, 0);
-    }
+    this.cartService.addProductToCart(product, product.moq);
+    this.route.navigate(['core/operation/shopping-cart']);
+    window.scrollTo(0, 0);
   }
 
   viewProduct(route: number) {

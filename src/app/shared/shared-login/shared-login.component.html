@@ -1,0 +1,81 @@
+ <section >
+                <form [formGroup]="loginForm" (ngSubmit)="login()">
+                    <div class="">
+                        <div class="">
+                                <div class="">
+                                    <h1 class="headings mt-3 slide-top">
+                                        <span style="color:var(--primary-color);">Login</span>&nbsp;<span style="color: black!important;"></span>to continue!
+                                    </h1>
+                                    <p class="text-muted">Ready to embark on another shopping adventure?</p>
+                                    <p style="text-align: left!important;" for=""  class=" mb-1{{
+                                        isInvalid('email') ? 'red' : ''
+                                      }}">Email Address</p>
+                                    <div class="auth-input slide-left">
+                                        <i class="bi bi-envelope"></i>
+                                       
+                                        <input type="text"  class="auth w-100 {{
+                                            isInvalid('email') ? 'error-input' : ''
+                                          }}" aria-label="Email Address" aria-describedby="basic-addon1" formControlName="email" [ngClass]="{ 'is-invalid': isInvalid('email') }" placeholder="example@gmail.com" aria-label="Email" aria-describedby="basic-addon1">
+                                        <p style="text-align: left!important;" class="invalid-feedback mb-5 " *ngIf="isInvalid('email')">
+                                            {{ getErrorMessage('email', 'Email is required') }}
+                                          </p>
+                                       
+                                      
+                                    </div>
+                
+                                    <p style="text-align: left!important;" for=""  class=" mb-1 {{
+                                        isInvalid('password') ? 'red' : ''
+                                      }}">Password</p>
+                                    <div class="auth-input slide-right">
+                                        <i class="bi bi-lock"></i>
+                                        <input type="{{ passwordVisible ? 'text' : 'password' }}" class="auth w-100 {{
+                                            isInvalid('password') ? 'error-input' : ''
+                                          }}" formControlName="password" [ngClass]="{ 'is-invalid': isInvalid('password') }" placeholder="Password" aria-label="Password" aria-describedby="basic-addon2">
+                                        <button class="btn text-center" type="button" id="togglePassword" (click)="togglePasswordVisibility()">
+                                            <i class="bi" [ngClass]="{ 'bi-eye': !passwordVisible, 'bi-eye-slash': passwordVisible }"></i>
+                                        </button>
+                                        <p style="text-align: left!important;" class="invalid-feedback mb-4 " *ngIf="isInvalid('password')">
+                                            {{ getErrorMessage('password', 'Password is required') }}
+                                          </p>
+                                                                            </div>
+
+             <div class="sec">
+              <label class="custom-checkbox-label">
+                <input type="checkbox" class="small-checkbox" formControlName="rememberMe">
+                <span class="custom-checkbox"></span>
+                Remember Me
+              </label>
+              <p class="forget">
+                <a style="text-decoration: none; color: var(--primary-color);" routerLink="/auth/forget-password">Forgot
+                  Password</a>
+              </p>
+            </div>
+                
+                                    <button class="submit-login mt-2">Login</button>
+                
+                                    <!-- Divider -->
+                                    <div class="divider py-1">
+                                        <hr class="or-divider">
+                                        &nbsp; &nbsp;&nbsp; <span class="or-text mt-1 mb-0">Or</span>&nbsp;&nbsp;&nbsp;
+                                        <hr class="or-divider">
+                                    </div>
+                                    <!-- <div class="d-flex justify-content-center ">
+
+                                      <div class="" id="google-btn"></div>
+                                    </div> -->
+                                    <!-- <button (click)="signInWithGoogle()" type="button"  class="google mb-2">
+                                        <img style="width: 25px; height: 25px;" src="/assets/Images/google (2).png" alt=""> Continue with Google
+                                    </button> -->
+                              
+                                    <!-- <button class="facebook mb-3">
+                                        <img style="width: 25px; height: 25px;" src="/assets/Images/facebook.png" alt=""> Continue with Facebook
+                                    </button> -->
+                
+                                    <p class="text-center sign mt-0">New to Supplya? <a style="color: var(--primary-color); font-size: 16px;" routerLink="/auth/sign-up">Sign Up here</a></p>
+                                </div>
+                            </div>
+                    </div>
+                </form>
+                
+
+            </section>
