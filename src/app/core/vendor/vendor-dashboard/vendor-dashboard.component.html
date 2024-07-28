@@ -9,7 +9,8 @@
                 <img src="/assets/Images/total-sales.png" alt="">
             </div>
             <h3 class="head-count">{{summary?.totalAmountSold || 0 | currency:'₦':true:'1.0-0'}}</h3>
-            <p class="head-brief">+ N45,000 Today</p>
+            <!-- <p class="head-brief"> Today</p> -->
+            <p class="head-brief"> </p>
         </div>
     </div>
     <div class="col-lg-3">
@@ -18,8 +19,9 @@
                 <p class="head-text">Order</p>
                 <img src="/assets/Images/orders.png" alt="">
             </div>
-            <h3 class="head-count">{{summary?.totalOrders || 0 | currency:'₦':true:'1.0-0'}}</h3>
-            <p class="head-brief">+300 Today</p>
+            <h3 class="head-count">{{summary?.totalOrders || 0 | number:'1.0-0'}}</h3>
+            <p class="head-brief"></p>
+            <!-- <p class="head-brief">Today</p> -->
         </div>
     </div>
     <div class="col-lg-3">
@@ -29,7 +31,8 @@
                 <img src="/assets/Images/stocks.png" alt="">
             </div>
             <h3 class="head-count">{{summary?.totalStock | number:'1.0-0'}}</h3>
-            <p class="head-brief">20,000 Added Recently</p>
+            <p class="head-brief"> </p>
+            <!-- <p class="head-brief"> Added Recently</p> -->
         </div>
     </div>
     <div class="col-lg-3">
@@ -39,7 +42,8 @@
                 <img src="/assets/Images/pending.png" alt="">
             </div>
             <h3 class="head-count">{{summary?.newOrdersCount | number:'1.0-0'}}</h3>
-            <p class="head-brief">123 Orders Made</p>
+            <p class="head-brief"></p>
+            <!-- <p class="head-brief">Orders Made</p> -->
         </div>
     </div>
     
@@ -81,9 +85,9 @@
         <div class="py-5 ">
           <div class="py-3 text-center" >
             <img src="/assets/Images/oops.png" style="height: 200px;" alt="">
-            <p class="loading-text  text-muted py-3">Could not display products. Click 'Refresh' to try again.
+            <p class="loading-text  text-muted py-3">Could not display orders. Click 'Refresh' to try again.
         </p>
-            <p class="refresh" (click)="refreshProducts()">Refresh <i class="bi bi-arrow-repeat"></i></p>
+            <p class="refresh" (click)="getAllOrders()">Refresh <i class="bi bi-arrow-repeat"></i></p>
           </div>
         </div>
       </section>
@@ -113,7 +117,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of allOrders | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
+              <tr *ngFor="let item of allOrders | paginate: { itemsPerPage: itemsPerPage, currentPage: p }; let i = index">
                 <td class="text-primary" style="font-size: 15px; font-weight: 500;">
                     {{item?.orderId}}
                 </td>
@@ -133,11 +137,13 @@
               </tr>
             </tbody>
            
-          </table>          
+          </table>  
+          <pagination-controls previousLabel=""
+      nextLabel="" (pageChange)="p = $event"></pagination-controls>            
       </div>
 
       
-       <section class="content center" *ngIf="!ordersLoading && allOrders?.length === 0">
+       <section class="content center py-2" *ngIf="!ordersLoading && allOrders?.length === 0">
         <div class="py-5 ">
           <div class="py-3 text-center" >
             <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">
@@ -239,7 +245,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of selectedOrder?.orderItems | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
+    <tr *ngFor="let item of selectedOrder?.orderItems | paginate: { itemsPerPage: listItemPerPage, currentPage: listPage }; let i = index">
       <td class="text-primary" style="font-size: 15px; font-weight: 500;">
         {{ item?.product?.name }}
       </td>
@@ -281,4 +287,27 @@
     <button  class="btn-modal-primary mt-3" style="border-radius: 80px!important; padding: 13px 60px!important;">Continue</button>
 </div> -->
   </div>
+</div>
+
+
+
+<div id="updateProfileModal" class="modal" style="z-index: 1!important">
+  <div
+    class="modal-center-contents mx-auto pt-4 px-2 px-lg-5"
+    style="border-radius: 10px !important;"
+  >
+    <div class="d-flex justify-content-end px-4 px-lg-2">
+      <!-- <p class="modal-heading text-center">Purchase Quantity Error</p> -->
+      <img
+        style="cursor: pointer"
+        class=""
+        (click)="toggleModal('updateProfileModal', 'close')"
+        src="/assets/Images/dismiss.svg"
+        alt="Close"
+      />
+    </div>
+    <div class="modal-body text-center mb-5">
+<app-profile-update (UpdateSuccess)="updateSuccess()" (UpdateStart)="toggleModal('updateProfileModal', 'close')"></app-profile-update>
+  </div>
+</div>
 </div>

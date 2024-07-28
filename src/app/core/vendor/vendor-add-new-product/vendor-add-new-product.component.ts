@@ -21,7 +21,8 @@ export class VendorAddNewProductComponent implements OnInit {
     private helperService: HelperService,
     private authService: AuthService,
     private notify: ToastyService,
-    private uploadService: MediaUploadService, private route: Router
+    private uploadService: MediaUploadService,
+    private route: Router
   ) {}
 
   form!: FormGroup;
@@ -30,8 +31,23 @@ export class VendorAddNewProductComponent implements OnInit {
   passwordVisible: boolean = false;
 
   ngOnInit(): void {
+    this.userInfo = this.authService.getUserCredentials();
     this.getAllCategories();
     this.initForm();
+
+    if (this.userInfo) {
+            if (
+        this.userInfo?.phoneNumber === null ||
+        this.userInfo?.phoneNumber === '' ||
+        this.userInfo?.address === null ||
+        this.userInfo?.address === '' ||
+        this.userInfo?.state === null ||
+        this.userInfo?.state === ''
+            ) {
+             this.toggleModal('updateProfileModal', 'open'); 
+      }
+    }
+  
   }
 
   initForm() {
@@ -200,14 +216,12 @@ export class VendorAddNewProductComponent implements OnInit {
     formData.image = this.images[0];
     formData.images = this.images;
     if (this.form.valid) {
-      this.productService.vendorAddProduct(formData).subscribe(
-        (data) => {
-          if (data.status) {
-            this.notify.success(data.message);
-            this.route.navigate(['/core/vendor/products']);
-          }
-        },
-      );
+      this.productService.vendorAddProduct(formData).subscribe((data) => {
+        if (data.status) {
+          this.notify.success(data.message);
+          this.route.navigate(['/core/vendor/products']);
+        }
+      });
     }
   }
 
@@ -224,4 +238,19 @@ export class VendorAddNewProductComponent implements OnInit {
     this.form.reset();
     this.submitted = false;
   }
+  userInfo;
+  updateSuccess() {
+    this.userInfo = this.authService.getUserCredentials();
+    this.toggleModal('updateProfileModal', 'close');
+  }
+  toggleModal = (modalId, action: string, data?: any) => {
+    if (action == 'open') {
+      document.getElementById(modalId).style.display = 'flex';
+    } else {
+      document.getElementById(modalId).style.display = 'none';
+    }
+    if (data) {
+      // this.selectedOrder = data;
+    }
+  };
 }

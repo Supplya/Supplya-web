@@ -22,6 +22,7 @@ import { MiniBreadcrumbComponent } from './mini-breadcrumb/mini-breadcrumb.compo
 import { ShortenProductNamePipe } from './helpers/shorten-length.pipe';
 import { SharedLoginComponent } from './shared-login/shared-login.component';
 import { ProfileUpdateComponent } from './profile-update/profile-update.component';
+import { GooglePlacesDirective } from './helpers/google-places.directive';
 
 
 
@@ -50,6 +51,7 @@ const sharedRoutes: Routes = [
     ShortenProductNamePipe,
     SharedLoginComponent,
     ProfileUpdateComponent,
+    GooglePlacesDirective,
   ],
   imports: [
     RouterModule.forChild(sharedRoutes),
@@ -78,7 +80,8 @@ const sharedRoutes: Routes = [
     CurrencyFormatDirective,
     MiniBreadcrumbComponent,
     SharedLoginComponent,
-ProfileUpdateComponent,
+    ProfileUpdateComponent,
+    GooglePlacesDirective,
     // Modules
     ToastyModule,
     FormsModule,

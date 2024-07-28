@@ -5,6 +5,7 @@ import { applyGlobalSearch } from 'src/app/shared/helpers/global-table-search';
 import Swal from 'sweetalert2';
 import { ToastyService } from 'ng-toasty';
 import { Chart, registerables } from 'chart.js';
+import { AuthService } from 'src/app/authentication/service/auth.service';
 
 @Component({
   selector: 'app-vendor-dashboard',
@@ -12,42 +13,49 @@ import { Chart, registerables } from 'chart.js';
   styleUrls: ['./vendor-dashboard.component.scss'],
 })
 export class VendorDashboardComponent implements OnInit {
-  itemPerPage: number = 5;
-  p: number = 1;
+  p: number = 1; // Current page
+  listPage: number = 1; // Current page
+  listItemPerPage: number = 1; 
+  itemsPerPage: number = 5; // Number of items per page
   filteredRows: any;
-  title = 'Products';
+  title = 'Orders';
   searchText: string = '';
   public chart: any;
   constructor(
     private productService: ProductService,
     private exportService: ExportService,
-    private toast: ToastyService
+    private toast: ToastyService,
+    private authService: AuthService
   ) {
     Chart.register(...registerables);
   }
+  userInfo;
   ngOnInit(): void {
     // this.getAllProducts();
+    this.userInfo = this.authService.getUserCredentials();
     this.getVendorMetric();
     this.getAllOrders();
+    if (this.userInfo) {
+      if (
+        this.userInfo?.phoneNumber === null ||
+        this.userInfo?.phoneNumber === '' ||
+        this.userInfo?.address === null ||
+        this.userInfo?.address === '' ||
+        this.userInfo?.state === null ||
+        this.userInfo?.state === ''
+      ) {
+        this.toggleModal('updateProfileModal', 'open');
+      }
+    }
+  }
+  updateSuccess() {
+    this.userInfo = this.authService.getUserCredentials();
+    this.toggleModal('updateProfileModal', 'close');
   }
   errorFetchingProduct: boolean = false;
   ordersLoading: boolean = false;
   allOrders: any;
-  mockData: any;
-  getAllProducts() {
-    this.ordersLoading = true;
-    this.productService.getAllVendorProducts().subscribe(
-      (data: any) => {
-        this.allOrders = data?.data;
-        this.filteredRows = data?.data;
-        this.ordersLoading = false;
-      },
-      (error) => {
-        this.errorFetchingProduct = true;
-        this.ordersLoading = false;
-      }
-    );
-  }
+
   // createChart(data: any) {
   //   this.chart = new Chart('MyChart', {
   //     type: 'bar',
@@ -154,6 +162,8 @@ export class VendorDashboardComponent implements OnInit {
       (data: any) => {
         if (data.status) {
           this.summary = data.data;
+          // this.allOrders = data?.data?.orders
+          // console.log(this.summary);
           this.createChart(this.summary);
         } else {
         }
@@ -168,7 +178,8 @@ export class VendorDashboardComponent implements OnInit {
 
   getAllOrders() {
     this.ordersLoading = true;
-    this.productService.getAllVendorOrders().subscribe(
+    this.errorFetchingProduct = false;
+    this.productService.getAllOrderByUser(this.userInfo?._id).subscribe(
       (data: any) => {
         this.allOrders = data?.data;
         this.ordersLoading = false;
@@ -184,57 +195,12 @@ export class VendorDashboardComponent implements OnInit {
     if (!value) return '';
     return value?.charAt(0).toUpperCase() + value?.slice(1);
   }
-  deleteProduct(product: any) {
-    Swal.fire({
-      html: `<span style="color: #000; font-weight: 600; font-size: 19px;">Are you sure you want to delete this product "<span style="color: var(--primary-color);">${product.name}</span>"?</span>`,
-      icon: 'warning',
-      showCancelButton: true,
-      allowOutsideClick: false,
-      confirmButtonText: 'Yes, delete',
-      cancelButtonText: 'No',
-      showClass: {
-        popup: `
-                  animate__animated
-                  animate__fadeInDown
-                  animate__faster
-                `,
-      },
-      hideClass: {
-        popup: `
-                  animate__animated
-                  animate__fadeOutDown
-                  animate__faster
-                `,
-      },
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.delete(product._id);
-      }
-    });
-  }
-  delete(id: string) {
-    this.productService.deleteProduct(id).subscribe((result) => {
-      if (result) {
-        this.toast.success('Product deleted successfully');
-        this.getAllProducts();
-      }
-    });
-  }
+
   exportToExcel() {
     this.exportService.exportToExcel(this.filteredRows, this.title);
   }
-  refreshProducts() {
-    this.errorFetchingProduct = false;
-    this.getAllProducts();
-  }
-  get productsToShow(): any[] {
-    const startIndex = (this.p - 1) * this.itemPerPage;
-    const endIndex = Math.min(
-      startIndex + this.itemPerPage,
-      this.filteredRows?.length
-    );
-    return this.filteredRows?.slice(startIndex, endIndex);
-  }
+
+ 
   selectedOrder: any;
   toggleModal = (modalId, action: string, data?: any) => {
     if (action == 'open') {

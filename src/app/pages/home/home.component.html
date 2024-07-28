@@ -454,7 +454,7 @@
           </div>
   
           <div class="row">
-            <div class="col-lg-4" style="background: url(/assets/Images/discount.png);">
+            <div class="col-lg-4" style="background: url('/assets/Images/Web-side-Banner1-380x752.png') no-repeat center center; background-size: cover;">
   
             </div>
             <div class="col-lg-8">
@@ -463,7 +463,7 @@
   <div class="product-container">
     <div class="d-flex flex-nowrap mb-3">
       <!-- Product cards -->
-      <div class="col-lg-auto" *ngFor="let product of products">
+      <div class="col-lg-auto" *ngFor="let product of trendingProducts">
         <div class="card border-0  products me-4 mb-2">
           <!-- Placeholder background image -->
           <div class="card-img-top placeholder-image" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
@@ -508,7 +508,7 @@
   <div class="product-container">
     <div class="d-flex flex-nowrap mb-3">
       <!-- Product cards -->
-      <div class="col-lg-auto" *ngFor="let product of products">
+      <div class="col-lg-auto" *ngFor="let product of lastToFirstProducts">
         <div class="card border-0  products me-4 mb-2">
           <!-- Placeholder background image -->
           <div class="card-img-top placeholder-image" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
@@ -662,9 +662,9 @@
   
         </div>
           </div>
-          <div class="col-lg-4" style="background: url(/assets/Images/popular.png);">
+         <div class="col-lg-4" style="background: url('/assets/Images/Web-side-Banner2-380x752.png') no-repeat center center; background-size: cover;">
+</div>
 
-          </div>
          
         </div>
   </div>

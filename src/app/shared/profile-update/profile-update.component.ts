@@ -17,7 +17,6 @@ declare const google: any;
 export class ProfileUpdateComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
-  
   @Output() UpdateSuccess = new EventEmitter<void>();
   @Output() UpdateStart = new EventEmitter<void>();
   constructor(
@@ -97,9 +96,9 @@ export class ProfileUpdateComponent
     //   .subscribe((credentials) => {
     //     this.userDetails = credentials;
     //   });
-//     if (this.userDetails) { 
-// this.getUserByID();
-//     } 
+    //     if (this.userDetails) {
+    // this.getUserByID();
+    //     }
   }
   requestLoading;
   // userInfo;
@@ -127,7 +126,22 @@ export class ProfileUpdateComponent
     this.errorFetching = false;
     // this.getUserByID();
   }
-
+  handleAddressChange(location: any) {
+    // this.pickUpForm.value.fromWhere = location?.address;
+    this.form.patchValue({
+      address: location?.address,
+      postalCode: location?.postalCode,
+      state: location?.state,
+      country: 'Nigeria',
+    });
+    // this.payload.departureDestination.address = location.address;
+    // this.payload.departureDestination.country = location.country;
+    // this.payload.departureDestination.state = location.state;
+    // this.payload.departureDestination.city = location.city;
+    // this.payload.departureDestination.postalCode = location.postalCode;
+    // this.payload.departureDestination.latitude = location.latitude;
+    // this.payload.departureDestination.longitude = location.longitude;
+  }
   imgUrl: string | null = null;
   // imgUrl: string | null = '/assets/Images/Rectangle 136.png';
   uploadProgress: number = 0;
@@ -169,10 +183,18 @@ export class ProfileUpdateComponent
   }
 
   updateProfile(): void {
-   
     this.submitted = true;
     if (this.form.valid) {
-       this.UpdateStart.emit();
+      this.UpdateStart.emit();
+       let phoneNumber = this.form.value?.phoneNumber;
+       if (phoneNumber?.startsWith('0')) {
+         phoneNumber = phoneNumber?.substring(1);
+       } else if (phoneNumber?.startsWith('234')) {
+         phoneNumber = phoneNumber?.substring(3);
+       }
+       this.form.patchValue({
+         phoneNumber: `234${phoneNumber}`,
+       });
       this.authService
         .updateUserById(this.userDetails?._id, this.form.value)
         .subscribe((data) => {
@@ -180,9 +202,9 @@ export class ProfileUpdateComponent
             localStorage.setItem('spa-userData', JSON.stringify(data?.data));
             this.submitted = false;
             this.userDetails = data['data'];
-              if (this.userDetails) {
-                this.form.patchValue(this.userDetails);
-              }
+            if (this.userDetails) {
+              this.form.patchValue(this.userDetails);
+            }
             this.UpdateSuccess.emit();
             this.notify.success('Profile Updated Successfully', 4000);
             // this.getUserByID();

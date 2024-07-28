@@ -73,6 +73,7 @@ export class HomeComponent implements OnInit {
     this.getAllCategories();
     this.getAllNewArrivals();
     this.getAllFlashProducts();
+    this.getAllTrendingProducts();
   }
 
   newArrivalLoading = false;
@@ -109,6 +110,8 @@ export class HomeComponent implements OnInit {
     this.productService.getAllProducts().subscribe(
       (data: any) => {
         this.products = data?.data;
+        this.lastToFirstProducts = [...data?.data]?.reverse();
+        
         this.loading = false;
       },
       (error) => {
@@ -117,6 +120,8 @@ export class HomeComponent implements OnInit {
       }
     );
   }
+  lastToFirstProducts;
+ 
   refreshProducts() {
     this.getAllProducts();
     this.productsError = false;
@@ -135,6 +140,24 @@ export class HomeComponent implements OnInit {
       (error) => {
         this.flashProductLoading = false;
         this.flashProductError = true;
+      }
+    );
+  }
+
+  trendingProducts: any = null;
+  trendingProductLoading = false;
+  trendingProductError = false;
+  getAllTrendingProducts() {
+    this.flashProductLoading = true;
+    this.trendingProductError = false;
+    this.productService.getAllTrendingProducts().subscribe(
+      (data: any) => {
+        this.trendingProducts = data?.data;
+        this.trendingProductLoading = false;
+      },
+      (error) => {
+        this.trendingProductLoading = false;
+        this.trendingProductError = true;
       }
     );
   }

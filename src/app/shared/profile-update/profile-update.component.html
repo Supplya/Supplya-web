@@ -21,7 +21,7 @@
              
                   <div class="mb-2 col-lg-12 slide-right" *ngIf="userDetails?.address === '' || this.userDetails?.address === null">
                     <label for="address" class="content-label"> Address</label>
-                    <input type="text" (change)="onAddressChange()" formControlName="address" id="address" class=" content-input {{
+                    <input type="text" appGooglePlaces (addressChange)="handleAddressChange($event)" formControlName="address" id="address" class=" content-input {{
                                             isInvalid('address') ? 'error-input' : ''
                                           }}" placeholder="Enter address">
     

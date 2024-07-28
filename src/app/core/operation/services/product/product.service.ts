@@ -49,6 +49,9 @@ export class ProductService {
   getAllFlashProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.productUrl}products/flashsale`);
   }
+  getAllTrendingProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.productUrl}products/trending`);
+  }
 
   getAllVendorProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.productUrl}products/vendor`);
@@ -56,11 +59,17 @@ export class ProductService {
   getAllVendorOrders(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.productUrl}orders`);
   }
+  getAllOrderByUser(id: any): Observable<any[]> {
+    return this.http.get<any[]>(`${this.productUrl}orders/user/${id}`);
+  }
   getUserOrders(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.productUrl}users/orders`);
   }
   getAllOrders(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.productUrl}orders`);
+  }
+  getAllOrdersAdmin(page: number): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.productUrl}orders?page=${page}`);
   }
   getVendorOrders(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.productUrl}orders/vendor`);

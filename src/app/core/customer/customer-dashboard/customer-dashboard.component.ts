@@ -23,13 +23,27 @@ export class CustomerDashboardComponent implements OnInit {
     private productService: ProductService,
     private exportService: ExportService,
     private toast: ToastyService,
-    private authService: AuthService, private router: Router
+    private authService: AuthService,
+    private router: Router
   ) {}
   userDetails;
   ngOnInit(): void {
     this.userDetails = this.authService.getUserCredentials();
     // console.log(this.userDetails);
     this.getAllOrders();
+
+        if (this.userDetails) {
+          if (
+            this.userDetails?.phoneNumber === null ||
+            this.userDetails?.phoneNumber === '' ||
+            this.userDetails?.address === null ||
+            this.userDetails?.address === '' ||
+            this.userDetails?.state === null ||
+            this.userDetails?.state === ''
+          ) {
+            this.toggleModal('updateProfileModal', 'open');
+          }
+        }
   }
   errorFetchingProduct: boolean = false;
   ordersLoading: boolean = false;
@@ -112,5 +126,10 @@ export class CustomerDashboardComponent implements OnInit {
 
   toDashboard() {
     this.router.navigate(['/core/customer/profile-settings']);
+  }
+
+  updateSuccess() {
+    this.userDetails = this.authService.getUserCredentials();
+    this.toggleModal('updateProfileModal', 'close');
   }
 }

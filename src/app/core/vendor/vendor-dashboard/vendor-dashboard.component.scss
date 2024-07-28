@@ -149,3 +149,27 @@ border-radius: 10px;
 }
 
 }
+
+
+
+.modal-center-contents, .modal-center-customs  {
+  position: absolute;
+  animation: slideTop 0.8s ease forwards;
+  background-color: #fefefe;
+  overflow-y: auto;
+  max-height: calc(100vh - 50px);
+  overflow-y: auto;
+  border: none;
+  border-radius: 5px;
+  width: 90% !important; 
+}
+@media screen and (min-width: 768px) {
+  .modal-center-contents {
+      width: 60% !important; 
+    }
+}
+@media screen and (min-width: 992px) {
+  .modal-center-contents {
+      width: 32% !important; 
+    }
+}

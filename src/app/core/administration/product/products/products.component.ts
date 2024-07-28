@@ -37,6 +37,7 @@ export class ProductsComponent implements OnInit {
       (data: any) => {
         this.products = data?.data;
         this.filteredRows = data?.data;
+                  // console.log(this.products);
         this.productLoading = false;
       },
       (error) => {
@@ -57,7 +58,7 @@ export class ProductsComponent implements OnInit {
 
         if (data.status) {
           this.summary = data.data;
-          console.log(this.summary);
+
   //         {
   //   totalProducts: 9,
   //   totalProductsAddedLastMonth: 0,

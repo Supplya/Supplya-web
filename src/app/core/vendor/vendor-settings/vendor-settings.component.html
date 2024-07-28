@@ -142,9 +142,9 @@
     
                 <div class="mb-2 col-lg-6 slide-left">
                     <label for="address" class="content-label">Store Address</label>
-                    <input type="text" formControlName="address" id="address" class=" content-input {{
+                    <input type="text" appGooglePlaces (addressChange)="handleAddressChange($event)" formControlName="address" id="address" class=" content-input {{
                                             isInvalid('address') ? 'error-input' : ''
-                                          }}" placeholder="Enter shop name">
+                                          }}" placeholder="Enter shop Address">
     
                                             <small class="error-text mb-4" *ngIf="isInvalid('address')">
                                                 {{ getErrorMessage('address', 'This field is required') }}

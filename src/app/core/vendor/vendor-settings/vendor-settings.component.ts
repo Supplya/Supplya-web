@@ -18,7 +18,8 @@ export class VendorSettingsComponent implements OnInit {
     private fb: FormBuilder,
     private helperService: HelperService,
     private authService: AuthService,
-    private notify: ToastyService, private router: Router,
+    private notify: ToastyService,
+    private router: Router,
     private uploadService: MediaUploadService
   ) {}
 
@@ -79,6 +80,16 @@ export class VendorSettingsComponent implements OnInit {
         if (data.status) {
           this.userInfo = data['data'];
           this.form.patchValue(data['data']);
+          // Remove the first '0' from the phone number if it exists and prepend '234'
+          let phoneNumber = this.userInfo.phoneNumber;
+          if (phoneNumber.startsWith('0')) {
+            phoneNumber = phoneNumber.substring(1);
+          } else if (phoneNumber.startsWith('234')) {
+            phoneNumber = phoneNumber.substring(3);
+          }
+          this.form.patchValue({
+            phoneNumber: `234${phoneNumber}`,
+          });
         } else {
           this.notify.danger(data.message);
         }
@@ -88,6 +99,15 @@ export class VendorSettingsComponent implements OnInit {
         this.errorFetching = true;
       }
     );
+  }
+  handleAddressChange(location: any) {
+    this.form.patchValue({
+      address: location?.address,
+      postalCode: location?.postalCode,
+      state: location?.state,
+      country: 'Nigeria',
+    });
+  
   }
   errorFetching;
   refreshUser() {
@@ -276,17 +296,14 @@ export class VendorSettingsComponent implements OnInit {
   }
 
   changePassword(): void {
-  
     if (this.passwordForm.valid) {
       const formValues = this.passwordForm.value;
       this.authService.changePassword(formValues).subscribe(
         (response) => {
-          if (response.status) { 
-
+          if (response.status) {
             this.notify.success('Password changed successfully');
             this.router.navigate(['/auth']);
           } else {
-            
             this.notify.danger(response.message);
           }
         },
@@ -299,6 +316,15 @@ export class VendorSettingsComponent implements OnInit {
 
   updateProfile(): void {
     this.submitted = true;
+    let phoneNumber = this.form.value.phoneNumber;
+    if (phoneNumber?.startsWith('0')) {
+      phoneNumber = phoneNumber?.substring(1);
+    } else if (phoneNumber?.startsWith('234')) {
+      phoneNumber = phoneNumber?.substring(3);
+    }
+    this.form.patchValue({
+      phoneNumber: `234${phoneNumber}`,
+    });
     this.authService
       .updateUserById(this.userDetails?._id, this.form.value)
       .subscribe((data) => {
