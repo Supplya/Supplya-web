@@ -7,6 +7,8 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { FaqComponent } from './faq/faq.component';
 import { SharedModule } from '../shared/shared.module';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { RefundPolicyComponent } from './refund-policy/refund-policy.component';
 
 
 @NgModule({
@@ -14,7 +16,9 @@ import { SharedModule } from '../shared/shared.module';
     HomeComponent,
     AboutComponent,
     ContactComponent,
-    FaqComponent
+    FaqComponent,
+    PrivacyPolicyComponent,
+    RefundPolicyComponent
   ],
   imports: [
     CommonModule,

@@ -325,17 +325,20 @@ export class VendorSettingsComponent implements OnInit {
     this.form.patchValue({
       phoneNumber: `234${phoneNumber}`,
     });
-    this.authService
-      .updateUserById(this.userDetails?._id, this.form.value)
-      .subscribe((data) => {
-        if (data?.status) {
-          localStorage.setItem('spa-userData', JSON.stringify(data.data));
-          this.submitted = false;
-          this.userDetails = data['data'];
-          this.notify.success('Store Profile Updated Successfully', 4000);
-          this.getUserByID();
-        }
-      });
+    if (this.form.valid) {
+      
+      this.authService
+        .updateUserById(this.userDetails?._id, this.form.value)
+        .subscribe((data) => {
+          if (data?.status) {
+            localStorage.setItem('spa-userData', JSON.stringify(data.data));
+            this.submitted = false;
+            this.userDetails = data['data'];
+            this.notify.success('Store Profile Updated Successfully', 4000);
+            this.getUserByID();
+          }
+        });
+    }
   }
   updatePicture(): void {
     this.toggleModal('changePhotoModal', 'close');

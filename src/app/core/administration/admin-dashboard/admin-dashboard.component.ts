@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { ProductService } from '../../operation/services/product/product.service';
 import { Chart, registerables } from 'chart.js';
 import { DashboardService } from '../services/dashboard.service';
+import { AuthService } from 'src/app/authentication/service/auth.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -20,14 +21,37 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
   months: { label: string; value: string }[] = [];
   constructor(
     private productService: ProductService,
-    private adminService: DashboardService
+    private adminService: DashboardService,
+    private authService: AuthService
   ) {
     Chart.register(...registerables);
   }
   ngOnInit(): void {
     this.getDashboardMetric();
+
+    this.userInfo = this.authService.getUserCredentials();
+
+    if (this.userInfo) {
+      if (
+        this.userInfo?.phoneNumber === null ||
+        this.userInfo?.phoneNumber === '' ||
+        this.userInfo?.address === null ||
+        this.userInfo?.address === '' ||
+        this.userInfo?.state === null ||
+        this.userInfo?.state === ''
+      ) {
+        this.toggleModal('updateProfileModal', 'open');
+      }
+    }
   }
 
+  toggleModal = (modalId, action: string, data?: any) => {
+    if (action == 'open') {
+      document.getElementById(modalId).style.display = 'flex';
+    } else {
+      document.getElementById(modalId).style.display = 'none';
+    }
+  };
   summary;
   statsLoading;
   errorFetchingSummary: boolean = false;
@@ -276,5 +300,10 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
       dataset.data = this.generateRandomData();
     });
     this.lineChart.update();
+  }
+  userInfo;
+  updateSuccess() {
+    this.userInfo = this.authService.getUserCredentials();
+    this.toggleModal('updateProfileModal', 'close');
   }
 }

@@ -88,7 +88,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
         this.requestLoading = false;
         if (data.status) {
           this.userInfo = data['data'];
-          
+
           this.form.patchValue(data['data']);
         } else {
           this.notify.danger(data.message);
@@ -99,6 +99,14 @@ export class SettingsComponent implements OnInit, AfterViewInit {
         this.errorFetching = true;
       }
     );
+  }
+  handleAddressChange(location: any) {
+    this.form.patchValue({
+      address: location?.address,
+      postalCode: location?.postalCode,
+      state: location?.state,
+      country: 'Nigeria',
+    });
   }
   errorFetching;
   refreshUser() {
@@ -273,8 +281,16 @@ export class SettingsComponent implements OnInit, AfterViewInit {
 
   updateProfile(): void {
     this.submitted = true;
-    if (this.form.valid) {
-      
+    if (!this.form.valid) {
+       let phoneNumber = this.form.value.phoneNumber;
+       if (phoneNumber?.startsWith('0')) {
+         phoneNumber = phoneNumber?.substring(1);
+       } else if (phoneNumber?.startsWith('234')) {
+         phoneNumber = phoneNumber?.substring(3);
+       }
+       this.form.patchValue({
+         phoneNumber: `234${phoneNumber}`,
+       });
       this.authService
         .updateUserById(this.userDetails?._id, this.form.value)
         .subscribe((data) => {
@@ -296,7 +312,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       .subscribe(
         (data) => {
           if (data?.status) {
-            this.authService.setCredentialsOnly(data?.data)
+            this.authService.setCredentialsOnly(data?.data);
             this.submitted = false;
             this.userDetails = data['data'];
             this.toggleModal('changePhotoModal', 'close');

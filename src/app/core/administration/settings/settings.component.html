@@ -124,7 +124,7 @@
     
                 <div class="mb-2 col-lg-6 slide-left">
                     <label for="address" class="content-label"> Address</label>
-                    <input type="text" formControlName="address"  (change)="onAddressChange()" id="address" class=" content-input {{
+                    <input type="text" formControlName="address"appGooglePlaces (addressChange)="handleAddressChange($event)" id="address" class=" content-input {{
                                             isInvalid('address') ? 'error-input' : ''
                                           }}" placeholder="Enter Address ">
     

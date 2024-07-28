@@ -8,7 +8,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item breadcrumb-text text-dark text-decoration-none"><a href="/">{{ HomeLink }} {{ searchResult }}</a></li>
                         <!-- Add SVG Separator -->
-                        <li class="breadcrumb-separator">
+                        <li *ngIf="previousLink" class="breadcrumb-separator">
                             &nbsp;  <svg
                             width="12"
                             height="12"
