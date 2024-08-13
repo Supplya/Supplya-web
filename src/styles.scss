@@ -1078,6 +1078,9 @@ input[type=number]::-webkit-outer-spin-button {
 .card{
   max-width: 276px!important;
   margin-bottom: 5px!important;
+  min-width: 276px;
+// max-width: 276px;
+
   // border-radius: 10px!important;
 }
   .placeholder-image {

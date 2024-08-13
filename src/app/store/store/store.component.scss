@@ -1,0 +1,50 @@
+.vendor-store {
+  .vendor-info {
+    background-color: #004d00; // Primary color
+    color: #ffffff;
+
+    .vendor-logo {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border: 3px solid #ffcc00; // Secondary color
+    }
+
+    .vendor-contact {
+      margin-top: 15px;
+
+      span {
+        display: block;
+        margin: 5px 0;
+      }
+    }
+  }
+
+  .vendor-nav-tabs {
+    .nav-link {
+      color: #004d00; // Primary color
+
+      &.active {
+        background-color: #ffcc00; // Secondary color
+        color: #004d00;
+      }
+    }
+  }
+
+  .vendor-reviews,
+  .vendor-about {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    margin-bottom: 20px;
+
+    .review {
+      margin-bottom: 20px;
+
+      .star-rating {
+        color: #ffcc00; // Secondary color
+      }
+    }
+  }
+}

@@ -240,7 +240,17 @@
 </Section> -->
 
 <!-- FLASH SALES -->
-
+<!-- <app-product-list
+  [products]="flashProducts"
+  [loading]="flashProductLoading"
+  [error]="flashProductError"
+  heading="Flash Sales"
+  (refresh)="refreshFlashProducts()"
+  (toggleWishlist)="toggleWishlist($event)"
+  (viewProduct)="viewProduct(flashProducts?._id)"
+  (addToCart)="addToCart($event)"
+  (toCart)="toCart()">
+</app-product-list> -->
 <section id="flash-products" class="mb-3">
 
 

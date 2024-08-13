@@ -1,0 +1,35 @@
+<app-navbar></app-navbar>
+
+<section class="vendor-store">
+  <!-- Vendor Information Section -->
+  <div class="vendor-info py-5 text-center" style="background-color: #004d00;">
+    <div class="container py-2">
+      <!-- <img [src]="vendor.logo" alt="Vendor Logo" class="vendor-logo rounded-circle mb-3"> -->
+      <h2 class="vendor-name text-white">{{ vendor.name }}</h2>
+      <p class="vendor-description text-white">{{ vendor.description }}</p>
+      <div class="vendor-contact text-white">
+        <span><i class="bi bi-telephone"></i> {{ vendor.phone }}</span>
+        <span><i class="bi bi-envelope"></i> {{ vendor.email }}</span>
+      </div>
+    </div>
+  </div>
+
+<section class="py-5">
+
+    
+        <app-product-list class="py-5"
+              [products]="products"
+              [loading]="loading"
+              [error]="error"
+              heading="Products"
+              [addedItems]="AllAddedItems"
+              (refresh)="getProducts()"
+              (toggleWishlist)="toggleWishlist($event)"
+              (viewProduct)="viewProduct($event)"
+              (addToCart)="addToCart($event)"
+              (toCart)="toCart()">
+            </app-product-list>
+</section>
+</section>
+
+<app-footer></app-footer>

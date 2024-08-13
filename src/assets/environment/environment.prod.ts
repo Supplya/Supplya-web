@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   BASE_URL: 'https://prodsupplya.azurewebsites.net/api/v1/',
-  PAYSTACK_KEY: 'pk_test_58c4e5396a1b0b3f3d3c9e0100d0b1348affa82d',
+  PAYSTACK_KEY: 'pk_live_5b78e51245dc56ac033b49893af6f8c600b2d49d',
   cloudinary: {
     cloudName: 'piusash',
     uploadPreset: 'supplya-uploads',
