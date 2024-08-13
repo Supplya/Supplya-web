@@ -399,19 +399,20 @@ padding: 30px;
 .ngx-pagination a,
 .ngx-pagination button,
 .ngx-pagination li {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
   text-decoration: none;
    border-radius: 6px!important;
   background: #0097a810 !important;
   color: var(--primary-color) !important;
   cursor: default;
+  // padding: 5px !important;
 }
 
 
 .ngx-pagination .current {
   // padding: 15px;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
    border-radius: 6px;
   background: var(--primary-color) !important;

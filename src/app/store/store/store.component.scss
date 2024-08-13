@@ -1,13 +1,33 @@
 .vendor-store {
-  .vendor-info {
-    background-color: #004d00; // Primary color
-    color: #ffffff;
+  position: relative;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 
+  .vendor-info {
+    position: relative;
+    z-index: 1;
+      padding-top: 80px !important;
+  padding-bottom: 80px !important;
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.701);
+      z-index: -1;
+    }
+.vendor-name{
+  font-size: 50px !important;
+}
     .vendor-logo {
       width: 120px;
       height: 120px;
       object-fit: cover;
-      border: 3px solid #ffcc00; // Secondary color
+      border: 3px solid #ffcc00;
+      z-index: 2;
     }
 
     .vendor-contact {
@@ -16,34 +36,6 @@
       span {
         display: block;
         margin: 5px 0;
-      }
-    }
-  }
-
-  .vendor-nav-tabs {
-    .nav-link {
-      color: #004d00; // Primary color
-
-      &.active {
-        background-color: #ffcc00; // Secondary color
-        color: #004d00;
-      }
-    }
-  }
-
-  .vendor-reviews,
-  .vendor-about {
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #dddddd;
-    border-radius: 5px;
-    margin-bottom: 20px;
-
-    .review {
-      margin-bottom: 20px;
-
-      .star-rating {
-        color: #ffcc00; // Secondary color
       }
     }
   }

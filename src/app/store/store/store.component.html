@@ -1,35 +1,76 @@
 <app-navbar></app-navbar>
 
-<section class="vendor-store">
-  <!-- Vendor Information Section -->
-  <div class="vendor-info py-5 text-center" style="background-color: #004d00;">
-    <div class="container py-2">
-      <!-- <img [src]="vendor.logo" alt="Vendor Logo" class="vendor-logo rounded-circle mb-3"> -->
-      <h2 class="vendor-name text-white">{{ vendor.name }}</h2>
-      <p class="vendor-description text-white">{{ vendor.description }}</p>
-      <div class="vendor-contact text-white">
-        <span><i class="bi bi-telephone"></i> {{ vendor.phone }}</span>
-        <span><i class="bi bi-envelope"></i> {{ vendor.email }}</span>
+<section>
+  <section class="row" *ngIf="detailsLoading && !vendor && !detailsError">
+    <div class="py-5 p-5 center">
+      <div>
+        <img style="height: 100px;" src="/assets/Images/requestLoading.gif" alt="">
+        <p class="loading-text text-center text-muted">Loading...</p>
       </div>
     </div>
+  </section >
+
+  <section class="center" *ngIf="!vendor && !detailsLoading && detailsError">
+    <div class="py-5">
+      <div class="py-3 text-center">
+        <img src="/assets/Images/oops.png" style="height: 100px;" alt="">
+        <p class="loading-text text-muted py-3">Could not display vendor information. Click 'Refresh' to try again.</p>
+        <p class="refresh" (click)="getStoreInfo()">Refresh <i class="bi bi-arrow-repeat"></i></p>
+      </div>
+    </div>
+  </section>
+  <section *ngIf="!detailsLoading && vendor && !detailsError" 
+  class="vendor-store"
+  [ngStyle]="{ 'background-image': vendor?.storeImage ? 'url(' + vendor?.storeImage + ')' : 'url(/assets/Images/logo.png)' }"
+>
+  <div class="vendor-info text-center">
+    <div class="overlay"></div>
+    <h2 class="vendor-name text-white">{{ capitalizeFirstLetter(vendor?.storeName) }}</h2>
+    <p class="vendor-description text-white">{{ vendor?.address }}</p>
+    <div class="vendor-contact text-white">
+      <span *ngIf="vendor?.phoneNumber"><i class="bi bi-telephone"></i> {{ vendor?.phoneNumber }}</span>
+      <span *ngIf="vendor?.email"><i class="bi bi-envelope"></i> {{ vendor?.email }}</span>
+    </div>
   </div>
-
-<section class="py-5">
-
-    
-        <app-product-list class="py-5"
-              [products]="products"
-              [loading]="loading"
-              [error]="error"
-              heading="Products"
-              [addedItems]="AllAddedItems"
-              (refresh)="getProducts()"
-              (toggleWishlist)="toggleWishlist($event)"
-              (viewProduct)="viewProduct($event)"
-              (addToCart)="addToCart($event)"
-              (toCart)="toCart()">
-            </app-product-list>
 </section>
+
+
+  
+  
+  <!-- <section class="py-5">
+  
+      
+          <app-product-list class="py-5"
+                [products]="products"
+                [loading]="loading"
+                [error]="error"
+                heading="Products"
+                [addedItems]="AllAddedItems"
+                (refresh)="getProducts()"
+                (toggleWishlist)="toggleWishlist($event)"
+                (viewProduct)="viewProduct($event)"
+                (addToCart)="addToCart($event)"
+                (toCart)="toCart()">
+              </app-product-list>
+  </section> -->
+  <section class="py-5">
+    <app-grid-product-list 
+      [products]="products"
+      [loading]="loading"
+      [error]="error"
+      heading="Products"
+      [addedItems]="AllAddedItems"
+      [totalProducts]="totalProducts"
+      [itemsPerPage]="itemsPerPage"
+      [currentPage]="currentPage"
+      (refresh)="getProducts()"
+      (toggleWishlist)="toggleWishlist($event)"
+      (viewProduct)="viewProduct($event)"
+      (addToCart)="addToCart($event)"
+      (toCart)="toCart()">
+    </app-grid-product-list>
+  </section>
 </section>
+
 
 <app-footer></app-footer>

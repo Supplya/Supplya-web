@@ -110,7 +110,7 @@
               <div class="d-flex justify-content-between">
                 <div class="me-3">
                   <p class="mb-0 prod-name">{{item?.product }}</p>
-                  <p class="mb-0 vendor">{{ item?.vendor }}</p>
+                  <p class="mb-0 vendor">{{ item?.vendor }} &nbsp; <span> <a style="color: var(--primary-color);" routerLink="/store/{{ item?.shopLink }}">View store</a></span></p>
                 </div>
                 <div class="event-date text-center">
                   <p class="mb-0 prod-amount">{{item?.totalSold || 0 | number:'1.0-0'}}</p>

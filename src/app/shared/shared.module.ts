@@ -24,6 +24,7 @@ import { SharedLoginComponent } from './shared-login/shared-login.component';
 import { ProfileUpdateComponent } from './profile-update/profile-update.component';
 import { GooglePlacesDirective } from './helpers/google-places.directive';
 import { ProductListComponent } from './product-list/product-list.component';
+import { GridProductListComponent } from './grid-product-list/grid-product-list.component';
 
 
 
@@ -54,6 +55,7 @@ const sharedRoutes: Routes = [
     ProfileUpdateComponent,
     GooglePlacesDirective,
     ProductListComponent,
+    GridProductListComponent,
   ],
   imports: [
     RouterModule.forChild(sharedRoutes),
@@ -84,6 +86,7 @@ const sharedRoutes: Routes = [
     SharedLoginComponent,
     ProfileUpdateComponent,
     ProductListComponent,
+    GridProductListComponent,
     GooglePlacesDirective,
     // Modules
     ToastyModule,

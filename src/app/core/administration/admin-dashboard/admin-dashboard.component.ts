@@ -61,15 +61,30 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
       (data: any) => {
         this.statsLoading = false;
         if (data.status) {
+          // Assign the summary data
           this.summary = data.data;
+
+          // Map the topSellingProducts to include shopLink
+          this.summary.topSellingProducts = this.summary.topSellingProducts.map(
+            (product) => ({
+              ...product, // Include all existing properties of product
+              shopLink: this.extractStoreName(product?.storeUrl), // Add the extracted store name
+            })
+          );
         }
-        // this.ordersLoading = false;
       },
       (error) => {
         this.errorFetchingSummary = true;
         this.statsLoading = false;
       }
     );
+  }
+
+ 
+
+  extractStoreName(url: string): string {
+    const parts = url.split('/store/');
+    return parts.length > 1 ? parts[1] : '';
   }
   refreshSummary() {
     this.statsLoading = false;

@@ -99,7 +99,7 @@ export class ViewVendorsComponent implements OnInit {
     this.errorFetchingUser = false;
     this.getUser();
   }
-  itemPerPage: number = 8;
+  itemPerPage: number = 100;
   p: number = 1;
   selectedOrder: any;
   toggleModal = (modalId, action: string, data?: any) => {

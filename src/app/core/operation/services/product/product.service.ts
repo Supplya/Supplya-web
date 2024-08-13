@@ -45,6 +45,16 @@ export class ProductService {
   getAllProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.productUrl}products`);
   }
+  getStoreProducts(storeName: string): Observable<Product[]> {
+    return this.http.get<Product[]>(
+      `${this.productUrl}/products/store/${storeName}`
+    );
+  }
+  getStoreDetails(storeName: string): Observable<Product[]> {
+    return this.http.get<Product[]>(
+      `${this.productUrl}/vendors/${storeName}`
+    );
+  }
 
   getAllFlashProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.productUrl}products/flashsale`);

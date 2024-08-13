@@ -1,0 +1,70 @@
+<section id="grid-products" class="mb-3">
+  <section class="row" *ngIf="loading && !products && !error">
+    <div class="py-5 p-5 center">
+      <div>
+        <img style="height: 100px;" src="/assets/Images/requestLoading.gif" alt="Loading">
+        <p class="loading-text text-center text-muted">Loading...</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="center" *ngIf="!products && !loading && error">
+    <div class="py-5">
+      <div class="py-3 text-center">
+        <img src="/assets/Images/oops.png" style="height: 100px;" alt="Error">
+        <p class="loading-text text-muted py-3">Could not display products. Click 'Refresh' to try again.</p>
+        <p class="refresh" (click)="onRefresh()">Refresh <i class="bi bi-arrow-repeat"></i></p>
+      </div>
+    </div>
+  </section>
+
+  <section *ngIf="products?.length > 0 && !loading && !error">
+    <div class="container">
+      <div class="py-2" style="display: flex; justify-content: space-between;">
+        <div>
+          <p class="home-heading">{{ heading }}</p>
+        </div>
+        <div>
+          <!-- <p class="see-all mt-2">See All</p> -->
+        </div>
+      </div>
+
+      <!-- Grid Products -->
+      <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4" *ngFor="let product of products | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalProducts }">
+          <div class="card border-0 products">
+            <div class="card-img-top placeholder-image" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
+              <span class="love-icon mt-2" (click)="onToggleWishlist(product)">
+                <i class="bi bi-heart"></i>
+              </span>
+              <img (click)="onViewProduct(product?._id)" [src]="product?.image" alt="Product Image">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">
+                <div class="marquee" (click)="onViewProduct(product?._id)">{{ product?.name }}</div>
+              </h5>
+              <div class="star-rating">
+                <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
+                <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
+              </div>
+              <div class="price-and-cart">
+  <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0' }}</span>
+  <span *ngIf="!ifAddedToCart(product)" (click)="onAddToCart(product)" class="cart-icon">
+    <span class="d-none d-sm-block"><i class="bi bi-cart-fill"></i></span>
+    <span class="d-block d-sm-none">Add to Cart</span>
+  </span>
+  <span *ngIf="ifAddedToCart(product)" (click)="onToCart()" class="cart-icon view">
+    <span class="d-none d-sm-block"><i class="bi bi-cart-fill"></i></span>
+    <span class="d-block d-sm-none">View in Cart</span>
+  </span>
+</div>
+
+            </div>
+          </div>
+        </div>
+        <pagination-controls previousLabel=""
+      nextLabel="" (pageChange)="onPageChange($event)"></pagination-controls>
+      </div>
+    </div>
+  </section>
+</section>

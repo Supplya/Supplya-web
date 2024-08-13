@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class VendorsComponent implements OnInit {
   selectedTab: string = 'products';
-  itemPerPage: number = 8;
+  itemPerPage: number = 100;
   p: number = 1;
   filteredRows: any;
   title = 'Products';
@@ -27,6 +27,7 @@ export class VendorsComponent implements OnInit {
   ngOnInit(): void {
     // this.getAllProducts();
     this.getVendorMetric();
+    this.getAllUsers();
     
   }
   errorFetchingProduct: boolean = false;
@@ -42,7 +43,7 @@ export class VendorsComponent implements OnInit {
         this.ordersLoading = false;
         if (data.status) {
           this.summary = data.data;
-          this.vendors = data.data.vendors;
+          // this.vendors = data.data.vendors;
 
           console.log(this.summary);
         } else {
@@ -62,8 +63,8 @@ export class VendorsComponent implements OnInit {
     this.adminService.getAllVendor().subscribe(
       (data: any) => {
         this.ordersLoading = false;
-        if (data.status) {
-          this.vendors = data;
+        if (data.status === true) {
+          this.vendors = data['data'];
           // console.log(this.customers);
         } else {
         }

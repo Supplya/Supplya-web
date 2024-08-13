@@ -31,53 +31,61 @@ export class StoreComponent implements OnInit {
       this.AllAddedItems = cart.items;
     });
   }
-  vendor: any;
+  vendor;
   vendorReviews: any[] = [];
+  storeName;
   ngOnInit(): void {
     this.getProducts();
-    const vendorId = this.router.snapshot.paramMap.get('vendorId');
+
+    this.storeName = this.router.snapshot.paramMap.get('store-name');
     // this.getVendorDetails(vendorId);
-    // this.getProducts(vendorId);
+    // this.getStoreProducts();
+    this.getStoreInfo();
     // this.getVendorReviews(vendorId);
-    this.vendor = {
-      logo: '/assets/Images/logo.png',
-      name: 'Green Haven Organics',
-      description:
-        'We provide the freshest organic produce sourced directly from local farms. Our commitment is to quality and sustainability.',
-      phone: '+234 800 123 4567',
-      email: 'contact@greenhaven.com',
-      about:
-        'Green Haven Organics was founded in 2015 with the mission to deliver fresh, organic produce to the community. We believe in supporting local farmers and ensuring our customers receive the highest quality products. Our journey began with a small stall at the farmer’s market and has now grown into a thriving online store that delivers across the region. We are committed to environmental sustainability, and all our packaging is eco-friendly.',
-    };
-
-    this.vendorReviews = [
-      {
-        user: 'John Doe',
-        comment:
-          'Fantastic products! The quality is unmatched and delivery was quick. Highly recommended.',
-        rating: 4.5,
-      },
-      {
-        user: 'Jane Smith',
-        comment:
-          'Great experience shopping here. The produce is always fresh and the customer service is excellent.',
-        rating: 5,
-      },
-      {
-        user: 'Paul Johnson',
-        comment:
-          'Good variety of organic products, but some items were out of stock. Will shop again.',
-        rating: 4,
-      },
-    ];
-
   }
 
+  detailsLoading = false;
+  detailsError = false;
+  getStoreInfo(): void {
+    this.detailsLoading = true;
+    this.productService.getStoreDetails(this.storeName).subscribe(
+      (response) => {
+        this.vendor = response['data'];
+        this.detailsLoading = false;
+      },
+      (error) => {
+        this.detailsError = true;
+        this.detailsLoading = false;
+      }
+    );
+  }
+  capitalizeFirstLetter(value: string): string {
+    if (!value) return '';
+    return value?.charAt(0).toUpperCase() + value?.slice(1);
+  }
+  getStoreProducts(): void {
+    this.loading = true;
+    this.productService.getStoreProducts(this.storeName).subscribe(
+      (response: any) => {
+        this.products = response.data;
+        this.totalProducts = response.totalProducts;
+        this.loading = false;
+      },
+      (error) => {
+        this.error = true;
+        this.loading = false;
+      }
+    );
+  }
+  totalProducts: number = 0;
+  currentPage: number = 1;
+  itemsPerPage: number = 4;
   getProducts() {
     this.loading = true;
     this.productService.getAllProducts().subscribe(
       (data: any) => {
         this.products = data?.data;
+        this.totalProducts = data.totalProducts;
         this.loading = false;
       },
       (error) => {
@@ -125,11 +133,11 @@ export class StoreComponent implements OnInit {
     // );
   }
   getStarsArray(rating: number): number[] {
-    return Array(Math.floor(rating)).fill(0);
+    return Array(Math?.floor(rating))?.fill(0);
   }
 
   getEmptyStarsArray(rating: number): number[] {
-    return Array(5 - Math.floor(rating)).fill(0);
+    return Array(5 - Math?.floor(rating))?.fill(0);
   }
   getVendorReviews(vendorId: string) {
     // this.productService.getVendorReviews(vendorId).subscribe((data: any) => {
