@@ -25,6 +25,8 @@ import { ProfileUpdateComponent } from './profile-update/profile-update.componen
 import { GooglePlacesDirective } from './helpers/google-places.directive';
 import { ProductListComponent } from './product-list/product-list.component';
 import { GridProductListComponent } from './grid-product-list/grid-product-list.component';
+// import { QrCodeModule } from 'ng-qrcode';
+
 
 
 
@@ -66,6 +68,7 @@ const sharedRoutes: Routes = [
     HttpClientModule,
     NgxPaginationModule,
     SelectDropDownModule,
+    // QrCodeModule,
   ],
 
   providers: [],
@@ -95,6 +98,7 @@ const sharedRoutes: Routes = [
     HttpClientModule,
     NgxPaginationModule,
     SelectDropDownModule,
+    // QrCodeModule,
     ShortenProductNamePipe,
   ],
 })

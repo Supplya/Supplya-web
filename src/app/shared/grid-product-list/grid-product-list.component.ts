@@ -20,6 +20,8 @@ export class GridProductListComponent {
   @Input() totalProducts: number;
   @Input() itemsPerPage: number;
   @Input() currentPage: number;
+  @Input() getStarsArray: (rating: number) => number[];
+  @Input() getEmptyStarsArray: (rating: number) => number[];
   // Event methods
   onRefresh() {
     this.refresh.emit();
@@ -51,14 +53,5 @@ export class GridProductListComponent {
   onPageChange(page: number): void {
     this.currentPage = page;
     this.refresh.emit();
-  }
-
-  // Utility methods for stars
-  getStarsArray(rating: number): number[] {
-    return Array(Math?.floor(rating))?.fill(0);
-  }
-
-  getEmptyStarsArray(rating: number): number[] {
-    return Array(5 - Math?.floor(rating))?.fill(0);
   }
 }

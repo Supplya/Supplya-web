@@ -31,8 +31,17 @@
       <span *ngIf="vendor?.phoneNumber"><i class="bi bi-telephone"></i> {{ vendor?.phoneNumber }}</span>
       <span *ngIf="vendor?.email"><i class="bi bi-envelope"></i> {{ vendor?.email }}</span>
     </div>
+
+    <h5 style="background-color: white; font-weight: 600; width: max-content; margin: 0 auto; padding: 10px; font-size: 14px!important;" class="text-center text-white mt-3 cursor-pointer text-primary " (click)="downloadQRCode()">Download store QR code</h5>
   </div>
 </section>
+
+
+
+
+
+
+
 
 
   
@@ -63,14 +72,37 @@
       [totalProducts]="totalProducts"
       [itemsPerPage]="itemsPerPage"
       [currentPage]="currentPage"
-      (refresh)="getProducts()"
+      (refresh)="getStoreProducts()"
       (toggleWishlist)="toggleWishlist($event)"
       (viewProduct)="viewProduct($event)"
       (addToCart)="addToCart($event)"
-      (toCart)="toCart()">
+      (toCart)="toCart()"
+      [getStarsArray]="getStarsArray.bind(this)" 
+    [getEmptyStarsArray]="getEmptyStarsArray.bind(this)"
+      >
     </app-grid-product-list>
   </section>
 </section>
 
+<!-- <div  class="qr-container"  id="qrContainer">
+  <img src="/assets/Images/qr-banner.jpg" alt="Background Image" class="background-img">
+  <div class="overlay">
+    <img [src]="qrCodeUrl" alt="QR Code" class="custom-qr">
+    
+    <p style="font-size: 16px!important; font-weight: 300;" class="qr-text px-4 mt-3 ">Shop with ease at <span class="text-secondary fw-bold">
+{{ capitalizeFirstLetter(vendor?.storeName) }} store! <br>
+    </span>  Scan this QR to visit our store on Supplya today.</p>
+  </div>
+</div> -->
+<div class="qr-container hidden" id="qrContainer">
+  <img src="/assets/Images/qr-banner.jpg" alt="Background Image" class="background-img">
+  <div class="overlay">
+    <img [src]="qrCodeUrl" alt="QR Code" class="custom-qr">
+    <p style="font-size: 16px!important; font-weight: 300;" class="qr-text px-4 mt-3">
+      Shop with ease at <span class="text-secondary fw-bold">{{ capitalizeFirstLetter(vendor?.storeName) }} store! <br></span>
+      Scan this QR to visit our store on Supplya today.
+    </p>
+  </div>
+</div>
 
 <app-footer></app-footer>

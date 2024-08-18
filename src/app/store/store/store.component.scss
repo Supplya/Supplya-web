@@ -1,3 +1,50 @@
+
+.custom-qr {
+
+}
+.qr-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  height: 400px;
+  overflow: hidden;
+}
+
+.background-img {
+  width: 100%;
+  height: auto;
+}
+
+.overlay {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.custom-qr {
+  width: 150px; /* Adjust size as needed */
+  height: 150px; /* Adjust size as needed */
+  margin-bottom: 10px;
+}
+
+.qr-text {
+  color: white; /* Adjust the text color */
+  font-size: 1.2rem;
+  text-align: center;
+}
+.hidden {
+  display: none;
+}
+
+.show {
+  display: block;
+}
 .vendor-store {
   position: relative;
   background-size: contain;

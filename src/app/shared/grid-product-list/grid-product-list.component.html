@@ -43,10 +43,10 @@
               <h5 class="card-title">
                 <div class="marquee" (click)="onViewProduct(product?._id)">{{ product?.name }}</div>
               </h5>
-              <div class="star-rating">
-                <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
-                <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
-              </div>
+             <div class="star-rating" *ngIf="product?.rating">
+  <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
+  <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
+</div>
               <div class="price-and-cart">
   <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0' }}</span>
   <span *ngIf="!ifAddedToCart(product)" (click)="onAddToCart(product)" class="cart-icon">
