@@ -1,0 +1,65 @@
+.cart {
+    font-size: 35px;
+    font-weight: 800;
+    color: black;
+    // font-family: 'Nunito Sans', sans-serif !important;
+}
+.contat-heading{
+    // font-family: 'Nunito Sans', sans-serif !important;
+    font-weight: 700;
+
+}
+.breadcrumb-item a {
+    text-decoration: none;
+    color: var(--primary-color);
+    // font-family: 'Nunito Sans', sans-serif !important;
+}
+.contact-icon p{
+font-size: 18px;
+}
+.contact-icon .bi{
+font-size: 50px !important;
+color: var(--primary-color);
+margin-bottom: 10px;
+}
+.contact-icon h5{
+font-size: 20px !important;
+// font-family: 'Nunito Sans', sans-serif !important;
+font-weight: 600;
+}
+.border .message{
+    /* padding: 50px 100px 50px 100px; */
+}
+.message h1{
+    font-size: 30px;
+    font-weight: 700;
+    color: black;
+    // font-family: 'Nunito Sans', sans-serif !important;
+}
+
+.message input{
+    height: 42px !important;
+   
+    /* font-family: 'Nunito Sans', sans-serif !important; */
+
+}
+.message textarea{
+    height: 150px !important;
+   
+    /* font-family: 'Nunito Sans', sans-serif !important; */
+
+}
+.message button{
+    
+   padding-top: 10px !important;
+   padding-bottom: 10px !important;
+    // font-family: 'Nunito Sans', sans-serif !important;
+    color: black;
+    text-transform: uppercase;
+    font-weight: 600;
+
+}
+
+.contact-icon{
+background-color: white;
+}

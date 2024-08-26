@@ -10,7 +10,7 @@ import { ToastyService } from 'ng-toasty';
   styleUrls: ['./vendor-products.component.scss'],
 })
 export class VendorProductsComponent implements OnInit {
-  itemPerPage: number = 8;
+  itemPerPage: number = 100;
   p: number = 1;
   filteredRows: any;
   title = 'Products';

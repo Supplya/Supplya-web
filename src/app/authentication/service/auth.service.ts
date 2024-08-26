@@ -47,6 +47,10 @@ export class AuthService {
     const url = `${this.baseURL}users/${userId}`;
     return this.http.patch<any>(url, userData);
   }
+  sendMessage( payload: any): Observable<any> {
+    const url = `${this.baseURL}users/contact`;
+    return this.http.post<any>(url, payload);
+  }
   getUserById(userId: string): Observable<any> {
     const url = `${this.baseURL}users/${userId}`;
     return this.http.get<any>(url);

@@ -12,8 +12,8 @@ import { DashboardService } from '../services/dashboard.service';
   styleUrls: ['./orders.component.scss'],
 })
 export class OrdersComponent implements OnInit {
-  itemsPerPage: number = 10;
-  itemPerPage: number = 8;
+  itemsPerPage: number = 100;
+  itemPerPage: number = 100;
   p: number = 1;
   filteredRows: any;
   title = 'Products';

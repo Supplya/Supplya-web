@@ -1,6 +1,137 @@
 <app-navbar></app-navbar>
 
-<app-breadcrumb currentPageLink="Contact Us" previousLink=""></app-breadcrumb>
-<section class="py-5"></section>
+<!-- <app-breadcrumb currentPageLink="Contact Us" previousLink=""></app-breadcrumb> -->
+<section class="py-5">
+    <section class="py-5">
+    <div class="container py-5">
+        <div class="row px-5 mb-2 animate__animated animate__fadeInLeft">
+            <h1 class="contat-heading">Get in Touch</h1>
+            <p class="text-muted">Our customer support team is always ready to help. We’re also active on social media</p>
+        </div>
+      
+
+        <div class="row container mb-3 " style="border-radius: 40px;">
+
+            <div class="col-lg-6 animate__animated animate__fadeInLeft ">
+                <div class="row p-3">
+                    <div class="col-lg-6">
+                        <div class="contact-icon bg-light p-5 mb-2">
+<i class="bi bi-geo-alt-fill"></i>
+                             <h5>Address</h5>
+                             <p class="text-muted">
+                                 40, Afinjuomo Street, Oworonshoki, Lagos
+
+                             </p>
+                         </div>
+                    </div>
+                    <div class="col-lg-6">
+
+                        <div class="contact-icon bg-light p-5 mb-2">
+                            <i class="bi bi-telephone-fill"></i>
+                             <h5>Phone</h5>
+
+ <p class="text-muted mb-0">
+            <a style="color: var(--primary-color);" href="tel:+2348164155596">+2348164155596</a>
+          </p>
+          <p class="text-muted">
+            <a style="color: var(--primary-color);" href="https://wa.me/23480826548" target="_blank">
+              <i style="font-size: 15px!important;" class="bi bi-whatsapp"></i> +23480826548
+            </a>
+          </p>
+                         </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="contact-icon bg-light p-5 mb-2">
+                           <i class="bi bi-envelope-fill"></i>
+                            <h5>Email</h5>
+                            <p class="text-muted mb-0">
+                        <a style="font-size: 15px!important;" href="mailto:hi@supplya.shop" style="text-decoration: none; color: inherit;">
+                             hi@supplya.shop
+                        </a>
+                    </p>
+                    <p class="text-muted">
+                        <a style="font-size: 15px!important;" href="mailto:support@supplya.shop" style="text-decoration: none; color: inherit;">
+ support@supplya.shop
+                        </a>
+                    </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+
+                        <div class="contact-icon bg-light p-5 mb-2">
+                            <i class="bi bi-clock-fill"></i>
+                             <h5>Opening hours</h5>
+                             <p class="text-muted mb-0">24/7</p>
+                         </div>
+                    </div>
+                </div>
+               
+
+            </div>
+            <div class="col-lg-6 border animate__animated animate__fadeInRight">
+              <div class="message p-lg-5 p-3">
+                <p *ngIf="sentMessage !== ''" class="p-3" style="color: var(--primary-color); font-size: 16px; border: 1px solid var(--primary-color); border-radius: 4px;">{{sentMessage}}</p>
+                <h1>Send us a message</h1>
+                <p class="text-muted">Our customer support team is always ready to help. We’re also active on social media. 
+</p>
+                <form [formGroup]="form" (ngSubmit)="sendMessage()" class="mt-4">
+  <div class="row mx-auto">
+    <div class="row">
+      <div *ngIf="!userDetails" class="form-group mb-2">
+        <label for="name">Name</label>
+        <input formControlName="name" type="text" class="content-input {{ isInvalid('name') ? 'error-input' : '' }}" placeholder="Enter your full name" id="name">
+        <small class="error-text mb-2" *ngIf="isInvalid('name')">
+          {{ getErrorMessage('name', 'This field is required') }}
+        </small>
+      </div>
+    </div>
+    <div class="row w-100">
+      <div *ngIf="!userDetails?.email" class="col-lg-6">
+        <div class="form-group mb-2">
+          <label for="email">Email</label>
+          <input type="email" formControlName="email" class="content-input {{ isInvalid('email') ? 'error-input' : '' }}" placeholder="Enter your email address" id="email">
+          <small class="error-text mb-2" *ngIf="isInvalid('email')">
+            {{ getErrorMessage('email', 'This field is required') }}
+          </small>
+        </div>
+      </div>
+      <div *ngIf="!userDetails?.phoneNumber" class="col-lg-6">
+        <div class="form-group mb-2">
+          <label for="phone">Phone Number</label>
+          <input type="number" formControlName="phone" class="content-input {{ isInvalid('phone') ? 'error-input' : '' }}" placeholder="Enter your phone number" id="phone">
+          <small class="error-text mb-2" *ngIf="isInvalid('phone')">
+            {{ getErrorMessage('phone', 'This field is required') }}
+          </small>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group mb-2">
+        <label for="subject">Subject</label>
+        <input formControlName="subject" type="text" class="content-input {{ isInvalid('subject') ? 'error-input' : '' }}" placeholder="Enter message subject" id="subject">
+        <small class="error-text mb-2" *ngIf="isInvalid('subject')">
+          {{ getErrorMessage('subject', 'This field is required') }}
+        </small>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group mb-2">
+      <label for="message">Message</label>
+      <textarea formControlName="message" class="content-input {{ isInvalid('message') ? 'error-input' : '' }}" id="message" placeholder="Your Message" name="message" rows="3"></textarea>
+      <small class="error-text mb-2" *ngIf="isInvalid('message')">
+        {{ getErrorMessage('message', 'This field is required') }}
+      </small>
+    </div>
+  </div>
+  <button style="font-weight: 500!important; font-size: 17px; text-transform: none!important;" type="submit" class="btn btn-primary w-100">Send Message</button>
+</form>
+
+              </div>
+            </div>
+        </div>
+    </div>
+</section>
+</section>
 
 <app-footer></app-footer>
