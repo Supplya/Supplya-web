@@ -42,8 +42,10 @@ export class ProductService {
     return this.http.get<any>(`${this.productUrl}products/category/${name}`);
   }
 
-  getAllProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.productUrl}products`);
+  getAllProducts(page, limit): Observable<Product[]> {
+    return this.http.get<Product[]>(
+      `${this.productUrl}/products?limit=${limit}`
+    );
   }
   getStoreProducts(storeName: string): Observable<Product[]> {
     return this.http.get<Product[]>(

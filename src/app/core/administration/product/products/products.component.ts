@@ -33,11 +33,10 @@ export class ProductsComponent implements OnInit {
   products: any;
   getAllProducts() {
     this.productLoading = true;
-    this.productService.getAllProducts().subscribe(
+    this.productService.getAllProducts(this.p, this.itemPerPage).subscribe(
       (data: any) => {
         this.products = data?.data;
         this.filteredRows = data?.data;
-                  // console.log(this.products);
         this.productLoading = false;
       },
       (error) => {

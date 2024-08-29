@@ -99,17 +99,20 @@
           <table class="table" style="overflow-y: auto;">
             <thead>
               <tr>
+                <th>S/N</th>
                 <th>Product Information</th>
                 <th>Category</th>
                 <th>Min. Order</th>
                 <th>Unit Price</th>
                 <th>Inventory</th>
                 <th>Status</th>
+                <!-- <th>Date</th> -->
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of filteredRows | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
+              <tr *ngFor="let item of filteredRows | paginate: { itemsPerPage: 20, currentPage: p }; let i = index">
+                <td>{{i + 1}}</td>
                 <td>
                   <div class="product-info" routerLink="/core/admin/edit-product/{{item?._id}}" style="cursor: pointer;">
                     <img class="product-image" [src]="item?.image" alt="Product Image">
@@ -121,6 +124,7 @@
                 <!-- <td class="product-info">{{item?.price || 0 | currency:'₦':'':'1.0-0'}}</td> -->
                 <td>{{item?.unit_price || 0 | currency:'₦':true:'1.0-0'}}</td>
                 <td>{{item?.quantity}}</td>
+                <!-- <td>{{item?.dateCreated | date: 'MMM d, y hh:mm a'}}</td> -->
                <td >
                 <small [ngClass]="{'in-stock': item?.status === 'inStock', 'out-of-stock': item?.status !== 'inStock'}">
                   {{ item?.status === 'inStock' ? 'In Stock' : 'Out of Stock' }}</small></td>
@@ -143,9 +147,7 @@
 
           <div class="d-flex justify-content-between px-5" *ngIf="filteredRows?.length > 0">
 
-            <div class="pagination-info text-muted">
-                Now Showing {{ calculateStartRecord() }} - {{ calculateEndRecord() }} of {{ filteredRows?.length }} records
-              </div>
+           
 
               <div>
                 <pagination-controls *ngIf="filteredRows?.length > 0"

@@ -107,7 +107,7 @@ export class HomeComponent implements OnInit {
   getAllProducts() {
     this.loading = true;
 
-    this.productService.getAllProducts().subscribe(
+    this.productService.getAllProducts(1, 20).subscribe(
       (data: any) => {
         this.products = data?.data;
         this.lastToFirstProducts = [...data?.data]?.reverse();
