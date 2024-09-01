@@ -6,6 +6,7 @@ import { ContactComponent } from './contact/contact.component';
 import { FaqComponent } from './faq/faq.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { RefundPolicyComponent } from './refund-policy/refund-policy.component';
+import { BlogComponent } from './blog/blog.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'faq', component: FaqComponent},
   {path: 'privacy-policy', component: PrivacyPolicyComponent},
   {path: 'refund-policy', component: RefundPolicyComponent},
+  {path: 'blog-posts', component: BlogComponent},
 ];
 
 @NgModule({

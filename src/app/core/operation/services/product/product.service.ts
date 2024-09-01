@@ -23,6 +23,9 @@ export class ProductService {
   addNewProduct(product: any): Observable<any> {
     return this.http.post<any>(`${this.productUrl}products/create`, product);
   }
+  addBlogPost(post: any): Observable<any> {
+    return this.http.post<any>(`${this.productUrl}/blog/posts`, post);
+  }
   vendorAddProduct(product: any): Observable<any> {
     return this.http.post<any>(`${this.productUrl}products/create`, product);
   }
@@ -46,6 +49,9 @@ export class ProductService {
     return this.http.get<Product[]>(
       `${this.productUrl}/products?limit=${limit}`
     );
+  }
+  getAllPosts(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.productUrl}/blog/posts`);
   }
   getStoreProducts(storeName: string): Observable<Product[]> {
     return this.http.get<Product[]>(

@@ -50,7 +50,7 @@ color: #191C1F;
 
 .completed {
     background: #00FF661A;
-    font-family: Open Sans;
+    
     font-size: 14px;
     font-weight: 500;
     color: #0FB347;
@@ -62,7 +62,7 @@ color: #191C1F;
 
   .cancelled {
     background: #FFF0EA;
-    font-family: Open Sans;
+    
     font-size: 14px;
     font-weight: 500;
     color: #F86624;
@@ -85,7 +85,7 @@ color: #191C1F;
 
   .in-stock {
     background: #00FF661A;
-    font-family: Open Sans;
+    
     font-size: 14px;
     font-weight: 600;
     color: #0FB347;
@@ -95,7 +95,7 @@ color: #191C1F;
   
   .out-of-stock {
     background: #FFF0EA;
-    font-family: Open Sans;
+    
     font-size: 14px;
     font-weight: 600;
     color: #F86624;
@@ -123,14 +123,14 @@ padding: 10px 5px;
 }
 
 .orderDetails .name {
-  font-family: Open Sans;
+  
   font-size: 15px!important;
   font-weight: 600;
   color: var(--primary-color);
 }
 
 .orderDetails .value, a {
-  font-family: Open Sans;
+  
   font-size: 15px;
   font-weight: 600;
   color: #1D1F2C;
@@ -152,7 +152,7 @@ border-radius: 10px;
  
 }
 .contain-total .value, a {
-  font-family: Open Sans;
+  
   font-size: 15px;
   font-weight: 600;
   color: #1D1F2C;

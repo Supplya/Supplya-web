@@ -21,6 +21,8 @@ import { AdminsComponent } from './users/admins/admins.component';
 import { ViewVendorsComponent } from './users/view-vendors/view-vendors.component';
 import { ViewCustomersComponent } from './users/view-customers/view-customers.component';
 import { EditCategoryComponent } from './category/edit-category/edit-category.component';
+import { AddBlogPostComponent } from './blog/add-blog-post/add-blog-post.component';
+import { BlogPostsComponent } from './blog/blog-posts/blog-posts.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -39,6 +41,16 @@ const routes: Routes = [
     path: 'add-new-product',
     component: AddNewProductComponent,
     data: { title: 'Add New Product' },
+  },
+  {
+    path: 'add-new-blog-post',
+    component: AddBlogPostComponent,
+    data: { title: 'Add New Blog Post' },
+  },
+  {
+    path: 'blog-posts',
+    component: BlogPostsComponent,
+    data: { title: 'All Blog Posts' },
   },
   {
     path: 'edit-product/:id',

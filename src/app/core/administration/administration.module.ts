@@ -26,6 +26,9 @@ import { AdminsComponent } from './users/admins/admins.component';
 import { ViewCustomersComponent } from './users/view-customers/view-customers.component';
 import { ViewVendorsComponent } from './users/view-vendors/view-vendors.component';
 import { EditCategoryComponent } from './category/edit-category/edit-category.component';
+import { BlogPostsComponent } from './blog/blog-posts/blog-posts.component';
+import { AddBlogPostComponent } from './blog/add-blog-post/add-blog-post.component';
+import { EditBlogPostComponent } from './blog/edit-blog-post/edit-blog-post.component';
 
 
 @NgModule({
@@ -52,7 +55,10 @@ import { EditCategoryComponent } from './category/edit-category/edit-category.co
     AdminsComponent,
     ViewCustomersComponent,
     ViewVendorsComponent,
-    EditCategoryComponent
+    EditCategoryComponent,
+    BlogPostsComponent,
+    AddBlogPostComponent,
+    EditBlogPostComponent
   ],
   imports: [
     CommonModule,

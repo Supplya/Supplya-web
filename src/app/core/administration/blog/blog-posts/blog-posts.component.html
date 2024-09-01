@@ -1,0 +1,178 @@
+<section>
+    
+    <div class="container">
+  <div class="pageRow row align-items-center mb-3">
+        <div class="col-6">
+          <div class="page-name mt-2">Blog Posts</div>
+        </div>
+        <div class="col-6">
+          <div class="btn-container">
+            <button class="add" routerLink="/core/admin/add-new-blog-post"> <i class="bi bi-plus mt-1"></i> Add Post</button>
+          </div>
+        </div>
+      </div>
+        <div class="row mb-3">
+            <div class="col-lg-3">
+        <div class="container-content p-3 mb-2">
+            <div class="d-flex justify-content-between ">
+                <p class="head-text">Total Posts</p>
+                <img src="/assets/Images/total-sales.png" alt="">
+            </div>
+            <h3 class="head-count">{{summary?.totalProducts | number:'1.0-0'}}</h3>
+            <p class="head-brief"></p>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="container-content p-3 mb-2">
+            <div class="d-flex justify-content-between ">
+                <p class="head-text">Published Posts</p>
+                <img src="/assets/Images/orders.png" alt="">
+            </div>
+            <h3 class="head-count">{{summary?.newProductsAddedToday | number:'1.0-0'}}</h3>
+            <p class="head-brief"></p>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="container-content p-3 mb-2">
+            <div class="d-flex justify-content-between ">
+                <p class="head-text">Draft Posts</p>
+                <img src="/assets/Images/stocks.png" alt="">
+            </div>
+            <h3 class="head-count">{{summary?.totalProductsInStock | number:'1.0-0'}}</h3>
+            <p class="head-brief"></p>
+        </div>
+    </div> 
+
+        </div>
+    </div>
+</section>
+
+
+
+<div class="container">
+  
+
+      <section class="content" *ngIf="productLoading && !filteredRows && !errorFetchingProduct">
+<div class="py-5 p-5 center">
+    <div>
+
+        <img src="/assets/Images/requestLoading.gif" alt="">
+        <p class="loading-text text-center text-muted">Loading...</p>
+    </div>
+</div>
+      </section >
+
+      <section class="content center" *ngIf="!productLoading && !filteredRows && errorFetchingProduct">
+        <div class="py-5 ">
+          <div class="py-3 text-center" >
+            <img src="/assets/Images/oops.png" style="height: 200px;" alt="">
+            <p class="loading-text  text-muted py-3">Could not display products. Click 'Refresh' to try again.
+        </p>
+            <p class="refresh" (click)="refreshProducts()">Refresh <i class="bi bi-arrow-repeat"></i></p>
+          </div>
+        </div>
+      </section>
+     
+      <div class="row ">
+         <div class="col-lg-4">
+                        <input *ngIf="products?.length > 0" type="text" class="form-control search-input mb-3" placeholder="Search Product" [(ngModel)]="searchText"
+                          (input)="applyFilter()" />
+                      </div>
+                       <div class="col-lg-8 text-end" *ngIf="filteredRows?.length > 0">
+                    <p (click)="exportToExcel()" class="btn export">Export</p>
+                  </div>
+      </div>
+      
+      <div class="table-responsive" *ngIf="!productLoading && filteredRows?.length > 0">
+
+          <table class="table" style="overflow-y: auto;">
+            <thead>
+              <tr>
+                <th>S/N</th>
+                <th>Post Information</th>
+                <th>Category</th>
+                <th>Author</th>
+                <th>Date Created</th>
+                <!-- <th>Status</th> -->
+                <!-- <th>Date</th> -->
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of filteredRows | paginate: { itemsPerPage: 20, currentPage: p }; let i = index">
+                <td>{{i + 1}}</td>
+                <td>
+                  <div class="product-info" routerLink="/core/admin/edit-post/{{item?._id}}" style="cursor: pointer;">
+                    <img class="product-image" [src]="item?.image || '/assets/Images/no-post-image.jpg'" alt="Product Image">
+                    {{ item?.title | shortenText }}
+                  </div>
+                </td>
+                <td>{{item?.category?.name}}</td>
+                <td>{{item?.author?.firstName}} {{item?.author?.lastName}}</td>
+                <td>{{item?.dateCreated | date: 'MMM d, y hh:mm a'}}</td>
+               <!-- <td >
+                <small [ngClass]="{'in-stock': item?.status === 'inStock', 'out-of-stock': item?.status !== 'inStock'}">
+                  {{ item?.status === 'inStock' ? 'In Stock' : 'Out of Stock' }}</small></td> -->
+
+                <td>
+                 <div class="dropdowns">
+            <img src="/assets/Images/dots (2).png" class="Pencil">
+            <div class="dropdown-content p-2">
+              <!-- <a (click)="toggleModal('vendorModal', 'open')" class="dropdown-item" style="cursor: pointer;"><img class="border-right p-2 mr-2" src="/assets/img/edit.png" alt=""> View Vendor</a> -->
+              <a class="dropdown-item border-bottom" routerLink="/core/admin/edit-post/{{item?._id}}" style="cursor: pointer;">Edit Post</a>
+              <a class="dropdown-item border-bottom" (click)="toggleModal('apartmentModal', 'open', item)" style="cursor: pointer;">View Post</a>
+              <a class="dropdown-item border-bottom text-danger" (click)="deleteProduct(item)" style="cursor: pointer;">Delete Post</a>
+            </div>
+          </div>
+                </td>
+              </tr>
+            </tbody>
+           
+          </table>
+
+          <div class="d-flex justify-content-between px-5" *ngIf="filteredRows?.length > 0">
+
+           
+
+              <div>
+                <pagination-controls *ngIf="filteredRows?.length > 0"
+                    (pageChange)="p = $event"
+                    previousLabel=""
+                    nextLabel=""
+                  ></pagination-controls>
+              </div>
+          </div>
+          
+      </div>
+
+      
+       <section class="content center" *ngIf="filteredRows?.length === 0">
+        <div class="py-5 ">
+          <div class="py-3 text-center" >
+            <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">
+            <div class=" py-5">
+
+              <p class="loading-text  text-muted">No product found for your search
+          </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="content center" *ngIf="filteredRows?.length === 0 && products?.length === 0">
+        <div class="py-5 ">
+          <div class="py-3 text-center" >
+            <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">
+          </div>
+           <div class=" py-3">
+
+              <p class="loading-text  text-muted">Your Product Catalog is Empty!
+          </p>
+           <small style="font-size: 16px!important;" class="text-muted">Start Selling! Add Your First Product</small>
+           <div class="btn-wrapper mt-3">
+            <button class="add" routerLink="/core/vendor/add-new-product"> <i class="bi bi-plus mt-1"></i> Add Product</button>
+          </div>
+            </div>
+        </div>
+      </section>
+  </div>

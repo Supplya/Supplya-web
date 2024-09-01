@@ -6,10 +6,32 @@
 @import './_variables';
 
 * {
-    font-family: 'DM Sans', sans-serif !important;
+    font-family: 'DM Sans', sans-serif;
     scroll-behavior: smooth!important;
 }
-
+.angular-editor-toolbar {
+   font-weight: 500!important;
+    font-family: 'DM Sans', sans-serif!important;
+ background: #F9F9FC!important;
+    font-size: 15px!important;
+    padding: .2rem;
+    border: 1px solid #ddd;
+}
+.angular-editor-textarea {
+    min-height: 150px;
+    overflow: auto;
+    margin-top: 5px;
+    resize: vertical;
+    border: 1px solid #E0E2E7;
+    background: #F9F9FC;
+    border-radius: 8px;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+}
+.angular-editor-textarea:focus {
+    outline: none;
+    border-color: #b3b5ba;
+    transform: scale(1.02);
+}
 :root {
     --primary-color: #0097A8;
     --secondary-color: #FFD865;
@@ -560,7 +582,7 @@ border: 1px solid #E0E2E7;
 padding: 8px 12px 8px 12px;
 border-radius: 8px; 
 width: 100%;
-font-family: Open Sans;
+
 font-size: 14px;
 font-weight: 400;
 color: #858D9D;
@@ -571,7 +593,7 @@ border: 1px solid #E0E2E7;
 padding: 8px 12px 8px 12px;
 border-radius: 8px; 
 width: 100%;
-font-family: Open Sans;
+
 font-size: 14px;
 font-weight: 400;
 color: #858D9D;

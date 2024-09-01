@@ -84,6 +84,11 @@
                         </a>
                     </li>
                     <li data-bs-dismiss="offcanvas" aria-label="Close" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <a class="nav-link" [routerLink]="['/blog-posts']">
+                            <i class="bi bi-info-circle"></i> Blog
+                        </a>
+                    </li>
+                    <li data-bs-dismiss="offcanvas" aria-label="Close" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                         <a class="nav-link" [routerLink]="['/faqs']">
                             <i class="bi bi-question-circle"></i> FAQs
                         </a>
@@ -251,6 +256,7 @@
       <li><a href="#flash-products" class="scroll-link">Flash Products</a></li>
       <li><a href="#bundle-deals" class="scroll-link">Bundle Deals</a></li>
       <li><a href="#trending-products" class="scroll-link">Trending Products</a></li>
+      <li><a routerLink="/blog-posts" class="scroll-link">Blog</a></li>
     </ul>
   </div>
   <div>

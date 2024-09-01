@@ -61,6 +61,12 @@ export const menuItems = {
         // },
       ],
     },
+    {
+      name: 'Blog Posts',
+      route: '/core/admin/blog-posts',
+      hasChild: false,
+      icon: 'journal-text',
+    },
 
     // {
     //   name: 'Role Permissions',
