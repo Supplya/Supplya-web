@@ -103,7 +103,8 @@
                 <td>{{i + 1}}</td>
                 <td>
                   <div class="product-info" routerLink="/core/admin/edit-post/{{item?._id}}" style="cursor: pointer;">
-                    <img class="product-image" [src]="item?.image || '/assets/Images/no-post-image.jpg'" alt="Product Image">
+                    <img *ngIf="item?.images?.length" class="product-image" [src]="item?.images[0]" alt="Product Image">
+                    <img *ngIf="!item?.images?.length" class="product-image" src="/assets/Images/no-post-image.jpg" alt="Product Image">
                     {{ item?.title | shortenText }}
                   </div>
                 </td>

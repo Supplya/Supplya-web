@@ -16,7 +16,6 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
   styleUrls: ['./add-blog-post.component.scss'],
 })
 export class AddBlogPostComponent implements OnInit {
-  categories: any;
   constructor(
     public productService: ProductService,
     private fb: FormBuilder,
@@ -34,8 +33,33 @@ export class AddBlogPostComponent implements OnInit {
   passwordVisible: boolean = false;
   newTag: string = '';
   addTagMode: boolean = false;
+  userDetails;
+  categories = [
+    'Buying Guides',
+    'How-To & Tutorials',
+    'Industry News',
+    'Trends & Innovations',
+    'Customer Stories',
+    'Brand Spotlights',
+    'Deals & Promotions',
+    'Gift Guides',
+    'Health & Wellness',
+    'Fashion & Style',
+    'Home & Living',
+    'Tech & Gadgets',
+    'Food & Beverage',
+    'Beauty & Personal Care',
+    'Travel & Adventure',
+    'DIY & Crafts',
+    'Fitness & Sports',
+    'Finance & Budgeting',
+    'Seasonal Inspiration',
+    'Ethical Shopping',
+    'Others'
+  ];
+
   ngOnInit(): void {
-    this.getAllCategories();
+    this.userDetails = this.authService.getUserCredentials();
     this.initForm();
     this.getAllUsers();
     this.setInitialTags(['2024', 'new', 'post', 'this day']);
@@ -47,10 +71,10 @@ export class AddBlogPostComponent implements OnInit {
       content: [, Validators.required],
       author: [''],
       specialOffer: [false],
-      categories: ['', Validators.required],
+      category: [''],
       tags: this.fb.array([]),
       tag: [''],
-      status: ['', Validators.required],
+      status: ['publish', Validators.required],
       images: [''],
     });
   }
@@ -64,8 +88,8 @@ export class AddBlogPostComponent implements OnInit {
       const tagsArray = this.form.get('tags') as FormArray;
       tagsArray.push(new FormControl(trimmedTag));
       this.form.patchValue({
-        tag: ""
-      })
+        tag: '',
+      });
       this.newTag = '';
       this.addTagMode = false;
     }
@@ -83,20 +107,7 @@ export class AddBlogPostComponent implements OnInit {
     const tagsArray = this.form.get('tags') as FormArray;
     initialTags.forEach((tag) => tagsArray.push(new FormControl(tag)));
   }
-  getAllCategories() {
-    this.productService.getAllCategories().subscribe(
-      (data: any) => {
-        if (data.status) {
-          this.categories = data['data'];
-        } else {
-          this.notify.danger(data?.msg);
-        }
-      },
-      (error) => {
-        this.notify.danger(error.error?.msg);
-      }
-    );
-  }
+ 
   uploadImages(file: File) {
     this.uploadProgress = 0;
     this.uploadRequestLoading = true;
@@ -255,13 +266,19 @@ export class AddBlogPostComponent implements OnInit {
   numberOnly(event: any): void {
     this.helperService.numberOnly(event);
   }
-  text = '<font face="Arial">This is the <font size="5">special</font></font>';
   submit() {
-    console.log(this.form.value);
+    this.form.patchValue({
+      author: this.userDetails?._id,
+    });
     this.submitted = true;
-    const formData = this.form.value;
-    formData.image = this.images[0];
-    formData.images = this.images;
+    const formData = {
+      images: this.images,
+      content: this.form.value.content,
+      title: this.form.value.title,
+      tags: this.form.value.tags,
+      author: this.form.value.author,
+      category: this.form.value.category,
+    };
     if (this.form.valid) {
       this.productService.addBlogPost(formData).subscribe((data) => {
         if (data.status) {

@@ -1,74 +1,45 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastyService } from 'ng-toasty';
+import { AuthService } from 'src/app/authentication/service/auth.service';
+import { DashboardService } from 'src/app/core/administration/services/dashboard.service';
+import { ProductService } from 'src/app/core/operation/services/product/product.service';
+import { HelperService } from 'src/app/shared/helpers/helper.service';
 
 @Component({
   selector: 'app-blog',
   templateUrl: './blog.component.html',
   styleUrls: ['./blog.component.scss'],
 })
-export class BlogComponent {
-  postDate(date: Date): string {
-    return new Intl.DateTimeFormat('en-US', {
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric',
-    }).format(date);
+export class BlogComponent implements OnInit {
+  constructor(
+    public productService: ProductService,
+    private fb: FormBuilder,
+    private helperService: HelperService,
+    private authService: AuthService,
+    private notify: ToastyService,
+    private route: Router
+  ) {}
+  ngOnInit(): void {
+    this.getAllPosts()
   }
-
-  posts: any[] = [
-    {
-      title: 'Launching a Digital Business in 2024',
-      content: 'Lorem ipsum dolet si',
-      images: ['/assets/Images/no-post-image.jpg', ''],
-      author: 'John Doe',
-      categories: ['Business', 'Technology'],
-      tags: ['launch', 'e-commerce', '2024'],
-      createdAt: new Date('2024-09-01'),
-    },
-    {
-      title: 'Launching a Digital Business in 2024',
-      content: 'Lorem ipsum dolet si',
-      images: ['/assets/Images/no-post-image.jpg', ''],
-      author: 'John Doe',
-      categories: ['Business', 'Technology'],
-      tags: ['launch', 'e-commerce', '2024'],
-      createdAt: new Date('2024-09-01'),
-    },
-    {
-      title: 'Launching a Digital Business in 2024',
-      content: 'Lorem ipsum dolet si',
-      images: ['/assets/Images/no-post-image.jpg', ''],
-      author: 'John Doe',
-      categories: ['Business', 'Technology'],
-      tags: ['launch', 'e-commerce', '2024'],
-      createdAt: new Date('2024-09-01'),
-    },
-    {
-      title: 'Launching a Digital Business in 2024',
-      content: 'Lorem ipsum dolet si',
-      images: ['/assets/Images/no-post-image.jpg', ''],
-      author: 'John Doe',
-      categories: ['Business', 'Technology'],
-      tags: ['launch', 'e-commerce', '2024'],
-      createdAt: new Date('2024-09-01'),
-    },
-    {
-      title: 'Launching a Digital Business in 2024',
-      content: 'Lorem ipsum dolet si',
-      images: ['/assets/Images/no-post-image.jpg', ''],
-      author: 'John Doe',
-      categories: ['Business', 'Technology'],
-      tags: ['launch', 'e-commerce', '2024'],
-      createdAt: new Date('2024-09-01'),
-    },
-    {
-      title: 'Launching a Digital Business in 2024',
-      content: 'Lorem ipsum dolet si',
-      images: ['/assets/Images/no-post-image.jpg', ''],
-      author: 'John Doe',
-      categories: ['Business', 'Technology'],
-      tags: ['launch', 'e-commerce', '2024'],
-      createdAt: new Date('2024-09-01'),
-    },
-    // Add more posts here
-  ];
+ 
+  posts: any;
+  loading = false;
+  error = false;
+  getAllPosts() {
+    this.error = false;
+    this.loading = true;
+    this.productService.getAllPosts().subscribe(
+      (data: any) => {
+        this.posts = data?.data;
+        this.loading = false;
+      },
+      (error) => {
+        this.error = true;
+        this.loading = false;
+      }
+    );
+  }
 }

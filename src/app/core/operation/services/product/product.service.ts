@@ -51,7 +51,7 @@ export class ProductService {
     );
   }
   getAllPosts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.productUrl}/blog/posts`);
+    return this.http.get<Product[]>(`${this.productUrl}blog/posts`);
   }
   getStoreProducts(storeName: string): Observable<Product[]> {
     return this.http.get<Product[]>(

@@ -83,8 +83,8 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
  
 
   extractStoreName(url: string): string {
-    const parts = url.split('/store/');
-    return parts.length > 1 ? parts[1] : '';
+    const parts = url?.split('/store/');
+    return parts?.length > 1 ? parts[1] : '';
   }
   refreshSummary() {
     this.statsLoading = false;

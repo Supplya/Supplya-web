@@ -2,30 +2,38 @@
 
 <app-breadcrumb currentPageLink="Blog" previousLink=""></app-breadcrumb>
 <section class="py-5 container">
+  <app-state-handler 
+ [isLoading]="loading" 
+  [hasError]="error" 
+  [isEmpty]="!posts?.length" 
+  [dataAvailable]="posts?.length > 0"
+  (retry)="getAllPosts()"
+  name="posts"
+  >
     <div class="row">
-  <div class="col-lg-4 col-md-6 mb-4" *ngFor="let post of posts">
-    <div class="card h-100">
-      <img 
-        [src]="post.images[0] || 'assets/images/fallback-image.jpg'" 
-        class="card-img-top" 
-        alt="{{ post.title }}" 
-        onerror="this.src='assets/images/fallback-image.jpg'"
-      />
-      <div class="card-body">
-        <p class="card-text">
-          <span *ngFor="let category of post.categories">{{ category }}</span> /
-          {{ postDate(post.createdAt) }} / Post by {{ post.author }}
-        </p>
-        <h5 class="card-title">{{ post.title }}</h5>
-        <p class="card-text">{{ post.content }}</p>
-      </div>
-      <div class="card-footer text-center">
-        <a href="#" class="btn btn-primary">Read More</a>
+      <div class="col-lg-4 col-md-6 mb-4" *ngFor="let post of posts">
+        <div class="card h-100">
+          <img 
+            [src]="post?.images[0]" 
+            class="card-img-top" 
+            alt="{{ post?.title }}"
+          />
+          <div class="card-body">
+            <p class="card-text">
+              {{ post?.category || 'uncategorized' }} /
+              {{ post?.dateCreated | date: 'MMM d, y'}} / Post by <span>{{ post?.author?.firstName }} {{ post?.author?.lastName }}</span>
+            </p>
+            <h5 class="card-title">{{ post?.title }}</h5>
+            <p class="card-text">{{ post?.content }}</p>
+          </div>
+          <div class="card-footer text-center">
+            <a class="btn">Read More</a>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-
+  </app-state-handler>
 </section>
+
 
 <app-footer></app-footer>

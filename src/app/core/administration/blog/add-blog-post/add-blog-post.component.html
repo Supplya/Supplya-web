@@ -32,7 +32,7 @@
                                             {{ getErrorMessage('title', 'This field is required') }}
                                           </small>
           </div>
-           <div class="mb-2 slide-right">
+           <!-- <div class="mb-2 slide-right">
     <label for="content" class="content-label">Content</label>
     <angular-editor
       formControlName="content"
@@ -42,9 +42,9 @@
    <small class="error-text mb-4" *ngIf="isInvalid('content')">
     {{ getErrorMessage('content', 'This field is required') }}
   </small>
-  </div>
+  </div> -->
   
-      <!-- <div class="mb-2 slide-right">
+      <div class="mb-2 slide-right">
   <label for="content" class="content-label">Content</label>
   <textarea id="content" formControlName="content" class="content-input {{
                     isInvalid('content') ? 'error-input' : ''
@@ -52,7 +52,7 @@
   <small class="error-text mb-4" *ngIf="isInvalid('content')">
     {{ getErrorMessage('content', 'This field is required') }}
   </small>
-</div> -->
+</div>
 
     </div>
 </section>
@@ -97,15 +97,15 @@
             
                     <p class="content-heading">Category</p>
                     <div class="mb-2 slide-right">
-                        <label for="categories" class="content-label">Category</label>
-                        <select formControlName="categories" class=" content-select {{
-                                        isInvalid('categories') ? 'error-input' : ''
+                        <label for="category" class="content-label">Category</label>
+                        <select formControlName="category" class=" content-select {{
+                                        isInvalid('category') ? 'error-input' : ''
                                       }}">
-                            <option value="" selected  id="categories">Select category</option>
-                            <option *ngFor="let item of categories"  [value]="item?._id">{{item.name}}</option>
+                            <option value="" selected  id="category">Select category</option>
+                            <option *ngFor="let item of categories"  [value]="item">{{item}}</option>
                         </select>
-                         <small class="error-text mb-4" *ngIf="isInvalid('categories')">
-                                            {{ getErrorMessage('categories', 'This field is required') }}
+                         <small class="error-text mb-4" *ngIf="isInvalid('category')">
+                                            {{ getErrorMessage('category', 'This field is required') }}
                                           </small>
                       </div>
                 </div>
@@ -127,13 +127,15 @@
     </div>
     <div class="mt-3">
         <label for="tags" class="content-label">Tags (Optional)</label>
-      <input 
-        (keydown.enter)="addTag(); $event.stopPropagation()" 
-        (blur)="addTagMode = false" id="tags"
-        placeholder="Enter tag and press Enter"
-        class="content-input "
-        formControlName="tag"  
-      />
+        <div class="d-flex">
+            <input 
+              (blur)="addTagMode = false" id="tags"
+              placeholder="Enter tag and press Enter"
+              class="content-input "
+              formControlName="tag"  
+            />
+            <p style="background-color: var(--primary-color); color: white;" class="btn mt-1" (click)="addTag();">Add</p>
+        </div>
     </div>
   </div>
 </section>
@@ -150,8 +152,8 @@
       <select formControlName="status" class="content-select {{
                       isInvalid('status') ? 'error-input' : ''
                     }}">
-        <option value="" selected id="status">Select Status</option>
-        <option value="active">Active</option>
+        <!-- <option value="" selected id="status">Select Status</option> -->
+        <option selected value="publish">Publish</option>
         <option value="draft">Draft</option>
       </select>
       <small class="error-text mb-4" *ngIf="isInvalid('status')">
