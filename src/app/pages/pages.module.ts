@@ -9,6 +9,7 @@ import { SharedModule } from '../shared/shared.module';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { RefundPolicyComponent } from './refund-policy/refund-policy.component';
 import { BlogComponent } from './blog/blog.component';
+import { SingleBlogPostComponent } from './blog/single-blog-post/single-blog-post.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { BlogComponent } from './blog/blog.component';
     FaqComponent,
     PrivacyPolicyComponent,
     RefundPolicyComponent,
-    BlogComponent
+    BlogComponent,
+    SingleBlogPostComponent
   ],
   imports: [
     CommonModule,

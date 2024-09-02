@@ -22,9 +22,9 @@ export class BlogComponent implements OnInit {
     private route: Router
   ) {}
   ngOnInit(): void {
-    this.getAllPosts()
+    this.getAllPosts();
   }
- 
+
   posts: any;
   loading = false;
   error = false;
@@ -41,5 +41,10 @@ export class BlogComponent implements OnInit {
         this.loading = false;
       }
     );
+  }
+
+  viewPost(route: number) {
+    this.route.navigate(['/view-blog-post', `${route}`]);
+    window.scrollTo(0, 0);
   }
 }

@@ -1,0 +1,118 @@
+<app-navbar></app-navbar>
+
+
+<app-state-handler 
+[isLoading]="loading" 
+[hasError]="error" 
+[dataAvailable]="post"
+(retry)="getPost()"
+name="post"
+>
+<!-- BREADCRUMB -->
+  <app-mini-breadcrumb currentPageLink="{{post?.title}}" previousLink="Blog Posts"></app-mini-breadcrumb>
+  <!-- BREADCRUMB END -->
+   <section class="mb-5">
+<div class="container">
+  <div class="row">
+    <!-- Main content -->
+    <div class="col-lg-8 col-md-12">
+      <img [src]="post?.images[0]" class="img-fluid w-100" alt="Post image">
+
+      <h1 class="mt-4">{{ post?.title }}</h1>
+      <p style="font-size: 15px;" class="text-muted detail">
+      <span>  {{ post?.category }}</span> | {{ post?.dateCreated | date:'mediumDate' }} | Post by <span>{{ post?.author?.firstName }} {{ post?.author?.lastName }}</span>
+      </p>
+
+      <div class="post-content mt-4">
+        <p>{{ post?.content }}</p>
+      </div>
+
+
+      <div *ngIf="recentPosts?.length > 3" class="navigation-section py-4 mb-5">
+  <div class="row">
+    <div class="col text-left">
+      <a class="nav-link">
+        <small>PREV POST</small>
+        <h6>{{ recentPosts[2]?.title }}</h6>
+      </a>
+    </div>
+    <div class="col text-right">
+      <a  class="nav-link">
+        <small>NEXT POST</small>
+        <h6>{{ recentPosts[3]?.title }}</h6>
+      </a>
+    </div>
+  </div>
+</div>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div class="col-lg-4 col-md-12">
+    
+ <!-- Popular Tags Widget -->
+    <div class="card mb-4">
+  <h5 class="card-header">Popular Tags</h5>
+  <div class="card-body">
+    <ul class="list-inline">
+      <li *ngFor="let tag of post?.tags" class="list-inline-item">
+        <a  class="badge badge-light mb-2">{{ tag }}</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+      <!-- Categories Widget -->
+      <div class="card my-4">
+        <h5 class="card-header">Category</h5>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-6">
+              <ul class="list-unstyled mb-0">
+                <li><a style="font-size: 17px;" >{{post?.category}}</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Posts Widget -->
+     <div class="card my-4">
+  <h5 class="card-header">Recent Posts</h5>
+   <app-state-handler 
+ [isLoading]="allLoading" 
+  [hasError]="allError" 
+  [isEmpty]="!recentPosts?.length" 
+  [dataAvailable]="recentPosts?.length > 0"
+  (retry)="getRecentPosts()"
+  name="posts"
+  >
+ <div class="card-body">
+    <ul class="list-unstyled">
+      <li *ngFor="let post of recentPosts" class="media my-2 d-flex align-items-center">
+        <img class="me-3" [src]="post?.images[0]" alt="Recent post image" style="width: 64px; height: 64px;">
+        <div class="media-body">
+          <h6 class="mt-0 mb-1"><a (click)="viewPost(post?._id)">{{ post?.title }}</a></h6>
+          <small class="text-muted">{{ post?.dateCreated | date:'mediumDate' }}</small>
+        </div>
+      </li>
+    </ul>
+  </div>
+  </app-state-handler>
+ 
+</div>
+
+
+     
+    </div>
+  </div>
+</div>
+
+</section>
+
+  </app-state-handler>
+
+
+<app-footer></app-footer>
+
+

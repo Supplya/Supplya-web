@@ -62,6 +62,7 @@
   <div class="py-3">
     <p class="content-heading">Media</p>
     <label for="productName" class="content-label">Photo</label>
+    <p *ngIf="images.length === 0 && submitted" class="error-text">Upload at least one image for this post</p>
     <div class="mb-2 media-div zoom-in" (dragover)="onDragOver($event)" (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
       <div class="text-center py-4">
         <div class="row">

@@ -6,7 +6,7 @@
 @import './_variables';
 
 * {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'DM Sans', sans-serif!important;
     scroll-behavior: smooth!important;
 }
 .angular-editor-toolbar {

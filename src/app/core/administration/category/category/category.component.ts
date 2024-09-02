@@ -12,7 +12,7 @@ import { DashboardService } from '../../services/dashboard.service';
   styleUrls: ['./category.component.scss'],
 })
 export class CategoryComponent implements OnInit {
-  itemPerPage: number = 8;
+  itemPerPage: number = 100;
   p: number = 1;
   filteredRows: any;
   title = 'Categories';

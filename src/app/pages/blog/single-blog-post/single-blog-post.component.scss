@@ -1,0 +1,186 @@
+/* Custom styles for the post container */
+.container {
+    padding-top: 20px;
+}
+@media (max-width: 769px) {
+.container {
+    padding: 0px 10px!important;
+}
+h1{
+    font-size: 25px!important;
+}
+.post-content p{
+    font-size: 16px!important;
+    font-weight: 400;
+    
+}
+}
+/* Main image styling */
+.col-lg-8 img.img-fluid {
+    margin-bottom: 20px;
+}
+
+.detail span{
+    color: var(--primary-color);
+        font-weight: 600;
+}
+.badge{
+    background-color: transparent !important;
+    border-radius: 30px!important;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color)!important;
+    padding: 9px 18px !important;
+}
+.badge:hover{
+    background-color: transparent !important;
+    border-radius: 30px!important;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color)!important;
+}
+
+/* Post title styling */
+h1.mt-4 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+/* Post meta info styling */
+.text-muted {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+/* Post content styling */
+.post-content p {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+/* Second image styling within the post */
+.col-lg-8 .mt-4 img.img-fluid {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Sidebar search widget styling */
+.card.my-4 {
+    margin-bottom: 1.5rem;
+}
+
+.card-header {
+    font-size: 1.25rem;
+    font-weight: bold;
+    background-color: #f8f9facf;
+}
+
+.input-group .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+/* Sidebar category list styling */
+.card-body ul.list-unstyled {
+    padding-left: 20px;
+}
+
+.card-body ul.list-unstyled li a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.card-body ul.list-unstyled li a:hover {
+    text-decoration: underline;
+}
+
+/* Recent posts widget styling */
+.media.my-2 {
+  padding: 0.5rem 0; /* Padding for each media item */
+  border-bottom: 1px solid #e9ecef; /* Light border between posts */
+}
+
+.media.my-2:last-child {
+  border-bottom: none; /* Remove border from the last item */
+}
+
+.media img {
+  border-radius: 4px; /* Rounded corners for images */
+  object-fit: cover; /* Ensures the image maintains aspect ratio */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+}
+
+.media-body h6 {
+  font-size: 1rem; /* Sets a standard font size for the title */
+  margin-bottom: 0.25rem; /* Small margin below the title */
+}
+
+.media-body h6 a {
+  color: #343a40; /* Dark grey color for the post title */
+  text-decoration: none; /* Removes underline from the title links */
+  transition: color 0.3s; /* Smooth transition for hover effect */
+}
+
+.media-body h6 a:hover {
+  color: #007bff; /* Blue color on hover */
+}
+
+.media-body small {
+  color: #6c757d; /* Muted text color for the date */
+}
+/* Popular tags widget styling */
+.card-body ul.list-inline {
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.card-body ul.list-inline li.list-inline-item {
+    margin-right: 5px;
+}
+
+.card-body ul.list-inline li.list-inline-item .badge {
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    background-color: #f1f1f1;
+    color: #333;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.card-body ul.list-inline li.list-inline-item .badge:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+.navigation-section {
+  background-color: #f8f5f0; /* Light beige background */
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.navigation-section .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navigation-section .nav-link {
+  color: #000; /* Black text color */
+  text-decoration: none;
+ 
+}
+
+.navigation-section .nav-link h6 {
+  margin: 0;
+  font-weight: bold;
+   font-size: 17px!important;
+   font-family: 'DM Sans', sans-serif!important;
+}
+
+.navigation-section .nav-link small {
+  display: block;
+  color: #888; /* Lighter gray for the small text */
+  font-size: 15px;
+}

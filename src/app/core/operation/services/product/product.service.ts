@@ -33,6 +33,11 @@ export class ProductService {
   getProductId(id: any): Observable<any> {
     return this.http.get<any>(`${this.productUrl}products/` + id);
   }
+  getPostByID(id: any): Observable<any> {
+    return this.http.get<any>(
+      `${this.productUrl}blog/posts/` + id
+    );
+  }
   searchProduct(keyword: any): Observable<any> {
     return this.http.get<any>(
       `${this.productUrl}/products/search?keyword=${keyword}`

@@ -9,7 +9,7 @@ export class StateHandlerComponent {
   @Input() isLoading: boolean = false;
   @Input() hasError: boolean = false;
   @Input() isEmpty: boolean = false;
-  @Input() dataAvailable: boolean = false;
+  @Input() dataAvailable: any;
 
   @Input() name: string = 'data';
 

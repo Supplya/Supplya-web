@@ -9,7 +9,7 @@
     </div>
 </div>
 
-<div class="py-3 center" *ngIf="hasError && !isLoading">
+<div class="py-5 center" *ngIf="hasError && !isLoading && !dataAvailable">
           <div class="text-center" >
             <img src="/assets/Images/oops.png" style="height: 150px;" alt="">
             <p class="loading-text  text-muted py-3">{{ 'Could not load ' + name + '. Click \'Refresh\' to try again.' }}

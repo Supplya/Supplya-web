@@ -279,7 +279,7 @@ export class AddBlogPostComponent implements OnInit {
       author: this.form.value.author,
       category: this.form.value.category,
     };
-    if (this.form.valid) {
+    if (this.form.valid && this.images.length > 0) {
       this.productService.addBlogPost(formData).subscribe((data) => {
         if (data.status) {
           this.notify.success(data.message);
