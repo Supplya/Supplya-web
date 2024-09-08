@@ -28,6 +28,7 @@ export class BlogComponent implements OnInit {
   posts: any;
   loading = false;
   error = false;
+  p = 1;
   getAllPosts() {
     this.error = false;
     this.loading = true;

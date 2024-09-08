@@ -35,27 +35,14 @@ export class AddBlogPostComponent implements OnInit {
   addTagMode: boolean = false;
   userDetails;
   categories = [
-    'Buying Guides',
-    'How-To & Tutorials',
-    'Industry News',
-    'Trends & Innovations',
-    'Customer Stories',
-    'Brand Spotlights',
-    'Deals & Promotions',
-    'Gift Guides',
-    'Health & Wellness',
-    'Fashion & Style',
-    'Home & Living',
-    'Tech & Gadgets',
-    'Food & Beverage',
-    'Beauty & Personal Care',
-    'Travel & Adventure',
-    'DIY & Crafts',
-    'Fitness & Sports',
-    'Finance & Budgeting',
-    'Seasonal Inspiration',
-    'Ethical Shopping',
-    'Others'
+   "General",
+  "News & Features",
+  "Industry News",
+  "Deals & Promotions",
+  "Customer Stories",
+  "Events",
+  "Product",
+  "Others"
   ];
 
   ngOnInit(): void {

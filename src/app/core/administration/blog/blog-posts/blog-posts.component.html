@@ -18,7 +18,7 @@
                 <p class="head-text">Total Posts</p>
                 <img src="/assets/Images/total-sales.png" alt="">
             </div>
-            <h3 class="head-count">{{summary?.totalProducts | number:'1.0-0'}}</h3>
+            <h3 class="head-count">{{products?.length || 0 | number:'1.0-0'}}</h3>
             <p class="head-brief"></p>
         </div>
     </div>
@@ -121,7 +121,9 @@
             <div class="dropdown-content p-2">
               <!-- <a (click)="toggleModal('vendorModal', 'open')" class="dropdown-item" style="cursor: pointer;"><img class="border-right p-2 mr-2" src="/assets/img/edit.png" alt=""> View Vendor</a> -->
               <a class="dropdown-item border-bottom" routerLink="/core/admin/edit-post/{{item?._id}}" style="cursor: pointer;">Edit Post</a>
-              <a class="dropdown-item border-bottom" (click)="toggleModal('apartmentModal', 'open', item)" style="cursor: pointer;">View Post</a>
+             <!-- <a class="dropdown-item border-bottom" [href]="'/view-blog-post/' + item?._id" target="_blank" style="cursor: pointer;">View Post</a> -->
+
+              <a class="dropdown-item border-bottom" routerLink="/view-blog-post/{{item?._id}}" target="_blank" style="cursor: pointer;">View Post</a>
               <a class="dropdown-item border-bottom text-danger" (click)="deleteProduct(item)" style="cursor: pointer;">Delete Post</a>
             </div>
           </div>

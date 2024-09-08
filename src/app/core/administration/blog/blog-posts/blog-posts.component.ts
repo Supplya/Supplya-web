@@ -102,7 +102,7 @@ export class BlogPostsComponent implements OnInit {
 
   deleteProduct(product: any) {
     Swal.fire({
-      html: `<span style="color: #000; font-weight: 600; font-size: 19px;">Are you sure you want to delete this product "<span style="color: var(--primary-color);">${product.name}</span>"?</span>`,
+      html: `<span style="color: #000; font-weight: 600; font-size: 19px;">Are you sure you want to delete this post "<span style="color: var(--primary-color);">${product.title}</span>"?</span>`,
       icon: 'warning',
       showCancelButton: true,
       allowOutsideClick: false,
@@ -129,9 +129,9 @@ export class BlogPostsComponent implements OnInit {
     });
   }
   delete(id: string) {
-    this.productService.deleteProduct(id).subscribe((result) => {
+    this.productService.deletePost(id).subscribe((result) => {
       if (result) {
-        this.toast.success('Product deleted successfully');
+        this.toast.success('Post deleted successfully');
         this.getAllProducts();
       }
     });

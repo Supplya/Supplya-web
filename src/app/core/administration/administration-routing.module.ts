@@ -23,6 +23,7 @@ import { ViewCustomersComponent } from './users/view-customers/view-customers.co
 import { EditCategoryComponent } from './category/edit-category/edit-category.component';
 import { AddBlogPostComponent } from './blog/add-blog-post/add-blog-post.component';
 import { BlogPostsComponent } from './blog/blog-posts/blog-posts.component';
+import { EditBlogPostComponent } from './blog/edit-blog-post/edit-blog-post.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -50,6 +51,11 @@ const routes: Routes = [
   {
     path: 'blog-posts',
     component: BlogPostsComponent,
+    data: { title: 'All Blog Posts' },
+  },
+  {
+    path: 'edit-post/:id',
+    component: EditBlogPostComponent,
     data: { title: 'All Blog Posts' },
   },
   {

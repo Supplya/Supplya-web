@@ -26,6 +26,12 @@ export class ProductService {
   addBlogPost(post: any): Observable<any> {
     return this.http.post<any>(`${this.productUrl}/blog/posts`, post);
   }
+  updateBlogPost(id: any, post: any): Observable<any> {
+    return this.http.put<any>(
+      `${this.productUrl}/blog/posts/${id}`,
+      post
+    );
+  }
   vendorAddProduct(product: any): Observable<any> {
     return this.http.post<any>(`${this.productUrl}products/create`, product);
   }
@@ -131,6 +137,9 @@ export class ProductService {
   }
   deleteProduct(id: any): Observable<any> {
     return this.http.delete<any>(`${this.productUrl}products/${id}`);
+  }
+  deletePost(id: any): Observable<any> {
+    return this.http.delete<any>(`${this.productUrl}/blog/posts/${id}`);
   }
   deleteOrder(id: any): Observable<any> {
     return this.http.delete<any>(`${this.productUrl}orders/${id}`);

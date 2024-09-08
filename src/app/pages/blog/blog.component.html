@@ -11,7 +11,7 @@
   name="posts"
   >
     <div class="row">
-      <div class="col-lg-4 col-md-6 mb-4" *ngFor="let post of posts">
+      <div class="col-lg-4 col-md-6 mb-4" *ngFor="let post of posts | paginate: { itemsPerPage: 20, currentPage: 1 };">
         <div class="card h-100">
           <img *ngIf="post?.images?.length" 
             [src]="post?.images[0] || '/assets/Images/no-post-image.jpg'" 
@@ -26,7 +26,7 @@
           <div class="card-body">
             <p class="card-text" >
             <span>{{ post?.category || 'uncategorized' }}</span> <strong> /</strong> 
-              {{ post?.dateCreated | date: 'MMM d, y'}} <strong>/</strong>  Post by <span>{{ post?.author?.firstName }} {{ post?.author?.lastName }}</span>
+              {{ post?.dateCreated | date: 'MMM d, y'}} <strong>/</strong>  Posted by <span>{{ post?.author?.firstName }} {{ post?.author?.lastName }}</span>
             </p>
             <h5 (click)="viewPost(post?._id)" class="card-title">{{ post?.title }}</h5>
             <p class="card-text">{{ post?.content }}</p>
@@ -36,6 +36,13 @@
           </div>
         </div>
       </div>
+         <div>
+                <pagination-controls
+                    (pageChange)="p = $event"
+                    previousLabel=""
+                    nextLabel=""
+                  ></pagination-controls>
+              </div>
     </div>
   </app-state-handler>
 </section>

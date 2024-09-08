@@ -38,8 +38,8 @@
   <div class="row mb-3">
 <div class="col-lg-6">
   <div class="product-images">
-    <div class="main-image mb-2" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
-      <img class="main-product-image" [src]="selectedImage || product?.image" alt="Main Product Image">
+    <div  class="main-image mb-2" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
+      <img  class="main-product-image"  [src]="selectedImage || product?.image" alt="Main Product Image">
     </div>
     <div class="other-images mb-2">
       <div *ngFor="let image of product?.images" class="image-item">

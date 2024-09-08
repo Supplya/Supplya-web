@@ -16,30 +16,32 @@ name="post"
   <div class="row">
     <!-- Main content -->
     <div class="col-lg-8 col-md-12">
-      <img [src]="post?.images[0]" class="img-fluid w-100" alt="Post image">
-
+       <img [src]="post?.images[0]" class="img-fluid w-100 post-image" alt="Post image" style="max-height: 480px; object-fit: cover;">
+  
       <h1 class="mt-4">{{ post?.title }}</h1>
       <p style="font-size: 15px;" class="text-muted detail">
       <span>  {{ post?.category }}</span> | {{ post?.dateCreated | date:'mediumDate' }} | Post by <span>{{ post?.author?.firstName }} {{ post?.author?.lastName }}</span>
       </p>
 
-      <div class="post-content mt-4">
-        <p>{{ post?.content }}</p>
-      </div>
-
+      <!-- <div class="post-content mt-4" [innerHTML]="post?.content">
+       
+      </div> -->
+ <div class="post-content mt-4" style="white-space: pre-wrap;">
+    {{ post?.content }}
+  </div>
 
       <div *ngIf="recentPosts?.length > 3" class="navigation-section py-4 mb-5">
   <div class="row">
     <div class="col text-left">
       <a class="nav-link">
         <small>PREV POST</small>
-        <h6>{{ recentPosts[2]?.title }}</h6>
+        <h6 (click)="viewPost(recentPosts[2]?._id)">{{ recentPosts[2]?.title }}</h6>
       </a>
     </div>
     <div class="col text-right">
       <a  class="nav-link">
         <small>NEXT POST</small>
-        <h6>{{ recentPosts[3]?.title }}</h6>
+        <h6  (click)="viewPost(recentPosts[3]?._id)">{{ recentPosts[3]?.title }}</h6>
       </a>
     </div>
   </div>
