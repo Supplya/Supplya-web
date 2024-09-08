@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/authentication/service/auth.service';
 import { CartService } from 'src/app/core/operation/services/cart/cart.service';
@@ -16,6 +16,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   cartQuantity: number = 1;
   cartItem: number = 1;
   previousCartQuantity: number = 0;
+  currentRoute: string;
   constructor(
     private route: Router,
     private authService: AuthService,
@@ -30,6 +31,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
       // console.log(this.cartQuantity, 'newQuantity');
 
       this.previousCartQuantity = newQuantity; // Update previous quantity
+    });
+    this.route.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.currentRoute = event.url;
+      }
     });
   }
   searchTerm: string = '';
@@ -56,6 +62,24 @@ export class NavbarComponent implements OnInit, OnDestroy {
       }
     });
     this.getAllCategories();
+  }
+
+  handleNavigation(productType: string) {
+    // Check if the current route is home
+    if (this.currentRoute === '/home') {
+      // Scroll to the relevant section if on home
+      this.scrollToSection(productType);
+    } else {
+      // Navigate to /view-products/:type if not on home
+      this.route.navigate([`/view-products/${productType}`]);
+    }
+  }
+
+  scrollToSection(sectionId: string) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   }
   loading;
   categories;

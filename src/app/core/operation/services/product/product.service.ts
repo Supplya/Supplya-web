@@ -60,7 +60,7 @@ export class ProductService {
   }
   getStoreProducts(storeName: string): Observable<Product[]> {
     return this.http.get<Product[]>(
-      `${this.productUrl}/products/store/${storeName}`
+      `${this.productUrl}products/store/${storeName}`
     );
   }
   getStoreDetails(storeName: string): Observable<Product[]> {

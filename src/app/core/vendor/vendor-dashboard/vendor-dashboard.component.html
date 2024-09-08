@@ -41,7 +41,7 @@
                 <p class="head-text">Pending Order</p>
                 <img src="/assets/Images/pending.png" alt="">
             </div>
-            <h3 class="head-count">{{summary?.newOrdersCount | number:'1.0-0'}}</h3>
+            <h3 class="head-count">{{summary?.totalPendingOrdersCount | number:'1.0-0'}}</h3>
             <p class="head-brief"></p>
             <!-- <p class="head-brief">Orders Made</p> -->
         </div>
@@ -57,7 +57,7 @@
 
 <!-- Graph -->
 
-      <section class="container mt-2">
+      <section class="container mt-2 mb-2">
         <div class="row">
           <div class="col-lg-4 content">
 

@@ -15,13 +15,13 @@
                     <p  (click)="toDashboard()" class="edit"><img src="/assets/Images/edit.png" alt=""> Edit</p>
                 </div>
         <div class="user-details mt-4">
-            <div class="d-flex py-3">
+            <div class="d-flex py-3 align-items-center">
 
                 <img src="/assets/Images/Container.png" alt="Profile Picture" class="profile-pic me-3">
                 <div>
 
                     <h4>{{userDetails?.firstName}} {{userDetails?.lastName}}</h4>
-                                <p>User ID: {{userDetails?._id}}</p>
+                                <!-- <p>User ID: {{userDetails?._id}}</p> -->
                 </div>
             </div>
           <div>
@@ -33,12 +33,32 @@
       </div>
         </div>
         <div class="col-lg-6 order-status mt-1">
-             <div class="row">
+
+            <section class="content" *ngIf="ordersLoading && !allOrders && !errorFetchingProduct">
+<div class="py-5 p-5 center">
+    <div>
+
+        <img src="/assets/Images/requestLoading.gif" alt="">
+        <p class="loading-text text-center text-muted">Loading...</p>
+    </div>
+</div>
+      </section >
+      <section class="content center" *ngIf="!ordersLoading && !allOrders && errorFetchingProduct">
+        <div class="py-5 ">
+          <div class="py-3 text-center" >
+            <img src="/assets/Images/oops.png" style="height: 200px;" alt="">
+            <p class="loading-text  text-muted py-3">Could not display orders. Click 'Refresh' to try again.
+        </p>
+            <p class="refresh" (click)="refreshOrders()">Refresh <i class="bi bi-arrow-repeat"></i></p>
+          </div>
+        </div>
+      </section>
+             <div class="row" *ngIf="!ordersLoading && allOrders && !errorFetchingProduct">
                 <div class="col-lg-12">
                      <div class="order-card pending">
       <div class="icon"><img src="/assets/Images/pendingc.png" alt=""></div>
       <div class="details">
-        <h4>{{summary?.pendingOrdersCount}}</h4>
+        <h4>{{summary?.totalPendingOrdersCount}}</h4>
         <p>Pending Orders</p>
       </div>
     </div>
@@ -114,8 +134,8 @@
 
 </section>
 
-<section class="main-order">
-                <section class="content mt-2" *ngIf="ordersLoading && !allOrders && !errorFetchingProduct">
+<section class="main-order mt-2">
+                <section class="content" *ngIf="ordersLoading && !allOrders && !errorFetchingProduct">
 <div class="py-5 p-5 center">
     <div>
 
@@ -136,7 +156,7 @@
       </section>
      
      
-      <div class="orders-section mt-4"  *ngIf="!ordersLoading && allOrders?.length > 0">
+      <div class="orders-section"  *ngIf="!ordersLoading && allOrders?.length > 0">
         <div class="px-4 d-flex justify-content-between align-items-center">
             <div class="">
 

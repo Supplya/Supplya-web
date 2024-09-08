@@ -10,6 +10,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { RefundPolicyComponent } from './refund-policy/refund-policy.component';
 import { BlogComponent } from './blog/blog.component';
 import { SingleBlogPostComponent } from './blog/single-blog-post/single-blog-post.component';
+import { OtherProductTypesComponent } from './other-product-types/other-product-types.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { SingleBlogPostComponent } from './blog/single-blog-post/single-blog-pos
     PrivacyPolicyComponent,
     RefundPolicyComponent,
     BlogComponent,
-    SingleBlogPostComponent
+    SingleBlogPostComponent,
+    OtherProductTypesComponent
   ],
   imports: [
     CommonModule,

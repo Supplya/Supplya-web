@@ -56,46 +56,7 @@ export class VendorDashboardComponent implements OnInit {
   ordersLoading: boolean = false;
   allOrders: any;
 
-  // createChart(data: any) {
-  //   this.chart = new Chart('MyChart', {
-  //     type: 'bar',
-  //     data: {
-  //       // Values on X-Axis
-  //       labels: [
-  //         'Total Orders',
-  //         'Total Stock',
-  //         'Total Amount Sold',
-  //         'Received Orders',
-  //         'Delivered Orders',
-  //         'New Orders',
-  //       ],
-  //       datasets: [
-  //         {
-  //           label: 'Order Summary',
-  //           data: [
-  //             data.totalOrders,
-  //             data.totalStock,
-  //             data.totalAmountSold,
-  //             data.receivedOrdersCount,
-  //             data.deliveredOrdersCount,
-  //             data.newOrdersCount,
-  //           ],
-  //           backgroundColor: 'rgba(0, 123, 255, 0.6)',
-  //           borderColor: 'rgba(0, 123, 255, 1)',
-  //           borderWidth: 1,
-  //         },
-  //       ],
-  //     },
-  //     options: {
-  //       scales: {
-  //         y: {
-  //           beginAtZero: true,
-  //         },
-  //       },
-  //       aspectRatio: 2.5,
-  //     },
-  //   });
-  // }
+ 
   createChart(data: any) {
     const ctx = document.getElementById('MyChart') as HTMLCanvasElement;
     if (ctx) {
@@ -163,7 +124,6 @@ export class VendorDashboardComponent implements OnInit {
         if (data.status) {
           this.summary = data.data;
           // this.allOrders = data?.data?.orders
-          // console.log(this.summary);
           this.createChart(this.summary);
         } else {
         }

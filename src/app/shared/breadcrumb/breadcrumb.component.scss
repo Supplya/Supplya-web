@@ -39,3 +39,11 @@ font-weight: 500;
 color: var(--primary-color)!important;
 
 }
+
+@media (max-width: 769px) {
+.menu-title{
+font-size: 25px!important;
+    font-weight: 600;
+
+}
+}

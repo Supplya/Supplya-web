@@ -53,8 +53,10 @@
     <span class="d-none d-sm-block"><i class="bi bi-cart-fill"></i></span>
     <span class="d-block d-sm-none">Add to Cart</span>
   </span>
+              
+
   <span *ngIf="ifAddedToCart(product)" (click)="onToCart()" class="cart-icon view">
-    <span class="d-none d-sm-block"><i class="bi bi-cart-fill"></i></span>
+    <span class="d-none d-sm-block">View</span>
     <span class="d-block d-sm-none">View in Cart</span>
   </span>
 </div>

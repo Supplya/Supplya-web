@@ -31,7 +31,6 @@ export class ShoppingCartComponent implements OnInit {
     private orderService: OrderService
   ) {}
 
- 
   userInfo;
   selectedPaymentMethod: string = '';
   ngOnInit(): void {
@@ -52,7 +51,10 @@ export class ShoppingCartComponent implements OnInit {
     });
     this.loadCart();
   }
-
+  capitalizeFirstLetter(value: string): string {
+    if (!value) return '';
+    return value?.charAt(0).toUpperCase() + value?.slice(1);
+  }
   loadCart(): void {
     this.cart = this.cartService.getCart();
     this.initializeQuantity();
@@ -63,7 +65,9 @@ export class ShoppingCartComponent implements OnInit {
       item.quantity = item?.quantity || 1;
     });
   }
-
+  goToStore(storeName: string): void {
+    this.route.navigate([`/store/${storeName}`]);
+  }
   toggleModal = (modalId, action: string, data?: any) => {
     if (action == 'open') {
       document.getElementById(modalId).style.display = 'flex';
@@ -81,7 +85,6 @@ export class ShoppingCartComponent implements OnInit {
   removeFromCart(cartItem: CartItem) {
     this.cartService.removeFromCart(cartItem.product._id);
   }
-
 
   confirmCartRemoval(item: any) {
     Swal.fire({

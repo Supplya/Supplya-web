@@ -38,8 +38,15 @@ resetLink="RETURN TO SHOP"></app-no-data-available>
            <div class="d-flex justify-content-between">
              <div>
                <h5 class="mb-1 me-4">{{item?.product?.name}}</h5>
-                           <p *ngIf="item.product?.createdBy?.role === 'vendor'" class="mb-1">Seller: <span class="text-primary">{{item.product?.createdBy?.storeUrl}}</span></p>
-            <p *ngIf="item.product?.createdBy?.role != 'vendor'" class="mb-1">Seller: <span class="text-primary">{{'Supplya'}}</span></p>
+                 <p class="mb-1 seller">Seller: 
+            <span 
+              class="text-primary cursor-pointer" 
+              (click)="goToStore(item?.product?.createdBy?.storeUrl || 'supplya')">
+              {{ capitalizeFirstLetter(item?.product?.createdBy?.storeName || 'supplya') }}
+            </span>
+          </p>
+                           <!-- <p *ngIf="item.product?.createdBy?.role === 'vendor'" class="mb-1">Seller: <span class="text-primary">{{item.product?.createdBy?.storeUrl}}</span></p>
+            <p *ngIf="item.product?.createdBy?.role != 'vendor'" class="mb-1">Seller: <span class="text-primary">{{'Supplya'}}</span></p> -->
                <p class="mb-1">SKU: <span>{{item?.product?.sku}}</span></p>
              </div>
              <div class="text-center">
@@ -83,8 +90,13 @@ resetLink="RETURN TO SHOP"></app-no-data-available>
       </div>
       <div class="product-details">
         <h5 class="product-name">{{item?.product?.name}}</h5>
-        <p *ngIf="item?.product?.createdBy?.role === 'vendor'" class="seller-info">Seller: <span>{{item.product?.createdBy?.storeUrl}}</span></p>
-        <p *ngIf="item?.product?.createdBy?.role != 'vendor'" class="seller-info">Seller: <span>Supplya</span></p>
+     <p class="mb-1 seller">Seller: 
+            <span 
+              class="text-primary cursor-pointer"
+              (click)="goToStore(item?.product?.createdBy?.storeName || 'supplya')">
+             {{ capitalizeFirstLetter(item?.product?.createdBy?.storeName || 'supplya') }}
+            </span>
+          </p>
        <div class="d-flex justify-content-between">
          <p class="product-price m-0">{{item?.price || 0 | currency: '₦' :'symbol':'1.0-0'}}</p>
          <div class="quantity-control">

@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./customers.component.scss'],
 })
 export class CustomersComponent implements OnInit {
-  itemPerPage: number = 8;
+  itemPerPage: number = 100;
   p: number = 1;
   filteredRows: any;
   title = 'Products';

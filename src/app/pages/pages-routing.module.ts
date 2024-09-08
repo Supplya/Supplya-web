@@ -8,6 +8,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { RefundPolicyComponent } from './refund-policy/refund-policy.component';
 import { BlogComponent } from './blog/blog.component';
 import { SingleBlogPostComponent } from './blog/single-blog-post/single-blog-post.component';
+import { OtherProductTypesComponent } from './other-product-types/other-product-types.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -19,6 +20,7 @@ const routes: Routes = [
   {path: 'refund-policy', component: RefundPolicyComponent},
   {path: 'blog-posts', component: BlogComponent},
   {path: 'view-blog-post/:id', component: SingleBlogPostComponent},
+  {path: 'view-products/:type', component: OtherProductTypesComponent},
 ];
 
 @NgModule({

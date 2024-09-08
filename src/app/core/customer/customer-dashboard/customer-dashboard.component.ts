@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./customer-dashboard.component.scss'],
 })
 export class CustomerDashboardComponent implements OnInit {
-  itemPerPage: number = 5;
+  itemPerPage: number = 100;
   p: number = 1;
   filteredRows: any;
   title = 'Products';
@@ -55,6 +55,7 @@ export class CustomerDashboardComponent implements OnInit {
       (data: any) => {
         this.allOrders = data?.data.orders;
         this.summary = data?.data;
+        console.log(data)
         this.ordersLoading = false;
       },
       (error) => {

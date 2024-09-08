@@ -1,0 +1,43 @@
+<app-navbar></app-navbar>
+
+
+<app-state-handler 
+[isLoading]="loading" 
+[hasError]="errorFetching" 
+[dataAvailable]="products"
+(retry)="GetActualProduct()"
+name="post"
+>
+<!-- BREADCRUMB -->
+<app-breadcrumb currentPageLink="{{selectedProduct}}" previousLink="Products"></app-breadcrumb>
+  <!-- BREADCRUMB END -->
+   <section class="mb-5">
+<div class="container">
+  <app-grid-product-list 
+      [products]="products"
+      [loading]="loading"
+      [error]="errorFetching"
+      heading=""
+      [addedItems]="AllAddedItems"
+      [totalProducts]="totalProducts"
+      [itemsPerPage]="20"
+      [currentPage]="currentPage"
+      (refresh)="GetActualProduct()"
+      (toggleWishlist)="toggleWishlist($event)"
+      (viewProduct)="viewProduct($event)"
+      (addToCart)="addToCart($event)"
+      (toCart)="toCart()"
+      [getStarsArray]="getStarsArray.bind(this)" 
+    [getEmptyStarsArray]="getEmptyStarsArray.bind(this)"
+      >
+    </app-grid-product-list>
+</div>
+
+</section>
+
+  </app-state-handler>
+
+
+<app-footer></app-footer>
+
+
