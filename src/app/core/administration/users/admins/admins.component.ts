@@ -58,13 +58,11 @@ export class AdminsComponent implements OnInit {
   admins;
   getAllUsers() {
     this.ordersLoading = true;
-    this.adminService.getAllUsers().subscribe(
+    this.adminService.getAllAdmins().subscribe(
       (data: any) => {
         this.ordersLoading = false;
         if (data.status) {
-          this.admins = data.data.filter(
-            (item: any) => item?.role === 'admin'
-          );
+          this.admins = data.data;
           // console.log(this.customers);
         } else {
         }

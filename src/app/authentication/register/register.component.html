@@ -68,9 +68,50 @@
                                     </div>
                                    </div>
                                    
+                                     <!-- Tab Switcher for Email and Phone -->
+          <!-- <ul class="nav nav-tabs mb-3">
+            <li class="nav-item">
+              <a class="nav-link" [ngClass]="{'active': !signupWithPhone}" (click)="setSignupMethod('email')">Email</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [ngClass]="{'active': signupWithPhone}" (click)="setSignupMethod('phone')">Phone Number (WhatsApp)</a>
+            </li>
+          </ul> -->
+
+          <!-- Conditional Email or Phone Number Input -->
+          <div *ngIf="!signupWithPhone">
+            <div>
+              <label for="" class="px-2 mb-1{{ isInvalid('email') ? 'red' : '' }}">Email Address</label> 
+              <label for="" style="color: var(--primary-color)!important; cursor: pointer;" (click)="toggleModal('methodModal', 'open')">Change</label>
+            </div>
+            <div class="auth-input slide-left">
+              <i class="bi bi-envelope"></i>
+              <input type="text" class="auth {{ isInvalid('email') ? 'error-input' : '' }}" aria-label="Email Address" aria-describedby="basic-addon1" formControlName="email" [ngClass]="{ 'is-invalid': isInvalid('email') }" placeholder="example@gmail.com">
+              <div class="invalid-feedback mb-4 px-3" *ngIf="isInvalid('email')">
+                {{ getErrorMessage('email', 'Email is required') }}
+              </div>
+              <div class="invalid-feedback mb-4 px-3" *ngIf="form.get('email')?.touched && form.get('email')?.errors?.['email']">
+                Please enter a valid email address
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="signupWithPhone">
+              <div>
+              <label for="" class="px-2 mb-1{{ isInvalid('phoneNumber') ? 'red' : '' }}">Phone Number (WhatsApp)</label> 
+              <label for="" style="color: var(--primary-color)!important; cursor: pointer;" (click)="toggleModal('methodModal', 'open')">Change</label>
+            </div>
+            <div class="auth-input slide-left">
+              <i class="bi bi-phone"></i>
+              <input type="text" class="auth {{ isInvalid('phoneNumber') ? 'error-input' : '' }}" aria-label="Phone Number" formControlName="phoneNumber" [ngClass]="{ 'is-invalid': isInvalid('phoneNumber') }" placeholder="+234 XXX XXX XXXX">
+              <div class="invalid-feedback mb-4 px-3" *ngIf="isInvalid('phoneNumber')">
+                {{ getErrorMessage('phoneNumber', 'Phone number is required') }}
+              </div>
+            </div>
+          </div>
+
                                    
-                                   
-                                   <label for=""  class="px-2 mb-1{{
+                                   <!-- <label for=""  class="px-2 mb-1{{
                                         isInvalid('email') ? 'red' : ''
                                       }}">Email Address</label>
                                     <div class="auth-input slide-left">
@@ -86,7 +127,7 @@
                                             Please enter a valid email address
                                         </div>
                                       
-                                    </div>
+                                    </div> -->
                 
                                     <label for=""  class="px-2 mb-1 {{
                                         isInvalid('password') ? 'red' : ''
@@ -194,5 +235,62 @@
 
     <button  (click)="continue()" class="btn-modal-primary mt-3" style="border-radius: 80px!important; padding: 13px 60px!important;">Continue</button>
 </div>
+  </div>
+</div>
+
+
+
+<div id="methodModal" class="modal" style="z-index: 1!important;">
+  <div class="modal-center-content mx-auto pt-4 px-2 px-lg-5" style="border-radius: 10px !important;">
+    <div class="d-flex justify-content-end px-4 px-lg-2">
+      <img
+        style="cursor: pointer"
+        class=""
+        (click)="toggleModal('methodModal', 'close')"
+        src="/assets/Images/dismiss.svg"
+        alt="Close"
+      />
+    </div>
+    
+    <div class="modal-body text-center">
+      <p class="modal-heading text-center">Choose Your Preferred Contact Method</p>
+      <p class="mb-4">
+        
+        This will be used to contact you about updates and important notifications.
+      </p>
+
+      <!-- Selectable Cards for Email and WhatsApp -->
+      <div class="row mb-4">
+        <div class="col-6">
+          <div class="card option-card" (click)="setSignupMethod('email')"
+          [class.selected]="!signupWithPhone">
+            <div class="card-body text-center">
+              <i class="bi bi-envelope" style="font-size: 2rem; color: #EA4335;"></i>
+              <h5>Email<br>Address</h5>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="card option-card" (click)="setSignupMethod('phone')"
+          [class.selected]="signupWithPhone">
+            <div class="card-body text-center">
+              <i class="bi bi-whatsapp" style="font-size: 2rem; color: #25D366;"></i>
+              <h5>WhatsApp<br>Number</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-center mb-5">
+        <button
+          (click)="fromMethod()"
+          class="btn-modal-primary"
+          style="border-radius: 80px!important; padding: 13px 60px!important; width: 100%!important;"
+        >
+          Continue
+        </button>
+      </div>
+    </div>
   </div>
 </div>

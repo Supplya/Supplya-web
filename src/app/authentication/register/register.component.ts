@@ -16,7 +16,8 @@ export class RegisterComponent implements OnInit {
   loading: boolean = false;
   submitted: boolean = false;
   passwordVisible: boolean = false;
-
+  signupWithPhone = false;
+  signupMethod;
   constructor(
     private fb: FormBuilder,
     private helperService: HelperService,
@@ -24,21 +25,27 @@ export class RegisterComponent implements OnInit {
     private authService: AuthService,
     private notify: ToastyService
   ) {
-this.form = this.fb.group(
-  {
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required],
-    role: [''],
-    confirmPassword: ['', Validators.required],
-  },
-  {
-    validator: PasswordMatchValidator('password', 'confirmPassword'),
-    // updateOn: 'change',
-  }
-);
-
+    this.form = this.fb.group(
+      {
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        phoneNumber: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern('^[+][0-9]{1,3}[0-9]{10,12}$'),
+          ],
+        ],
+        password: ['', Validators.required],
+        role: [''],
+        confirmPassword: ['', Validators.required],
+      },
+      {
+        validator: PasswordMatchValidator('password', 'confirmPassword'),
+        // updateOn: 'change',
+      }
+    );
   }
 
   ngOnInit(): void {
@@ -51,14 +58,41 @@ this.form = this.fb.group(
       document.getElementById(modalId).style.display = 'none';
     }
   };
+
+  
   continue() {
     this.submitType = true;
     if (this.userType != '') {
       this.toggleModal('signUpModal', 'close');
+      this.toggleModal('methodModal', 'open');
     } else {
       return;
     }
   }
+  setSignupMethod(method: 'email' | 'phone'): void {
+    this.signupWithPhone = method === 'phone';
+
+    if (this.signupWithPhone) {
+      this.form.get('email')?.disable();
+      this.form.get('phoneNumber')?.enable();
+    } else {
+      this.form.get('phoneNumber')?.disable();
+      this.form.get('email')?.enable();
+    }
+  }
+methodError = ''
+  fromMethod() {
+    const phone = this.form.get('phoneNumber')?.value;
+    const email = this.form.get('email')?.value;
+    if (phone && email === '') { 
+this.methodError = 'Please select a contact method before you proceed.'
+    } else {
+      this.methodError = '';
+      this.toggleModal('methodModal', 'close');
+      
+    }
+  }
+ 
   userType: string = '';
   submitType: boolean = false;
   setUserType(type: string) {

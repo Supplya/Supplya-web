@@ -85,7 +85,7 @@
           <table class="table" style="overflow-y: auto;">
             <thead>
               <tr>
-                <th>User ID</th>
+                <th> ID</th>
                 <th>Name</th>
                 <th>Orders</th>
                 <th>Total Spent</th>
@@ -95,7 +95,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of this.admins | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
+              <tr *ngFor="let item of admins | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
                 <td class="text-primary" style="font-size: 15px; font-weight: 500;">
                     {{item?._id}}
                 </td>

@@ -67,6 +67,12 @@ export const menuItems = {
       hasChild: false,
       icon: 'journal-text',
     },
+    {
+      name: 'Notifications',
+      route: '/core/admin/notifications',
+      hasChild: false,
+      icon: 'journal-text',
+    },
 
     // {
     //   name: 'Role Permissions',

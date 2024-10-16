@@ -29,6 +29,7 @@ import { EditCategoryComponent } from './category/edit-category/edit-category.co
 import { BlogPostsComponent } from './blog/blog-posts/blog-posts.component';
 import { AddBlogPostComponent } from './blog/add-blog-post/add-blog-post.component';
 import { EditBlogPostComponent } from './blog/edit-blog-post/edit-blog-post.component';
+import { NotificationComponent } from './notification/notification.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { EditBlogPostComponent } from './blog/edit-blog-post/edit-blog-post.comp
     EditCategoryComponent,
     BlogPostsComponent,
     AddBlogPostComponent,
-    EditBlogPostComponent
+    EditBlogPostComponent,
+    NotificationComponent
   ],
   imports: [
     CommonModule,

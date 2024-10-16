@@ -24,6 +24,7 @@ import { EditCategoryComponent } from './category/edit-category/edit-category.co
 import { AddBlogPostComponent } from './blog/add-blog-post/add-blog-post.component';
 import { BlogPostsComponent } from './blog/blog-posts/blog-posts.component';
 import { EditBlogPostComponent } from './blog/edit-blog-post/edit-blog-post.component';
+import { NotificationComponent } from './notification/notification.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -72,6 +73,11 @@ const routes: Routes = [
     path: 'customers',
     component: CustomersComponent,
     data: { title: 'All Customers' },
+  },
+  {
+    path: 'notifications',
+    component: NotificationComponent,
+    data: { title: 'Notifications' },
   },
   {
     path: 'vendors',

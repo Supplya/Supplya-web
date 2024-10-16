@@ -49,6 +49,9 @@ export class DashboardService {
   getAllUsers(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/users`);
   }
+  getAllAdmins(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/users/admin`);
+  }
   getAllCustomers(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/users/role/customer`);
   }

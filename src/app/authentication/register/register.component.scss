@@ -4,7 +4,33 @@
     font-weight: 300;
     color: #fff;
     }
-    
+
+
+.option-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.option-card:hover {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary-color);
+}
+
+.option-card.selected {
+  border: 2px solid var(--primary-color)!important;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-body h5 {
+  margin-top: 10px;
+  font-weight: 600;
+  font-size: 16px!important;
+}
+
+
+
     /* Animation for bouncing circle */
     // @keyframes bounce {
     //     0% { transform: translateY(0); }

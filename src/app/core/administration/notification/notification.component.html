@@ -1,0 +1,85 @@
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+<section>
+
+    <div class="pageRow row align-items-center mb-3 px-2">
+        <div class="col-sm-6">
+          <div class="page-name mt-2">Send Notification</div>
+
+        </div>
+        <div class="col-sm-6">
+            <div class="d-none d-lg-block">
+                <div class="btn-container">
+                  <button class="add" type="submit"> Send Notification</button>
+                </div>
+            </div>
+        </div>
+      </div>
+    <div class="row">
+        <div class="col-lg-8">
+<section class="content container mb-3">
+    <div class="py-3">
+
+        <p class="content-heading">Notification Information</p>
+        <div class="mb-2 slide-left">
+            <label for="title" class="content-label"> Title</label>
+            <input type="text" formControlName="title" id="title" class="content-input {{
+                                        isInvalid('title') ? 'error-input' : ''
+                                      }}" placeholder="Enter title">
+                                       <small class="error-text mb-4" *ngIf="isInvalid('title')">
+                                            {{ getErrorMessage('title', 'This field is required') }}
+                                          </small>
+          </div>
+          <div class="mb-2 slide-right">
+            <label for="message" class="content-label">Message</label>
+            <textarea style="height: 250px!important;" id="message" formControlName="message" class=" content-input {{
+                                        isInvalid('message') ? 'error-input' : ''
+                                      }}" placeholder="Enter message"></textarea>
+            <small class="error-text mb-4" *ngIf="isInvalid('message')">
+                                            {{ getErrorMessage('message', 'This field is required') }}
+                                          </small>
+
+        </div>
+    </div>
+</section>
+
+
+
+        </div>
+
+
+        <div class="col-lg-4">
+            <section class="content container mb-3">
+                <div class="py-3">
+            
+                    <p class="content-heading">Receiver</p>
+                    <div class="mb-2 slide-right">
+                        <label for="recepientId" class="content-label">Users</label>
+                        <select formControlName="recepientId" class=" content-select {{
+                                        isInvalid('recepientId') ? 'error-input' : ''
+                                      }}">
+                            <option value="" selected  id="recepientId">Select User</option>
+                            <option *ngFor="let item of users"  >{{item}}</option>
+                        </select>
+                         <small class="error-text mb-4" *ngIf="isInvalid('recepientId')">
+                                            {{ getErrorMessage('recepientId', 'This field is required') }}
+                                          </small>
+                      </div>
+                </div>
+
+                <div class="btn-container-sm mobile-only py-3">
+                    <button class="add w-100"> Send Notification</button>
+                  </div>
+            </section>
+         
+   
+
+
+
+
+
+        </div>
+    </div>
+</section>
+
+</form>

@@ -1,0 +1,131 @@
+.media-div {
+  padding: 30px 12px!important;
+  border-radius: 8px 0px 0px 0px;
+  border: 1px dashed #b3b5ba;
+  background-color: #F9F9FC;
+  border-radius: 8px;
+}
+
+.media-div > div {
+  margin: 5px;
+}
+
+.media-div img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.remove-image-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+margin-top: -10px;
+margin-right: -10px;
+  width: 33px;
+height: 33px;
+padding: 9px 8.79px 7.17px 9px;
+border-radius: 70px;
+background: #F2F2F2;
+
+
+}
+.remove-image-button img{
+width: 15.21px;
+height: 16.83px;
+top: 50%;
+left: 9px;
+gap: 0px;
+opacity: 0px;
+margin-top: -10px;
+}
+
+.main-image-text {
+  text-align: center;
+  margin: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--secondary-color);
+  font-size: 10px;
+  font-weight: 600;
+  color: black;
+  width: max-content;
+  padding: 3px;
+}
+.set-image-text {
+  text-align: center;
+  margin: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--primary-color);
+  font-size: 10px;
+  font-weight: 500;
+  color: white;
+  width: max-content;
+  padding: 3px;
+  cursor: pointer;
+}
+.invalid-feedback {
+    font-size: 14px;
+    color: red!important;
+}
+
+
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px; /* Adjusted for proportion */
+  height: 28px; /* Increased height */
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px; /* Increased height */
+  width: 20px; /* Adjusted for proportion */
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--primary-color);
+}
+
+input:checked + .slider:before {
+  transform: translateX(22px); /* Adjusted for proportion */
+}
+.form-check label{
+  font-size: 16px;
+  font-weight: 500;
+  color: #4d5464;
+  margin-left: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
