@@ -1,85 +1,78 @@
 
-<form [formGroup]="form" (ngSubmit)="submit()">
-<section>
-
-    <div class="pageRow row align-items-center mb-3 px-2">
+  <div class="pageRow row align-items-center mb-3 px-2">
         <div class="col-sm-6">
-          <div class="page-name mt-2">Send Notification</div>
+          <div class="page-name mt-2">All Notifications</div>
 
         </div>
         <div class="col-sm-6">
             <div class="d-none d-lg-block">
                 <div class="btn-container">
-                  <button class="add" type="submit"> Send Notification</button>
+                  <button class="add"  routerLink="/core/admin/send-notification"> Send Notification</button>
                 </div>
             </div>
         </div>
       </div>
-    <div class="row">
-        <div class="col-lg-8">
-<section class="content container mb-3">
+
+      
+<div class="wrapper  p-lg-3">
+<div *ngIf="!loadingNotifications && notifications">
+      <div class="">
+      <div class=" p-3" >
+  <div
+  *ngFor="let event of notifications | paginate: { itemsPerPage: 20, currentPage: p, totalItems: totalCount }; let i = index"
+  class="d-flex flex-column p-2 mb-3 notification-row"
+  [ngClass]="{ 'unread-notification': !event?.read, 'read-notification': event?.read }"
+  (click)="toggleDetails(i)"
+>
+  <div class="d-flex justify-content-between align-items-center">
+    <div class="mr-4">
+      <p style="margin-bottom: 5px !important; font-size: 15px;">
+        {{ event?.message }}
+      </p>
+      <small class="d-block" style="color: var(--theme-color3); font-size: 13px;">
+        <span [ngClass]="{ 'fw-bold': !event?.read, 'text-muted': event?.read }">{{ event?.read ? 'Read' : 'Unread' }}</span> - {{ formatTimestamp(event?.timestamp) }}
+      </small>
+    </div>
+    <div>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+        <path
+          d="M5 14.5C6.10457 14.5 7 13.6046 7 12.5C7 11.3954 6.10457 10.5 5 10.5C3.89543 10.5 3 11.3954 3 12.5C3 13.6046 3.89543 14.5 5 14.5Z"
+          fill="#B2B2B2"
+        />
+        <path
+          d="M12 14.5C13.1046 14.5 14 13.6046 14 12.5C14 11.3954 13.1046 10.5 12 10.5C10.8954 10.5 10 11.3954 10 12.5C10 13.6046 10.8954 14.5 12 14.5Z"
+          fill="#B2B2B2"
+        />
+        <path
+          d="M19 14.5C20.1046 14.5 21 13.6046 21 12.5C21 11.3954 20.1046 10.5 19 10.5C17.8954 10.5 17 11.3954 17 12.5C17 13.6046 17.8954 14.5 19 14.5Z"
+          fill="#B2B2B2"
+        />
+      </svg>
+    </div>
+  </div>
+  
+  <!-- Detail Section -->
+  <div *ngIf="selectedIndex === i" class="notification-detail mt-2 px-4 shadow-sm slideLeft">
     <div class="py-3">
+      <p>{{ event?.details }}</p>
 
-        <p class="content-heading">Notification Information</p>
-        <div class="mb-2 slide-left">
-            <label for="title" class="content-label"> Title</label>
-            <input type="text" formControlName="title" id="title" class="content-input {{
-                                        isInvalid('title') ? 'error-input' : ''
-                                      }}" placeholder="Enter title">
-                                       <small class="error-text mb-4" *ngIf="isInvalid('title')">
-                                            {{ getErrorMessage('title', 'This field is required') }}
-                                          </small>
-          </div>
-          <div class="mb-2 slide-right">
-            <label for="message" class="content-label">Message</label>
-            <textarea style="height: 250px!important;" id="message" formControlName="message" class=" content-input {{
-                                        isInvalid('message') ? 'error-input' : ''
-                                      }}" placeholder="Enter message"></textarea>
-            <small class="error-text mb-4" *ngIf="isInvalid('message')">
-                                            {{ getErrorMessage('message', 'This field is required') }}
-                                          </small>
-
-        </div>
     </div>
-</section>
+  </div>
+</div>
 
+                            <pagination-controls *ngIf="notifications" (pageChange)="onPageChange($event);">
+                            </pagination-controls>
 
-
-        </div>
-
-
-        <div class="col-lg-4">
-            <section class="content container mb-3">
-                <div class="py-3">
-            
-                    <p class="content-heading">Receiver</p>
-                    <div class="mb-2 slide-right">
-                        <label for="recepientId" class="content-label">Users</label>
-                        <select formControlName="recepientId" class=" content-select {{
-                                        isInvalid('recepientId') ? 'error-input' : ''
-                                      }}">
-                            <option value="" selected  id="recepientId">Select User</option>
-                            <option *ngFor="let item of users"  >{{item}}</option>
-                        </select>
-                         <small class="error-text mb-4" *ngIf="isInvalid('recepientId')">
-                                            {{ getErrorMessage('recepientId', 'This field is required') }}
-                                          </small>
-                      </div>
-                </div>
-
-                <div class="btn-container-sm mobile-only py-3">
-                    <button class="add w-100"> Send Notification</button>
-                  </div>
-            </section>
-         
-   
-
-
-
-
-
-        </div>
+      
+      </div>
     </div>
-</section>
-
-</form>
+    </div>
+    <div *ngIf="loadingNotifications && !notifications"><img  class="d-block mx-auto" src="/assets/img/Ellipsis-0.7s-200px.svg" height="120" alt=""></div>
+    
+    <div *ngIf="!loadingNotifications && !notifications && errorFetching">
+        <img src="/assets/img/Group-2 copy.png" height="150" class="d-block mx-auto mb-4" alt="">
+        <h4 class="text-center mb-4">
+            Notifications could not be fetched, click <span (click)="getNotifications()" style="cursor: pointer; color: blue;">here</span> to try again
+        </h4>
+    </div>
+</div>

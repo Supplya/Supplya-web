@@ -25,6 +25,8 @@ import { AddBlogPostComponent } from './blog/add-blog-post/add-blog-post.compone
 import { BlogPostsComponent } from './blog/blog-posts/blog-posts.component';
 import { EditBlogPostComponent } from './blog/edit-blog-post/edit-blog-post.component';
 import { NotificationComponent } from './notification/notification.component';
+import { ViewNotificationComponent } from './notification/view-notification/view-notification.component';
+import { SendNotificationComponent } from './notification/send-notification/send-notification.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -78,6 +80,11 @@ const routes: Routes = [
     path: 'notifications',
     component: NotificationComponent,
     data: { title: 'Notifications' },
+  },
+  {
+    path: 'send-notification',
+    component: SendNotificationComponent,
+    data: { title: 'Send Notification' },
   },
   {
     path: 'vendors',

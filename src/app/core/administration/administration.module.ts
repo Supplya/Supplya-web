@@ -30,6 +30,8 @@ import { BlogPostsComponent } from './blog/blog-posts/blog-posts.component';
 import { AddBlogPostComponent } from './blog/add-blog-post/add-blog-post.component';
 import { EditBlogPostComponent } from './blog/edit-blog-post/edit-blog-post.component';
 import { NotificationComponent } from './notification/notification.component';
+import { SendNotificationComponent } from './notification/send-notification/send-notification.component';
+import { ViewNotificationComponent } from './notification/view-notification/view-notification.component';
 
 
 @NgModule({
@@ -60,7 +62,9 @@ import { NotificationComponent } from './notification/notification.component';
     BlogPostsComponent,
     AddBlogPostComponent,
     EditBlogPostComponent,
-    NotificationComponent
+    NotificationComponent,
+    SendNotificationComponent,
+    ViewNotificationComponent
   ],
   imports: [
     CommonModule,
