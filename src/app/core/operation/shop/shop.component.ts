@@ -38,7 +38,7 @@ export class ShopComponent implements OnInit {
   getAllNewArrivals() {
     this.loading = true;
 
-    this.productService.getAllNewArrivals().subscribe(
+    this.productService.getAllNewArrivals(1, 30).subscribe(
       (data: any) => {
         console.log(data, 'newArrivals');
         this.newArrivals = data?.data;

@@ -25,12 +25,14 @@ export class LoginComponent implements OnInit {
   ) {
     this.loginForm = this.fb.group(
       {
-        email: ['', [Validators.required, Validators.email]],
+        // email: ['', [Validators.required, Validators.email]],
+        // phoneNumber: ['', [Validators.required, Validators.email]],
+        identifier: ['', [Validators.required, this.validateIdentifier]],
         password: ['', Validators.required],
         rememberMe: [false],
       },
       { updateOn: 'change' }
-    ); // Trigger validation on change
+    );
   }
   ngOnInit(): void {
     this.loadRememberedCredentials();
@@ -71,6 +73,16 @@ export class LoginComponent implements OnInit {
     return JSON.parse(atob(token?.split('.')[1]));
   }
 
+  validateIdentifier(control: any) {
+    const value = control.value || '';
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^\+?[0-9]{10,15}$/;
+
+    if (!emailRegex.test(value) && !phoneRegex.test(value)) {
+      return { invalidFormat: true };
+    }
+    return null;
+  }
   toggleModal = (modalId, action: string, data?: any) => {
     if (action == 'open') {
       document.getElementById(modalId).style.display = 'flex';
@@ -80,11 +92,11 @@ export class LoginComponent implements OnInit {
   };
   loadRememberedCredentials() {
     const rememberedEmail = localStorage.getItem('rememberedEmail');
-    const rememberedPassword = localStorage.getItem('rememberedPassword'); // This is insecure
-    if (rememberedEmail && rememberedPassword) {
+    // const rememberedPassword = localStorage.getItem('rememberedPassword'); // This is insecure
+    if (rememberedEmail) {
       this.loginForm.patchValue({
         email: rememberedEmail,
-        password: rememberedPassword,
+        // password: rememberedPassword,
         rememberMe: true,
       });
     }
@@ -108,18 +120,23 @@ export class LoginComponent implements OnInit {
   login() {
     this.submitted = true;
     if (this.loginForm.valid) {
-     
-      this.authService.login(this.loginForm.value).subscribe(
+      const { identifier, password } = this.loginForm.value;
+      const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(identifier);
+      const payload = {
+        [isEmail ? 'email' : 'phoneNumber']: identifier,
+        password,
+      };
+      this.authService.login(payload).subscribe(
         (response) => {
-          if (response.status) {
-              const { email, password, rememberMe } = this.loginForm.value;
-              if (rememberMe) {
-                localStorage.setItem('rememberedEmail', email);
-                localStorage.setItem('rememberedPassword', password); // This is insecure
-              } else {
-                localStorage.removeItem('rememberedEmail');
-                localStorage.removeItem('rememberedPassword');
-              }
+          if (response?.status) {
+            const { email, identifier, password, rememberMe,  } = this.loginForm.value;
+            if (rememberMe) {
+              localStorage.setItem('rememberedEmail', identifier);
+              // localStorage.setItem('rememberedPassword', password); // This is insecure
+            } else {
+              localStorage.removeItem('rememberedEmail');
+              // localStorage.removeItem('rememberedPassword');
+            }
             this.authService.setCredentials(response);
             this.notify.success('Login Successful', 4000);
           } else {

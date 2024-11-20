@@ -103,7 +103,7 @@
             </div>
             <div class="auth-input slide-left">
               <i class="bi bi-phone"></i>
-              <input type="text" class="auth {{ isInvalid('phoneNumber') ? 'error-input' : '' }}" aria-label="Phone Number" formControlName="phoneNumber" [ngClass]="{ 'is-invalid': isInvalid('phoneNumber') }" placeholder="+234 XXX XXX XXXX">
+              <input type="text" (keypress)="numberOnly($event)" class="auth {{ isInvalid('phoneNumber') ? 'error-input' : '' }}" aria-label="Phone Number" formControlName="phoneNumber" [ngClass]="{ 'is-invalid': isInvalid('phoneNumber') }" placeholder="Enter WhatsApp number">
               <div class="invalid-feedback mb-4 px-3" *ngIf="isInvalid('phoneNumber')">
                 {{ getErrorMessage('phoneNumber', 'Phone number is required') }}
               </div>

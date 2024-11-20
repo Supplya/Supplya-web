@@ -37,6 +37,13 @@ export class OtherProductTypesComponent implements OnInit {
   itemsPerPage = 50;
   currentPage = 1;
   selectedProduct;
+  p: number = 1;
+  pageSize: number = 20;
+  totalCount: number = 0;
+  onPageChange(page: number): void {
+    this.p = page;
+    this.GetActualProduct();
+  }
   ngOnInit(): void {
     this.GetActualProduct();
   }
@@ -54,19 +61,28 @@ export class OtherProductTypesComponent implements OnInit {
     switch (productType) {
       case 'arrival':
         this.selectedProduct = 'New Arrival';
-        productObservable = this.productService.getAllNewArrivals();
+        productObservable = this.productService.getAllNewArrivals(this.p, this.pageSize);
         break;
       case 'flash':
         this.selectedProduct = 'Flash Sales';
-        productObservable = this.productService.getAllFlashProducts();
+        productObservable = this.productService.getAllFlashProducts(
+          this.p,
+          this.pageSize
+        );
         break;
       case 'trending':
         this.selectedProduct = 'Trending Products';
-        productObservable = this.productService.getAllTrendingProducts();
+        productObservable = this.productService.getAllTrendingProducts(
+          this.p,
+          this.pageSize
+        );
         break;
       default:
         this.selectedProduct = 'All Products';
-        productObservable = this.productService.getAllProducts(1, 20);
+        productObservable = this.productService.getAllProducts(
+          this.p,
+          this.pageSize
+        );
         break;
     }
 
@@ -74,6 +90,7 @@ export class OtherProductTypesComponent implements OnInit {
     productObservable.subscribe(
       (data: any) => {
         this.products = data?.data;
+        this.totalProducts = data?.totalProducts;
         this.loading = false;
       },
       (error) => {

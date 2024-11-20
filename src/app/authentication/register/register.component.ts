@@ -59,7 +59,6 @@ export class RegisterComponent implements OnInit {
     }
   };
 
-  
   continue() {
     this.submitType = true;
     if (this.userType != '') {
@@ -80,19 +79,18 @@ export class RegisterComponent implements OnInit {
       this.form.get('email')?.enable();
     }
   }
-methodError = ''
+  methodError = '';
   fromMethod() {
     const phone = this.form.get('phoneNumber')?.value;
     const email = this.form.get('email')?.value;
-    if (phone && email === '') { 
-this.methodError = 'Please select a contact method before you proceed.'
+    if (phone && email === '') {
+      this.methodError = 'Please select a contact method before you proceed.';
     } else {
       this.methodError = '';
       this.toggleModal('methodModal', 'close');
-      
     }
   }
- 
+
   userType: string = '';
   submitType: boolean = false;
   setUserType(type: string) {
@@ -102,29 +100,27 @@ this.methodError = 'Please select a contact method before you proceed.'
     this.submitted = true;
     if (this.form.valid) {
       this.form.value.role = this.userType;
-        let phone = this.form.get('phoneNumber')?.value;
-        if (phone) {
-          // Remove leading '0' if present
-          if (phone.startsWith('0')) {
-            phone = phone.substring(1);
-          }
-          // Prepend '+234' if the phone doesn't already start with '234' or '+234'
-          if (!phone.startsWith('234') && !phone.startsWith('+234')) {
-            phone = `234${phone}`;
-            this.form.patchValue({ phoneNumber: phone });
-          }
+      let phone = this.form.get('phoneNumber')?.value;
+      if (phone) {
+        // Remove leading '0' if present
+        if (phone.startsWith('0')) {
+          phone = phone.substring(1);
         }
+        // Prepend '+234' if the phone doesn't already start with '234' or '+234'
+        if (!phone.startsWith('234') && !phone.startsWith('+234')) {
+          phone = `234${phone}`;
+          this.form.patchValue({ phoneNumber: phone });
+        }
+      }
       this.authService.register(this.form.value).subscribe((response) => {
         if (response) {
           if (response.status) {
             if (this.signupWithPhone) {
               this.authService.sendPhoneForOTP(this.form.value.phoneNumber);
-              this.authService.clearEmailOTP()
+              this.authService.clearEmailOTP();
             } else {
-              
               this.authService.sendEmailForOTP(this.form.value.email);
               this.authService.clearPhoneOTP();
-
             }
             this.notify.success(response.message);
             this.route.navigate(['/auth/verify-account']);
@@ -149,6 +145,13 @@ this.methodError = 'Please select a contact method before you proceed.'
       (this.form.get(control)?.touched && this.form.get(control)?.invalid) ||
       (this.submitted && this.form.get(control)?.invalid)
     );
+  }
+  numberOnly(event: { which: any; keyCode: any }) {
+    const charCode = event.which ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
   }
 
   togglePasswordVisibility(): void {

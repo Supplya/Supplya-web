@@ -78,11 +78,15 @@ export class ProductService {
     return this.http.get<Product[]>(`${this.productUrl}/vendors/${storeName}`);
   }
 
-  getAllFlashProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.productUrl}products/flashsale`);
+  getAllFlashProducts(page, limit): Observable<Product[]> {
+    return this.http.get<Product[]>(
+      `${this.productUrl}products/flashsale?page=${page}&limit=${limit}`
+    );
   }
-  getAllTrendingProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.productUrl}products/trending`);
+  getAllTrendingProducts(page, limit): Observable<Product[]> {
+    return this.http.get<Product[]>(
+      `${this.productUrl}products/trending?page=${page}&limit=${limit}`
+    );
   }
 
   getAllVendorProducts(): Observable<Product[]> {
@@ -117,9 +121,9 @@ export class ProductService {
   getVendorMetric(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.productUrl}users/orders`);
   }
-  getAllNewArrivals(): Observable<Product[]> {
+  getAllNewArrivals(page, limit): Observable<Product[]> {
     return this.http.get<Product[]>(
-      `${this.productUrl}products/newly-arrived-brands`
+      `${this.productUrl}products/newly-arrived-brands?page=${page}&limit=${limit}`
     );
   }
   getAllCategories(page: number, limit: number): Observable<Product[]> {

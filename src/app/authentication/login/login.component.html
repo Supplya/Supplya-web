@@ -24,7 +24,7 @@
         </div>
         <div class="col-lg-6">
             <section style="margin:  0 auto;">
-                <form [formGroup]="loginForm" (ngSubmit)="login()" class="contain">
+                <form [formGroup]="loginForm" (ngSubmit)="login()" class="contain mt-5">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-2"></div>
@@ -34,7 +34,7 @@
                                         <span style="color:var(--primary-color);">Welcome</span>&nbsp;<span style="color: black!important;"></span>Back!
                                     </h1>
                                     <p class="text-muted">Ready to embark on another shopping adventure?</p>
-                                    <label for=""  class="px-2 mb-1{{
+                                    <!-- <label for=""  class="px-2 mb-1{{
                                         isInvalid('email') ? 'red' : ''
                                       }}">Email Address</label>
                                     <div class="auth-input slide-left">
@@ -50,7 +50,25 @@
                                             Please enter a valid email address
                                         </div>
                                       
-                                    </div>
+                                    </div> -->
+
+                                      <!-- Identifier Field -->
+          <label for="identifier" class="px-2 mb-1">Email or Phone Number</label>
+          <div class="auth-input slide-left">
+            <i class="bi bi-person"></i>
+            <input type="text" 
+                   id="identifier" 
+                   class="auth" 
+                   formControlName="identifier" 
+                   placeholder="Email or Phone Number" 
+                   [ngClass]="{ 'is-invalid': isInvalid('identifier') }">
+            <!-- <div class="invalid-feedback mb-4 px-3" *ngIf="isInvalid('identifier')">
+              {{ getErrorMessage('identifier', 'Email or Phone Number is required') }}
+            </div> -->
+            <div class="invalid-feedback mb-4 px-3" *ngIf="loginForm.get('identifier')?.errors?.['invalidFormat']">
+              Please enter a valid email or phone number.
+            </div>
+          </div>
                 
                                     <label for=""  class="px-2 mb-1 {{
                                         isInvalid('password') ? 'red' : ''

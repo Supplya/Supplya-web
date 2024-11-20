@@ -80,7 +80,7 @@ export class HomeComponent implements OnInit {
   newArrivalError = false;
   getAllNewArrivals() {
     this.newArrivalLoading = true;
-    this.productService.getAllNewArrivals().subscribe(
+    this.productService.getAllNewArrivals(1,30).subscribe(
       (data: any) => {
         this.newArrivals = data?.data;
         this.newArrivalLoading = false;
@@ -132,7 +132,7 @@ export class HomeComponent implements OnInit {
   getAllFlashProducts() {
     this.flashProductLoading = true;
 
-    this.productService.getAllFlashProducts().subscribe(
+    this.productService.getAllFlashProducts(1, 30).subscribe(
       (data: any) => {
         this.flashProducts = data?.data;
         this.flashProductLoading = false;
@@ -150,7 +150,7 @@ export class HomeComponent implements OnInit {
   getAllTrendingProducts() {
     this.flashProductLoading = true;
     this.trendingProductError = false;
-    this.productService.getAllTrendingProducts().subscribe(
+    this.productService.getAllTrendingProducts(1, 30).subscribe(
       (data: any) => {
         this.trendingProducts = data?.data;
         this.trendingProductLoading = false;
