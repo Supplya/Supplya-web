@@ -47,6 +47,9 @@ export class ShoppingCartComponent implements OnInit {
     this.cartService.getCartObservable().subscribe((cart) => {
       this.cart = cart;
       this.cartItems = cart.items;
+      console.log(this.cartItems);
+      console.log(this.cart);
+
       this.loading = false;
     });
     this.loadCart();

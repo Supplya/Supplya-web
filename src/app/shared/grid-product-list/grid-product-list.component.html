@@ -48,7 +48,20 @@
   <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
 </div>
               <div class="price-and-cart">
-  <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0' }}</span>
+                <div>
+
+                  <ng-container *ngIf="product?.discounted_price === null; else main">
+           <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0' }}</span>
+         </ng-container>
+         <ng-template #main>
+           <span class="product-amount">
+             <del style="color: var(--secondary-color); font-size: 17px!important;">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0' }}</del>
+           </span>
+           <br>
+           <span class="product-amount">{{ product?.discounted_price | currency: '₦' :'symbol':'1.0-0' }}</span>
+         </ng-template>
+                </div>
+
   <span *ngIf="!ifAddedToCart(product)" (click)="onAddToCart(product)" class="cart-icon">
     <span class="d-none d-sm-block"><i class="bi bi-cart-fill"></i></span>
     <span class="d-block d-sm-none">Add to Cart</span>

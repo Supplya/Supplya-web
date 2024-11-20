@@ -84,12 +84,31 @@ export class CartService {
     this.setCartToLocalStorage();
   }
 
-  private setCartToLocalStorage(): void {
-    this.cart.totalPrice = this.cart.items.reduce(
-      (prevSum, currentItem) =>
-        prevSum + currentItem.quantity * currentItem.product.unit_price,
-      0
+  changeQuantity(productId: number, quantity: number): void {
+    const cartItem = this.cart.items.find(
+      (item) => item.product._id === productId
     );
+    if (!cartItem) return;
+
+    const priceToUse =
+      cartItem.product.discounted_price !== null
+        ? cartItem.product.discounted_price
+        : cartItem.product.unit_price;
+    cartItem.quantity = quantity;
+    cartItem.price = quantity * priceToUse;
+
+    this.setCartToLocalStorage();
+  }
+  private setCartToLocalStorage(): void {
+    this.cart.totalPrice = this.cart.items.reduce((prevSum, currentItem) => {
+      const priceToUse =
+        currentItem.product.discounted_price !== null
+          ? currentItem.product.discounted_price
+          : currentItem.product.unit_price;
+console.log(priceToUse);
+      return prevSum + currentItem.quantity * priceToUse;
+    }, 0);
+
     this.cart.totalCount = this.cart.items.reduce(
       (prevSum, currentItem) => prevSum + currentItem.quantity,
       0
@@ -100,6 +119,31 @@ export class CartService {
     this.cartSubject.next({ ...this.cart }); // Create a new instance of the cart
   }
 
+  // private setCartToLocalStorage(): void {
+  //   this.cart.totalPrice = this.cart.items.reduce(
+  //     (prevSum, currentItem) =>
+  //       prevSum + currentItem.quantity * currentItem.product.unit_price,
+  //     0
+  //   );
+  //   this.cart.totalCount = this.cart.items.reduce(
+  //     (prevSum, currentItem) => prevSum + currentItem.quantity,
+  //     0
+  //   );
+
+  //   const cartJson = JSON.stringify(this.cart);
+  //   localStorage.setItem('Cart', cartJson);
+  //   this.cartSubject.next({ ...this.cart }); // Create a new instance of the cart
+  // }
+
+  // changeQuantity(productId: number, quantity: number): void {
+  //   let cartItem = this.cart.items.find(
+  //     (item) => item.product._id === productId
+  //   );
+  //   if (!cartItem) return;
+  //   cartItem.quantity = quantity;
+  //   cartItem.price = quantity * cartItem.product.unit_price;
+  //   this.setCartToLocalStorage();
+  // }
   removeFromCart(productId: number): void {
     this.cart.items = this.cart.items.filter(
       (item) => item.product._id !== productId
@@ -116,16 +160,6 @@ export class CartService {
 
   updateCartItems(items: CartItem[]): void {
     this.cart.items = items;
-    this.setCartToLocalStorage();
-  }
-
-  changeQuantity(productId: number, quantity: number): void {
-    let cartItem = this.cart.items.find(
-      (item) => item.product._id === productId
-    );
-    if (!cartItem) return;
-    cartItem.quantity = quantity;
-    cartItem.price = quantity * cartItem.product.unit_price;
     this.setCartToLocalStorage();
   }
 

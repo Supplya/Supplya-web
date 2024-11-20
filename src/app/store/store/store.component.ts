@@ -29,6 +29,7 @@ export class StoreComponent implements OnInit {
     loaderService.hideLoader();
     this.cartService.getCartObservable().subscribe((cart) => {
       this.cart = cart;
+      console.log(this.cart)
       this.AllAddedItems = cart.items;
     });
   }
@@ -164,6 +165,10 @@ export class StoreComponent implements OnInit {
   totalProducts: number = 0;
   currentPage: number = 1;
   itemsPerPage: number = 100;
+
+  p: number = 1;
+  pageSize: number = 20;
+  totalCount: number = 0;
   getProducts() {
     this.loading = true;
     this.productService.getAllProducts(1, 100).subscribe(

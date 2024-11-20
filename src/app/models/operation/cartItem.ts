@@ -5,5 +5,8 @@ export class CartItem {
   // constructor(public product: Product) {}
 
   quantity = 1;
-  price = this.product.unit_price;
+  price =
+    this.product.discounted_price !== null
+      ? this.product.discounted_price
+      : this.product.unit_price;
 }
