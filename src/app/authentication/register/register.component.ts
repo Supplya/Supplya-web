@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit {
           '',
           [
             Validators.required,
-            Validators.pattern('^[+][0-9]{1,3}[0-9]{10,12}$'),
+            // Validators.pattern('^[+][0-9]{1,3}[0-9]{10,12}$'),
           ],
         ],
         password: ['', Validators.required],
@@ -102,10 +102,30 @@ this.methodError = 'Please select a contact method before you proceed.'
     this.submitted = true;
     if (this.form.valid) {
       this.form.value.role = this.userType;
+        let phone = this.form.get('phoneNumber')?.value;
+        if (phone) {
+          // Remove leading '0' if present
+          if (phone.startsWith('0')) {
+            phone = phone.substring(1);
+          }
+          // Prepend '+234' if the phone doesn't already start with '234' or '+234'
+          if (!phone.startsWith('234') && !phone.startsWith('+234')) {
+            phone = `234${phone}`;
+            this.form.patchValue({ phoneNumber: phone });
+          }
+        }
       this.authService.register(this.form.value).subscribe((response) => {
         if (response) {
           if (response.status) {
-            this.authService.sendEmailForOTP(this.form.value.email);
+            if (this.signupWithPhone) {
+              this.authService.sendPhoneForOTP(this.form.value.phoneNumber);
+              this.authService.clearEmailOTP()
+            } else {
+              
+              this.authService.sendEmailForOTP(this.form.value.email);
+              this.authService.clearPhoneOTP();
+
+            }
             this.notify.success(response.message);
             this.route.navigate(['/auth/verify-account']);
           }

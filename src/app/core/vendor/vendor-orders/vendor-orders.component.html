@@ -105,12 +105,20 @@
                 <td>{{item?.totalPrice || 0 | currency:'₦':true:'1.0-0'}}</td>
                 <td>{{ (item?.totalPrice - (item?.totalPrice * 0.01)) | currency:'₦':true:'1.0-0' }}</td>
                 <td>{{item?.user?.firstName}} {{item?.user?.lastName}}</td>
-               <td >
+               <!-- <td >
                 <small [ngClass]="{'completed': item?.orderStatus ===  'received' || 'completed', 'new': item?.orderStatus === 'new',
                  'pending': item?.orderStatus === 'pending', 'cancelled': item?.orderStatus === 'cancelled'}">
                   {{ capitalizeFirstLetter(item?.orderStatus) }}</small>
-                </td>
+                </td> -->
+ <td class="d-flex justify-content-between align-items-center">
+                <small [ngClass]="{'completed': item?.orderStatus ===  'received' || 'completed', 'new': item?.orderStatus === 'new',
+                 'pending': item?.orderStatus === 'pending', 'cancelled': item?.orderStatus === 'cancelled'}">
+                  {{ capitalizeFirstLetter(item?.orderStatus) }}</small>
+     <small (click)="toggleModal('statusModal', 'open', item)" type="button" class="dropdown-toggle" style="font-size: 20px; color: var(--primary-color); margin: 0px;">
+  </small>
+              
 
+                    <td>
                 <td>
                 <span (click)="toggleModal('orderDetailsModal', 'open', item)" class="view-call text-decoration-underline text-primary cursor-pointer fw-bold">View</span>
                 </td>
@@ -138,7 +146,46 @@
 
 
 
+<div id="statusModal" class="modal">
+  <div
+    class="modal-center-content-sm mx-auto pt-4 px-4 px-lg-5"
+    style="border-radius: 10px !important;"
+  >
+    <div class="d-flex justify-content-end">
+     
+      <img 
+        style="cursor: pointer"
+        class=""
+        (click)="toggleModal('statusModal', 'close')"
+        src="/assets/Images/dismiss.svg"
+        alt=""
+      />
+    </div>
+  <section class="p-3">
+    <div class="py-2">
+<p class="modal-heading text-center">Change Order Status</p>
 
+<div class="py-3">
+
+  <select class="content-select w-100 " [(ngModel)]="selectedStatus">
+    <option selected value="">Select Status</option>
+    <option *ngFor="let item of statuses" [value]="item">{{item}}</option>
+  </select>
+</div>
+
+<p class="" *ngIf="selectedStatus !== ''"> <span class="fw-bold text-primary">Attention</span>: Changing this status will update the order immediately. Please ensure you have confirmed the correct status before proceeding.</p>
+      <!-- <P class="text-center" style="font-size: 18px; font-weight: 600;">Are you sure you want to remove <br><span class="text-primary">{{selectedOrder?._id}}</span> <br> from cart?</P> -->
+      
+     <div class="d-flex justify-content-center py-4">
+      <button (click)="updateOrderStatus(selectedOrder, selectedStatus);toggleModal('statusModal', 'close')" [disabled]="selectedStatus === ''" class="remove-btn-primary me-3">Yes, proceed</button>
+      <button class="remove-btn-secondary" (click)="toggleModal('statusModal', 'close')">No</button>
+     </div>
+    </div>
+  
+</section>
+
+  </div>
+</div>
 
 
 

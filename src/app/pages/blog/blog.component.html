@@ -11,7 +11,7 @@
   name="posts"
   >
     <div class="row">
-      <div class="col-lg-4 col-md-6 mb-4" *ngFor="let post of posts | paginate: { itemsPerPage: 20, currentPage: 1 };">
+      <div class="col-lg-4 col-md-6 mb-4" *ngFor="let post of posts| paginate: { itemsPerPage: pageSize, currentPage: p, totalItems: totalCount };">
         <div class="card h-100">
           <img *ngIf="post?.images?.length" 
             [src]="post?.images[0] || '/assets/Images/no-post-image.jpg'" 
@@ -38,7 +38,7 @@
       </div>
          <div>
                 <pagination-controls
-                    (pageChange)="p = $event"
+                    (pageChange)="onPageChange($event)"
                     previousLabel=""
                     nextLabel=""
                   ></pagination-controls>

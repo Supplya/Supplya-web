@@ -9,12 +9,10 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-admins',
   templateUrl: './admins.component.html',
-  styleUrls: ['./admins.component.scss']
+  styleUrls: ['./admins.component.scss'],
 })
-
 export class AdminsComponent implements OnInit {
-  itemPerPage: number = 8;
-  p: number = 1;
+  itemPerPage: number = 100;
   filteredRows: any;
   title = 'All Admins';
   searchText: string = '';
@@ -26,7 +24,7 @@ export class AdminsComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     // this.getAllProducts();
-    this.getVendorMetric();
+    this.getAdminMetric();
     this.getAllUsers();
   }
   errorFetchingProduct: boolean = false;
@@ -35,15 +33,13 @@ export class AdminsComponent implements OnInit {
   summary;
   summaryLoading = false;
   errorFetchingSummary = false;
-  getVendorMetric() {
+  getAdminMetric() {
     this.ordersLoading = true;
-    this.adminService.getVendorMetric().subscribe(
+    this.adminService.getAdminMetric().subscribe(
       (data: any) => {
         this.ordersLoading = false;
         if (data.status) {
           this.summary = data.data;
-
-          console.log(this.summary);
         } else {
         }
         this.summaryLoading = false;
@@ -56,22 +52,35 @@ export class AdminsComponent implements OnInit {
     );
   }
   admins;
+
+  p: number = 1;
+  pageSize: number = 20;
+  totalCount: number = 0;
+  products: any[] = [];
+  loading: boolean = false;
+  errorLoading: boolean = false;
+
+  onPageChange(page: number) {
+    this.p = page;
+    this.getAllUsers();
+  }
   getAllUsers() {
-    this.ordersLoading = true;
-    this.adminService.getAllAdmins().subscribe(
+    this.loading = true;
+    this.errorLoading = false;
+    this.adminService.getAllAdmins(this.p, this.pageSize).subscribe(
       (data: any) => {
-        this.ordersLoading = false;
+        this.loading = false;
         if (data.status) {
           this.admins = data.data;
+          this.totalCount = data?.totalCount;
           // console.log(this.customers);
         } else {
         }
-        this.summaryLoading = false;
+        this.loading = false;
       },
       (error) => {
-        this.errorFetchingSummary = true;
-        this.summaryLoading = false;
-        this.ordersLoading = false;
+        this.errorLoading = true;
+        this.loading = false;
       }
     );
   }
@@ -144,10 +153,11 @@ export class AdminsComponent implements OnInit {
     });
   }
   delete(id: string) {
-    this.productService.deleteOrder(id).subscribe((result) => {
+    this.productService.deleteUser(id).subscribe((result) => {
       if (result) {
-        this.toast.success('Customer deleted successfully');
-        this.getVendorMetric();
+        this.toast.success('Admin deleted successfully');
+        this.getAdminMetric();
+        this.getAllUsers();
       }
     });
   }
@@ -155,14 +165,7 @@ export class AdminsComponent implements OnInit {
     this.exportService.exportToExcel(this.filteredRows, this.title);
   }
 
-  get productsToShow(): any[] {
-    const startIndex = (this.p - 1) * this.itemPerPage;
-    const endIndex = Math.min(
-      startIndex + this.itemPerPage,
-      this.filteredRows?.length
-    );
-    return this.filteredRows?.slice(startIndex, endIndex);
-  }
+
   selectedOrder: any;
   toggleModal = (modalId, action: string, data?: any) => {
     if (action == 'open') {

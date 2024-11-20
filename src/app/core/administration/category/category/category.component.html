@@ -54,7 +54,7 @@
 <div class="container">
   
 
-      <section class="content" *ngIf="categoryLoading && !filteredRows && !errorFetchingCategory">
+      <section class="content" *ngIf="loading">
 <div class="py-5 p-5 center">
     <div>
 
@@ -64,7 +64,7 @@
 </div>
       </section >
 
-      <section class="content center" *ngIf="!categoryLoading && !filteredRows && errorFetchingCategory">
+      <section class="content center" *ngIf="!loading && !categories && errorFetchingCategory">
         <div class="py-5 ">
           <div class="py-3 text-center" >
             <img src="/assets/Images/oops.png" style="height: 200px;" alt="">
@@ -75,17 +75,17 @@
         </div>
       </section>
      
-      <div class="row ">
+      <!-- <div class="row ">
          <div class="col-lg-4">
                         <input *ngIf="categories?.length > 0" type="text" class="form-control search-input mb-3" placeholder="Search category" [(ngModel)]="searchText"
                           (input)="applyFilter()" />
                       </div>
-                       <div class="col-lg-8 text-end" *ngIf="filteredRows?.length > 0">
+                       <div class="col-lg-8 text-end" *ngIf="categories?.length > 0">
                     <p (click)="exportToExcel()" class="btn export">Export</p>
                   </div>
-      </div>
+      </div> -->
       
-      <div class="table-responsive" *ngIf="!categoryLoading && filteredRows?.length > 0">
+      <div class="table-responsive" *ngIf="!loading && categories?.length > 0">
 
           <table class="table" style="overflow-y: auto;">
             <thead>
@@ -97,7 +97,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of filteredRows | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
+              <tr *ngFor="let item of categories | paginate: { itemsPerPage: pageSize, currentPage: p, totalItems: totalCount }; let i = index">
                 <td>
                   <div class="product-info" routerLink="/core/admin/edit-category/{{item?._id}}" style="cursor: pointer;">
                     <img class="product-image" [src]="item?.image" alt="Product Image">
@@ -125,25 +125,18 @@
            
           </table>
 
-          <div class="d-flex justify-content-between px-5" *ngIf="filteredRows?.length > 0">
-
-            <div class="pagination-info text-muted">
-                Now Showing {{ calculateStartRecord() }} - {{ calculateEndRecord() }} of {{ filteredRows?.length }} records
+       <div>
+                  <pagination-controls
+      (pageChange)="onPageChange($event)"
+      previousLabel=""
+      nextLabel=""
+    ></pagination-controls>
               </div>
-
-              <div>
-                <pagination-controls *ngIf="filteredRows?.length > 0"
-                    (pageChange)="p = $event"
-                    previousLabel=""
-                    nextLabel=""
-                  ></pagination-controls>
-              </div>
-          </div>
           
       </div>
 
       
-       <section class="content center" *ngIf="filteredRows?.length === 0">
+       <section class="content center" *ngIf="categories?.length === 0">
         <div class="py-5 ">
           <div class="py-3 text-center" >
             <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">
@@ -156,7 +149,7 @@
         </div>
       </section>
 
-      <section class="content center" *ngIf="filteredRows?.length === 0 && categories?.length === 0">
+      <section class="content center" *ngIf="categories?.length === 0 && categories?.length === 0">
         <div class="py-5 ">
           <div class="py-3 text-center" >
             <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">

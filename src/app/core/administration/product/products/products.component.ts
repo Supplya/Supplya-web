@@ -13,8 +13,6 @@ import { DashboardService } from '../../services/dashboard.service';
   styleUrls: ['./products.component.scss'],
 })
 export class ProductsComponent implements OnInit {
-  itemPerPage: number = 100;
-  p: number = 1;
   filteredRows: any;
   title = 'Products';
   searchText: string = '';
@@ -28,15 +26,20 @@ export class ProductsComponent implements OnInit {
     this.getAllProducts();
     this.getProductMetric();
   }
-  errorFetchingProduct: boolean = false;
+
+  p: number = 1; 
+  pageSize: number = 20; 
+  totalCount: number = 0; 
+  products: any[] = [];
   productLoading: boolean = false;
-  products: any;
+  errorFetchingProduct: boolean = false;
+
   getAllProducts() {
     this.productLoading = true;
-    this.productService.getAllProducts(this.p, this.itemPerPage).subscribe(
-      (data: any) => {
-        this.products = data?.data;
-        this.filteredRows = data?.data;
+    this.productService.getAllProducts(this.p, this.pageSize).subscribe(
+      (response: any) => {
+        this.products = response?.data || [];
+        this.totalCount = response?.totalProducts || 0;
         this.productLoading = false;
       },
       (error) => {
@@ -44,6 +47,12 @@ export class ProductsComponent implements OnInit {
         this.productLoading = false;
       }
     );
+  }
+
+  // Handle page changes
+  onPageChange(page: number) {
+    this.p = page;
+    this.getAllProducts();
   }
 
   summary;
@@ -58,14 +67,14 @@ export class ProductsComponent implements OnInit {
         if (data.status) {
           this.summary = data.data;
 
-  //         {
-  //   totalProducts: 9,
-  //   totalProductsAddedLastMonth: 0,
-  //   totalProductsAddedLastWeek: 0,
-  //   newProductsAddedToday: 0,
-  //   totalProductsInStock: 9,
-  //   totalProductsOutOfStock: 0
-  // }
+          //         {
+          //   totalProducts: 9,
+          //   totalProductsAddedLastMonth: 0,
+          //   totalProductsAddedLastWeek: 0,
+          //   newProductsAddedToday: 0,
+          //   totalProductsInStock: 9,
+          //   totalProductsOutOfStock: 0
+          // }
         } else {
         }
         // this.ordersLoading = false;
@@ -143,22 +152,5 @@ export class ProductsComponent implements OnInit {
     this.errorFetchingProduct = false;
     this.getAllProducts();
   }
-  get productsToShow(): any[] {
-    const startIndex = (this.p - 1) * this.itemPerPage;
-    const endIndex = Math.min(
-      startIndex + this.itemPerPage,
-      this.filteredRows?.length
-    );
-    return this.filteredRows?.slice(startIndex, endIndex);
-  }
 
-  // Method to calculate the start record number shown on the current page
-  calculateStartRecord(): number {
-    return (this.p - 1) * this.itemPerPage + 1;
-  }
-
-  // Method to calculate the end record number shown on the current page
-  calculateEndRecord(): number {
-    return Math.min(this.p * this.itemPerPage, this.filteredRows?.length);
-  }
 }

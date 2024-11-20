@@ -26,15 +26,24 @@ export class BlogComponent implements OnInit {
   }
 
   posts: any;
-  loading = false;
   error = false;
-  p = 1;
+  p: number = 1;
+  pageSize: number = 20;
+  totalCount: number = 0;
+  products: any[] = [];
+  loading: boolean = false;
+
+  onPageChange(page: number) {
+    this.p = page;
+    this.getAllPosts();
+  }
   getAllPosts() {
     this.error = false;
     this.loading = true;
-    this.productService.getAllPosts().subscribe(
+    this.productService.getAllPosts(this.p, this.pageSize).subscribe(
       (data: any) => {
         this.posts = data?.data;
+        this.totalCount = data?.totalPosts;
         this.loading = false;
       },
       (error) => {

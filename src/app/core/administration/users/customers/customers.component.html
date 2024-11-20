@@ -73,7 +73,17 @@
       </section>
      
      
-      <div class="orders-section mt-4"  *ngIf="!summaryLoading && this.customers?.length > 0">
+
+      <section class="content" *ngIf="loading">
+<div class="py-5 p-5 center">
+<div>
+
+<img src="/assets/Images/requestLoading.gif" alt="">
+<p class="loading-text text-center text-muted">Loading...</p>
+</div>
+</div>
+</section >
+      <div class="orders-section mt-4"  *ngIf="!loading && this.customers?.length > 0">
         <div class="px-4 d-flex justify-content-between align-items-center">
             <div class="py-2">
                 <p class="head-count mb-0 mt-2" style="font-size: 20px;">Customers</p>
@@ -81,7 +91,7 @@
             <!-- <p class="view-all">View All</p> -->
 </div>
       </div>
-      <div class="table-responsive" *ngIf="!summaryLoading && this.customers?.length > 0">
+      <div class="table-responsive" *ngIf="!loading && this.customers?.length > 0">
           <table class="table" style="overflow-y: auto;">
             <thead>
               <tr>
@@ -95,7 +105,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of this.customers | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
+              <tr *ngFor="let item of this.customers | paginate: { itemsPerPage: pageSize, currentPage: p, totalItems: totalCount }; let i = index">
                 <td class="text-primary" style="font-size: 15px; font-weight: 500;">
                     {{item?._id}}
                 </td>
@@ -127,11 +137,13 @@
               </tr>
             </tbody>
            
-          </table>          
+          </table> 
+                       <pagination-controls previousLabel=""
+      nextLabel=""(pageChange)="onPageChange($event)"></pagination-controls>          
       </div>
 
       
-       <section class="content center" *ngIf="!summaryLoading && this.customers?.length === 0">
+       <section class="content center" *ngIf="this.customers?.length === 0">
         <div class="py-5 ">
           <div class="py-3 text-center" >
             <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">

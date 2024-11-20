@@ -42,10 +42,20 @@
             <p class="head-brief">Available for sale</p>
         </div>
     </div>
-    <div class="col-lg-3">
-        <div class="container-content p-3 MB-2">
+    <!-- <div class="col-lg-3">
+        <div class="container-content p-3 mb-2">
             <div class="d-flex justify-content-between ">
                 <p class="head-text">Inactive Products</p>
+                <img src="/assets/Images/pending.png" alt="">
+            </div>
+            <h3 class="head-count">{{summary?.totalProductsOutOfStock | number:'1.0-0'}}</h3>
+            <p class="head-brief">Not Available for sale</p>
+        </div>
+    </div> -->
+    <div class="col-lg-3">
+        <div class="container-content p-3 mb-2">
+            <div class="d-flex justify-content-between ">
+                <p class="head-text">Out of Stock Products</p>
                 <img src="/assets/Images/pending.png" alt="">
             </div>
             <h3 class="head-count">{{summary?.totalProductsOutOfStock | number:'1.0-0'}}</h3>
@@ -63,7 +73,7 @@
 <div class="container">
   
 
-      <section class="content" *ngIf="productLoading && !filteredRows && !errorFetchingProduct">
+      <section class="content" *ngIf="productLoading">
 <div class="py-5 p-5 center">
     <div>
 
@@ -73,7 +83,7 @@
 </div>
       </section >
 
-      <section class="content center" *ngIf="!productLoading && !filteredRows && errorFetchingProduct">
+      <section class="content center" *ngIf="!productLoading && !products && errorFetchingProduct">
         <div class="py-5 ">
           <div class="py-3 text-center" >
             <img src="/assets/Images/oops.png" style="height: 200px;" alt="">
@@ -86,17 +96,17 @@
      
       <div class="row ">
          <div class="col-lg-4">
-                        <input *ngIf="products?.length > 0" type="text" class="form-control search-input mb-3" placeholder="Search Product" [(ngModel)]="searchText"
-                          (input)="applyFilter()" />
+                        <!-- <input *ngIf="products?.length > 0" type="text" class="form-control search-input mb-3" placeholder="Search Product" [(ngModel)]="searchText"
+                          (input)="applyFilter()" /> -->
                       </div>
-                       <div class="col-lg-8 text-end" *ngIf="filteredRows?.length > 0">
+                       <div class="col-lg-8 text-end" *ngIf="!productLoading && products?.length > 0">
                     <p (click)="exportToExcel()" class="btn export">Export</p>
                   </div>
       </div>
       
-      <div class="table-responsive" *ngIf="!productLoading && filteredRows?.length > 0">
+      <div class="table-responsive" *ngIf="!productLoading && products?.length > 0">
 
-          <table class="table" style="overflow-y: auto;">
+          <table class="table">
             <thead>
               <tr>
                 <th>S/N</th>
@@ -111,7 +121,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of filteredRows | paginate: { itemsPerPage: 20, currentPage: p }; let i = index">
+              <tr *ngFor="let item of products | paginate: { itemsPerPage: pageSize, currentPage: p, totalItems: totalCount }; let i = index">
                 <td>{{i + 1}}</td>
                 <td>
                   <div class="product-info" routerLink="/core/admin/edit-product/{{item?._id}}" style="cursor: pointer;">
@@ -135,7 +145,7 @@
             <div class="dropdown-content p-2">
               <!-- <a (click)="toggleModal('vendorModal', 'open')" class="dropdown-item" style="cursor: pointer;"><img class="border-right p-2 mr-2" src="/assets/img/edit.png" alt=""> View Vendor</a> -->
               <a class="dropdown-item border-bottom" routerLink="/core/admin/edit-product/{{item?._id}}" style="cursor: pointer;">Edit Product</a>
-              <a class="dropdown-item border-bottom" (click)="toggleModal('apartmentModal', 'open', item)" style="cursor: pointer;">View Vendor</a>
+              <a class="dropdown-item border-bottom" routerLink="/core/admin/view-vendor/{{item?.createdBy?._id}}" style="cursor: pointer;">View Vendor</a>
               <a class="dropdown-item border-bottom text-danger" (click)="deleteProduct(item)" style="cursor: pointer;">Delete Product</a>
             </div>
           </div>
@@ -145,23 +155,18 @@
            
           </table>
 
-          <div class="d-flex justify-content-between px-5" *ngIf="filteredRows?.length > 0">
-
-           
-
-              <div>
-                <pagination-controls *ngIf="filteredRows?.length > 0"
-                    (pageChange)="p = $event"
-                    previousLabel=""
-                    nextLabel=""
-                  ></pagination-controls>
+        <div>
+                <pagination-controls
+      (pageChange)="onPageChange($event)"
+      previousLabel=""
+      nextLabel=""
+    ></pagination-controls>
               </div>
-          </div>
           
       </div>
 
       
-       <section class="content center" *ngIf="filteredRows?.length === 0">
+       <section class="content center" *ngIf="products?.length === 0">
         <div class="py-5 ">
           <div class="py-3 text-center" >
             <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">
@@ -174,7 +179,7 @@
         </div>
       </section>
 
-      <section class="content center" *ngIf="filteredRows?.length === 0 && products?.length === 0">
+      <section class="content center" *ngIf="products?.length === 0 && products?.length === 0">
         <div class="py-5 ">
           <div class="py-3 text-center" >
             <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">

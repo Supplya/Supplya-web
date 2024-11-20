@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { NotificationService } from '../services/notification.service';
 import { AuthService } from 'src/app/authentication/service/auth.service';
-
+import { NotificationService } from '../../administration/services/notification.service';
 
 @Component({
-  selector: 'app-notification',
-  templateUrl: './notification.component.html',
-  styleUrls: ['./notification.component.scss'],
+  selector: 'app-vendor-notification',
+  templateUrl: './vendor-notification.component.html',
+  styleUrls: ['./vendor-notification.component.scss']
 })
-export class NotificationComponent implements OnInit {
+
+export class VendorNotificationComponent implements OnInit {
   constructor(
     private notificationService: NotificationService,
     private authService: AuthService

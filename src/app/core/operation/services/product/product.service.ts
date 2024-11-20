@@ -23,14 +23,14 @@ export class ProductService {
   addNewProduct(product: any): Observable<any> {
     return this.http.post<any>(`${this.productUrl}products/create`, product);
   }
+  sendNotification(data: any): Observable<any> {
+    return this.http.post<any>(`${this.productUrl}notification/create`, data);
+  }
   addBlogPost(post: any): Observable<any> {
     return this.http.post<any>(`${this.productUrl}/blog/posts`, post);
   }
   updateBlogPost(id: any, post: any): Observable<any> {
-    return this.http.put<any>(
-      `${this.productUrl}/blog/posts/${id}`,
-      post
-    );
+    return this.http.put<any>(`${this.productUrl}/blog/posts/${id}`, post);
   }
   vendorAddProduct(product: any): Observable<any> {
     return this.http.post<any>(`${this.productUrl}products/create`, product);
@@ -40,9 +40,7 @@ export class ProductService {
     return this.http.get<any>(`${this.productUrl}products/` + id);
   }
   getPostByID(id: any): Observable<any> {
-    return this.http.get<any>(
-      `${this.productUrl}blog/posts/` + id
-    );
+    return this.http.get<any>(`${this.productUrl}blog/posts/` + id);
   }
   searchProduct(keyword: any): Observable<any> {
     return this.http.get<any>(
@@ -56,13 +54,20 @@ export class ProductService {
     return this.http.get<any>(`${this.productUrl}products/category/${name}`);
   }
 
-  getAllProducts(page, limit): Observable<Product[]> {
+  getAllProducts(page: number, limit: number): Observable<Product[]> {
     return this.http.get<Product[]>(
-      `${this.productUrl}/products?limit=${limit}`
+      `${this.productUrl}/products?page=${page}&limit=${limit}`
     );
   }
-  getAllPosts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.productUrl}blog/posts`);
+  getProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(
+      `${this.productUrl}/products`
+    );
+  }
+  getAllPosts(page, limit): Observable<Product[]> {
+    return this.http.get<Product[]>(
+      `${this.productUrl}blog/posts?page=${page}&limit=${limit}`
+    );
   }
   getStoreProducts(storeName: string): Observable<Product[]> {
     return this.http.get<Product[]>(
@@ -70,9 +75,7 @@ export class ProductService {
     );
   }
   getStoreDetails(storeName: string): Observable<Product[]> {
-    return this.http.get<Product[]>(
-      `${this.productUrl}/vendors/${storeName}`
-    );
+    return this.http.get<Product[]>(`${this.productUrl}/vendors/${storeName}`);
   }
 
   getAllFlashProducts(): Observable<Product[]> {
@@ -85,8 +88,10 @@ export class ProductService {
   getAllVendorProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.productUrl}products/vendor`);
   }
-  getAllVendorOrders(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.productUrl}orders`);
+  getAllVendorOrders(page, limit): Observable<Product[]> {
+    return this.http.get<Product[]>(
+      `${this.productUrl}orders?page=${page}&limit=${limit}`
+    );
   }
   getAllOrderByUser(id: any): Observable<any[]> {
     return this.http.get<any[]>(`${this.productUrl}orders/user/${id}`);
@@ -97,8 +102,10 @@ export class ProductService {
   getAllOrders(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.productUrl}orders`);
   }
-  getAllOrdersAdmin(page: number): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.productUrl}orders?page=${page}`);
+  getAllOrdersAdmin(page: number, limit = 20): Observable<Product[]> {
+    return this.http.get<Product[]>(
+      `${this.productUrl}orders?page=${page}?limit=${limit}`
+    );
   }
   getVendorOrders(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.productUrl}orders/vendor`);
@@ -115,8 +122,10 @@ export class ProductService {
       `${this.productUrl}products/newly-arrived-brands`
     );
   }
-  getAllCategories(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.productUrl}categories`);
+  getAllCategories(page: number, limit: number): Observable<Product[]> {
+    return this.http.get<Product[]>(
+      `${this.productUrl}categories?page=${page}&limit=${limit}`
+    );
   }
   addCategory(product: any): Observable<any> {
     return this.http.post<any>(`${this.productUrl}categories`, product);
@@ -143,6 +152,9 @@ export class ProductService {
   }
   deleteOrder(id: any): Observable<any> {
     return this.http.delete<any>(`${this.productUrl}orders/${id}`);
+  }
+  deleteUser(id: any): Observable<any> {
+    return this.http.delete<any>(`${this.productUrl}users/${id}`);
   }
   UpdateOrder(data: any, id: any): Observable<any> {
     return this.http.put<any>(`${this.productUrl}orders/${id}`, data);

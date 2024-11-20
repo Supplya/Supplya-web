@@ -31,6 +31,9 @@ export class DashboardService {
   getDashboardMetric(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/admin/dashboard`);
   }
+  getDashboardCharts(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/admin/dashboard/product`);
+  }
   getProductMetric(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/admin/dashboard/product`);
   }
@@ -46,20 +49,31 @@ export class DashboardService {
   getVendorMetric(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/admin/dashboard/vendor`);
   }
+  getAdminMetric(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/admin/dashboard/admin`);
+  }
   getAllUsers(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/users`);
   }
-  getAllAdmins(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/users/role/admin`);
+  getAllAdmins(page, limit): Observable<any[]> {
+    return this.http.get<any[]>(
+      `${this.baseUrl}users/role/admin?page=${page}&limit=${limit}`
+    );
   }
-  getAllCustomers(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/users/role/customer`);
+  getAllCustomers(page, limit): Observable<any[]> {
+    return this.http.get<any[]>(
+      `${this.baseUrl}users/role/customer?page=${page}&limit=${limit}`
+    );
   }
-  getAllVendor(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/users/role/vendor`);
+  getAllVendor(page, limit): Observable<any[]> {
+    return this.http.get<any[]>(
+      `${this.baseUrl}users/role/vendor?page=${page}&limit=${limit}`
+    );
   }
-  getAllAdmin(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/users/role/admin`);
+  getAllAdmin(page, limit): Observable<any[]> {
+    return this.http.get<any[]>(
+      `${this.baseUrl}users/role/admin?page=${page}&limit=${limit}`
+    );
   }
   getOrdersByID(id: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/orders/user/${id}`);

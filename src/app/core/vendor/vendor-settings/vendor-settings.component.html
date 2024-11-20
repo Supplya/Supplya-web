@@ -121,7 +121,11 @@
             </div>
          <div class="row mb-3">
     <div class="mb-2 col-lg-6 slide-left">
-      <label for="storeName" class="content-label">Store Name</label>
+      <div class="d-flex justify-content-between ">
+        <label for="storeName" class="content-label">Store Name</label>
+        <a href="{{ shopUrl }}" style="color: var(--primary-color); cursor: pointer;" class="content-label mb-1" target="_blank" rel="noopener noreferrer">View Store</a>
+
+      </div>
       <input type="text" formControlName="storeName" id="storeName" class="content-input {{ isInvalid('storeName') ? 'error-input' : '' }}" placeholder="Enter shop name" (blur)="validateStoreName()">
       <small class="error-text mb-4" *ngIf="isInvalid('storeName')">{{ getErrorMessage('storeName', 'This field is required') }}</small>
      <div >

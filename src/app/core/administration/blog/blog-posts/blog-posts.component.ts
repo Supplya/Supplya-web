@@ -13,9 +13,7 @@ import { ExportService } from '../../services/export.service';
 })
 
 export class BlogPostsComponent implements OnInit {
-  itemPerPage: number = 100;
-  p: number = 1;
-  filteredRows: any;
+
   title = 'Products';
   searchText: string = '';
   constructor(
@@ -31,12 +29,24 @@ export class BlogPostsComponent implements OnInit {
   errorFetchingProduct: boolean = false;
   productLoading: boolean = false;
   products: any;
+
+
+  p: number = 1;
+  pageSize: number = 20;
+  totalCount: number = 0;
+  loading: boolean = false;
+
+  onPageChange(page: number) {
+    this.p = page;
+    this.getAllProducts();
+
+  }
   getAllProducts() {
     this.productLoading = true;
-    this.productService.getAllPosts().subscribe(
+    this.productService.getAllPosts(this.p, this.pageSize).subscribe(
       (data: any) => {
         this.products = data?.data;
-        this.filteredRows = data?.data;
+         this.totalCount = data?.totalPosts;
         this.productLoading = false;
       },
       (error) => {
@@ -88,17 +98,17 @@ export class BlogPostsComponent implements OnInit {
       this.selectedOrder = data;
     }
   };
-  applyFilter() {
-    this.filteredRows = applyGlobalSearch(this.products, this.searchText, [
-      'name',
-      'moq',
-      'unit_price',
-      'unit_price',
-      'status',
-      'quantity',
-    ]);
-    this.p = 1;
-  }
+  // applyFilter() {
+  //   this.filteredRows = applyGlobalSearch(this.products, this.searchText, [
+  //     'name',
+  //     'moq',
+  //     'unit_price',
+  //     'unit_price',
+  //     'status',
+  //     'quantity',
+  //   ]);
+  //   this.p = 1;
+  // }
 
   deleteProduct(product: any) {
     Swal.fire({
@@ -137,28 +147,13 @@ export class BlogPostsComponent implements OnInit {
     });
   }
   exportToExcel() {
-    this.exportService.exportToExcel(this.filteredRows, this.title);
+    this.exportService.exportToExcel(this.products, this.title);
   }
   refreshProducts() {
     this.errorFetchingProduct = false;
     this.getAllProducts();
   }
-  get productsToShow(): any[] {
-    const startIndex = (this.p - 1) * this.itemPerPage;
-    const endIndex = Math.min(
-      startIndex + this.itemPerPage,
-      this.filteredRows?.length
-    );
-    return this.filteredRows?.slice(startIndex, endIndex);
-  }
 
-  // Method to calculate the start record number shown on the current page
-  calculateStartRecord(): number {
-    return (this.p - 1) * this.itemPerPage + 1;
-  }
 
-  // Method to calculate the end record number shown on the current page
-  calculateEndRecord(): number {
-    return Math.min(this.p * this.itemPerPage, this.filteredRows?.length);
-  }
+ 
 }

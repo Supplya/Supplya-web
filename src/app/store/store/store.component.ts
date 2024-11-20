@@ -163,10 +163,10 @@ export class StoreComponent implements OnInit {
   }
   totalProducts: number = 0;
   currentPage: number = 1;
-  itemsPerPage: number = 20;
+  itemsPerPage: number = 100;
   getProducts() {
     this.loading = true;
-    this.productService.getAllProducts(1, 20).subscribe(
+    this.productService.getAllProducts(1, 100).subscribe(
       (data: any) => {
         this.products = data?.data;
         this.totalProducts = data.totalProducts;

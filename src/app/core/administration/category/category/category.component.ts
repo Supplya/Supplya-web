@@ -13,7 +13,6 @@ import { DashboardService } from '../../services/dashboard.service';
 })
 export class CategoryComponent implements OnInit {
   itemPerPage: number = 100;
-  p: number = 1;
   filteredRows: any;
   title = 'Categories';
   searchText: string = '';
@@ -27,20 +26,31 @@ export class CategoryComponent implements OnInit {
     this.getAllCategories();
     this.getCategoryMetrics();
   }
+
+  p: number = 1;
+  pageSize: number = 20;
+  totalCount: number = 0;
+  products: any[] = [];
+  loading: boolean = false;
+
+  onPageChange(page: number) {
+    this.p = page;
+    this.getAllCategories();
+  }
+  errorFetchingProduct: boolean = false;
   errorFetchingCategory: boolean = false;
-  categoryLoading: boolean = false;
   categories: any;
   getAllCategories() {
-    this.categoryLoading = true;
-    this.productService.getAllCategories().subscribe(
+    this.loading = true;
+    this.productService.getAllCategories(this.p, this.pageSize).subscribe(
       (data: any) => {
         this.categories = data?.data;
-        this.filteredRows = data?.data;
-        this.categoryLoading = false;
+        this.totalCount = data?.totalCount;
+        this.loading = false;
       },
       (error) => {
         this.errorFetchingCategory = true;
-        this.categoryLoading = false;
+        this.loading = false;
       }
     );
   }

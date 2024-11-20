@@ -12,11 +12,8 @@ import { DashboardService } from '../services/dashboard.service';
   styleUrls: ['./orders.component.scss'],
 })
 export class OrdersComponent implements OnInit {
-  itemsPerPage: number = 100;
-  itemPerPage: number = 100;
-  p: number = 1;
   filteredRows: any;
-  title = 'Products';
+  title = 'Orders';
   searchText: string = '';
   constructor(
     private productService: ProductService,
@@ -29,23 +26,31 @@ export class OrdersComponent implements OnInit {
     this.getVendorMetric();
   }
   errorFetchingOrders: boolean = false;
-  ordersLoading: boolean = false;
+
   allOrders;
-  mockData: any;
-  totalCount;
-  getAllOrders(page = this.p) {
-    this.ordersLoading = true;
+
+  p: number = 1;
+  pageSize: number = 20;
+  totalCount: number = 0;
+  products: any[] = [];
+  loading: boolean = false;
+  itemPerPage = 100;
+  onPageChange(page: number) {
+    this.p = page;
+    this.getAllOrders();
+  }
+  getAllOrders() {
+    this.loading = true;
     this.errorFetchingOrders = false;
-    this.productService.getAllOrdersAdmin(page).subscribe(
+    this.productService.getAllOrdersAdmin(this.p, this.pageSize).subscribe(
       (data: any) => {
         this.allOrders = data?.data;
-        this.ordersLoading = false;
+        this.loading = false;
         this.totalCount = data?.totalOrders;
-        this.p = data?.currentPage;
       },
       (error) => {
         this.errorFetchingOrders = true;
-        this.ordersLoading = false;
+        this.loading = false;
       }
     );
   }
@@ -68,17 +73,16 @@ export class OrdersComponent implements OnInit {
       (error) => {
         this.errorFetchingSummary = true;
         this.summaryLoading = false;
-        
       }
     );
   }
   applyFilter() {
-    this.summary.orders = applyGlobalSearch(this.allOrders, this.searchText, [
-      'name',
-      'moq',
-      'unit_price',
-      'unit_price',
-      'status',
+    this.filteredRows = applyGlobalSearch(this.allOrders, this.searchText, [
+      'orderId',
+      'dateOrdered',
+      'totalPrice',
+      'user.firstName',
+      'orderStatus',
       'quantity',
     ]);
     this.p = 1;
@@ -138,11 +142,16 @@ export class OrdersComponent implements OnInit {
   };
 
   selectedStatus = '';
-  statuses = ['New', 'Confirmed', 'Package', 'Shipping', 'Delivered'];
+  statuses = [
+    'New',
+    'Confirmed',
+    'Package',
+    'Shipping',
+    'Delivered',
+    'Cancelled',
+  ];
   updateOrderStatus(item, status) {
-    item.orderStatus = status;
-    console.log(item);
-    // Call your API to update status on the server.
+    item.orderStatus = status.toLowerCase();
     this.productService.UpdateOrder(item, item?._id).subscribe((result) => {
       if (result) {
         this.toast.success('Order Status Updated Successfully');

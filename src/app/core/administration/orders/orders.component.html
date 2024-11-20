@@ -60,7 +60,7 @@
 <img src="/assets/Images/pending.png" alt="">
             </div>
             <h3 class="head-count">{{summary?.totalCancelledOrders | number:'1.0-0'}}</h3>
-            <p class="head-brief">cancelled</p>
+            <p class="head-brief">Cancelled</p>
         </div>
     </div>
     
@@ -71,7 +71,7 @@
 
 
 
-<section class="content" *ngIf="ordersLoading">
+<section class="content" *ngIf="loading">
 <div class="py-5 p-5 center">
 <div>
 
@@ -82,7 +82,7 @@
 </section >
 <section class="container">
 
-      <section class="content center" *ngIf="!ordersLoading && !allOrders && errorFetchingOrders">
+      <section class="content center" *ngIf="!loading && !allOrders && errorFetchingOrders">
         <div class="py-5 ">
           <div class="py-3 text-center" >
             <img src="/assets/Images/oops.png" style="height: 200px;" alt="">
@@ -94,7 +94,7 @@
       </section>
      
      
-      <div class="orders-section mt-4"  *ngIf="!ordersLoading && allOrders?.length > 0">
+      <div class="orders-section mt-4"  *ngIf="!loading && allOrders?.length > 0">
         <div class="px-4 d-flex justify-content-between align-items-center">
             <div>
 
@@ -103,8 +103,19 @@
             </div>
             <!-- <p class="view-all">View All</p> -->
 </div>
+ <div class="row px-3">
+         <div class="col-lg-4">
+                        <input  type="text" class="form-control search-input mb-3" placeholder="Search Order" [(ngModel)]="searchText"
+                          (input)="applyFilter()" />
+                      </div>
+                       <div class="col-lg-8 text-end" *ngIf="allOrders?.length > 0">
+                    <p (click)="exportToExcel()" class="btn export">Export</p>
+                  </div>
       </div>
-      <div class="table-responsive" *ngIf="!ordersLoading && allOrders?.length > 0">
+      </div>
+      
+      
+      <div class="table-responsive" *ngIf="!loading && allOrders?.length > 0">
           <table class="table" style="overflow-y: auto;">
             <thead>
               <tr>
@@ -118,7 +129,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of allOrders | paginate: { itemsPerPage: itemsPerPage, currentPage: p, totalItems: totalCount }; let i = index">
+              <tr *ngFor="let item of allOrders | paginate: { itemsPerPage: pageSize, currentPage: p, totalItems: totalCount }; let i = index">
                 <td class="text-primary" style="font-size: 15px; font-weight: 500;">
                     {{item?.orderId}}
                 </td>
@@ -149,7 +160,7 @@
            
           </table>  
              <pagination-controls previousLabel=""
-      nextLabel="" (pageChange)="getAllOrders($event);"></pagination-controls>                    
+      nextLabel=""(pageChange)="onPageChange($event)"></pagination-controls>                    
       </div>
 <div id="statusModal" class="modal">
   <div
@@ -192,7 +203,7 @@
   </div>
 </div>
       
-       <section class="content center" *ngIf="!ordersLoading && summary?.orders?.length === 0">
+       <section class="content center" *ngIf="!loading && allOrders?.length === 0">
         <div class="py-5 ">
           <div class="py-3 text-center" >
             <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">

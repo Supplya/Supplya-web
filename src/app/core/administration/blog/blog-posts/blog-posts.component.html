@@ -52,7 +52,7 @@
 <div class="container">
   
 
-      <section class="content" *ngIf="productLoading && !filteredRows && !errorFetchingProduct">
+      <section class="content" *ngIf="productLoading && !products && !errorFetchingProduct">
 <div class="py-5 p-5 center">
     <div>
 
@@ -62,7 +62,7 @@
 </div>
       </section >
 
-      <section class="content center" *ngIf="!productLoading && !filteredRows && errorFetchingProduct">
+      <section class="content center" *ngIf="!productLoading && !products && errorFetchingProduct">
         <div class="py-5 ">
           <div class="py-3 text-center" >
             <img src="/assets/Images/oops.png" style="height: 200px;" alt="">
@@ -75,15 +75,15 @@
      
       <div class="row ">
          <div class="col-lg-4">
-                        <input *ngIf="products?.length > 0" type="text" class="form-control search-input mb-3" placeholder="Search Product" [(ngModel)]="searchText"
-                          (input)="applyFilter()" />
+                        <!-- <input *ngIf="products?.length > 0" type="text" class="form-control search-input mb-3" placeholder="Search Product" [(ngModel)]="searchText"
+                          (input)="applyFilter()" /> -->
                       </div>
-                       <div class="col-lg-8 text-end" *ngIf="filteredRows?.length > 0">
+                       <div class="col-lg-8 text-end" *ngIf="products?.length > 0">
                     <p (click)="exportToExcel()" class="btn export">Export</p>
                   </div>
       </div>
       
-      <div class="table-responsive" *ngIf="!productLoading && filteredRows?.length > 0">
+      <div class="table-responsive" *ngIf="!productLoading && products?.length > 0">
 
           <table class="table" style="overflow-y: auto;">
             <thead>
@@ -99,7 +99,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of filteredRows | paginate: { itemsPerPage: 20, currentPage: p }; let i = index">
+              <tr *ngFor="let item of products | paginate: { itemsPerPage: 20, currentPage: p }; let i = index">
                 <td>{{i + 1}}</td>
                 <td>
                   <div class="product-info" routerLink="/core/admin/edit-post/{{item?._id}}" style="cursor: pointer;">
@@ -133,13 +133,13 @@
            
           </table>
 
-          <div class="d-flex justify-content-between px-5" *ngIf="filteredRows?.length > 0">
+          <div class="d-flex justify-content-between px-5" *ngIf="products?.length > 0">
 
            
 
               <div>
-                <pagination-controls *ngIf="filteredRows?.length > 0"
-                    (pageChange)="p = $event"
+                <pagination-controls *ngIf="products?.length > 0"
+                    (pageChange)="onPageChange($event)"
                     previousLabel=""
                     nextLabel=""
                   ></pagination-controls>
@@ -149,7 +149,7 @@
       </div>
 
       
-       <section class="content center" *ngIf="filteredRows?.length === 0">
+       <section class="content center" *ngIf="products?.length === 0">
         <div class="py-5 ">
           <div class="py-3 text-center" >
             <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">
@@ -162,7 +162,7 @@
         </div>
       </section>
 
-      <section class="content center" *ngIf="filteredRows?.length === 0 && products?.length === 0">
+      <section class="content center" *ngIf="products?.length === 0 && products?.length === 0">
         <div class="py-5 ">
           <div class="py-3 text-center" >
             <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">

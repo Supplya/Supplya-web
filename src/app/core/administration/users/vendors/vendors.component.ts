@@ -12,9 +12,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./vendors.component.scss'],
 })
 export class VendorsComponent implements OnInit {
-  selectedTab: string = 'products';
-  itemPerPage: number = 100;
-  p: number = 1;
+  selectedTab: string = 'Vendors';
+  itemPerPage: number = 500;
+
   filteredRows: any;
   title = 'Products';
   searchText: string = '';
@@ -28,7 +28,6 @@ export class VendorsComponent implements OnInit {
     // this.getAllProducts();
     this.getVendorMetric();
     this.getAllUsers();
-    
   }
   errorFetchingProduct: boolean = false;
   ordersLoading: boolean = false;
@@ -58,22 +57,32 @@ export class VendorsComponent implements OnInit {
     );
   }
   vendors;
+  p: number = 1;
+  pageSize: number = 20;
+  totalCount: number = 0;
+  products: any[] = [];
+  loading: boolean = false;
+  
+  onPageChange(page: number) {
+    this.p = page;
+    this.getAllUsers();
+  }
   getAllUsers() {
-    this.ordersLoading = true;
-    this.adminService.getAllVendor().subscribe(
+    this.loading = true;
+    this.adminService.getAllVendor(this.p, this.pageSize).subscribe(
       (data: any) => {
-        this.ordersLoading = false;
+        this.loading = false;
         if (data.status === true) {
           this.vendors = data['data'];
-          // console.log(this.customers);
+          this.totalCount = data?.totalCount;
         } else {
         }
-        this.summaryLoading = false;
+        this.loading = false;
       },
       (error) => {
         this.errorFetchingSummary = true;
-        this.summaryLoading = false;
-        this.ordersLoading = false;
+        this.loading = false;
+        this.loading = false;
       }
     );
   }

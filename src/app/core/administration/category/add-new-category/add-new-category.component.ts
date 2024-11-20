@@ -51,7 +51,7 @@ export class AddNewCategoryComponent implements OnInit {
   }
 
   getAllCategories() {
-    this.productService.getAllCategories().subscribe(
+    this.productService.getAllCategories(1, 50).subscribe(
       (data: any) => {
         if (data.status) {
           this.categories = data['data'];

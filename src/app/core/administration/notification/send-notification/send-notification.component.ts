@@ -62,7 +62,7 @@ export class SendNotificationComponent implements OnInit {
     },
   ];
   getAllCategories() {
-    this.productService.getAllCategories().subscribe(
+    this.productService.getAllCategories(1, 50).subscribe(
       (data: any) => {
         if (data.status) {
           this.categories = data['data'];
@@ -203,13 +203,11 @@ export class SendNotificationComponent implements OnInit {
   submit() {
     this.submitted = true;
     const formData = this.form.value;
-    formData.image = this.images[0];
-    formData.images = this.images;
     if (this.form.valid) {
-      this.productService.addNewProduct(formData).subscribe((data) => {
+      this.productService.sendNotification(formData).subscribe((data) => {
         if (data.status) {
           this.notify.success(data.message);
-          this.route.navigate(['/core/admin/products']);
+          this.route.navigate(['/core/admin/notifications']);
         }
       });
     }

@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/authentication/service/auth.service';
 import { HelperService } from 'src/app/shared/helpers/helper.service';
 import { PasswordMatchValidator } from 'src/app/shared/helpers/password-match.validator';
 import { MediaUploadService } from 'src/app/shared/services/mediaUpload.service';
+import { environment } from 'src/assets/environment/environment';
 
 @Component({
   selector: 'app-vendor-settings',
@@ -62,13 +63,14 @@ export class VendorSettingsComponent implements OnInit {
     'Zamfara',
     'Abuja',
   ];
-
+  shopUrl;
   countries = ['Nigeria', 'Ghana'];
   userDetails;
   ngOnInit(): void {
     this.initForm();
     this.userDetails = this.authService.getUserCredentials();
     this.getUserByID();
+    
   }
   requestLoading;
   userInfo;
@@ -79,6 +81,8 @@ export class VendorSettingsComponent implements OnInit {
         this.requestLoading = false;
         if (data.status) {
           this.userInfo = data['data'];
+          this.shopUrl = `${environment.mainUrl}/#/store/${this.userInfo?.storeName}`;
+          console.log(this.shopUrl)
           this.form.patchValue(data['data']);
           // Remove the first '0' from the phone number if it exists and prepend '234'
           let phoneNumber = this.userInfo.phoneNumber;
@@ -107,7 +111,6 @@ export class VendorSettingsComponent implements OnInit {
       state: location?.state,
       country: 'Nigeria',
     });
-  
   }
   errorFetching;
   refreshUser() {
@@ -326,7 +329,6 @@ export class VendorSettingsComponent implements OnInit {
       phoneNumber: `234${phoneNumber}`,
     });
     if (this.form.valid) {
-      
       this.authService
         .updateUserById(this.userDetails?._id, this.form.value)
         .subscribe((data) => {

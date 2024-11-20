@@ -5,6 +5,7 @@ import { CustomerOrderComponent } from './customer-order/customer-order.componen
 import { CustomerWalletComponent } from './customer-wallet/customer-wallet.component';
 import { CustomerSettingsComponent } from './customer-settings/customer-settings.component';
 import { TrackOrderComponent } from './track-order/track-order.component';
+import { CustomerNotificationsComponent } from './customer-notifications/customer-notifications.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -17,6 +18,11 @@ const routes: Routes = [
     path: 'profile-settings',
     component: CustomerSettingsComponent,
     data: { title: 'Account Preference' },
+  },
+  {
+    path: 'notifications',
+    component: CustomerNotificationsComponent,
+    data: { title: 'All Notifications' },
   },
   {
     path: 'orders',

@@ -8,8 +8,8 @@
                 <p class="head-text">Total Administrators</p>
                 <img src="/assets/Images/total-sales.png" alt="">
             </div>
-            <h3 class="head-count">{{summary?.totalVendors | number:'1.0-0'}}</h3>
-            <p class="head-brief">+{{summary?.newVendorsLast7Days | number:'1.0-0'}} Last 7 days</p>
+            <h3 class="head-count">{{summary?.totalAdmins || 0 | number:'1.0-0'}}</h3>
+            <p class="head-brief">+{{summary?.newAdminsLast7Days || 0 | number:'1.0-0'}} Last 7 days</p>
         </div>
     </div>
     <div class="col-lg-3">
@@ -18,8 +18,8 @@
                 <p class="head-text">New Administrators</p>
 <img src="/assets/Images/orders.png" alt="">
             </div>
-            <h3 class="head-count">{{summary?.newVendorsToday | number:'1.0-0'}}</h3>
-            <p class="head-brief">+{{summary?.newVendorsToday | number:'1.0-0'}} Today</p>
+            <h3 class="head-count">{{summary?.newVendorsToday || 0 | number:'1.0-0'}}</h3>
+            <p class="head-brief">+{{summary?.newAdminsToday || 0 | number:'1.0-0'}} Today</p>
         </div>
     </div>
     <div class="col-lg-3">
@@ -28,7 +28,7 @@
                 <p class="head-text">Active Administrators</p>
                 <img src="/assets/Images/stocks.png" alt="">
             </div>
-            <h3 class="head-count">{{summary?.activeVendors | number:'1.0-0'}}</h3>
+            <h3 class="head-count">{{summary?.activeAdmins || 0 | number:'1.0-0'}}</h3>
             <p class="head-brief">in the last 90 days</p>
         </div>
     </div>
@@ -38,7 +38,7 @@
                 <p class="head-text">Inactive Administrators</p>
 <img src="/assets/Images/pending.png" alt="">
             </div>
-            <h3 class="head-count">{{summary?.inactiveVendors | number:'1.0-0'}}</h3>
+            <h3 class="head-count">{{summary?.inactiveAdmins || 0 | number:'1.0-0'}}</h3>
             <p class="head-brief">in the last 90 days</p>
         </div>
     </div>
@@ -61,19 +61,19 @@
 </div>
       </section >
 
-      <section class="content center" *ngIf="!summaryLoading && !summary && errorFetchingProduct">
+      <section class="content center" *ngIf="!loading && !admins && errorLoading">
         <div class="py-5 ">
           <div class="py-3 text-center" >
             <img src="/assets/Images/oops.png" style="height: 200px;" alt="">
-            <p class="loading-text  text-muted py-3">Could not display products. Click 'Refresh' to try again.
+            <p class="loading-text  text-muted py-3">Could not display stats. Click 'Refresh' to try again.
         </p>
-            <p class="refresh" >Refresh <i class="bi bi-arrow-repeat"></i></p>
+            <p class="refresh" (click)="getAllUsers()">Refresh <i class="bi bi-arrow-repeat"></i></p>
           </div>
         </div>
       </section>
      
      
-      <div class="orders-section mt-4"  *ngIf="!summaryLoading && this.admins?.length > 0">
+      <div class="orders-section mt-4"  *ngIf="!loading && this.admins?.length > 0">
         <div class="px-4 d-flex justify-content-between align-items-center">
             <div class="py-2">
                 <p class="head-count mb-0 mt-2" style="font-size: 20px;">Administrators</p>
@@ -81,28 +81,28 @@
             <!-- <p class="view-all">View All</p> -->
 </div>
       </div>
-      <div class="table-responsive" *ngIf="!summaryLoading && this.admins?.length > 0">
+      <div class="table-responsive" *ngIf="!loading && this.admins?.length > 0">
           <table class="table" style="overflow-y: auto;">
             <thead>
               <tr>
                 <th> ID</th>
                 <th>Name</th>
-                <th>Orders</th>
-                <th>Total Spent</th>
+                <!-- <th>Orders</th>
+                <th>Total Spent</th> -->
                 <th>Reg. Date</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of admins | paginate: { itemsPerPage: itemPerPage, currentPage: p }; let i = index">
+              <tr *ngFor="let item of admins| paginate: { itemsPerPage: pageSize, currentPage: p, totalItems: totalCount }; let i = index">
                 <td class="text-primary" style="font-size: 15px; font-weight: 500;">
                     {{item?._id}}
                 </td>
                
                 <td>{{item?.firstName}} {{item?.lastName}}</td>
-                <td>{{ 20 | number:'1.0-0'}}</td>
-                <td>{{item?.totalPrice || 0 | currency:'₦':true:'1.0-0'}}</td>
+                <!-- <td>{{ 20 | number:'1.0-0'}}</td> -->
+                <!-- <td>{{item?.totalPrice || 0 | currency:'₦':true:'1.0-0'}}</td> -->
                  <td>{{ item?.createdAt | date: 'MMM d, y hh:mm a' }}</td>
                <td >
                <small [ngClass]="{'cancelled': item?.blocked, 'completed': !item?.blocked}">
@@ -127,11 +127,13 @@
               </tr>
             </tbody>
            
-          </table>          
+          </table> 
+          <pagination-controls previousLabel=""
+      nextLabel=""(pageChange)="onPageChange($event)"></pagination-controls>                   
       </div>
 
       
-       <section class="content center" *ngIf="!summaryLoading && this.admins?.length === 0">
+       <section class="content center" *ngIf="!loading && this.admins?.length === 0">
         <div class="py-5 ">
           <div class="py-3 text-center" >
             <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">
@@ -143,6 +145,16 @@
           </div>
         </div>
       </section>
+
+      <section class="content" *ngIf="loading">
+<div class="py-5 p-5 center">
+<div>
+
+<img src="/assets/Images/requestLoading.gif" alt="">
+<p class="loading-text text-center text-muted">Loading...</p>
+</div>
+</div>
+</section >
 
 </section>
 

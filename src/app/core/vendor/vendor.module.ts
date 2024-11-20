@@ -12,6 +12,7 @@ import { VendorSettingsComponent } from './vendor-settings/vendor-settings.compo
 import { SharedModule } from 'src/app/shared/shared.module';
 import { VendorEditProductComponent } from './vendor-edit-product/vendor-edit-product.component';
 import { VendorWithdrawalComponent } from './vendor-withdrawal/vendor-withdrawal.component';
+import { VendorNotificationComponent } from './vendor-notification/vendor-notification.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { VendorWithdrawalComponent } from './vendor-withdrawal/vendor-withdrawal
     VendorReportComponent,
     VendorSettingsComponent,
     VendorEditProductComponent,
-    VendorWithdrawalComponent
+    VendorWithdrawalComponent,
+    VendorNotificationComponent
   ],
   imports: [
     CommonModule,

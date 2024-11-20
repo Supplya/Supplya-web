@@ -3,6 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { DashboardService } from '../../services/dashboard.service';
 import { applyGlobalSearch } from 'src/app/shared/helpers/global-table-search';
 import { ExportService } from '../../services/export.service';
+import Swal from 'sweetalert2';
+import { ToastyService } from 'ng-toasty';
+import { ProductService } from 'src/app/core/operation/services/product/product.service';
 
 @Component({
   selector: 'app-view-vendors',
@@ -17,7 +20,9 @@ export class ViewVendorsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private adminService: DashboardService,
-    private exportService: ExportService
+    private exportService: ExportService,
+    private toast: ToastyService,
+    private productService: ProductService
   ) {}
   ngOnInit(): void {
     this.userId = this.route.snapshot.paramMap.get('id');
@@ -55,6 +60,42 @@ export class ViewVendorsComponent implements OnInit {
         this.productsLoading = false;
       }
     );
+  }
+  deleteProduct(product: any) {
+    Swal.fire({
+      html: `<span style="color: #000; font-weight: 600; font-size: 19px;">Are you sure you want to delete this product "<span style="color: var(--primary-color);">${product.name}</span>"?</span>`,
+      icon: 'warning',
+      showCancelButton: true,
+      allowOutsideClick: false,
+      confirmButtonText: 'Yes, delete',
+      cancelButtonText: 'No',
+      showClass: {
+        popup: `
+                  animate__animated
+                  animate__fadeInDown
+                  animate__faster
+                `,
+      },
+      hideClass: {
+        popup: `
+                  animate__animated
+                  animate__fadeOutDown
+                  animate__faster
+                `,
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.delete(product._id);
+      }
+    });
+  }
+  delete(id: string) {
+    this.productService.deleteProduct(id).subscribe((result) => {
+      if (result) {
+        this.toast.success('Product deleted successfully');
+        this.getProducts();
+      }
+    });
   }
   errorFetchingUser = false;
   userLoading = false;

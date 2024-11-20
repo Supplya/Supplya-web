@@ -12,10 +12,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./customers.component.scss'],
 })
 export class CustomersComponent implements OnInit {
-  itemPerPage: number = 100;
-  p: number = 1;
-  filteredRows: any;
-  title = 'Products';
+  title = 'Customers';
   searchText: string = '';
   constructor(
     private productService: ProductService,
@@ -32,12 +29,22 @@ export class CustomersComponent implements OnInit {
   ordersLoading: boolean = false;
   allOrders: any;
   mockData: any;
+
+  p: number = 1;
+  pageSize: number = 20;
+  totalCount: number = 0;
+  products: any[] = [];
+  loading: boolean = false;
+  itemPerPage = 100;
+  onPageChange(page: number) {
+    this.p = page;
+    this.getAllUsers();
+  }
   getAllProducts() {
     this.ordersLoading = true;
     this.productService.getAllOrders().subscribe(
       (data: any) => {
         this.allOrders = data?.data;
-        this.filteredRows = data?.data;
         this.ordersLoading = false;
       },
       (error) => {
@@ -68,22 +75,23 @@ export class CustomersComponent implements OnInit {
       }
     );
   }
-  customers
+  customers;
   getAllUsers() {
-    this.ordersLoading = true;
-    this.adminService.getAllCustomers().subscribe(
+    this.loading = true;
+    this.adminService.getAllCustomers(this.p, this.pageSize).subscribe(
       (data: any) => {
-        this.ordersLoading = false;
+        this.loading = false;
         if (data.status) {
           this.customers = data.data;
+          this.totalCount = data?.totalCount;
         } else {
         }
-        this.summaryLoading = false;
+        this.loading = false;
       },
       (error) => {
         this.errorFetchingSummary = true;
-        this.summaryLoading = false;
-        this.ordersLoading = false;
+        this.loading = false;
+        this.loading = false;
       }
     );
   }
@@ -156,28 +164,22 @@ export class CustomersComponent implements OnInit {
     });
   }
   delete(id: string) {
-    this.productService.deleteOrder(id).subscribe((result) => {
-      if (result) {
+    this.productService.deleteUser(id).subscribe((result) => {
+      if (result.status) {
         this.toast.success('Customer deleted successfully');
         this.getVendorMetric();
+        this.getAllUsers();
       }
     });
   }
   exportToExcel() {
-    this.exportService.exportToExcel(this.filteredRows, this.title);
+    this.exportService.exportToExcel(this.customers, this.title);
   }
   refreshProducts() {
     this.errorFetchingProduct = false;
     this.getAllProducts();
   }
-  get productsToShow(): any[] {
-    const startIndex = (this.p - 1) * this.itemPerPage;
-    const endIndex = Math.min(
-      startIndex + this.itemPerPage,
-      this.filteredRows?.length
-    );
-    return this.filteredRows?.slice(startIndex, endIndex);
-  }
+
   selectedOrder: any;
   toggleModal = (modalId, action: string, data?: any) => {
     if (action == 'open') {

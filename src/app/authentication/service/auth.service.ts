@@ -196,12 +196,24 @@ export class AuthService {
   sendEmailForOTP(data: any) {
     localStorage.setItem('spa-OTPEmail', data);
   }
+  sendPhoneForOTP(data: any) {
+    localStorage.setItem('spa-OTPPhone', data);
+  }
 
   getEmailForOTP(): any {
     const email = localStorage.getItem('spa-OTPEmail');
     return email;
   }
-
+  getPhoneForOTP(): any {
+    const phone = localStorage.getItem('spa-OTPPhone');
+    return phone;
+  }
+  clearEmailOTP() {
+    localStorage.removeItem('spa-OTPEmail');
+}
+  clearPhoneOTP() {
+    localStorage.removeItem('spa-OTPPhone');
+}
   getUserCredentials(): any {
     const userDataString = localStorage.getItem('spa-userData');
     if (userDataString != null) {
@@ -219,6 +231,7 @@ export class AuthService {
     localStorage.removeItem('spa-userData');
     localStorage.removeItem('spa-userToken');
     localStorage.removeItem('spa-OTPEmail');
+    localStorage.removeItem('spa-OTPPhone');
     this.loggedIn.next(false);
     this.userType.next('');
     this.userCredentials.next(null);

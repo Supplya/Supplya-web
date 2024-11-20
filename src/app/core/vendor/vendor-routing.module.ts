@@ -9,6 +9,7 @@ import { VendorProductsComponent } from './vendor-products/vendor-products.compo
 import { VendorAddNewProductComponent } from './vendor-add-new-product/vendor-add-new-product.component';
 import { VendorEditProductComponent } from './vendor-edit-product/vendor-edit-product.component';
 import { VendorWithdrawalComponent } from './vendor-withdrawal/vendor-withdrawal.component';
+import { VendorNotificationComponent } from './vendor-notification/vendor-notification.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -21,6 +22,11 @@ const routes: Routes = [
     path: 'orders',
     component: VendorOrdersComponent,
     data: { title: 'Orders' },
+  },
+  {
+    path: 'notifications',
+    component: VendorNotificationComponent,
+    data: { title: 'All Notifications' },
   },
   {
     path: 'wallet',

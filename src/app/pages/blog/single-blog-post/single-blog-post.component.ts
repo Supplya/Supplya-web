@@ -68,7 +68,7 @@ export class SingleBlogPostComponent {
   getRecentPosts() {
     this.allError = false;
     this.allLoading = true;
-    this.productService.getAllPosts().subscribe(
+    this.productService.getAllPosts(1, 10).subscribe(
       (data: any) => {
         this.recentPosts = data?.data?.slice(0, 7);
         this.allLoading = false;

@@ -173,8 +173,6 @@
                 <th>Order ID</th>
                 <th>Date & Time</th>
                 <th>Price</th>
-                <th>Earnings</th>
-                <th>Customer</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -186,8 +184,8 @@
                 </td>
                 <td>{{ item?.dateOrdered | date: 'MMM d, y hh:mm a' }}</td>
                 <td>{{item?.totalPrice || 0 | currency:'₦':true:'1.0-0'}}</td>
-                <td>{{ (item?.totalPrice - (item?.totalPrice * 0.01)) | currency:'₦':true:'1.0-0' }}</td>
-                <td>{{item?.user?.firstName}} {{item?.user?.lastName}}</td>
+                <!-- <td>{{ (item?.totalPrice - (item?.totalPrice * 0.01)) | currency:'₦':true:'1.0-0' }}</td>
+                <td>{{item?.user?.firstName}} {{item?.user?.lastName}}</td> -->
                <td >
                 <small [ngClass]="{'completed': item?.orderStatus ===  'received' || 'completed', 'new': item?.orderStatus === 'new',
                  'pending': item?.orderStatus === 'pending', 'cancelled': item?.orderStatus === 'cancelled'}">

@@ -92,7 +92,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   getAllCategories() {
     this.loading = true;
 
-    this.productService.getAllCategories().subscribe(
+    this.productService.getAllCategories(1,50).subscribe(
       (data: any) => {
         if (data.status) {
           this.categories = data?.data;

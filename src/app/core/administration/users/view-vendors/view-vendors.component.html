@@ -113,7 +113,7 @@
   <!-- Tab Navigation -->
   <div class="tab-navigation">
     <button (click)="selectedTab = 'products'; getProducts()" [ngClass]="{ 'active-tab': selectedTab === 'products' }">Products ({{products?.length}})</button>
-    <button (click)="selectedTab = 'orders'; getOrders()" [ngClass]="{ 'active-tab': selectedTab === 'orders' }">Orders  ({{orders?.length}})</button>
+    <button (click)="selectedTab = 'orders'; getOrders()" [ngClass]="{ 'active-tab': selectedTab === 'orders' }">Orders <span *ngIf="orders?.length">({{orders?.length}})</span> </button>
   </div>
 
   <div [ngSwitch]="selectedTab">
@@ -188,7 +188,7 @@
               <!-- <a (click)="toggleModal('vendorModal', 'open')" class="dropdown-item" style="cursor: pointer;"><img class="border-right p-2 mr-2" src="/assets/img/edit.png" alt=""> View Vendor</a> -->
               <a class="dropdown-item border-bottom" routerLink="/core/admin/edit-product/{{item?._id}}" style="cursor: pointer;">Edit Product</a>
               <!-- <a class="dropdown-item border-bottom" (click)="toggleModal('apartmentModal', 'open', item)" style="cursor: pointer;">View Vendor</a> -->
-              <!-- <a class="dropdown-item border-bottom text-danger" (click)="deleteProduct(item)" style="cursor: pointer;">Delete Product</a> -->
+              <a class="dropdown-item border-bottom text-danger" (click)="deleteProduct(item)" style="cursor: pointer;">Delete Product</a>
             </div>
           </div>
                 </td>
@@ -288,7 +288,7 @@
       </div>
 
       
-       <section class="content center" *ngIf="!ordersLoading && orders?.length === 0">
+       <section class="content center" *ngIf="!ordersLoading && !orders?.length">
         <div class="py-3 ">
           <div class="py-3 text-center" >
             <img class="mt-3" src="/assets/Images/product-cat.png" style="height: 100px;" alt="">

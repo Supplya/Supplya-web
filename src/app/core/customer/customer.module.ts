@@ -8,6 +8,7 @@ import { CustomerOrderComponent } from './customer-order/customer-order.componen
 import { CustomerWalletComponent } from './customer-wallet/customer-wallet.component';
 import { TrackOrderComponent } from './track-order/track-order.component';
 import { CustomerSettingsComponent } from './customer-settings/customer-settings.component';
+import { CustomerNotificationsComponent } from './customer-notifications/customer-notifications.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { CustomerSettingsComponent } from './customer-settings/customer-settings
     CustomerOrderComponent,
     CustomerWalletComponent,
     TrackOrderComponent,
-    CustomerSettingsComponent
+    CustomerSettingsComponent,
+    CustomerNotificationsComponent
   ],
   imports: [
     CommonModule,

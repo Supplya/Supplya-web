@@ -78,7 +78,7 @@ this.form.patchValue(details.data);
     });
   }
   getAllCategories() {
-    this.productService.getAllCategories().subscribe(
+    this.productService.getAllCategories(1, 30).subscribe(
       (data: any) => {
         if (data.status) {
           this.categories = data['data'];

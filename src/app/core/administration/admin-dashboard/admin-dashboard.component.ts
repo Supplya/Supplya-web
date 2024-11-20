@@ -28,6 +28,7 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
   }
   ngOnInit(): void {
     this.getDashboardMetric();
+    this.getCharts();
 
     this.userInfo = this.authService.getUserCredentials();
 
@@ -52,6 +53,14 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
       document.getElementById(modalId).style.display = 'none';
     }
   };
+
+  getCharts() {
+    this.adminService.getDashboardCharts().subscribe(charts => {
+      // console.log(charts)
+     })
+}
+
+
   summary;
   statsLoading;
   errorFetchingSummary: boolean = false;

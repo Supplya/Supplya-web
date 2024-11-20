@@ -149,6 +149,12 @@ export const menuItems = {
       hasChild: false,
       icon: 'file-earmark-text',
     },
+    {
+      name: 'Notifications',
+      route: '/core/customer/notifications',
+      hasChild: false,
+      icon: 'journal-text',
+    },
 
     // {
     //   name: 'Preference',
@@ -202,6 +208,12 @@ export const menuItems = {
     //   hasChild: false,
     //   icon: "file-text",
     // },
+    {
+      name: 'Notifications',
+      route: '/core/vendor/notifications',
+      hasChild: false,
+      icon: 'journal-text',
+    },
     {
       name: 'Settings',
       route: '/core/vendor/shop-settings',
