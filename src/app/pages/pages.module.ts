@@ -11,6 +11,7 @@ import { RefundPolicyComponent } from './refund-policy/refund-policy.component';
 import { BlogComponent } from './blog/blog.component';
 import { SingleBlogPostComponent } from './blog/single-blog-post/single-blog-post.component';
 import { OtherProductTypesComponent } from './other-product-types/other-product-types.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { OtherProductTypesComponent } from './other-product-types/other-product-
     RefundPolicyComponent,
     BlogComponent,
     SingleBlogPostComponent,
-    OtherProductTypesComponent
+    OtherProductTypesComponent,
+    LandingPageComponent
   ],
   imports: [
     CommonModule,

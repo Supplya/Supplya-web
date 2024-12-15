@@ -1,0 +1,245 @@
+
+<div class="hero-section">
+ <!-- Announcement Bar -->
+<div class="announcement-bar text-center bg-info text-white py-1">
+  Supplya partners with CashAfrica to distribute 1,000 Free POS Machines. Read our blog!
+</div>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-transparent mt-3">
+  <div class="container ">
+    <!-- <a class="navbar-brand text-white" href="#">Supplya</a> -->
+      <a class="navbar-brand" href="#"> 
+            <img src="/assets/Images/Color=White.png" alt="..."> 
+        </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+      <ul class="navbar-nav gap-3">
+        <li class="nav-item" routerLink="/">
+          <a class="nav-link text-white" href="#">Home</a>
+        </li>
+        <li class="nav-item" (click)="about()">
+          <a class="nav-link text-white">About</a>
+        </li>
+        <li class="nav-item" (click)="shop()">
+          <a class="nav-link text-white">Shop</a>
+        </li>
+        <li class="nav-item" (click)="contact()">
+          <a class="nav-link text-white">Contact</a>
+        </li>
+        <li class="nav-item" (click)="blog()">
+          <a class="nav-link text-white">Blog</a>
+        </li>
+        <!-- Sign In and Join buttons inside the navbar on mobile -->
+        <li class="nav-item">
+          <button class="btn sign" (click)="login()">Sign In</button>
+        </li>
+        <li class="nav-item">
+          <button class="btn join" (click)="signUp()">Join Now</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+  <!-- Hero Content -->
+  <div class="container hero-content text-center text-white">
+    <div class="new-feature-tag mb-4">
+      <span class="">New feature</span>
+      Supplya store
+    </div>
+    <h1 class="display-4 fw-bold">Source smarter, Sell better</h1>
+    <p class="lead">
+      Supplya is an award-winning B2B Marketplace that helps retailers source <br>
+      from distributors seamlessly, so everyone gets to sell better. <br> We're on a
+      mission to digitise the supply chain for every stakeholder.
+    </p>
+    <div class="d-flex justify-content-center gap-3 mt-5">
+      <button class="btn sign px-4 " style="color: #000;" (click)="shop()"> <img src="/assets/Images/shop-icon.png" alt=""> Visit Shop</button>
+      <button class="btn join px-4" (click)="signUp()">Get Started</button>
+    </div>
+  </div>
+</div>
+<section class="free-section py-3">
+  <div class="container py-5">
+    <!-- Text Section -->
+    <div class="row align-items-center mb-5 mt-3">
+      <div class="col-lg-6">
+        <h4>
+          Interest-Free, Buy Now Pay Later for small businesses.
+        </h4>
+      </div>
+      <div class="col-lg-6">
+        <p>
+          We use first-party transactional data from our marketplace to determine
+          creditworthiness and democratize access to capital for SMEs.
+        </p>
+        <small>*Starts with a 7-day interest-free repayment.</small>
+      </div>
+    </div>
+
+    <!-- Image with Counters Section -->
+     <section class="d-none d-lg-block">
+
+       <div
+         class="counter-section mb-3"
+         
+       >
+         <!-- Counters Section -->
+         <div
+           class="row text-center text-white position-absolute w-100 ms-auto"
+           style="bottom: 0; background-color: rgba(0, 0, 0, 0.6);"
+         >
+           <div class="col-lg-3 py-3">
+             <h3 class="display-5">
+               {{ productCount }}+
+             </h3>
+             <p>Products to choose from</p>
+           </div>
+           <div class="col-lg-3 py-3">
+             <h3 class="display-5">
+               {{ vendorCount }}+
+             </h3>
+             <p>Vendors onboard</p>
+           </div>
+           <div class="col-lg-3 py-3">
+             <h3 class="display-5">
+               {{ retailerCount }}+
+             </h3>
+             <p>Happy Retailers</p>
+           </div>
+           <div class="col-lg-3 py-3">
+             <h3 class="display-5">
+               {{ manufacturerCount }}
+             </h3>
+             <p>FMCG Manufacturers</p>
+           </div>
+         </div>
+       </div>
+     </section>
+  </div>
+</section>
+
+<div class="business-success-container py-5">
+  <h1 class="mt-4">Your Business success starts here</h1>
+  <p class="subheading">Leverage the Suppla advantage to grow your business.</p>
+
+  <div class="cards-container">
+    <div class="card">
+      <p>Discover a vast selection of high-quality products from across Nigeria's leading distributors. Find everything you need to stock your store and satisfy your customers.</p>
+      <img src="/assets/Images/background.png" alt="Card 1 image" class="card-image" />
+    </div>
+    
+    <div class="card">
+      <p>Our AI-powered credit scoring API leverages rich marketplace data to accurately assess borrower risk and empower confident lending decisions.</p>
+      <img src="/assets/Images/background.png" alt="Card 2 image" class="card-image" />
+    </div>
+    
+    <div class="card">
+      <p>E-commerce Management as a Service (eMaaS): make your business future-proof by leveraging our services to build and manage your own e-commerce infrastructure.</p>
+      <img src="/assets/Images/background.png" alt="Card 3 image" class="card-image" />
+    </div>
+  </div>
+
+  <button class="btn btn-primary" (click)="signUp()">Get Started</button>
+</div>
+
+<section class="py-5 container biz">
+ <div class="row py-3" style=" align-items: center;">
+  <!-- Left Column with Background Image -->
+  <div class="col-lg-6 mb-2">
+    <div class="" style="background: url('/assets/Images/background.png');height: 300px; border-radius: 8px; background-size: cover; background-position: center;">
+  </div>
+  </div>
+
+  <!-- Right Column with Text -->
+  <div class="col-lg-6">
+    <h5>For Vendors: Sell Smarter and Faster</h5>
+    <p>Expand your reach and connect with a wider audience of potential retailers across Nigeria. Gain access to a network of pre-qualified buyers actively seeking your products. No commissions, no hidden charges.</p>
+    <small (click)="signUp()">Let's get you started  <i class="bi bi-arrow-right"></i>
+</small>
+  </div>
+</div>
+
+</section>
+
+<section class="py-5 container biz">
+ <div class="row py-3" style=" align-items: center;">
+ 
+
+  <!-- Right Column with Text -->
+  <div class="col-lg-6 mb-2">
+    <h5>For Retailers: Access BNPL and a wide product range</h5>
+    <p>Supplya connects you with a network of trusted distributors, streamlining your experience. Find everything you need to grow your business, from trusted vendors to inventory-financing and more.</p>
+    <small (click)="signUp()">Create an account  <i class="bi bi-arrow-right"></i>
+</small>
+  </div>
+   <!-- Left Column with Background Image -->
+  <div class="col-lg-6">
+    <div class="" style="background: url('/assets/Images/background.png'); height: 300px; border-radius: 8px; background-size: cover; background-position: center;">
+  </div>
+  </div>
+</div>
+
+</section>
+
+
+<section class="py-5 container biz">
+ <div class="row py-3" style="align-items: center;">
+  <!-- Left Column with Background Image -->
+  <div class="col-lg-6 mb-3">
+    <div class="" style="background: url('/assets/Images/background.png');height: 300px; border-radius: 8px; background-size: cover; background-position: center;">
+  </div>
+  </div>
+
+  <!-- Right Column with Text -->
+  <div class="col-lg-6">
+    <h5>For Enterprise: Scale faster with E-commerce</h5>
+    <p>Build and manage your e-commerce infrastructure, make better lending decisions with real time transactional data, or empower your distributors to sell more and earn more faster. </p>
+    <small (click)="contact()">Talk to our Sales Team  <i class="bi bi-arrow-right"></i>
+</small>
+  </div>
+</div>
+
+</section>
+
+
+<div class="business-success-container py-5">
+  <h1 class="mt-4">Trusted and Backed by:</h1>
+<div class="partners-section">
+  <div class="partners-wrapper">
+    <img *ngFor="let logo of partnerLogos" [src]="logo" alt="Partner Logo" class="partner-logo">
+    <!-- Duplicate the logos here -->
+    <img *ngFor="let logo of partnerLogos" [src]="logo" alt="Partner Logo" class="partner-logo">
+  </div>
+</div>
+
+
+
+
+</div>
+
+<section  style="background: #F5F7FA; width: 100%;">
+
+  <div class="business-success-container py-5 p-4">
+    <h1 class="mt-4 mb-2">Join Supplya today. <br>
+  Empower your Business for the future of retail!</h1>
+   
+  
+    <button class="btn btn-primary mb-5 mt-3" (click)="signUp()">Join Us Today</button>
+  </div>
+</section>
+
+<app-footer></app-footer>

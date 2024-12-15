@@ -9,10 +9,12 @@ import { RefundPolicyComponent } from './refund-policy/refund-policy.component';
 import { BlogComponent } from './blog/blog.component';
 import { SingleBlogPostComponent } from './blog/single-blog-post/single-blog-post.component';
 import { OtherProductTypesComponent } from './other-product-types/other-product-types.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
-  {path: 'home', component: HomeComponent},
+  {path: 'home', component: LandingPageComponent},
+  {path: 'shop', component: HomeComponent},
   {path: 'about-us', component: AboutComponent},
   {path: 'contact-us', component: ContactComponent},
   {path: 'faq', component: FaqComponent},
