@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastyService } from 'ng-toasty';
 import { AppComponent } from 'src/app/app.component';
+import { AuthService } from 'src/app/authentication/service/auth.service';
 import { CartService } from 'src/app/core/operation/services/cart/cart.service';
 import { ProductService } from 'src/app/core/operation/services/product/product.service';
 import { LoaderComponent } from 'src/app/shared/loader/loader.component';
@@ -24,7 +25,7 @@ export class HomeComponent implements OnInit {
     private productService: ProductService,
     private loaderService: LoaderService,
     private cartService: CartService,
-    private route: Router,
+    private route: Router, private authService: AuthService,
     private notify: ToastyService
   ) {
     loaderService.hideLoader();
@@ -68,7 +69,9 @@ export class HomeComponent implements OnInit {
     },
     { name: 'Oil', displayName: 'Oil', imgSrc: '/assets/Images/Oil.png' },
   ];
+  userDetails
   ngOnInit(): void {
+    this.userDetails = this.authService.getUserCredentials();
     this.getAllProducts();
     this.getAllCategories();
     this.getAllNewArrivals();

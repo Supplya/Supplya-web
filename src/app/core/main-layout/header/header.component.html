@@ -23,7 +23,7 @@
       <!-- Notification Icon -->
       <div class="notification-container cursor-pointer" routerLink="/core/{{userDetails?.role}}/notifications">
         <i class="bi bi-bell-fill notification-icon" style="font-size: 25px!important"></i>
-        <div class="notification-count">0</div>
+        <div class="notification-count">{{notificationCount  || 0}}</div>
       </div>
 
       <!-- User Profile Picture -->

@@ -34,6 +34,12 @@ export class DashboardService {
   getDashboardCharts(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/admin/dashboard/product`);
   }
+  getDashboardStats(year: any): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/admin/dashboard/signups?year=${year}`);
+  }
+  getSales(year: any, month: any): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/admin/dashboard/sales?year=${year}&month=${month}`);
+  }
   getProductMetric(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/admin/dashboard/product`);
   }

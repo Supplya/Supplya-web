@@ -185,6 +185,9 @@
                  <small class="error-text mb-4" *ngIf="isInvalid('discounted_price')">
                                             {{ getErrorMessage('discounted_price', 'This field is required') }}
                                           </small>
+          <small class="error-text mb-4" *ngIf="form.get('discounted_price')?.errors">
+        {{ getDiscountPriceError() }}
+      </small>
         </div>
     </div>
 </section>

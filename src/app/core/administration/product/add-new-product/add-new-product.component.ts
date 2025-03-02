@@ -36,6 +36,9 @@ export class AddNewProductComponent implements OnInit {
     this.getAllCategories();
     this.initForm();
     this.getAllUsers();
+
+    this.form.get('unit_price')?.valueChanges.subscribe(() => this.validateDiscountPrice());
+    this.form.get('discounted_price')?.valueChanges.subscribe(() => this.validateDiscountPrice());
   }
 
   initForm() {
@@ -274,12 +277,35 @@ export class AddNewProductComponent implements OnInit {
   getErrorMessage(control: string, message: string) {
     return this.helperService.getError(this.form.get(control), message);
   }
+
+  validateDiscountPrice() {
+    const unitPrice = this.form.get('unit_price')?.value;
+    const discountedPrice = this.form.get('discounted_price')?.value;
+
+    if (discountedPrice > unitPrice) {
+      this.form.get('discounted_price')?.setErrors({ invalidDiscount: true });
+    } else {
+      this.form.get('discounted_price')?.setErrors(null);
+    }
+  }
+
+
   isInvalid(control: string) {
     return (
       (this.form.get(control)?.touched && this.form.get(control)?.invalid) ||
       (this.submitted && this.form.get(control)?.invalid)
     );
   }
+  getDiscountPriceError() {
+    const control = this.form.get('discounted_price');
+    if (control?.hasError('required')) {
+      return 'This field is required';
+    } else if (control?.hasError('invalidDiscount')) {
+      return 'Discounted price cannot be greater than unit price';
+    }
+    return '';
+  }
+
   resetForm() {
     this.form.reset();
     this.submitted = false;

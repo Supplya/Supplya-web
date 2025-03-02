@@ -18,6 +18,7 @@ import { AuthInterceptor } from './shared/Interceptors/auth.interceptor';
 import { TitleService } from './shared/services/title.service';
 import { OnlineStatusModule } from 'ngx-online-status';
 import { CloudinaryModule } from '@cloudinary/ng';
+// import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [AppComponent, NotFoundPageComponent, LoaderComponent],
@@ -25,6 +26,10 @@ import { CloudinaryModule } from '@cloudinary/ng';
     BrowserModule,
     AppRoutingModule,
     SharedModule,
+    // RouterModule.forRoot(routes, {
+    //   useHash: false,
+    //   scrollPositionRestoration: "enabled",
+    // }),
     BrowserAnimationsModule,
     OnlineStatusModule,
     CloudinaryModule,

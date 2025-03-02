@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/authentication/service/auth.service';
 import Swal from 'sweetalert2';
+import { NotificationService } from '../../administration/services/notification.service';
 
 @Component({
   selector: 'app-header',
@@ -17,13 +18,14 @@ export class HeaderComponent implements OnInit {
   constructor(
     private datePipe: DatePipe,
     private authService: AuthService,
-    private route: Router
+    private route: Router,  private notificationService: NotificationService,
   ) {
     this.formattedDate = this.formatDate(this.todayDate);
   }
   ngOnInit(): void {
     this.userDetails = this.authService.getUserCredentials();
     // console.log(this.userDetails, 'userDetails');
+    this.getNotifications();
   }
   capitalizeFirstLetter(value: string): string {
     if (!value) return '';
@@ -86,4 +88,19 @@ export class HeaderComponent implements OnInit {
       ]);
     }
   }
+notificationCount
+
+  getNotifications = () => {
+    
+    this.notificationService.getNotifications(1, 100).subscribe(
+      (res) => {
+
+        this.notificationCount = res?.totalCount;
+
+      },
+      (err) => {
+
+      }
+    );
+  };
 }

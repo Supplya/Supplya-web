@@ -15,7 +15,7 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
   @ViewChild('myLineChart') myLineChart: ElementRef;
   lineChart: Chart;
   salesLineChart: Chart;
-  selectedYear: number;
+  selectedYear: number = 0;
   selectedMonth: string; // Selected month value
   years: number[] = [];
   months: { label: string; value: string }[] = [];
@@ -29,6 +29,12 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.getDashboardMetric();
     this.getCharts();
+    this.initializeYears();
+    if (this.selectedYear) {
+      
+      this.getDashboardStats();
+    }
+    this.getDashboardStatsTotalSales();
 
     this.userInfo = this.authService.getUserCredentials();
 
@@ -58,9 +64,24 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
     this.adminService.getDashboardCharts().subscribe(charts => {
       // console.log(charts)
      })
-}
+  }
+  
+  signUpStats
+ 
+  totalSalesAmount
+  // getDashboardStatsTotalSales(year = new Date().getFullYear(), month = (new Date().getMonth() + 1).toString().padStart(2, '0')) {
+  //   this.adminService.getSales(year, month).subscribe((response: any) => {
+  //     if (response.status) {
+  //       this.totalSalesAmount = response.data.totalSalesAmount; // Store actual sales amount
+  //       this.updateSalesChartData(); // Update the chart with new data
+  //     }
+  //   }, error => {
+  //     console.error('Error fetching sales data:', error);
+  //   });
+  // }
 
 
+  
   summary;
   statsLoading;
   errorFetchingSummary: boolean = false;
@@ -101,8 +122,8 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
     this.getDashboardMetric();
   }
   ngAfterViewInit(): void {
-    this.createLineChart();
-    this.initializeYears();
+   
+    
 
     this.initializeMonths();
     this.createSalesLineChart();
@@ -129,19 +150,113 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
     this.selectedMonth = monthsList[currentMonth].value; // Set default selected month to current month
   }
 
+  // createSalesLineChart(): void {
+  //   const ctx = (
+  //     this.mySalesLineChart.nativeElement as HTMLCanvasElement
+  //   ).getContext('2d');
+
+  //   if (ctx) {
+  //     this.salesLineChart = new Chart(ctx, {
+  //       type: 'line',
+  //       data: {
+  //         labels: this.generateMonthLabels(),
+  //         datasets: [
+  //           {
+  //             label: 'Total Sales Amount',
+  //             data: this.generateSalesData(),
+  //             borderColor: '#0097A8',
+  //             backgroundColor: '#0097A888',
+  //             fill: false,
+  //             pointBackgroundColor: '#0097A8',
+  //             pointRadius: 5,
+  //             borderWidth: 2,
+  //           },
+  //         ],
+  //       },
+  //       options: {
+  //         aspectRatio: 2,
+  //         scales: {
+  //           y: {
+  //             beginAtZero: true,
+  //             ticks: {
+  //               callback: function (value) {
+  //                 return '₦' + new Intl.NumberFormat('en-NG').format(value as number);
+  //               },
+  //             },
+  //           },
+  //         },
+  //         plugins: {
+  //           legend: {
+  //             position: 'bottom',
+  //             labels: {
+  //               usePointStyle: true,
+  //             },
+  //           },
+  //           tooltip: {
+  //             callbacks: {
+  //               label: function (context) {
+  //                 let value = context.raw as number;
+  //                 return 'Total Sales: ₦' + new Intl.NumberFormat('en-NG').format(value);
+  //               },
+  //             },
+  //           },
+  //         },
+  //       },
+  //     });
+  //   } else {
+  //     console.error('Failed to acquire context for the sales line chart');
+  //   }
+  // }
+
+
+  // generateSalesMonthLabels(): string[] {
+  //   const selectedMonthIndex = this.months.findIndex(
+  //     (month) => month.value === this.selectedMonth
+  //   );
+  //   return this.months.slice(selectedMonthIndex).map((month) => month.label);
+  // }
+
+  generateSalesData(): number[] {
+    return [this.totalSalesAmount || 0];
+  }
+
+
+ 
+  // updateSalesChartData(): void {
+  //   this.salesLineChart.data.labels = this.generateSalesMonthLabels();
+  //   this.salesLineChart.data.datasets.forEach((dataset) => {
+  //     dataset.data = this.generateSalesData();
+  //   });
+  //   this.salesLineChart.update();
+  // }
+
+  // changeMonth(event: any): void {
+  //   this.selectedMonth = event.target.value;
+  //   this.getDashboardStatsTotalSales(this.selectedYear, this.selectedMonth); // Fetch new data when month changes
+  // }
+  getDashboardStatsTotalSales(year = new Date().getFullYear().toString(), month = (new Date().getMonth() + 1).toString()) {
+    this.adminService.getSales(year, month).subscribe((response: any) => {
+      if (response.status) {
+        this.totalSalesAmount = response.data.totalSalesAmount;
+        this.updateSalesChartData();
+      }
+    });
+  }
+
   createSalesLineChart(): void {
     const ctx = (
       this.mySalesLineChart.nativeElement as HTMLCanvasElement
     ).getContext('2d');
+
     if (ctx) {
       this.salesLineChart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: this.generateMonthLabels(),
+          labels: [this.getSelectedMonthLabel()], // Show only the selected month
           datasets: [
             {
               label: 'Total Sales Amount',
-              data: this.generateSalesData(),
+              data: [this.totalSalesAmount], // Show only selected month’s sales
               borderColor: '#0097A8',
               backgroundColor: '#0097A888',
               fill: false,
@@ -156,6 +271,11 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
           scales: {
             y: {
               beginAtZero: true,
+              ticks: {
+                callback: function (value) {
+                  return '₦' + new Intl.NumberFormat('en-NG').format(value as number);
+                },
+              },
             },
           },
           plugins: {
@@ -169,7 +289,7 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
               callbacks: {
                 label: function (context) {
                   let value = context.raw as number;
-                  return 'Total Sales: ₦' + value.toFixed(0);
+                  return 'Total Sales: ₦' + new Intl.NumberFormat('en-NG').format(value);
                 },
               },
             },
@@ -181,33 +301,24 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
     }
   }
 
-  generateSalesMonthLabels(): string[] {
-    const selectedMonthIndex = this.months.findIndex(
-      (month) => month.value === this.selectedMonth
-    );
-    return this.months.slice(selectedMonthIndex).map((month) => month.label);
-  }
-
-  generateSalesData(): number[] {
-    // Replace with actual data generation logic for total sales amount
-    return Array.from({ length: this.generateSalesMonthLabels().length }, () =>
-      Math.floor(Math.random() * 1000)
-    );
-  }
-
   changeMonth(event: any): void {
     this.selectedMonth = event.target.value;
-    // Replace with logic to update chart data based on selected month
-    this.updateSalesChartData();
+    this.getDashboardStatsTotalSales(this.selectedYear.toString(), this.selectedMonth); // Fetch data for selected month
   }
 
   updateSalesChartData(): void {
-    this.salesLineChart.data.labels = this.generateSalesMonthLabels();
-    this.salesLineChart.data.datasets.forEach((dataset) => {
-      dataset.data = this.generateSalesData();
-    });
-    this.salesLineChart.update();
+    if (this.salesLineChart) {
+      this.salesLineChart.data.labels = [this.getSelectedMonthLabel()]; // Show only selected month
+      this.salesLineChart.data.datasets[0].data = [this.totalSalesAmount]; // Update sales amount
+      this.salesLineChart.update();
+    }
   }
+
+  getSelectedMonthLabel(): string {
+    return this.months.find((month) => month.value === this.selectedMonth)?.label || '';
+  }
+
+
   initializeYears(): void {
     const currentYear = new Date().getFullYear();
     this.selectedYear = currentYear;
@@ -215,73 +326,137 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
       this.years.push(year);
     }
   }
+  changeYear(event: any): void {
+    this.selectedYear = parseInt(event.target.value, 10); // Parse selected year as integer
+    this.getDashboardStats(); // Fetch new data
+  }
 
-  createLineChart(): void {
-    const ctx = (
-      this.myLineChart.nativeElement as HTMLCanvasElement
-    ).getContext('2d');
-    if (ctx) {
-      this.lineChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: this.generateMonthLabels(),
-          datasets: [
-            {
-              label: 'Customers',
-              data: this.generateRandomData(),
-              borderColor: '#0097A8',
-              backgroundColor: '#0097A888',
-              fill: false,
-              pointBackgroundColor: '#0097A8',
-              pointRadius: 5,
-              borderWidth: 2,
-            },
-            {
-              label: 'Vendors',
-              data: this.generateRandomData(),
-              borderColor: '#FFD865',
-              backgroundColor: '#FFD86588',
-              fill: false,
-              pointBackgroundColor: '#FFD865',
-              pointRadius: 5,
-              borderWidth: 2,
-            },
-          ],
-        },
-        options: {
-          aspectRatio: 2, // Adjust as needed
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
-          },
-          plugins: {
-            legend: {
-              position: 'bottom',
-              labels: {
-                usePointStyle: true, // Use circle for legend
-                padding: 20, // Adjust the padding to increase the gap between the labels
-              },
-            },
-            tooltip: {
-              callbacks: {
-                label: function (context) {
-                  let value = context.raw as number;
-                  return context.dataset.label + ': ' + value;
-                },
-              },
-            },
-          },
-          hover: {
-            mode: 'nearest',
-            intersect: false,
-          },
-        },
-      });
-    } else {
+  getDashboardStats() {
+    this.adminService.getDashboardStats(this.selectedYear).subscribe((charts: any) => {
+      if (charts && charts.data) {
+        this.signUpStats = charts.data; // Update dataset
+        if (this.lineChart) {
+          this.updateLineChart(charts); // If chart exists, update it
+        } else {
+          this.createLineChart(charts); // Otherwise, create a new chart
+        }
+      }
+    });
+  }
+
+  createLineChart(responseData: any): void {
+    const ctx = (this.myLineChart.nativeElement as HTMLCanvasElement).getContext('2d');
+
+    if (!ctx) {
       console.error('Failed to acquire context for the line chart');
+      return;
+    }
+
+    const { labels, customersData, vendorsData } = this.processChartData(responseData.data);
+
+    this.lineChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Customers',
+            data: customersData,
+            borderColor: '#0097A8',
+            backgroundColor: '#0097A888',
+            fill: false,
+            pointBackgroundColor: '#0097A8',
+            pointRadius: 5,
+            borderWidth: 2,
+          },
+          {
+            label: 'Vendors',
+            data: vendorsData,
+            borderColor: '#FFD865',
+            backgroundColor: '#FFD86588',
+            fill: false,
+            pointBackgroundColor: '#FFD865',
+            pointRadius: 5,
+            borderWidth: 2,
+          },
+        ],
+      },
+      options: {
+        aspectRatio: 2,
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              usePointStyle: true,
+              padding: 20,
+            },
+          },
+          tooltip: {
+            enabled: true, // Ensure tooltips are enabled
+            mode: 'index', // Show tooltip when hovering anywhere on X-axis
+            intersect: false, // Ensures tooltip appears even if not directly on a point
+            callbacks: {
+              label: function (context) {
+                let value = context.raw as number;
+                return context.dataset.label + ': ' + value;
+              },
+            },
+          }
+
+        },
+        hover: {
+          mode: 'nearest',
+          intersect: false,
+        },
+      }
+
+    });
+  }
+
+  updateLineChart(responseData: any): void {
+    if (this.lineChart) {
+      const { labels, customersData, vendorsData } = this.processChartData(responseData.data);
+
+      this.lineChart.data.labels = labels; // Update labels with new months
+      this.lineChart.data.datasets[0].data = customersData; // Update Customers data
+      this.lineChart.data.datasets[1].data = vendorsData; // Update Vendors data
+
+      this.lineChart.update(); // Refresh the chart
     }
   }
+
+  processChartData(data: any) {
+    const monthNames = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+
+    const currentMonthIndex = new Date().getMonth(); // Get current month index (0-based)
+    const isCurrentYear = this.selectedYear === new Date().getFullYear(); // Check if selected year is current
+
+    const labels: string[] = [];
+    const customersData: number[] = [];
+    const vendorsData: number[] = [];
+
+    // Determine the range of months to display
+    const monthsToShow = isCurrentYear ? currentMonthIndex + 1 : 12;
+
+    for (let i = 0; i < monthsToShow; i++) {
+      const month = monthNames[i];
+      labels.push(month);
+      customersData.push(data[month]?.totalCustomers || 0);
+      vendorsData.push(data[month]?.totalVendors || 0);
+    }
+
+    return { labels, customersData, vendorsData };
+  }
+
+
 
   generateMonthLabels(): string[] {
     const currentYear = new Date().getFullYear();
@@ -315,16 +490,7 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
     );
   }
 
-  changeYear(event: any): void {
-    this.selectedYear = parseInt(event.target.value, 10); // Parse selected year as integer
-    // Replace with logic to update chart data based on selected year
-    // For demo purposes, generate random data
-    this.lineChart.data.labels = this.generateMonthLabels();
-    this.lineChart.data.datasets.forEach((dataset) => {
-      dataset.data = this.generateRandomData();
-    });
-    this.lineChart.update();
-  }
+  
   userInfo;
   updateSuccess() {
     this.userInfo = this.authService.getUserCredentials();
