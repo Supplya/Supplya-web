@@ -83,7 +83,7 @@ export class HomeComponent implements OnInit {
   newArrivalError = false;
   getAllNewArrivals() {
     this.newArrivalLoading = true;
-    this.productService.getAllNewArrivals(1,30).subscribe(
+    this.productService.dealsOfTheDay().subscribe(
       (data: any) => {
         this.newArrivals = data?.data;
         this.newArrivalLoading = false;
@@ -135,7 +135,7 @@ export class HomeComponent implements OnInit {
   getAllFlashProducts() {
     this.flashProductLoading = true;
 
-    this.productService.getAllFlashProducts(1, 30).subscribe(
+    this.productService.getFlashProducts(1, 30).subscribe(
       (data: any) => {
         this.flashProducts = data?.data;
         this.flashProductLoading = false;
@@ -236,7 +236,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  viewProduct(route: number) {
+  viewProduct(route: any) {
     this.route.navigate(['core/operation/product-details/', `${route}`]);
     window.scrollTo(0, 0);
   }

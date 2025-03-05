@@ -1,0 +1,46 @@
+
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="product-container">
+      <div class="d-flex flex-nowrap mb-3">
+        <div class="col-lg-auto" *ngFor="let product of products">
+          <div class="card border-0 products me-4 mb-2">
+            <div class="card-img-top placeholder-image" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
+              <span class="love-icon mt-2" (click)="toggleWishlist(product)">
+                <i class="bi bi-heart"></i>
+              </span>
+              <img (click)="viewProduct(product?._id)" [src]="product?.image" alt="Product Image">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">
+                <div class="marquee" (click)="viewProduct(product?._id)">{{ product?.name }}</div>
+              </h5>
+              <div class="star-rating">
+                <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
+                <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
+              </div>
+              <div class="price-and-cart">
+                <!-- <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0' }}</span> -->
+                    <ng-container *ngIf="product?.discounted_price === null; else main">
+           <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0' }}</span>
+         </ng-container>
+         <ng-template #main>
+           <span class="product-amount">
+             <del style="color: var(--secondary-color); font-size: 17px!important;">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0' }}</del>
+           </span>
+           <br>
+           <span class="product-amount">{{ product?.discounted_price | currency: '₦' :'symbol':'1.0-0' }}</span>
+         </ng-template>
+                <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon">
+                  <i class="bi bi-cart-fill"></i>
+                </span>
+                <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>  
+  </div>
+</div>

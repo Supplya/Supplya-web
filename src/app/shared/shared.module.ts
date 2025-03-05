@@ -28,6 +28,7 @@ import { GridProductListComponent } from './grid-product-list/grid-product-list.
 import { AngularEditorConfigDirective } from './helpers/angular-editor-config.directive';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { StateHandlerComponent } from './state-handler/state-handler.component';
+import { ShopProductComponent } from './shop-product/shop-product.component';
 // import { QrCodeModule } from 'ng-qrcode';
 
 
@@ -63,6 +64,7 @@ const sharedRoutes: Routes = [
     GridProductListComponent,
     AngularEditorConfigDirective,
     StateHandlerComponent,
+    ShopProductComponent,
   ],
   imports: [
     RouterModule.forChild(sharedRoutes),
@@ -99,6 +101,7 @@ const sharedRoutes: Routes = [
     GooglePlacesDirective,
     AngularEditorConfigDirective,
     StateHandlerComponent,
+    ShopProductComponent,
     // Modules
     ToastyModule,
     FormsModule,

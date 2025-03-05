@@ -120,159 +120,19 @@
     </div>
   </div>
 </Section>
-<!-- <Section class="category py-5">
-<div class="container">
-  <div class="row">
-    <div class="col-lg-3">
-  <div class="card border-0">
-  <div  class="d-flex justify-between align-items-center">
-    <div>
-      <img src="/assets/Images/Fruits-veg.png" alt="">
-    </div>
-    <div>
-      <p>Fruits and Vegetables</p>
-    </div>
-    &nbsp;&nbsp;&nbsp;
-  </div>
-  </div>
-    </div>
-    <div class="col-lg-3">
-  <div class="card border-0">
-  <div  class="d-flex justify-between align-items-center">
-    <div>
-      <img src="/assets/Images/Meat-poultry.png" alt="">
-    </div>
-    &nbsp;&nbsp;&nbsp;
-    <div>
-      <p>Meat and Poultry </p>
-    </div>
-    
-  </div>
-  </div>
-    </div>
-    <div class="col-lg-3">
-  <div class="card border-0">
-  <div  class="d-flex justify-between align-items-center">
-    <div>
-      <img src="/assets/Images/Dairy.png" alt="">
-    </div>
-    &nbsp;&nbsp;&nbsp;
-    <div>
-      <p>Dairy</p>
-    </div>
-  </div>
-  </div>
-    </div>
-    <div class="col-lg-3">
-  <div class="card border-0">
-  <div  class="d-flex justify-between align-items-center">
-    <div>
-      <img src="/assets/Images/snack.png" alt="">
-    </div>
-    &nbsp;&nbsp;&nbsp;
-    <div>
-      <p>Baking</p>
-    </div>
-  </div>
-  </div>
-    </div>
-    <div class="col-lg-3">
-  <div class="card border-0">
-  <div  class="d-flex justify-between align-items-center">
-    <div>
-      <img src="/assets/Images/Grains-Flour.png" alt="">
-    </div>
-    &nbsp;&nbsp;&nbsp;
-    <div>
-      <p>Grains & Flour</p>
-    </div>
-  
-  </div>
-  </div>
-    </div>
-  
-    <div class="col-lg-3">
-      <div class="card border-0">
-      <div class="d-flex justify-between align-items-center">
-        <div>
-          <img src="/assets/Images/condiments-seasoning.png" alt="">
-        </div>
-        &nbsp;&nbsp;&nbsp;
-        <div>
-          <p>Condiments & Seasonings</p>
-        </div>
-      </div>
-      </div>
-        </div>
-  
-    <div class="col-lg-3">
-  <div class="card border-0">
-  <div class="d-flex justify-between align-items-center">
-    <div>
-      <img src="/assets/Images/Drinks-beverages.png" alt="">
-    </div>
-  
-    &nbsp;&nbsp;&nbsp;
-    <div>
-      <p>Drinks & Beverages</p>
-    </div>
-  </div>
-  </div>
-    </div>
-  
-    <div class="col-lg-3">
-  <div class="card border-0">
-  <div class="d-flex justify-between align-items-center">
-    <div>
-      <img src="/assets/Images/Oil.png" alt="">
-    </div>
-    <div>
-      <p>Oil</p>
-    </div>
-  </div>
-  </div>
-    </div>
-  </div>
-</div>
-</Section> -->
 
-<!-- FLASH SALES -->
-<!-- <app-product-list
-  [products]="flashProducts"
-  [loading]="flashProductLoading"
-  [error]="flashProductError"
-  heading="Flash Sales"
-  (refresh)="refreshFlashProducts()"
-  (toggleWishlist)="toggleWishlist($event)"
-  (viewProduct)="viewProduct(flashProducts?._id)"
-  (addToCart)="addToCart($event)"
-  (toCart)="toCart()">
-</app-product-list> -->
+
 <section id="flash-products" class="mb-3">
 
-
-   <section class="row" *ngIf="flashProductLoading && !flashProducts && !flashProductError">
-    <div class="py-5 p-5 center">
-        <div>
-    
-            <img style="height: 100px;" src="/assets/Images/requestLoading.gif" alt="">
-            <p class="loading-text text-center text-muted">Loading...</p>
-        </div>
-    </div>
-          </section >
-    
-          <section class=" center" *ngIf="!flashProducts && !flashProductLoading && flashProductError">
-            <div class="py-5 ">
-              <div class="py-3 text-center" >
-                <img src="/assets/Images/oops.png" style="height: 100px;" alt="">
-                <p class="loading-text  text-muted py-3">Could not display flash products. Click 'Refresh' to try again.
-            </p>
-                <p class="refresh" (click)="refreshFlashProducts()">Refresh <i class="bi bi-arrow-repeat"></i></p>
-              </div>
-            </div>
-          </section>
-  <section *ngIf="flashProducts?.length > 0 && !flashProductLoading && !flashProductError">
-  <div class="container">
+  <app-state-handler 
+ [isLoading]="flashProductLoading" 
+  [hasError]="flashProductError" 
+  [isEmpty]="!flashProducts?.length" 
+  [dataAvailable]="flashProducts?.length > 0"
+  (retry)="getAllFlashProducts()"
+  name="Flash Sales"
+  >
+ <div class="container">
     <div class="py-2" style="display: flex; justify-content: space-between;">
   <div>
     <p class="home-heading">Flash Sales</p>
@@ -283,55 +143,14 @@
     </div>
   
    <!-- FLASH SALES Products -->
-      <div class="row">
-        <div class="col-lg-12">
-  <div class="product-container">
-    <div class="d-flex flex-nowrap mb-3">
-      <!-- Product cards -->
-      <div class="col-lg-auto" *ngFor="let product of flashProducts">
-        <div class="card border-0  products me-4 mb-2">
-          <!-- Placeholder background image -->
-          <div class="card-img-top placeholder-image" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
-            <!-- Love icon for wishlist -->
-            <span class="love-icon mt-2" (click)="toggleWishlist(product)"><i class="bi bi-heart"></i></span>
-            <!-- Product image -->
-            <img (click)="viewProduct(product?._id)" [src]="product?.image" alt="Product Image">
-          </div>
-          <div class="card-body">
-            <!-- Product name -->
-            <h5 class="card-title">
-              <div class="marquee" (click)="viewProduct(product?._id)">{{ product?.name }}</div>
-            </h5>
-            <!-- Star rating -->
-            <div class="star-rating">
-              <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
-              <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
-            </div>
-            <!-- Product amount and cart icon -->
-            <div class="price-and-cart">
-              <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0' }}</span>
-              <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
-              <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- End of product cards -->
-    </div>
-  </div>
-  
-  
-  
-  </div>
-  
-  
-  
-  
-        </div>
+    <app-shop-product [products]="flashProducts" 
+  (addToCartEvent)="addToCart($event)" 
+  (viewProductEvent)="viewProduct($event)"
+  (toggleWishlistEvent)="toggleWishlist($event)"></app-shop-product>
     
     
   </div>
-  </section>
+</app-state-handler>
 </section>
 
 
@@ -341,27 +160,18 @@
 <!-- DEALS OF THE DAY -->
 
 <section id="new-arrivals" class="mb-3 deals">
-  <section class="row" *ngIf="newArrivalLoading && !newArrivals && !newArrivalError">
-    <div class="py-5 p-5 center">
-        <div>
-    
-            <img style="height: 100px;" src="/assets/Images/requestLoading.gif" alt="">
-            <p class="loading-text text-center text-muted">Loading...</p>
-        </div>
-    </div>
-          </section >
-    
-          <section class=" center" *ngIf="!newArrivals && !newArrivalLoading && newArrivalError">
-            <div class="py-5 ">
-              <div class="py-3 text-center" >
-                <img src="/assets/Images/oops.png" style="height: 100px;" alt="">
-                <p class="loading-text  text-muted py-3">Could not display Arrival products. Click 'Refresh' to try again.
-            </p>
-                <p class="refresh" (click)="refreshNewArrival()">Refresh <i class="bi bi-arrow-repeat"></i></p>
-              </div>
-            </div>
-          </section>
-  <section *ngIf="newArrivals?.length > 0 && !newArrivalLoading && !newArrivalError">
+ 
+
+
+   <app-state-handler 
+ [isLoading]="newArrivalLoading" 
+  [hasError]="newArrivalError" 
+  [isEmpty]="!newArrivals?.length" 
+  [dataAvailable]="newArrivals?.length > 0"
+  (retry)="getAllNewArrivals()"
+  name="New Arrivals"
+  >
+ 
   <div class="container">
     <div class="px-3 mb-2" style="display: flex; justify-content: space-between; align-items: center; background-color: var(--primary-color);">
       <div>
@@ -372,54 +182,13 @@
       </div>
         </div>
   
-        <!-- DEALS OF THE DAY -->
-        <div class="row">
-        <div class="col-lg-12">
-  <div class="product-container">
-    <div class="d-flex flex-nowrap mb-3">
-      <!-- Product cards -->
-      <div class="col-lg-auto" *ngFor="let product of newArrivals">
-        <div class="card border-0  products me-4 mb-2">
-          <!-- Placeholder background image -->
-          <div class="card-img-top placeholder-image" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
-            <!-- Love icon for wishlist -->
-            <span class="love-icon mt-2" (click)="toggleWishlist(product)"><i class="bi bi-heart"></i></span>
-            <!-- Product image -->
-            <img (click)="viewProduct(product?._id)" [src]="product?.image" alt="Product Image">
-          </div>
-          <div class="card-body">
-            <!-- Product name -->
-            <h5 class="card-title">
-              <div class="marquee" (click)="viewProduct(product?._id)">{{ product?.name }}</div>
-            </h5>
-            <!-- Star rating -->
-            <div class="star-rating">
-              <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
-              <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
-            </div>
-            <!-- Product amount and cart icon -->
-            <div class="price-and-cart">
-              <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0' }}</span>
-              <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
-              <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- End of product cards -->
-    </div>
+          <app-shop-product [products]="newArrivals" 
+  (addToCartEvent)="addToCart($event)" 
+  (viewProductEvent)="viewProduct($event)"
+  (toggleWishlistEvent)="toggleWishlist($event)"></app-shop-product>
   </div>
-  
-  
-  
-  </div>
-  
-  
-  
-  
-        </div>
-  </div>
-  </section>
+</app-state-handler>
+
 </section>
 
 

@@ -83,6 +83,11 @@ export class ProductService {
       `${this.productUrl}products/flashsale?page=${page}&limit=${limit}`
     );
   }
+  getFlashProducts(page?, limit?): Observable<Product[]> {
+    return this.http.get<Product[]>(
+      `${this.productUrl}/products/flashsale`
+    );
+  }
   getAllTrendingProducts(page, limit): Observable<Product[]> {
     return this.http.get<Product[]>(
       `${this.productUrl}products/trending?page=${page}&limit=${limit}`
@@ -124,6 +129,11 @@ export class ProductService {
   getAllNewArrivals(page, limit): Observable<Product[]> {
     return this.http.get<Product[]>(
       `${this.productUrl}products/newly-arrived-brands?page=${page}&limit=${limit}`
+    );
+  }
+  dealsOfTheDay(page?, limit?): Observable<Product[]> {
+    return this.http.get<Product[]>(
+      `${this.productUrl}/products/deals`
     );
   }
   getAllCategories(page: number, limit: number): Observable<Product[]> {
