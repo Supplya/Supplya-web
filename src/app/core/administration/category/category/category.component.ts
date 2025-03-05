@@ -16,6 +16,7 @@ export class CategoryComponent implements OnInit {
   filteredRows: any;
   title = 'Categories';
   searchText: string = '';
+  search
   constructor(
     private adminService: DashboardService,
     private exportService: ExportService,
@@ -136,7 +137,7 @@ export class CategoryComponent implements OnInit {
     });
   }
   exportToExcel() {
-    this.exportService.exportToExcel(this.filteredRows, this.title);
+    this.exportService.exportToExcel(this.categories, this.title);
   }
   refreshCategory() {
     this.errorFetchingCategory = false;

@@ -125,7 +125,7 @@
               </div>
               <div class="mb-2 col-lg-6 slide-right">
                 <label for="quantity" class="content-label">Quantity</label>
-                <input type="number"  [min]="1" id="quantity" formControlName="quantity" class=" content-input {{
+                <input type="number" id="quantity" formControlName="quantity" class=" content-input {{
                                         isInvalid('quantity') ? 'error-input' : ''
                                       }}" placeholder="Enter product Quantity">
                                        <small class="error-text mb-4" *ngIf="isInvalid('quantity')">

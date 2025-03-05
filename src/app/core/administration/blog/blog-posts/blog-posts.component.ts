@@ -13,7 +13,7 @@ import { ExportService } from '../../services/export.service';
 })
 
 export class BlogPostsComponent implements OnInit {
-
+  search
   title = 'Products';
   searchText: string = '';
   constructor(

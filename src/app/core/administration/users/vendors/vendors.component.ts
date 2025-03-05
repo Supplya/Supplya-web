@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 export class VendorsComponent implements OnInit {
   selectedTab: string = 'Vendors';
   itemPerPage: number = 500;
-
+  search
   filteredRows: any;
   title = 'Products';
   searchText: string = '';
@@ -69,6 +69,7 @@ export class VendorsComponent implements OnInit {
   }
   getAllUsers() {
     this.loading = true;
+    this.errorFetchingSummary = false;
     this.adminService.getAllVendor(this.p, this.pageSize).subscribe(
       (data: any) => {
         this.loading = false;
@@ -163,17 +164,10 @@ export class VendorsComponent implements OnInit {
     });
   }
   exportToExcel() {
-    this.exportService.exportToExcel(this.filteredRows, this.title);
+    this.exportService.exportToExcel(this.vendors, this.title);
   }
 
-  get productsToShow(): any[] {
-    const startIndex = (this.p - 1) * this.itemPerPage;
-    const endIndex = Math.min(
-      startIndex + this.itemPerPage,
-      this.filteredRows?.length
-    );
-    return this.filteredRows?.slice(startIndex, endIndex);
-  }
+
   selectedOrder: any;
   toggleModal = (modalId, action: string, data?: any) => {
     if (action == 'open') {

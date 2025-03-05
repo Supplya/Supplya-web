@@ -94,16 +94,41 @@
         </div>
       </section>
      
-      <div class="row ">
-         <div class="col-lg-4">
-                        <!-- <input *ngIf="products?.length > 0" type="text" class="form-control search-input mb-3" placeholder="Search Product" [(ngModel)]="searchText"
-                          (input)="applyFilter()" /> -->
-                      </div>
-                       <div class="col-lg-8 text-end" *ngIf="!productLoading && products?.length > 0">
-                    <p (click)="exportToExcel()" class="btn export">Export</p>
-                  </div>
+      <div class="container bg-white">
+
+        <div class="row px-3 py-3">
+   
+   
+   <div class="col-lg-5 ">
+         <div class="search-wrapper">
+       <div class="search-box d-flex align-items-center">
+           <i class="bi bi-search search-icon"></i>
+           <input [(ngModel)]="search" (keyup.enter)="getAllProducts()" type="text" class="form-control search-input" placeholder="Search here...">
+           
+           <div class="d-flex align-items-center">
+               <button [disabled]="productLoading" (click)="getAllProducts()" class="btn search-button">
+                   Search
+               </button>
+               &nbsp;&nbsp;&nbsp;&nbsp;
+               <div *ngIf="search">
+                   <i title="Reset search" (click)="search = '';getAllProducts();" 
+                      class="bi bi-arrow-clockwise ms-2" 
+                      style="font-size: 20px; color: var(--theme-color1); cursor: pointer;">
+                   </i>
+               </div>
+           </div>
+       </div> 
+   </div>
+   
+   </div>
+   
+   
+        
+                          <div class="col-lg-7 text-end" *ngIf="products?.length > 0">
+                       <p (click)="exportToExcel()" class="btn export">Export</p>
+                     </div>
+         </div>
       </div>
-      
       <div class="table-responsive" *ngIf="!productLoading && products?.length > 0">
 
           <table class="table">

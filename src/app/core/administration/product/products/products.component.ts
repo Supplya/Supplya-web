@@ -16,6 +16,7 @@ export class ProductsComponent implements OnInit {
   filteredRows: any;
   title = 'Products';
   searchText: string = '';
+  search
   constructor(
     private adminService: DashboardService,
     private exportService: ExportService,
@@ -146,7 +147,7 @@ export class ProductsComponent implements OnInit {
     });
   }
   exportToExcel() {
-    this.exportService.exportToExcel(this.filteredRows, this.title);
+    this.exportService.exportToExcel(this.products, this.title);
   }
   refreshProducts() {
     this.errorFetchingProduct = false;

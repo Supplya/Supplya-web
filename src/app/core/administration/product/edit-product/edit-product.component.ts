@@ -339,6 +339,10 @@ export class EditProductComponent implements OnInit {
     this.submitted = true;
     const formData = this.form.value;
     // formData.image = this.images[0];
+  
+    if (this.form.value.status === 'outOfStock') {
+      this.form.value.quantity = 0
+    }
     formData.images = this.images;
     if (this.form.valid) {
       this.productService.UpdateProduct(this.id, formData).subscribe((data) => {

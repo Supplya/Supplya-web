@@ -74,7 +74,43 @@
      
      
 
-      <section class="content" *ngIf="loading">
+   
+      <div class="container bg-white">
+
+        <div class="row px-3 py-3">
+   
+   
+   <div class="col-lg-5 ">
+         <div class="search-wrapper">
+       <div class="search-box d-flex align-items-center">
+           <i class="bi bi-search search-icon"></i>
+           <input [(ngModel)]="search" (keyup.enter)="getAllUsers()" type="text" class="form-control search-input" placeholder="Search here...">
+           
+           <div class="d-flex align-items-center">
+               <button [disabled]="loading" (click)="getAllUsers()" class="btn search-button">
+                   Search
+               </button>
+               &nbsp;&nbsp;&nbsp;&nbsp;
+               <div *ngIf="search">
+                   <i title="Reset search" (click)="search = '';getAllUsers();" 
+                      class="bi bi-arrow-clockwise ms-2" 
+                      style="font-size: 20px; color: var(--theme-color1); cursor: pointer;">
+                   </i>
+               </div>
+           </div>
+       </div> 
+   </div>
+   
+   </div>
+   
+   
+        
+                          <div class="col-lg-7 text-end" *ngIf="customers?.length > 0">
+                       <p (click)="exportToExcel()" class="btn export">Export</p>
+                     </div>
+         </div>
+      </div>
+         <section class="content" *ngIf="loading && !customers && !errorFetchingSummary">
 <div class="py-5 p-5 center">
 <div>
 
@@ -83,14 +119,6 @@
 </div>
 </div>
 </section >
-      <div class="orders-section mt-4"  *ngIf="!loading && this.customers?.length > 0">
-        <div class="px-4 d-flex justify-content-between align-items-center">
-            <div class="py-2">
-                <p class="head-count mb-0 mt-2" style="font-size: 20px;">Customers</p>
-            </div>
-            <!-- <p class="view-all">View All</p> -->
-</div>
-      </div>
       <div class="table-responsive" *ngIf="!loading && this.customers?.length > 0">
           <table class="table" style="overflow-y: auto;">
             <thead>

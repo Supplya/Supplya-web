@@ -28,7 +28,7 @@ export class OrdersComponent implements OnInit {
   errorFetchingOrders: boolean = false;
 
   allOrders;
-
+  search
   p: number = 1;
   pageSize: number = 20;
   totalCount: number = 0;
@@ -125,7 +125,7 @@ export class OrdersComponent implements OnInit {
     });
   }
   exportToExcel() {
-    this.exportService.exportToExcel(this.filteredRows, this.title);
+    this.exportService.exportToExcel(this.allOrders, this.title);
   }
 
   selectedOrder: any;

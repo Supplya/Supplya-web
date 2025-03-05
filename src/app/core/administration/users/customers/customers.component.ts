@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 export class CustomersComponent implements OnInit {
   title = 'Customers';
   searchText: string = '';
+  search
   constructor(
     private productService: ProductService,
     private exportService: ExportService,
@@ -78,6 +79,7 @@ export class CustomersComponent implements OnInit {
   customers;
   getAllUsers() {
     this.loading = true;
+    this.errorFetchingSummary = false;
     this.adminService.getAllCustomers(this.p, this.pageSize).subscribe(
       (data: any) => {
         this.loading = false;

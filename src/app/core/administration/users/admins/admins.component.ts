@@ -15,6 +15,7 @@ export class AdminsComponent implements OnInit {
   itemPerPage: number = 100;
   filteredRows: any;
   title = 'All Admins';
+  search
   searchText: string = '';
   constructor(
     private productService: ProductService,
@@ -162,7 +163,7 @@ export class AdminsComponent implements OnInit {
     });
   }
   exportToExcel() {
-    this.exportService.exportToExcel(this.filteredRows, this.title);
+    this.exportService.exportToExcel(this.admins, this.title);
   }
 
 
