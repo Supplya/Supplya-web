@@ -196,26 +196,8 @@
 
 <section class="mb-5 mt-3">
 
- <section class="row" *ngIf="loading && !products && !productsError">
-    <div class="py-5 p-5 center">
-        <div>
-    
-            <img style="height: 100px;" src="/assets/Images/requestLoading.gif" alt="">
-            <p class="loading-text text-center text-muted">Loading...</p>
-        </div>
-    </div>
-          </section >
-    
-          <section class=" center" *ngIf="!products && !loading && productsError">
-            <div class="py-5 ">
-              <div class="py-3 text-center" >
-                <img src="/assets/Images/oops.png" style="height: 100px;" alt="">
-                <p class="loading-text  text-muted py-3">Could not display products. Click 'Refresh' to try again.
-            </p>
-                <p class="refresh" (click)="refreshProducts()">Refresh <i class="bi bi-arrow-repeat"></i></p>
-              </div>
-            </div>
-          </section>
+ 
+
 
   <section *ngIf="products?.length > 0 && !loading && !productsError">
     <div class="container">
@@ -234,90 +216,31 @@
   
             </div>
             <div class="col-lg-8">
-              <div class="row">
-        <div class="col-lg-12">
-  <div class="product-container">
-    <div class="d-flex flex-nowrap mb-3">
-      <!-- Product cards -->
-      <div class="col-lg-auto" *ngFor="let product of trendingProducts">
-        <div class="card border-0  products me-4 mb-2">
-          <!-- Placeholder background image -->
-          <div class="card-img-top placeholder-image" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
-            <!-- Love icon for wishlist -->
-            <span class="love-icon mt-2" (click)="toggleWishlist(product)"><i class="bi bi-heart"></i></span>
-            <!-- Product image -->
-            <img (click)="viewProduct(product?._id)" [src]="product?.image" alt="Product Image">
-          </div>
-          <div class="card-body">
-            <!-- Product name -->
-            <h5 class="card-title">
-              <div class="marquee" (click)="viewProduct(product?._id)">{{ product?.name }}</div>
-            </h5>
-            <!-- Star rating -->
-            <div class="star-rating">
-              <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
-              <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
-            </div>
-            <!-- Product amount and cart icon -->
-            <div class="price-and-cart">
-              <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0' }}</span>
-              <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
-              <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- End of product cards -->
-    </div>
+            <app-state-handler 
+ [isLoading]="specialLoading" 
+  [hasError]="specialError" 
+  [isEmpty]="!specialDeals?.length" 
+  [dataAvailable]="specialDeals?.length > 0"
+  (retry)="getSpecialDeals()"
+  name="Special Deals"
+  >
+ 
+  <div class="container py-2">
+  
+          <app-shop-product [products]="specialDeals" 
+  (addToCartEvent)="addToCart($event)" 
+  (viewProductEvent)="viewProduct($event)"
+  (toggleWishlistEvent)="toggleWishlist($event)"></app-shop-product>
   </div>
-  
-  
-  
-  </div>
-  
-  
-  
-  
-        </div>
+</app-state-handler>
  <div class="row">
-        <div class="col-lg-12">
-  <div class="product-container">
-    <div class="d-flex flex-nowrap mb-3">
-      <!-- Product cards -->
-      <div class="col-lg-auto" *ngFor="let product of lastToFirstProducts">
-        <div class="card border-0  products me-4 mb-2">
-          <!-- Placeholder background image -->
-          <div class="card-img-top placeholder-image" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
-            <!-- Love icon for wishlist -->
-            <span class="love-icon mt-2" (click)="toggleWishlist(product)"><i class="bi bi-heart"></i></span>
-            <!-- Product image -->
-            <img (click)="viewProduct(product?._id)" [src]="product?.image" alt="Product Image">
-          </div>
-          <div class="card-body">
-            <!-- Product name -->
-            <h5 class="card-title">
-              <div class="marquee" (click)="viewProduct(product?._id)">{{ product?.name }}</div>
-            </h5>
-            <!-- Star rating -->
-            <div class="star-rating">
-              <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
-              <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
-            </div>
-            <!-- Product amount and cart icon -->
-            <div class="price-and-cart">
-              <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0' }}</span>
-              <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
-              <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- End of product cards -->
-    </div>
-  </div>
+   
+  <div class="container py-2">
   
-  
-  
+          <app-shop-product [products]="specialDealsSecondRow" 
+  (addToCartEvent)="addToCart($event)" 
+  (viewProductEvent)="viewProduct($event)"
+  (toggleWishlistEvent)="toggleWishlist($event)"></app-shop-product>
   </div>
   
   
@@ -347,96 +270,32 @@
         <div class="row">
 
           <div class="col-lg-8">
-            <div class="row">
-        <div class="col-lg-12">
-  <div class="product-container">
-    <div class="d-flex flex-nowrap mb-3">
-      <!-- Product cards -->
-      <div class="col-lg-auto" *ngFor="let product of products">
-        <div class="card border-0  products me-4 mb-2">
-          <!-- Placeholder background image -->
-          <div class="card-img-top placeholder-image" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
-            <!-- Love icon for wishlist -->
-            <span class="love-icon mt-2" (click)="toggleWishlist(product)"><i class="bi bi-heart"></i></span>
-            <!-- Product image -->
-            <img (click)="viewProduct(product?._id)" [src]="product?.image" alt="Product Image">
-          </div>
-          <div class="card-body">
-            <!-- Product name -->
-            <h5 class="card-title">
-              <div class="marquee" (click)="viewProduct(product?._id)">{{ product?.name }}</div>
-            </h5>
-            <!-- Star rating -->
-            <div class="star-rating">
-              <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
-              <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
-            </div>
-            <!-- Product amount and cart icon -->
-            <div class="price-and-cart">
-              <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0' }}</span>
-              <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
-              <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- End of product cards -->
-    </div>
+                      
+   <app-state-handler 
+ [isLoading]="trendingProductLoading" 
+  [hasError]="trendingProductError" 
+  [isEmpty]="!trendingProducts?.length" 
+  [dataAvailable]="trendingProducts?.length > 0"
+  (retry)="getAllTrendingProducts()"
+  name="Trending Products"
+  >
+ 
+  <div class="container py-2">
+  
+          <app-shop-product [products]="trendingProducts" 
+  (addToCartEvent)="addToCart($event)" 
+  (viewProductEvent)="viewProduct($event)"
+  (toggleWishlistEvent)="toggleWishlist($event)"></app-shop-product>
   </div>
+</app-state-handler>
+
+          <div class="container py-2">
   
-  
-  
+          <app-shop-product [products]="secondHalfTrendingProducts" 
+  (addToCartEvent)="addToCart($event)" 
+  (viewProductEvent)="viewProduct($event)"
+  (toggleWishlistEvent)="toggleWishlist($event)"></app-shop-product>
   </div>
-  
-  
-  
-  
-        </div>
-             <div class="row">
-        <div class="col-lg-12">
-  <div class="product-container">
-    <div class="d-flex flex-nowrap mb-3">
-      <!-- Product cards -->
-      <div class="col-lg-auto" *ngFor="let product of products">
-        <div class="card border-0  products me-4 mb-2">
-          <!-- Placeholder background image -->
-          <div class="card-img-top placeholder-image" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
-            <!-- Love icon for wishlist -->
-            <span class="love-icon mt-2" (click)="toggleWishlist(product)"><i class="bi bi-heart"></i></span>
-            <!-- Product image -->
-            <img (click)="viewProduct(product?._id)" [src]="product?.image" alt="Product Image">
-          </div>
-          <div class="card-body">
-            <!-- Product name -->
-            <h5 class="card-title">
-              <div class="marquee" (click)="viewProduct(product?._id)">{{ product?.name }}</div>
-            </h5>
-            <!-- Star rating -->
-            <div class="star-rating">
-              <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
-              <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
-            </div>
-            <!-- Product amount and cart icon -->
-            <div class="price-and-cart">
-              <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0' }}</span>
-              <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
-              <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- End of product cards -->
-    </div>
-  </div>
-  
-  
-  
-  </div>
-  
-  
-  
-  
-        </div>
           </div>
          <div class="col-lg-4" style="background: url('/assets/Images/Web-side-Banner2-380x752.png') no-repeat center center; background-size: cover;">
 </div>
@@ -460,52 +319,23 @@
   </div>
     </div>
   
-    <!-- Products -->
-    <div class="row">
-        <div class="col-lg-12">
-  <div class="product-container">
-    <div class="d-flex flex-nowrap mb-3">
-      <!-- Product cards -->
-      <div class="col-lg-auto" *ngFor="let product of products">
-        <div class="card border-0  products me-4 mb-2">
-          <!-- Placeholder background image -->
-          <div class="card-img-top placeholder-image" [ngClass]="{ 'wishlist-bg': product.isWishlisted }">
-            <!-- Love icon for wishlist -->
-            <span class="love-icon mt-2" (click)="toggleWishlist(product)"><i class="bi bi-heart"></i></span>
-            <!-- Product image -->
-            <img (click)="viewProduct(product?._id)" [src]="product?.image" alt="Product Image">
-          </div>
-          <div class="card-body">
-            <!-- Product name -->
-            <h5 class="card-title">
-              <div class="marquee" (click)="viewProduct(product?._id)">{{ product?.name }}</div>
-            </h5>
-            <!-- Star rating -->
-            <div class="star-rating">
-              <span class="bi bi-star-fill" *ngFor="let star of getStarsArray(product?.rating); let i = index"></span>
-              <span class="bi bi-star" *ngFor="let emptyStar of getEmptyStarsArray(product?.rating); let i = index"></span>
-            </div>
-            <!-- Product amount and cart icon -->
-            <div class="price-and-cart">
-              <span class="product-amount">{{ product?.unit_price | currency: '₦' :'symbol':'1.0-0' }}</span>
-              <span *ngIf="!ifAddedToCart(product)" (click)="addToCart(product)" class="cart-icon"><i class="bi bi-cart-fill"></i></span>
-              <span *ngIf="ifAddedToCart(product)" (click)="toCart()" class="cart-icon view">View</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- End of product cards -->
-    </div>
+      <app-state-handler 
+ [isLoading]="loading" 
+  [hasError]="productsError" 
+  [isEmpty]="!products?.length" 
+  [dataAvailable]="products?.length > 0"
+  (retry)="getSpecialDeals()"
+  name="Special Deals"
+  >
+ 
+  <div class="container py-2">
+  
+          <app-shop-product [products]="products" 
+  (addToCartEvent)="addToCart($event)" 
+  (viewProductEvent)="viewProduct($event)"
+  (toggleWishlistEvent)="toggleWishlist($event)"></app-shop-product>
   </div>
-  
-  
-  
-  </div>
-  
-  
-  
-  
-        </div>
+</app-state-handler>
     
     
   </div>

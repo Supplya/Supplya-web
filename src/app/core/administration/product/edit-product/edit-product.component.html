@@ -169,6 +169,10 @@
                  <small class="error-text mb-4" *ngIf="isInvalid('discounted_price')">
                                             {{ getErrorMessage('discounted_price', 'This field is required') }}
                                           </small>
+
+                                              <small class="error-text mb-4" *ngIf="form.get('discounted_price')?.errors">
+        {{ getDiscountPriceError() }}
+      </small>
         </div>
     </div>
 </section>
@@ -241,7 +245,7 @@
         <span class="slider round"></span>
       </label>
     </div>
-  <div class="py-3" *ngIf="form.get('isFeatured').value">
+  <!-- <div class="py-3" *ngIf="form.get('isFeatured').value">
   <div class="form-check">
     <input class="form-check-input" type="checkbox" formControlName="isTrending" id="trendingProducts">
     <label class="form-check-label" for="trendingProducts">Trending Products</label>
@@ -254,9 +258,26 @@
     <input class="form-check-input" type="checkbox" formControlName="isDealOfTheDay" id="dealsOfTheDay">
     <label class="form-check-label" for="dealsOfTheDay">Deals of the day</label>
   </div>
-</div>
+</div> -->
 
+<div class="py-3" *ngIf="form.get('isFeatured').value">
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" formControlName="isTrending" id="trendingProducts"
+      (change)="onCheckboxChange('isTrending')">
+    <label class="form-check-label" for="trendingProducts">Trending Products</label>
   </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" formControlName="flashsale" id="flashSales"
+      (change)="onCheckboxChange('flashsale')">
+    <label class="form-check-label" for="flashSales">Flash sales</label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" formControlName="isDealOfTheDay" id="dealsOfTheDay"
+      (change)="onCheckboxChange('isDealOfTheDay')">
+    <label class="form-check-label" for="dealsOfTheDay">Deals of the day</label>
+  </div>
+</div> 
+</div>
    <div class="btn-container-sm mobile-only   border-top">
     <div class="py-5">
 

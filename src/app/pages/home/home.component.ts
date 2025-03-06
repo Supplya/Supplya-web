@@ -76,6 +76,7 @@ export class HomeComponent implements OnInit {
     this.getAllCategories();
     this.getAllNewArrivals();
     this.getAllFlashProducts();
+    this.getSpecialDeals();
     this.getAllTrendingProducts();
   }
 
@@ -94,6 +95,25 @@ export class HomeComponent implements OnInit {
       }
     );
   }
+  specialLoading = false;
+  specialError = false;
+  specialDeals
+  specialDealsSecondRow
+  getSpecialDeals() {
+    this.specialLoading = true;
+    this.specialError = false;
+    this.productService.getSpecialDeals().subscribe(
+      (data: any) => {
+        this.specialDeals = data?.data;
+        this.specialDealsSecondRow = [...data?.data]?.reverse()
+        this.specialLoading = false;
+      },
+      (error) => {
+        this.specialLoading = false;
+        this.specialError = true;
+      }
+    );
+  }
   refreshNewArrival() {
     this.newArrivalError = false;
     this.getAllNewArrivals();
@@ -109,6 +129,7 @@ export class HomeComponent implements OnInit {
   productsError = false;
   getAllProducts() {
     this.loading = true;
+    this.productsError = false;
 
     this.productService.getAllProducts(1, 20).subscribe(
       (data: any) => {
@@ -119,7 +140,7 @@ export class HomeComponent implements OnInit {
       },
       (error) => {
         this.loading = false;
-        this.productsError = false;
+        this.productsError = true;
       }
     );
   }
@@ -135,7 +156,7 @@ export class HomeComponent implements OnInit {
   getAllFlashProducts() {
     this.flashProductLoading = true;
 
-    this.productService.getFlashProducts(1, 30).subscribe(
+    this.productService.getFlashProducts(1, 100).subscribe(
       (data: any) => {
         this.flashProducts = data?.data;
         this.flashProductLoading = false;
@@ -153,9 +174,10 @@ export class HomeComponent implements OnInit {
   getAllTrendingProducts() {
     this.flashProductLoading = true;
     this.trendingProductError = false;
-    this.productService.getAllTrendingProducts(1, 30).subscribe(
+    this.productService.getAllTrendingProducts(1, 100).subscribe(
       (data: any) => {
         this.trendingProducts = data?.data;
+        this.secondHalfTrendingProducts = [...data?.data].reverse();
         this.trendingProductLoading = false;
       },
       (error) => {
@@ -164,6 +186,34 @@ export class HomeComponent implements OnInit {
       }
     );
   }
+
+  firstHalfTrendingProducts
+  secondHalfTrendingProducts
+  // getAllTrendingProducts() {
+  //   this.flashProductLoading = true;
+  //   this.trendingProductError = false;
+
+  //   this.productService.getAllTrendingProducts(1, 30).subscribe(
+  //     (data: any) => {
+  //       const allProducts = data?.data || [];
+  //       this.trendingProductLoading = false;
+  //       const midIndex = Math.ceil(allProducts.length / 2); // Find the middle index
+
+  //       this.firstHalfTrendingProducts = allProducts.slice(0, midIndex);
+  //       this.secondHalfTrendingProducts = allProducts.slice(midIndex);
+
+  //       console.log(this.secondHalfTrendingProducts)
+  //       console.log(this.firstHalfTrendingProducts)
+
+  //       this.trendingProductLoading = false;
+  //     },
+  //     (error) => {
+  //       this.trendingProductLoading = false;
+  //       this.trendingProductError = true;
+  //     }
+  //   );
+  // }
+
   refreshFlashProducts() {
     this.flashProductError = false;
     this.getAllFlashProducts();

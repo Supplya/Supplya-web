@@ -58,6 +58,10 @@ export class ProductByCategoryComponent {
     this.getAllProducts();
     this.productsError = false;
   }
+
+  totalProducts: number = 200;
+  currentPage: number = 1;
+  itemsPerPage: number = 100;
   getAllProducts() {
     this.loading = true;
 
@@ -116,7 +120,7 @@ export class ProductByCategoryComponent {
     this.cartService.addToCart(product);
   }
 
-  viewProduct(route: number) {
+  viewProduct(route: any) {
     this.route.navigate(['core/operation/product-details/', `${route}`]);
     window.scrollTo(0, 0);
   }

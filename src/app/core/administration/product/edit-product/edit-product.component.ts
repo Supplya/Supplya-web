@@ -41,6 +41,9 @@ export class EditProductComponent implements OnInit {
     this.getAllCategories();
     this.initForm();
     this.getAllUsers();
+
+    this.form.get('unit_price')?.valueChanges.subscribe(() => this.validateDiscountPrice());
+    this.form.get('discounted_price')?.valueChanges.subscribe(() => this.validateDiscountPrice());
   }
   requestLoading: boolean = false;
   errorFetching: boolean = false;
@@ -206,6 +209,15 @@ export class EditProductComponent implements OnInit {
       }
     );
   }
+
+  onCheckboxChange(selected: string) {
+    Object.keys(this.form.controls).forEach(key => {
+      if (key !== selected && (key === 'isTrending' || key === 'flashsale' || key === 'isDealOfTheDay')) {
+        this.form.get(key)?.setValue(false);
+      }
+    });
+  }
+
   uploadImages(file: File) {
     this.uploadProgress = 0;
     this.uploadRequestLoading = true;
@@ -351,6 +363,46 @@ export class EditProductComponent implements OnInit {
           this.route.navigate(['/core/admin/products']);
         }
       });
+    }
+  }
+  // getDiscountPriceError() {
+  //   const control = this.form.get('discounted_price');
+  //   if (control?.hasError('required')) {
+  //     return 'This field is required';
+  //   } else if (control?.hasError('invalidDiscount')) {
+  //     return 'Discounted price cannot be greater than unit price';
+  //   }
+  //   return '';
+  // }
+
+  // validateDiscountPrice() {
+  //   const unitPrice = this.form.get('unit_price')?.value;
+  //   const discountedPrice = this.form.get('discounted_price')?.value;
+
+  //   if (discountedPrice > unitPrice) {
+  //     this.form.get('discounted_price')?.setErrors({ invalidDiscount: true });
+  //   } else {
+  //     this.form.get('discounted_price')?.setErrors(null);
+  //   }
+  // }
+  getDiscountPriceError() {
+    const control = this.form.get('discounted_price');
+    if (control?.hasError('required')) {
+      return 'This field is required';
+    } else if (control?.hasError('invalidDiscount')) {
+      return 'Discounted price must be less than unit price';
+    }
+    return '';
+  }
+
+  validateDiscountPrice() {
+    const unitPrice = this.form.get('unit_price')?.value;
+    const discountedPrice = this.form.get('discounted_price')?.value;
+
+    if (discountedPrice >= unitPrice) {  // Ensure discounted price is strictly less than unit price
+      this.form.get('discounted_price')?.setErrors({ invalidDiscount: true });
+    } else {
+      this.form.get('discounted_price')?.setErrors(null);
     }
   }
 

@@ -54,10 +54,18 @@ export class ProductService {
     return this.http.get<any>(`${this.productUrl}products/category/${name}`);
   }
 
-  getAllProducts(page: number, limit: number): Observable<Product[]> {
-    return this.http.get<Product[]>(
-      `${this.productUrl}/products?page=${page}&limit=${limit}`
-    );
+  getAllProducts(page: number, limit: number, search?): Observable<Product[]> {
+    if (search) {
+      return this.http.get<Product[]>(
+        `${this.productUrl}products?search=${search}&page=${page}&limit=${limit}`
+      );
+    } else {
+      
+      return this.http.get<Product[]>(
+        `${this.productUrl}products?page=${page}&limit=${limit}`
+      );
+    }
+  
   }
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(
@@ -134,6 +142,11 @@ export class ProductService {
   dealsOfTheDay(page?, limit?): Observable<Product[]> {
     return this.http.get<Product[]>(
       `${this.productUrl}/products/deals`
+    );
+  }
+  getSpecialDeals(page?, limit?): Observable<Product[]> {
+    return this.http.get<any[]>(
+      `${this.productUrl}/products/special-deals`
     );
   }
   getAllCategories(page: number, limit: number): Observable<Product[]> {
