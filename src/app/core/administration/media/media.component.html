@@ -1,0 +1,37 @@
+<div class="container">
+ 
+  
+  <div class="row">
+    <div *ngFor="let banner of banners" class="col-md-4 mb-4">
+      <div class="banner-card">
+        <h5 class="banner-title">{{ banner.name }}</h5>
+        
+        <div class="image-container">
+          <img 
+            *ngIf="banner.imageUrl || banner.image; else noImage" 
+            [src]="banner.imageUrl || banner.image" 
+            class="banner-img" 
+            alt="{{ banner.name }}">
+          
+          <ng-template #noImage>
+            <div class="no-image">No Image Set</div>
+          </ng-template>
+        </div>
+
+       <div class="upload-section">
+  <input 
+    type="file" 
+    (change)="onFileSelected($event, banner)" 
+    accept="image/*" 
+    class="upload-input" 
+    #fileInput>
+    
+  <button class="btn btn-upload" (click)="fileInput.click()">
+    {{ (banner.imageUrl || banner.image) ? 'Replace Image' : 'Upload Image' }}
+  </button>
+</div>
+
+      </div>
+    </div>
+  </div>
+</div>

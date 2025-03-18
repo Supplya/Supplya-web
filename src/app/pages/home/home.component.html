@@ -104,14 +104,14 @@
  <Section class="category py-5">
   <div class="container">
     <div class="row">
-      <div [routerLink]="['/core/operation/products/category', category.name]" class="col-lg-3 cursor-pointer" *ngFor="let category of productCategories">
+      <div [routerLink]="['/core/operation/products/category', category?.name]" class="col-lg-3 cursor-pointer" *ngFor="let category of categories">
         <div class="card border-0">
           <div class="d-flex justify-between align-items-center">
             <div class="me-2">
-              <img [src]="category.imgSrc" alt="">
+              <img [src]="category?.image" alt="">
             </div>
             <div>
-              <P >{{ category.displayName }}</P>
+              <P >{{ category?.name }}</P>
             </div>
             &nbsp;&nbsp;&nbsp;
           </div>

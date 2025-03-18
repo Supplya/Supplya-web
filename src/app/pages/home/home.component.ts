@@ -224,7 +224,7 @@ export class HomeComponent implements OnInit {
     this.productService.getAllCategories(1,20).subscribe(
       (data: any) => {
         if (data.status) {
-          this.categories = data?.data;
+          this.categories = data?.data?.filter((x: any) => x.homepageDisplay === true) || [];
           this.loading = false;
         } else {
           this.notify.danger(data?.message);

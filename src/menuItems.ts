@@ -62,6 +62,12 @@ export const menuItems = {
       ],
     },
     {
+      name: 'Media',
+      route: '/core/admin/media',
+      hasChild: false,
+      icon: 'file-earmark-play',
+    },
+    {
       name: 'Blog Posts',
       route: '/core/admin/blog-posts',
       hasChild: false,

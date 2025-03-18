@@ -27,6 +27,7 @@ import { EditBlogPostComponent } from './blog/edit-blog-post/edit-blog-post.comp
 import { NotificationComponent } from './notification/notification.component';
 import { ViewNotificationComponent } from './notification/view-notification/view-notification.component';
 import { SendNotificationComponent } from './notification/send-notification/send-notification.component';
+import { MediaComponent } from './media/media.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -40,6 +41,11 @@ const routes: Routes = [
     path: 'products',
     component: ProductsComponent,
     data: { title: 'All Products' },
+  },
+  {
+    path: 'media',
+    component: MediaComponent,
+    data: { title: 'Media Management' },
   },
   {
     path: 'add-new-product',

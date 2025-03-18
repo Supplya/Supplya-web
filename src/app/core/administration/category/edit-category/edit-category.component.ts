@@ -56,7 +56,10 @@ export class EditCategoryComponent implements OnInit {
       showOnHomepage: [false],
     });
   }
-
+  updateCheckboxValue(event: Event) {
+    const isChecked = (event.target as HTMLInputElement).checked;
+    this.form.get('showOnHomepage')?.setValue(isChecked);
+  }
   getCategoryById() {
     this.productService.getCategoryById(this.id).subscribe(
       (data: any) => {
