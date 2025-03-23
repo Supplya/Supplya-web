@@ -164,6 +164,7 @@ export class OrdersComponent implements OnInit {
       if (result) {
         this.toast.success('Order Status Updated Successfully');
         this.getVendorMetric();
+        this.getAllOrders();
         this.cancellationReason = '';
         this.selectedStatus = '';
       }
