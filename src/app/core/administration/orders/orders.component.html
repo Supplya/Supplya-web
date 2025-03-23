@@ -189,10 +189,17 @@
 
 <div class="py-3">
 
-  <select class="content-select w-100 " [(ngModel)]="selectedStatus">
+  <select class="content-select w-100 mb-2" [(ngModel)]="selectedStatus">
     <option selected value="">Select Status</option>
     <option *ngFor="let item of statuses" [value]="item">{{item}}</option>
   </select>
+
+    <div *ngIf="selectedStatus === 'Cancelled'" class="mb-2 slide-right">
+            <!-- <label for="description" class="content-label">Cancellation Reason</label> -->
+            <textarea [(ngModel)]="cancellationReason" style="height: 80px!important;" id="description"  class=" content-input " placeholder="Enter reason for cancelling this order"></textarea>
+
+
+        </div>
 </div>
 
 <p class="" *ngIf="selectedStatus !== ''"> <span class="fw-bold text-primary">Attention</span>: Changing this status will update the order immediately. Please ensure you have confirmed the correct status before proceeding.</p>

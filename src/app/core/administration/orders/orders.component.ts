@@ -150,12 +150,22 @@ export class OrdersComponent implements OnInit {
     'Delivered',
     'Cancelled',
   ];
+  cancellationReason
   updateOrderStatus(item, status) {
+
+    const payload = {
+      orderStatus: status?.toLowerCase(),
+      deliveryDate: status?.toLowerCase() === 'delivered' ? new Date() : '',
+      cancellationReason: status?.toLowerCase() === 'cancelled' ? this.cancellationReason : '',
+    };
+
     item.orderStatus = status.toLowerCase();
-    this.productService.UpdateOrder(item, item?._id).subscribe((result) => {
+    this.productService.UpdateOrder(payload, item?._id).subscribe((result) => {
       if (result) {
         this.toast.success('Order Status Updated Successfully');
         this.getVendorMetric();
+        this.cancellationReason = '';
+        this.selectedStatus = '';
       }
     });
   }
