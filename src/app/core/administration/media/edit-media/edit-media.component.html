@@ -1,0 +1,94 @@
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+<section>
+
+    <div class="pageRow row align-items-center mb-3 px-2">
+        <div class="col-sm-6">
+          <div class="page-name mt-2">Edit Media</div>
+
+        </div>
+        <div class="col-sm-6">
+            <div class="d-none d-lg-block">
+                <div class="btn-container">
+                  <!-- <button class="cancel" type="button"  (click)="resetForm()"> <i class="bi bi-x mt-1"></i> Clear </button> &nbsp; &nbsp; -->
+                  <button class="add" type="submit"> Update Media</button>
+                </div>
+            </div>
+        </div>
+      </div>
+    <div class="row">
+        <div class="col-lg-8">
+<section class="content container mb-3">
+    <div class="py-3">
+
+        <p class="content-heading">General Information</p>
+        <div class="mb-2 slide-left">
+            <label for="productName" class="content-label">Media Name</label>
+            <input type="text" formControlName="tag" id="productName" class="content-input {{
+                                        isInvalid('tag') ? 'error-input' : ''
+                                      }}" placeholder="Enter media name">
+                                       <small class="error-text mb-4" *ngIf="isInvalid('tag')">
+                                            {{ getErrorMessage('tag', 'This field is required') }}
+                                          </small>
+          </div>
+          <div class="mb-2 slide-right">
+            <label for="description" class="content-label">Description</label>
+            <textarea id="description" formControlName="description" class=" content-input {{
+                                        isInvalid('description') ? 'error-input' : ''
+                                      }}" placeholder="Enter description"></textarea>
+            <small class="error-text mb-4" *ngIf="isInvalid('description')">
+                                            {{ getErrorMessage('description', 'This field is required') }}
+                                          </small>
+
+        </div>
+    </div>
+</section>
+
+<section class="content container mb-3">
+  <div class="py-3">
+    <p class="content-heading">Media</p>
+    <label for="productName" class="content-label">Photo</label>
+    <div class="mb-2 media-div zoom-in" (dragover)="onDragOver($event)" (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+      <div class="text-center py-4">
+        <div class="d-flex justify-content-center ">
+          <div *ngIf="mainImage" class="col-lg-6 col-md-4 col-6 mb-2">
+            <div class="">
+              <img [src]="mainImage" class="mb-2 img-fluid" alt="">
+            </div>
+          </div>
+        </div>
+        <p class="mb-4" *ngIf="!mainImage">Drag and drop image here, or click add image</p>
+        <p class="mb-4 mt-2" *ngIf="mainImage">Drag and drop image here, or click replace image</p>
+        <!-- Hidden file input -->
+        <input type="file" accept="image/*" (change)="addImage($event)" style="display: none;" id="fileInput">
+        <!-- Custom button to trigger file input -->
+        <label for="fileInput" class="content-button center-button" style="width: max-content; cursor: pointer;">
+          <i class="bi bi-plus mt-1"></i> {{ mainImage ? 'Replace Image' : 'Add Image' }}
+        </label>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+ 
+
+
+        </div>
+
+
+     <div class="col-lg-4">
+    <section class="content container mb-3">
+        <div class="py-3">
+            <p class="content-heading">Banner Preview</p>
+            <div class="text-center" *ngIf="mainImage">
+                <img [src]="mainImage" class="img-fluid preview-img" alt="Banner Preview">
+            </div>
+        </div>
+    </section>
+</div>
+
+    </div>
+</section>
+
+</form>

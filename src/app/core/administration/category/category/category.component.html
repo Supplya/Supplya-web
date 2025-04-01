@@ -118,6 +118,7 @@
               <tr>
                 <th>Category Information</th>
                 <th>Total Products</th>
+                <th>Display on Homepage</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -131,6 +132,7 @@
                   </div>
                 </td>
                 <td>{{item?.totalProduct}}</td>
+                <td>{{item?.homepageDisplay ? 'Yes': 'No'}}</td>
              
                <td >
                 <small [ngClass]="{'active': item?.status === 'active', 'inactive': item?.status !== 'active'}">

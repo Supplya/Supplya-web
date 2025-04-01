@@ -4,14 +4,14 @@
 
     <div class="pageRow row align-items-center mb-3 px-2">
         <div class="col-sm-6">
-          <div class="page-name mt-2">Edit Category</div>
+          <div class="page-name mt-2">Add Media</div>
 
         </div>
         <div class="col-sm-6">
             <div class="d-none d-lg-block">
                 <div class="btn-container">
                   <!-- <button class="cancel" type="button"  (click)="resetForm()"> <i class="bi bi-x mt-1"></i> Clear </button> &nbsp; &nbsp; -->
-                  <button class="add" type="submit"> Update Category</button>
+                  <button class="add" type="submit"> <i class="bi bi-plus mt-1"></i> Add Media</button>
                 </div>
             </div>
         </div>
@@ -23,12 +23,12 @@
 
         <p class="content-heading">General Information</p>
         <div class="mb-2 slide-left">
-            <label for="productName" class="content-label">Category Name</label>
-            <input type="text" formControlName="name" id="productName" class="content-input {{
-                                        isInvalid('name') ? 'error-input' : ''
-                                      }}" placeholder="Enter Category name">
-                                       <small class="error-text mb-4" *ngIf="isInvalid('name')">
-                                            {{ getErrorMessage('name', 'This field is required') }}
+            <label for="productName" class="content-label">Media Name</label>
+            <input type="text" formControlName="tag" id="productName" class="content-input {{
+                                        isInvalid('tag') ? 'error-input' : ''
+                                      }}" placeholder="Enter media name">
+                                       <small class="error-text mb-4" *ngIf="isInvalid('tag')">
+                                            {{ getErrorMessage('tag', 'This field is required') }}
                                           </small>
           </div>
           <div class="mb-2 slide-right">
@@ -71,70 +71,20 @@
 </section>
 
 
- 
-
 
         </div>
 
 
-        <div class="col-lg-4">
-            <section class="content container mb-3">
-                <div class="py-3">
-            
-                    <p class="content-heading">Status</p>
-                    <div class="mb-2 slide-right">
-                        <label for="status" class="content-label">Category Status</label>
-                        <select formControlName="status" class=" content-select {{
-                                        isInvalid('status') ? 'error-input' : ''
-                                      }}">
-                            <option value="" selected  id="status">Select Status</option>
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
-                        </select>
-                         <small class="error-text mb-4" *ngIf="isInvalid('status')">
-                                            {{ getErrorMessage('status', 'This field is required') }}
-                                          </small>
-                      </div>
-                </div>
-
-             
-            </section>
-       <section class="content container mb-3">
-  <div class="py-3">
-    <!-- <div class="d-flex justify-content-between">
-
-      <p class="content-heading">Show on homepage</p>
-        <label class="switch">
-        <input type="checkbox" formControlName="homepageDisplay">
-        <span class="slider round"></span>
-      </label>
-    </div> -->
-    <div class="d-flex justify-content-between">
-  <p class="content-heading">Show on homepage</p>
-  <label class="switch">
-    <input 
-      type="checkbox" 
-      [checked]="form.get('homepageDisplay')?.value" 
-      (change)="updateCheckboxValue($event)"
-    >
-    <span class="slider round"></span>
-  </label>
+          <div class="col-lg-4">
+    <section class="content container mb-3">
+        <div class="py-3">
+            <p class="content-heading">Banner Preview</p>
+            <div class="text-center" *ngIf="mainImage">
+                <img [src]="mainImage" class="img-fluid preview-img" alt="Banner Preview">
+            </div>
+        </div>
+    </section>
 </div>
-
- 
-
-  </div>
-     <div class="btn-container-sm mobile-only py-3 mb-4">
-                    <!-- <button (click)="resetForm()" type="button" class="cancel"> <i class="bi bi-x mt-1"></i> Clear </button> &nbsp; &nbsp; -->
-                    <button type="submit" class="add"> Update Category</button>
-                  </div>
-</section>
-
-
-
-
-
-        </div>
     </div>
 </section>
 

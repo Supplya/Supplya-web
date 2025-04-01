@@ -154,19 +154,41 @@ export class ProductService {
       `${this.productUrl}categories?page=${page}&limit=${limit}`
     );
   }
+  getAllMedia(page: number, limit: number): Observable<Product[]> {
+    return this.http.get<Product[]>(
+      `${this.productUrl}media?page=${page}&limit=${limit}`
+    );
+  }
+  // getAllMedia(page?: number, limit?: number): Observable<any[]> {
+  //   return this.http.get<Product[]>(
+  //     `${this.productUrl}media`
+  //   );
+  // }
   addCategory(product: any): Observable<any> {
     return this.http.post<any>(`${this.productUrl}categories`, product);
+  }
+  addMedia(data: any): Observable<any> {
+    return this.http.post<any>(`${this.productUrl}media`, data);
   }
 
   getCategoryById(id: any): Observable<any> {
     return this.http.get<any>(`${this.productUrl}categories/` + id);
   }
+  getMediaById(id: any): Observable<any> {
+    return this.http.get<any>(`${this.productUrl}media/` + id);
+  }
 
   updateCategory(id: any, category: any): Observable<any> {
     return this.http.put<any>(`${this.productUrl}categories/${id}`, category);
   }
+  updateMedia(id: any, category: any): Observable<any> {
+    return this.http.put<any>(`${this.productUrl}media/${id}`, category);
+  }
   deleteCategory(id: any): Observable<any> {
     return this.http.delete<any>(`${this.productUrl}categories/${id}`);
+  }
+  deleteMedia(id: any): Observable<any> {
+    return this.http.delete<any>(`${this.productUrl}media/${id}`);
   }
   UpdateProduct(id: any, product: any): Observable<any> {
     return this.http.patch<any>(`${this.productUrl}products/${id}`, product);

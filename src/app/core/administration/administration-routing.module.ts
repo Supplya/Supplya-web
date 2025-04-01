@@ -28,6 +28,8 @@ import { NotificationComponent } from './notification/notification.component';
 import { ViewNotificationComponent } from './notification/view-notification/view-notification.component';
 import { SendNotificationComponent } from './notification/send-notification/send-notification.component';
 import { MediaComponent } from './media/media.component';
+import { EditMediaComponent } from './media/edit-media/edit-media.component';
+import { AddMediaComponent } from './media/add-media/add-media.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -46,6 +48,16 @@ const routes: Routes = [
     path: 'media',
     component: MediaComponent,
     data: { title: 'Media Management' },
+  },
+  {
+    path: 'edit-media/:id',
+    component: EditMediaComponent,
+    data: { title: 'Edit Media' },
+  },
+  {
+    path: 'add-media',
+    component: AddMediaComponent,
+    data: { title: 'Add Media' },
   },
   {
     path: 'add-new-product',

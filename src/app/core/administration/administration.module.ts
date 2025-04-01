@@ -33,6 +33,8 @@ import { NotificationComponent } from './notification/notification.component';
 import { SendNotificationComponent } from './notification/send-notification/send-notification.component';
 import { ViewNotificationComponent } from './notification/view-notification/view-notification.component';
 import { MediaComponent } from './media/media.component';
+import { EditMediaComponent } from './media/edit-media/edit-media.component';
+import { AddMediaComponent } from './media/add-media/add-media.component';
 
 
 @NgModule({
@@ -66,7 +68,9 @@ import { MediaComponent } from './media/media.component';
     NotificationComponent,
     SendNotificationComponent,
     ViewNotificationComponent,
-    MediaComponent
+    MediaComponent,
+    EditMediaComponent,
+    AddMediaComponent
   ],
   imports: [
     CommonModule,

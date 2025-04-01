@@ -1,19 +1,21 @@
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ToastyService } from 'ng-toasty';
 import { AuthService } from 'src/app/authentication/service/auth.service';
 import { ProductService } from 'src/app/core/operation/services/product/product.service';
 import { HelperService } from 'src/app/shared/helpers/helper.service';
 import { MediaUploadService } from 'src/app/shared/services/mediaUpload.service';
 import { DashboardService } from '../../services/dashboard.service';
+
 @Component({
-  selector: 'app-edit-category',
-  templateUrl: './edit-category.component.html',
-  styleUrls: ['./edit-category.component.scss'],
+  selector: 'app-add-media',
+  templateUrl: './add-media.component.html',
+  styleUrls: ['./add-media.component.scss']
 })
-export class EditCategoryComponent implements OnInit {
+
+export class AddMediaComponent implements OnInit {
   categories: any;
   constructor(
     public productService: ProductService,
@@ -23,7 +25,6 @@ export class EditCategoryComponent implements OnInit {
     private notify: ToastyService,
     private uploadService: MediaUploadService,
     private route: Router,
-    private router: ActivatedRoute,
     private adminService: DashboardService
   ) {}
 
@@ -35,45 +36,19 @@ export class EditCategoryComponent implements OnInit {
   uploadProgress: number = 0;
   uploadRequestLoading: boolean = false;
   errorUploading: boolean = false;
-  id;
+
   ngOnInit(): void {
-    this.router.paramMap.subscribe((params) => {
-      this.id = params.get('id');
-      if (this.id) {
-  
-        this.getCategoryById();
-}
-    });
     this.initForm();
   }
 
   initForm() {
     this.form = this.fb.group({
-      name: ['', Validators.required],
+      tag: ['', Validators.required],
       description: ['', Validators.required],
-      status: [''],
-      image: [''], // Set image as required
-      homepageDisplay: [false],
+      image: [''],
     });
   }
-  updateCheckboxValue(event: Event) {
-    const isChecked = (event.target as HTMLInputElement).checked;
-    this.form.get('homepageDisplay')?.setValue(isChecked);
-  }
-  getCategoryById() {
-    this.productService.getCategoryById(this.id).subscribe(
-      (data: any) => {
-        if (data.status) {
-          this.form.patchValue(data.data);
-          this.mainImage = data?.data?.image
-        } else {
-          this.notify.danger(data?.msg);
-        }
-      },
-      (error) => {
-      }
-    );
-  }
+
 
   uploadImage(file: File) {
     this.uploadProgress = 0;
@@ -140,10 +115,10 @@ export class EditCategoryComponent implements OnInit {
     const formData = this.form.value;
     formData.image = this.mainImage;
     if (this.form.valid) {
-      this.productService.updateCategory(this.id, formData).subscribe((data) => {
+      this.productService.addMedia(formData).subscribe((data) => {
         if (data.status) {
           this.notify.success(data.message);
-          this.route.navigate(['/core/admin/categories']);
+          this.route.navigate(['/core/admin/media']);
         }
       });
     }

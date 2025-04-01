@@ -1,37 +1,159 @@
-<div class="container">
- 
-  
-  <div class="row">
-    <div *ngFor="let banner of banners" class="col-md-4 mb-4">
-      <div class="banner-card">
-        <h5 class="banner-title">{{ banner.name }}</h5>
-        
-        <div class="image-container">
-          <img 
-            *ngIf="banner.imageUrl || banner.image; else noImage" 
-            [src]="banner.imageUrl || banner.image" 
-            class="banner-img" 
-            alt="{{ banner.name }}">
-          
-          <ng-template #noImage>
-            <div class="no-image">No Image Set</div>
-          </ng-template>
-        </div>
-
-       <div class="upload-section">
-  <input 
-    type="file" 
-    (change)="onFileSelected($event, banner)" 
-    accept="image/*" 
-    class="upload-input" 
-    #fileInput>
+<section>
     
-  <button class="btn btn-upload" (click)="fileInput.click()">
-    {{ (banner.imageUrl || banner.image) ? 'Replace Image' : 'Upload Image' }}
-  </button>
-</div>
-
+    <div class="container">
+  <div class="pageRow row align-items-center mb-3">
+        <div class="col-6">
+          <div class="page-name mt-2">{{title}}</div>
+        </div>
+        <div class="col-6">
+          <div class="btn-container">
+            <button class="add" routerLink="/core/admin/add-media">Add Media</button>
+          </div>
+        </div>
       </div>
+      
     </div>
-  </div>
+</section>
+
+
+
+<div class="container">
+    <div class="container bg-white">
+
+        <div class="row px-3 py-3">
+   
+   
+   <div class="col-lg-5 ">
+         <div class="search-wrapper">
+       <div class="search-box d-flex align-items-center">
+           <i class="bi bi-search search-icon"></i>
+           <input [(ngModel)]="search" (keyup.enter)="getAllMedia()" type="text" class="form-control search-input" placeholder="Search here...">
+           
+           <div class="d-flex align-items-center">
+               <button [disabled]="loading" (click)="getAllMedia()" class="btn search-button">
+                   Search
+               </button>
+               &nbsp;&nbsp;&nbsp;&nbsp;
+               <div *ngIf="search">
+                   <i title="Reset search" (click)="search = '';getAllMedia();" 
+                      class="bi bi-arrow-clockwise ms-2" 
+                      style="font-size: 20px; color: var(--theme-color1); cursor: pointer;">
+                   </i>
+               </div>
+           </div>
+       </div> 
+   </div>
+   
+   </div>
+   
+   
+        
+                          <div class="col-lg-7 text-end mb-2" *ngIf="media?.length > 0">
+                       <p (click)="exportToExcel()" class="btn export">Export</p>
+                     </div>
+         </div>
+      </div>
+
+      <section class="content" *ngIf="loading">
+<div class="py-5 p-5 center">
+    <div>
+
+        <img src="/assets/Images/requestLoading.gif" alt="">
+        <p class="loading-text text-center text-muted">Loading...</p>
+    </div>
 </div>
+      </section >
+
+      <section class="content center" *ngIf="!loading && !media && errorFetchingCategory">
+        <div class="py-5 ">
+          <div class="py-3 text-center" >
+            <img src="/assets/Images/oops.png" style="height: 200px;" alt="">
+            <p class="loading-text  text-muted py-3">Could not display media. Click 'Refresh' to try again.
+        </p>
+            <p class="refresh" (click)="refreshCategory()">Refresh <i class="bi bi-arrow-repeat"></i></p>
+          </div>
+        </div>
+      </section>
+     
+     
+      
+    
+
+      
+       <section class="content center" *ngIf="media?.length === 0">
+        <div class="py-5 ">
+          <div class="py-3 text-center" >
+            <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">
+            <div class=" py-5">
+
+              <p class="loading-text  text-muted">No media found for your search
+          </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="content center" *ngIf="media?.length === 0 && media?.length === 0">
+        <div class="py-5 ">
+          <div class="py-3 text-center" >
+            <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">
+          </div>
+           <div class=" py-3">
+
+              <p class="loading-text  text-muted">Your media is empty!
+          </p>
+           <!-- <small style="font-size: 16px!important;" class="text-muted">Start Selling! Add Your First category</small> -->
+           <div class="btn-wrapper mt-3">
+            <button class="add" routerLink="/core/vendor/add-media"> <i class="bi bi-plus mt-1"></i> Add Media</button>
+          </div>
+            </div>
+        </div>
+      </section>
+  </div>
+
+    <div class="table-responsive" *ngIf="!loading && media?.length > 0">
+
+          <table class="table" style="overflow-y: none!important;">
+            <thead>
+              <tr>
+                <th>Media Information</th>
+                <th>Description</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of media | paginate: { itemsPerPage: pageSize, currentPage: p, totalItems: totalCount }; let i = index">
+                <td>
+                  <div class="product-info" routerLink="/core/admin/edit-media/{{item?._id}}" style="cursor: pointer;">
+                    <img class="product-image" [src]="item?.image" alt="Product Image">
+                    {{ item?.tag | shortenText }}
+                  </div>
+                </td>
+                <td>{{item?.description}}</td>
+             
+           
+
+                <td>
+                 <div class="dropdowns">
+            <img src="/assets/Images/dots (2).png" class="Pencil">
+            <div class="dropdown-content p-2">
+              <!-- <a (click)="toggleModal('vendorModal', 'open')" class="dropdown-item" style="cursor: pointer;"><img class="border-right p-2 mr-2" src="/assets/img/edit.png" alt=""> View Vendor</a> -->
+              <a class="dropdown-item border-bottom" routerLink="/core/admin/edit-media/{{item?._id}}" style="cursor: pointer;">Edit Media</a>
+              <a class="dropdown-item border-bottom text-danger" (click)="deleteMedia(item)" style="cursor: pointer;">Delete Media</a>
+            </div>
+          </div>
+                </td>
+              </tr>
+            </tbody>
+           
+          </table>
+
+       <div>
+                  <pagination-controls
+      (pageChange)="onPageChange($event)"
+      previousLabel=""
+      nextLabel=""
+    ></pagination-controls>
+              </div>
+          
+      </div>

@@ -1,19 +1,21 @@
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ToastyService } from 'ng-toasty';
 import { AuthService } from 'src/app/authentication/service/auth.service';
 import { ProductService } from 'src/app/core/operation/services/product/product.service';
 import { HelperService } from 'src/app/shared/helpers/helper.service';
 import { MediaUploadService } from 'src/app/shared/services/mediaUpload.service';
 import { DashboardService } from '../../services/dashboard.service';
+
 @Component({
-  selector: 'app-edit-category',
-  templateUrl: './edit-category.component.html',
-  styleUrls: ['./edit-category.component.scss'],
+  selector: 'app-edit-media',
+  templateUrl: './edit-media.component.html',
+  styleUrls: ['./edit-media.component.scss']
 })
-export class EditCategoryComponent implements OnInit {
+
+export class EditMediaComponent implements OnInit {
   categories: any;
   constructor(
     public productService: ProductService,
@@ -41,7 +43,7 @@ export class EditCategoryComponent implements OnInit {
       this.id = params.get('id');
       if (this.id) {
   
-        this.getCategoryById();
+        this.getMediaById();
 }
     });
     this.initForm();
@@ -49,19 +51,14 @@ export class EditCategoryComponent implements OnInit {
 
   initForm() {
     this.form = this.fb.group({
-      name: ['', Validators.required],
+      tag: ['', Validators.required],
       description: ['', Validators.required],
-      status: [''],
-      image: [''], // Set image as required
-      homepageDisplay: [false],
+      image: [''],
     });
   }
-  updateCheckboxValue(event: Event) {
-    const isChecked = (event.target as HTMLInputElement).checked;
-    this.form.get('homepageDisplay')?.setValue(isChecked);
-  }
-  getCategoryById() {
-    this.productService.getCategoryById(this.id).subscribe(
+
+  getMediaById() {
+    this.productService.getMediaById(this.id).subscribe(
       (data: any) => {
         if (data.status) {
           this.form.patchValue(data.data);
@@ -140,10 +137,10 @@ export class EditCategoryComponent implements OnInit {
     const formData = this.form.value;
     formData.image = this.mainImage;
     if (this.form.valid) {
-      this.productService.updateCategory(this.id, formData).subscribe((data) => {
+      this.productService.updateMedia(this.id, formData).subscribe((data) => {
         if (data.status) {
           this.notify.success(data.message);
-          this.route.navigate(['/core/admin/categories']);
+          this.route.navigate(['/core/admin/media']);
         }
       });
     }
