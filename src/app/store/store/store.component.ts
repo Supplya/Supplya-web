@@ -151,7 +151,7 @@ export class StoreComponent implements OnInit {
       (response: any) => {
         this.products = response.data['products'];
         this.vendor = response.data['vendorDetails'];
-        this.storeUrl = `https://supplya.shop/#/store/${this.vendor.storeName}`;
+        this.storeUrl = `https://supplya.shop/#/store/${this.vendor?.storeName}`;
         // this.totalProducts = response.totalProducts;
         this.generateQRCode();
         this.loading = false;
