@@ -212,9 +212,14 @@
           </div>
   
           <div class="row">
-            <div class="col-lg-4" style="background: url('/assets/Images/Web-side-Banner1-380x752.png') no-repeat center center; background-size: cover;">
+                  <div 
+  class="col-lg-4" 
+  *ngIf="getBanner('Popular')"
+  [ngStyle]="{ 'background-image': 'url(' + getBanner('Special')?.image + ')', 'background-size': 'cover', 'background-position': 'center' }">
+</div>
+            <!-- <div class="col-lg-4" style="background: url('/assets/Images/Web-side-Banner1-380x752.png') no-repeat center center; background-size: cover;">
   
-            </div>
+            </div> -->
             <div class="col-lg-8">
             <app-state-handler 
  [isLoading]="specialLoading" 
@@ -297,8 +302,14 @@
   (toggleWishlistEvent)="toggleWishlist($event)"></app-shop-product>
   </div>
           </div>
-         <div class="col-lg-4" style="background: url('/assets/Images/Web-side-Banner2-380x752.png') no-repeat center center; background-size: cover;">
+          <div 
+  class="col-lg-4" 
+  *ngIf="getBanner('Popular')"
+  [ngStyle]="{ 'background-image': 'url(' + getBanner('Popular')?.image + ')', 'background-size': 'cover', 'background-position': 'center' }">
 </div>
+
+         <!-- <div class="col-lg-4" style="background: url('/assets/Images/Web-side-Banner2-380x752.png') no-repeat center center; background-size: cover;">
+</div> -->
 
          
         </div>

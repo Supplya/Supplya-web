@@ -78,7 +78,28 @@ export class HomeComponent implements OnInit {
     this.getAllFlashProducts();
     this.getSpecialDeals();
     this.getAllTrendingProducts();
+    this.getAllMedia();
   }
+
+  errorFetchingMedia
+  banners
+  getAllMedia() {
+    this.loading = true;
+    this.productService.getAllMedia(1, 50).subscribe(
+      (data: any) => {
+        this.banners = data?.data;
+        this.loading = false;
+      },
+      (error) => {
+        this.errorFetchingMedia = true;
+        this.loading = false;
+      }
+    );
+  }
+  getBanner(tag: string) {
+    return this.banners?.find(banner => banner?.tag?.toLowerCase() === tag?.toLowerCase());
+  }
+
 
   newArrivalLoading = false;
   newArrivalError = false;
