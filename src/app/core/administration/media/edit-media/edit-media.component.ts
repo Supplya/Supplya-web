@@ -8,6 +8,7 @@ import { ProductService } from 'src/app/core/operation/services/product/product.
 import { HelperService } from 'src/app/shared/helpers/helper.service';
 import { MediaUploadService } from 'src/app/shared/services/mediaUpload.service';
 import { DashboardService } from '../../services/dashboard.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-media',
@@ -57,6 +58,24 @@ export class EditMediaComponent implements OnInit {
     });
   }
 
+  isReadonly: boolean = true; 
+  switchToEditMode() {
+    const text = 'Editing the name will affect parts where the banner is displayed across the website.'
+    Swal.fire({
+      title: 'Are you sure you want to edit the media name?',
+      // html: `<span style="color: #212529; font-weight: 400; font-size: 17px;">${text}</span>`,
+      text: text,
+      icon: 'warning',
+      allowOutsideClick: false,
+      showCancelButton: true,
+      confirmButtonText: 'Yes, edit it!',
+      cancelButtonText: 'No, cancel!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.isReadonly = false;  // Enable editing if confirmed
+      }
+    });
+  }
   getMediaById() {
     this.productService.getMediaById(this.id).subscribe(
       (data: any) => {
