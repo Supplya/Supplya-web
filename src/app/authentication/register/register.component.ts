@@ -27,9 +27,10 @@ export class RegisterComponent implements OnInit {
   ) {
     this.form = this.fb.group(
       {
+        signupMethod: ['email', Validators.required],
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
-        email: ['', [Validators.required, Validators.email]],
+        email: ['', [Validators.required]],
         phoneNumber: [
           '',
           [
@@ -50,6 +51,28 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.toggleModal('signUpModal', 'open');
+
+    this.form.get('signupMethod')?.valueChanges.subscribe((method: 'email' | 'phone') => {
+      const emailControl = this.form.get('email');
+      const phoneControl = this.form.get('phoneNumber');
+      this.signupWithPhone = method === 'phone';
+      if (method === 'phone') {
+        emailControl?.clearValidators();
+        emailControl?.updateValueAndValidity();
+        phoneControl?.setValidators([Validators.required]);
+        phoneControl?.updateValueAndValidity();
+      } else {
+        phoneControl?.clearValidators();
+        phoneControl?.updateValueAndValidity();
+        emailControl?.setValidators([Validators.required]);
+        emailControl?.updateValueAndValidity();
+      }
+
+      // this.signupWithPhone = method === 'phone';
+    });
+
+    // Trigger initial logic
+    this.form.get('signupMethod')?.updateValueAndValidity({ emitEvent: true });
   }
   toggleModal = (modalId, action: string, data?: any) => {
     if (action == 'open') {
@@ -68,17 +91,12 @@ export class RegisterComponent implements OnInit {
       return;
     }
   }
-  setSignupMethod(method: 'email' | 'phone'): void {
-    this.signupWithPhone = method === 'phone';
 
-    if (this.signupWithPhone) {
-      this.form.get('email')?.disable();
-      this.form.get('phoneNumber')?.enable();
-    } else {
-      this.form.get('phoneNumber')?.disable();
-      this.form.get('email')?.enable();
-    }
+
+  setSignupMethod(method: 'email' | 'phone'): void {
+    this.form.patchValue({ signupMethod: method });
   }
+
   methodError = '';
   fromMethod() {
     const phone = this.form.get('phoneNumber')?.value;
@@ -98,6 +116,7 @@ export class RegisterComponent implements OnInit {
   }
   register() {
     this.submitted = true;
+    console.log(this.form.controls)
     if (this.form.valid) {
       this.form.value.role = this.userType;
       let phone = this.form.get('phoneNumber')?.value;
