@@ -86,7 +86,7 @@
             </div>
             <div class="auth-input slide-left">
               <i class="bi bi-envelope"></i>
-              <input type="text" class="auth {{ isInvalid('email') ? 'error-input' : '' }}" aria-label="Email Address" aria-describedby="basic-addon1" formControlName="email" [ngClass]="{ 'is-invalid': isInvalid('email') }" placeholder="example@gmail.com">
+              <input email type="text" class="auth {{ isInvalid('email') ? 'error-input' : '' }}" aria-label="Email Address" aria-describedby="basic-addon1" formControlName="email" [ngClass]="{ 'is-invalid': isInvalid('email') }" placeholder="example@gmail.com">
               <div class="invalid-feedback mb-4 px-3" *ngIf="isInvalid('email')">
                 {{ getErrorMessage('email', 'Email is required') }}
               </div>
