@@ -175,14 +175,14 @@ export class ProductService {
     return this.http.get<any>(`${this.productUrl}categories/` + id);
   }
   getMediaById(id: any): Observable<any> {
-    return this.http.get<any>(`${this.productUrl}media/` + id);
+    return this.http.get<any>(`${this.productUrl}media/banners/` + id);
   }
 
   updateCategory(id: any, category: any): Observable<any> {
     return this.http.put<any>(`${this.productUrl}categories/${id}`, category);
   }
   updateMedia(id: any, category: any): Observable<any> {
-    return this.http.put<any>(`${this.productUrl}media/${id}`, category);
+    return this.http.put<any>(`${this.productUrl}media/banners/${id}`, category);
   }
   deleteCategory(id: any): Observable<any> {
     return this.http.delete<any>(`${this.productUrl}categories/${id}`);
