@@ -72,8 +72,8 @@ export class LandingPageComponent {
       }
     );
   }
-  getBanner(tag: string) {
-    return this.banners?.find(banner => banner?.tag?.toLowerCase() === tag?.toLowerCase());
+  getBanner(section: string) {
+    return this.banners?.find(banner => banner?.section?.toLowerCase() === section?.toLowerCase());
   }
 
 

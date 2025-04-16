@@ -154,9 +154,9 @@ export class ProductService {
       `${this.productUrl}categories?page=${page}&limit=${limit}`
     );
   }
-  getAllMedia(page: number, limit: number): Observable<Product[]> {
+  getAllMedia(page: number, limit: number, search?: string): Observable<Product[]> {
     return this.http.get<Product[]>(
-      `${this.productUrl}media?page=${page}&limit=${limit}`
+      `${this.productUrl}media/banners/all?page=${page}&limit=${limit}`
     );
   }
   // getAllMedia(page?: number, limit?: number): Observable<any[]> {
@@ -168,7 +168,7 @@ export class ProductService {
     return this.http.post<any>(`${this.productUrl}categories`, product);
   }
   addMedia(data: any): Observable<any> {
-    return this.http.post<any>(`${this.productUrl}media`, data);
+    return this.http.post<any>(`${this.productUrl}media/banners/homepage-banners`, data);
   }
 
   getCategoryById(id: any): Observable<any> {

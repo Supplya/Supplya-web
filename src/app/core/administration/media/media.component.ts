@@ -45,7 +45,7 @@ export class MediaComponent implements OnInit {
   media: any;
   getAllMedia() {
     this.loading = true;
-    this.productService.getAllMedia(this.p, this.pageSize).subscribe(
+    this.productService.getAllMedia(this.p, this.pageSize, this.search).subscribe(
       (data: any) => {
         this.media = data?.data;
         this.totalCount = data?.totalMedia;

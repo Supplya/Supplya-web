@@ -80,7 +80,7 @@
     
 
       
-       <section class="content center" *ngIf="media?.length === 0">
+       <section class="content center" *ngIf="media?.length === 0 && search !== null">
         <div class="py-5 ">
           <div class="py-3 text-center" >
             <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">
@@ -93,7 +93,7 @@
         </div>
       </section>
 
-      <section class="content center" *ngIf="media?.length === 0 && media?.length === 0">
+      <section class="content center" *ngIf="media?.length === 0 && search === null">
         <div class="py-5 ">
           <div class="py-3 text-center" >
             <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">
@@ -126,7 +126,7 @@
                 <td>
                   <div class="product-info" routerLink="/core/admin/edit-media/{{item?._id}}" style="cursor: pointer;">
                     <img class="product-image" [src]="item?.image" alt="Product Image">
-                    {{ item?.tag | shortenText }}
+                    {{ item?.section | shortenText }}
                   </div>
                 </td>
                 <td>{{item?.description}}</td>

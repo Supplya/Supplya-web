@@ -24,11 +24,38 @@
         <p class="content-heading">General Information</p>
         <div class="mb-2 slide-left">
             <label for="productName" class="content-label">Media Name</label>
-            <input type="text" formControlName="tag" id="productName" class="content-input {{
-                                        isInvalid('tag') ? 'error-input' : ''
-                                      }}" placeholder="Enter media name">
-                                       <small class="error-text mb-4" *ngIf="isInvalid('tag')">
-                                            {{ getErrorMessage('tag', 'This field is required') }}
+<select formControlName="section" class=" content-input {{
+                                        isInvalid('section') ? 'error-input' : ''
+                                      }}">
+                            <option value="" selected  id="section">Select Name</option>
+                            <option *ngFor="let banner of bannerOptions" [value]="banner.value">{{ banner.name }}</option>
+                           
+                        </select>
+                                       <small class="error-text mb-4" *ngIf="isInvalid('section')">
+                                            {{ getErrorMessage('section', 'This field is required') }}
+                                          </small>
+          </div>
+      
+        <div class="mb-2 slide-left">
+            <label for="platform" class="content-label">Platform</label>
+ <select formControlName="platform" class=" content-input {{
+                                        isInvalid('platform') ? 'error-input' : ''
+                                      }}">
+                            <option value="" selected  id="platform">Select platform</option>
+                            <option value="web">Web</option>
+                            <option value="mobile">Mobile</option>
+                        </select>
+                                       <small class="error-text mb-4" *ngIf="isInvalid('platform')">
+                                            {{ getErrorMessage('platform', 'This field is required') }}
+                                          </small>
+          </div>
+           <div class="mb-2 slide-left">
+            <label for="redirectUrl" class="content-label">Link</label>
+            <input type="text" formControlName="redirectUrl" id="redirectUrl" class="content-input {{
+                                        isInvalid('redirectUrl') ? 'error-input' : ''
+                                      }}" placeholder="Enter link">
+                                       <small class="error-text mb-4" *ngIf="isInvalid('redirectUrl')">
+                                            {{ getErrorMessage('redirectUrl', 'This field is required') }}
                                           </small>
           </div>
           <div class="mb-2 slide-right">
@@ -42,6 +69,7 @@
 
         </div>
     </div>
+     
 </section>
 
 <section class="content container mb-3">
@@ -86,6 +114,10 @@
     </section>
 </div>
     </div>
+
+      <div class="btn-container-sm mobile-only py-3 mb-4">
+                    <button type="submit" class="add"> Add Media</button>
+                  </div>
 </section>
 
 </form>

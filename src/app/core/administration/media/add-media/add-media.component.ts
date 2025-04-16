@@ -43,12 +43,29 @@ export class AddMediaComponent implements OnInit {
 
   initForm() {
     this.form = this.fb.group({
-      tag: ['', Validators.required],
+      platform: ['', Validators.required],
       description: ['', Validators.required],
+      section: ['', Validators.required],
+      redirectUrl: [''],
       image: [''],
     });
   }
-
+  bannerOptions = [
+    { value: "TopBarBanner", name: "Top Bar Banner" },
+    { value: "HeroBanner", name: "Hero Banner" },
+    { value: "SpecialBanner", name: "Special Banner" },
+    { value: "PopularDealsBanner", name: "Popular Deals Banner" },
+    { value: "FlashSalesBanner", name: "Flash Sales Banner" },
+    { value: "BillboardBanner", name: "Billboard Banner" },
+    { value: "SkyscraperLeftBanner", name: "Skyscraper Left Banner" },
+    { value: "SkyscraperRightBanner", name: "Skyscraper Right Banner" },
+    { value: "FooterBanner", name: "Footer Banner" },
+    { value: "SpecialDealsBanner", name: "Special Deals Banner" },
+    { value: "CategoryTopBanner", name: "Category Top Banner" },
+    { value: "CategoryBottomBanner", name: "Category Bottom Banner" },
+    { value: "HomeMobileTopBanner", name: "Home Mobile Top Banner" },
+    { value: "HomeMobileMiddleBanner", name: "Home Mobile Middle Banner" }
+  ];
 
   uploadImage(file: File) {
     this.uploadProgress = 0;
@@ -114,8 +131,14 @@ export class AddMediaComponent implements OnInit {
     this.submitted = true;
     const formData = this.form.value;
     formData.image = this.mainImage;
+
+    const payload = {
+      banners: [
+        formData
+      ]
+    }
     if (this.form.valid) {
-      this.productService.addMedia(formData).subscribe((data) => {
+      this.productService.addMedia(payload).subscribe((data) => {
         if (data.status) {
           this.notify.success(data.message);
           this.route.navigate(['/core/admin/media']);

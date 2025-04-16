@@ -96,8 +96,8 @@ export class HomeComponent implements OnInit {
       }
     );
   }
-  getBanner(tag: string) {
-    return this.banners?.find(banner => banner?.tag?.toLowerCase() === tag?.toLowerCase());
+  getBanner(section: string) {
+    return this.banners?.find(banner => banner?.section?.toLowerCase() === section?.toLowerCase());
   }
 
 
