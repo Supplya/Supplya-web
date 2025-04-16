@@ -44,6 +44,9 @@ export class StoreComponent implements OnInit {
     this.getStoreProducts();
     // this.getStoreInfo();
     // this.getVendorReviews(vendorId);
+    if (this.vendor?.banners && this.vendor.banners.length > 0) {
+    }
+    this.startCarousel();
   }
 
   detailsLoading = false;
@@ -190,6 +193,59 @@ export class StoreComponent implements OnInit {
 
   addToCart(product: any) {
     this.cartService.addToCart(product);
+  }
+  carouselIndex: number = 0;
+  carouselInterval: any;
+  test ={
+  banners: [
+    {
+      "_id": "67ffaf59e8b5bec6882fa866",
+      "platform": "web",
+      "section": "StoreBanner",
+      "image": "https://res.cloudinary.com/piusash/image/upload/v1744809813/supplya-images/dszfe6ovpmzwtmxphpae.jpg",
+      "description": "StoreBanner",
+      "vendor": "6664a5b92dd055006ba503de",
+      "redirectUrl": null,
+      "__v": 0,
+      "createdAt": "2025-04-16T13:23:37.120Z",
+      "updatedAt": "2025-04-16T13:23:37.120Z"
+    },
+    {
+      "_id": "67ffb352e8b5bec6882fa934",
+      "platform": "web",
+      "section": "StoreBanner",
+      "image": "https://res.cloudinary.com/piusash/image/upload/v1744809813/supplya-images/dszfe6ovpmzwtmxphpae.jpg",
+      "description": "StoreBanner",
+      "vendor": "6664a5b92dd055006ba503de",
+      "redirectUrl": null,
+      "__v": 0,
+      "createdAt": "2025-04-16T13:40:34.182Z",
+      "updatedAt": "2025-04-16T13:40:34.182Z"
+    },
+    {
+      "_id": "67ffb352e8b5bec6882fa935",
+      "platform": "web",
+      "section": "StoreBanner",
+      "image": "https://res.cloudinary.com/piusash/image/upload/v1744810829/supplya-images/jniw44njs3nomjjx08ui.png",
+      "description": "StoreBanner",
+      "vendor": "6664a5b92dd055006ba503de",
+      "redirectUrl": null,
+      "__v": 0,
+      "createdAt": "2025-04-16T13:40:34.182Z",
+      "updatedAt": "2025-04-16T13:40:34.182Z"
+    }
+  ]
+}
+  startCarousel() {
+    this.carouselInterval = setInterval(() => {
+      this.carouselIndex = (this.carouselIndex + 1) % this.test.banners.length;
+    }, 3000); // Change image every 3 seconds
+  }
+  ngOnDestroy() {
+    // Clear the interval when the component is destroyed
+    if (this.carouselInterval) {
+      clearInterval(this.carouselInterval);
+    }
   }
 
   viewProduct(product: any) {

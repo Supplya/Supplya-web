@@ -55,8 +55,16 @@ export class AuthService {
     const url = `${this.baseURL}users/${userId}`;
     return this.http.get<any>(url);
   }
+  getStoreBanner(): Observable<any> {
+    const url = `${this.baseURL}vendors/store-banners`;
+    return this.http.get<any>(url);
+  }
   changePassword(payload: any): Observable<any> {
     return this.http.post<any>(`${this.baseURL}auth/change-password`, payload);
+  }
+
+  uploadStoreBanner(payload: any): Observable<any> {
+    return this.http.post<any>(`${this.baseURL}vendors/store-banners`, payload);
   }
   validateShop(storeName: string): Observable<any> {
     const url = `${this.baseURL}vendors/validate-store-name?storeName=${storeName}`;

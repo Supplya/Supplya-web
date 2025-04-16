@@ -19,7 +19,44 @@
       </div>
     </div>
   </section>
-  <section *ngIf="!detailsLoading && vendor && !detailsError" 
+  <section *ngIf="!detailsLoading && vendor && !detailsError && vendor?.banners" class="hero-section  py-5">
+
+   <section class="container">
+  <div class="row align-items-center px-5 py-3">
+    <!-- Left Column -->
+    <div class="col-lg-6 mb-4 mb-lg-0">
+      <h3 class="headings">Discover what we have in store for you</h3>
+      <h1 class="hero-title">{{ capitalizeFirstLetter(vendor?.storeName) }} Store</h1>
+      <p class="hero-address">{{ vendor?.address }}</p>
+      <div class="hero-contact mb-3">
+        <p *ngIf="vendor?.phoneNumber"><i class="bi bi-telephone"></i> {{ vendor?.phoneNumber }}</p>
+        <p *ngIf="vendor?.email"><i class="bi bi-envelope"></i> {{ vendor?.email }}</p>
+      </div>
+      <button class="btn btn-primary" (click)="downloadQRCode()">Download Store QR</button>
+    </div>
+
+    <!-- Right Column with background image -->
+    <div
+      class="col-lg-6 hero-background d-none d-lg-block"
+      [ngStyle]="{
+        'background-image': vendor?.banners?.length 
+          ? 'url(' + vendor?.banners[carouselIndex]?.image + ')' 
+          : (vendor?.storeImage 
+            ? 'url(' + vendor?.storeImage + ')' 
+            : 'url(/assets/Images/logo.png)'),
+        'background-size': 'contain',
+        'background-repeat': 'no-repeat',
+        'background-position': 'center',
+        'min-height': '400px'
+      }"
+    >
+    </div>
+  </div>
+</section>
+
+  </section>
+
+  <section *ngIf="!detailsLoading && vendor && !detailsError && !vendor?.banners" 
   class="vendor-store"
   [ngStyle]="{ 'background-image': vendor?.storeImage ? 'url(' + vendor?.storeImage + ')' : 'url(/assets/Images/logo.png)' }"
 >

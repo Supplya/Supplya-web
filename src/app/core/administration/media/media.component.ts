@@ -104,7 +104,7 @@ export class MediaComponent implements OnInit {
 
   deleteMedia(category: any) {
     Swal.fire({
-      html: `<span style="color: #000; font-weight: 600; font-size: 19px;">Are you sure you want to delete this media "<span style="color: var(--primary-color);">${category?.tag}</span>"?</span>`,
+      html: `<span style="color: #000; font-weight: 600; font-size: 19px;">Are you sure you want to delete this media "<span style="color: var(--primary-color);">${category?.section}</span>"?</span>`,
       icon: 'warning',
       showCancelButton: true,
       allowOutsideClick: false,

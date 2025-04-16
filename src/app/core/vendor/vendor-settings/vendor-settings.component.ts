@@ -1,6 +1,6 @@
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastyService } from 'ng-toasty';
 import { AuthService } from 'src/app/authentication/service/auth.service';
@@ -70,6 +70,7 @@ export class VendorSettingsComponent implements OnInit {
     this.initForm();
     this.userDetails = this.authService.getUserCredentials();
     this.getUserByID();
+    // this.getStoreBanner();
     
   }
   requestLoading;
@@ -104,6 +105,38 @@ export class VendorSettingsComponent implements OnInit {
       }
     );
   }
+
+  bannerLoading
+  bannerError
+  allBanners
+  getStoreBanner() {
+    this.bannerLoading = true;
+    this.bannerError = false;
+    this.authService.getStoreBanner().subscribe(
+      (data: any) => {
+        this.bannerLoading = false;
+        if (data.status) {
+          this.allBanners = data?.data
+          this.banners?.clear();
+          data?.data?.forEach((banner: any) => {
+            const bannerGroup = this.fb.group({
+              image: [banner?.image],
+              description: [banner?.description],
+              platform: [banner?.platform]
+            });
+            this.banners.push(bannerGroup);
+          });
+        } else {
+          this.notify.danger(data.message);
+        }
+       
+      },
+      (error) => {
+        this.bannerLoading = false;
+        this.bannerError = true;
+      }
+    );
+  }
   handleAddressChange(location: any) {
     this.form.patchValue({
       address: location?.address,
@@ -119,6 +152,7 @@ export class VendorSettingsComponent implements OnInit {
   }
   form: FormGroup;
   passwordForm: FormGroup;
+  bannerForm: FormGroup;
   submitted: boolean = false;
   selectedTab: string = 'shop';
   showPassword: boolean = false;
@@ -160,6 +194,72 @@ export class VendorSettingsComponent implements OnInit {
       },
       { validator: PasswordMatchValidator('newPassword', 'confirmPassword') }
     );
+    this.bannerForm = this.fb.group({
+      banners: this.fb.array([])
+    }
+    
+    );
+  }
+  get banners(): FormArray {
+    return this.bannerForm.get('banners') as FormArray;
+  }
+ maxImages = 3;
+  onFilesSelected(event: any) {
+    const files: FileList = event.target.files;
+    if (!files || files.length === 0) return;
+
+    const remainingSlots = this.maxImages - this.banners.length;
+    const selectedFiles = Array.from(files).slice(0, remainingSlots);
+
+    selectedFiles.forEach((file: File) => {
+      this.uploadBanner(file);
+    });
+
+    event.target.value = ''; // Reset the input
+  }
+
+  uploadBanner(file: File, indexToReplace: number | null = null) {
+    this.uploadService.uploadImages(file).subscribe(
+      (event: HttpEvent<any>) => {
+        if (event.type === HttpEventType.UploadProgress && event.total) {
+          this.uploadProgress = Math.round((event.loaded / event.total) * 100);
+        } else if (event.type === HttpEventType.Response) {
+          const url = event.body.secure_url;
+
+          const bannerGroup = this.fb.group({
+            image: [url],
+            description: ['StoreBanner'],
+            platform: ['web']
+          });
+
+          if (indexToReplace !== null) {
+            this.banners.setControl(indexToReplace, bannerGroup);
+          } else {
+            this.banners.push(bannerGroup);
+          }
+        }
+      },
+      (error) => {
+        console.error('Image upload failed', error);
+      }
+    );
+  }
+
+  removeBanner(index: number) {
+    this.banners.removeAt(index);
+  }
+
+  changeBanner(index: number) {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (event: any) => {
+      const file = event.target.files[0];
+      if (file) {
+        this.uploadBanner(file, index);
+      }
+    };
+    input.click();
   }
   getErrorMessage(control: string, message: string) {
     return this.helperService.getError(this.form.get(control), message);
@@ -316,7 +416,21 @@ export class VendorSettingsComponent implements OnInit {
       );
     }
   }
+  uploadStoreBanner(): void {
 
+    const payload = {
+      banners: this.banners?.value
+    }
+    this.authService.uploadStoreBanner(payload).subscribe(
+      (response) => {
+        this.notify.success('Store banner uploaded successfully');
+      },
+      (error) => {
+        // this.selectedTab = 'security';
+      }
+    );
+
+  }
   updateProfile(): void {
     this.submitted = true;
     let phoneNumber = this.form.value.phoneNumber;
