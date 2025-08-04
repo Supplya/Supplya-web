@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
   // BASE_URL: 'https://prodsupplya.azurewebsites.net/api/v1/',
-  BASE_URL: 'https://supplyastaging-bxcphadsaahecbgr.eastus-01.azurewebsites.net/api/v1/',
+  BASE_URL: 'https://supplya-backend.onrender.com/api/v1/',
   mainUrl: 'https://supplya-web.vercel.app',
   PAYSTACK_KEY: 'pk_test_58c4e5396a1b0b3f3d3c9e0100d0b1348affa82d',
   cloudinary: {

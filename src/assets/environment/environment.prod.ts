@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   mainUrl: 'https://supplya.shop',
-  BASE_URL: 'https://prodsupplya.azurewebsites.net/api/v1/',
+  BASE_URL: 'https://supplya-backend.onrender.com/api/v1/',
   PAYSTACK_KEY: 'pk_live_5b78e51245dc56ac033b49893af6f8c600b2d49d',
   cloudinary: {
     cloudName: 'piusash',

@@ -13,7 +13,7 @@ import { environment } from 'src/assets/environment/environment';
 export class ProductService {
   constructor(private http: HttpClient) {}
   // productUrl: string = "https://supplya.cyclic.app/";
-  productUrl = environment.BASE_URL;
+  productUrl = `${environment.BASE_URL}`;
 
   private productsSubject = new BehaviorSubject<Product[]>([]);
   products$: Observable<Product[]> = this.productsSubject.asObservable();
@@ -27,10 +27,10 @@ export class ProductService {
     return this.http.post<any>(`${this.productUrl}notification/create`, data);
   }
   addBlogPost(post: any): Observable<any> {
-    return this.http.post<any>(`${this.productUrl}/blog/posts`, post);
+    return this.http.post<any>(`${this.productUrl}blog/posts`, post);
   }
   updateBlogPost(id: any, post: any): Observable<any> {
-    return this.http.put<any>(`${this.productUrl}/blog/posts/${id}`, post);
+    return this.http.put<any>(`${this.productUrl}blog/posts/${id}`, post);
   }
   vendorAddProduct(product: any): Observable<any> {
     return this.http.post<any>(`${this.productUrl}products/create`, product);
@@ -44,7 +44,7 @@ export class ProductService {
   }
   searchProduct(keyword: any): Observable<any> {
     return this.http.get<any>(
-      `${this.productUrl}/products/search?keyword=${keyword}`
+      `${this.productUrl}products/search?keyword=${keyword}`
     );
   }
   getRelatedProducts(id: any): Observable<any> {
@@ -69,7 +69,7 @@ export class ProductService {
   }
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(
-      `${this.productUrl}/products`
+      `${this.productUrl}products`
     );
   }
   getAllPosts(page, limit): Observable<Product[]> {
@@ -83,7 +83,7 @@ export class ProductService {
     );
   }
   getStoreDetails(storeName: string): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.productUrl}/vendors/${storeName}`);
+    return this.http.get<Product[]>(`${this.productUrl}vendors/${storeName}`);
   }
 
   getAllFlashProducts(page, limit): Observable<Product[]> {
@@ -93,7 +93,7 @@ export class ProductService {
   }
   getFlashProducts(page?, limit?): Observable<Product[]> {
     return this.http.get<Product[]>(
-      `${this.productUrl}/products/flashsale`
+      `${this.productUrl}products/flashsale`
     );
   }
   getAllTrendingProducts(page, limit): Observable<Product[]> {
@@ -141,12 +141,12 @@ export class ProductService {
   }
   dealsOfTheDay(page?, limit?): Observable<Product[]> {
     return this.http.get<Product[]>(
-      `${this.productUrl}/products/deals`
+      `${this.productUrl}products/deals`
     );
   }
   getSpecialDeals(page?, limit?): Observable<Product[]> {
     return this.http.get<any[]>(
-      `${this.productUrl}/products/special-deals`
+      `${this.productUrl}products/special-deals`
     );
   }
   getAllCategories(page: number, limit: number): Observable<Product[]> {
@@ -197,7 +197,7 @@ export class ProductService {
     return this.http.delete<any>(`${this.productUrl}products/${id}`);
   }
   deletePost(id: any): Observable<any> {
-    return this.http.delete<any>(`${this.productUrl}/blog/posts/${id}`);
+    return this.http.delete<any>(`${this.productUrl}blog/posts/${id}`);
   }
   deleteOrder(id: any): Observable<any> {
     return this.http.delete<any>(`${this.productUrl}orders/${id}`);

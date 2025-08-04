@@ -29,37 +29,37 @@ export class DashboardService {
 `);
   }
   getDashboardMetric(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/admin/dashboard`);
+    return this.http.get<any[]>(`${this.baseUrl}admin/dashboard`);
   }
   getDashboardCharts(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/admin/dashboard/product`);
+    return this.http.get<any[]>(`${this.baseUrl}admin/dashboard/product`);
   }
   getDashboardStats(year: any): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/admin/dashboard/signups?year=${year}`);
+    return this.http.get<any[]>(`${this.baseUrl}admin/dashboard/signups?year=${year}`);
   }
   getSales(year: any, month: any): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/admin/dashboard/sales?year=${year}&month=${month}`);
+    return this.http.get<any[]>(`${this.baseUrl}admin/dashboard/sales?year=${year}&month=${month}`);
   }
   getProductMetric(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/admin/dashboard/product`);
+    return this.http.get<any[]>(`${this.baseUrl}admin/dashboard/product`);
   }
   getCategoryMetric(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/categories/data`);
+    return this.http.get<any[]>(`${this.baseUrl}categories/data`);
   }
   getOrderMetric(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/admin/dashboard/order`);
+    return this.http.get<any[]>(`${this.baseUrl}admin/dashboard/order`);
   }
   getCustomerMetric(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/admin/dashboard/customer`);
+    return this.http.get<any[]>(`${this.baseUrl}admin/dashboard/customer`);
   }
   getVendorMetric(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/admin/dashboard/vendor`);
+    return this.http.get<any[]>(`${this.baseUrl}admin/dashboard/vendor`);
   }
   getAdminMetric(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/admin/dashboard/admin`);
+    return this.http.get<any[]>(`${this.baseUrl}admin/dashboard/admin`);
   }
   getAllUsers(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/users`);
+    return this.http.get<any[]>(`${this.baseUrl}users`);
   }
   getAllAdmins(page, limit): Observable<any[]> {
     return this.http.get<any[]>(
@@ -82,17 +82,17 @@ export class DashboardService {
     );
   }
   getOrdersByID(id: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/orders/user/${id}`);
+    return this.http.get<any[]>(`${this.baseUrl}orders/user/${id}`);
   }
 
   getProductsByUser(id: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/products/user/${id}`);
+    return this.http.get<any[]>(`${this.baseUrl}products/user/${id}`);
   }
   assignProductToVendor(payload: any): Observable<any[]> {
-    return this.http.post<any[]>(`${this.baseUrl}/admin/assign-product`, payload);
+    return this.http.post<any[]>(`${this.baseUrl}admin/assign-product`, payload);
   }
   getUserByID(id: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/users/${id}`);
+    return this.http.get<any[]>(`${this.baseUrl}users/${id}`);
   }
 
   UpdateProduct(id: any, product: any): Observable<any> {
