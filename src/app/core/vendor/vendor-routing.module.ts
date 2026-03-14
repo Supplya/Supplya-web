@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { VendorDashboardComponent } from './vendor-dashboard/vendor-dashboard.component';
 import { VendorOrdersComponent } from './vendor-orders/vendor-orders.component';
-import { VendorWalletComponent } from './vendor-wallet/vendor-wallet.component';
+import { WalletComponent } from '../wallet/wallet.component';
 import { VendorSettingsComponent } from './vendor-settings/vendor-settings.component';
 import { VendorReportComponent } from './vendor-report/vendor-report.component';
 import { VendorProductsComponent } from './vendor-products/vendor-products.component';
@@ -30,7 +30,7 @@ const routes: Routes = [
   },
   {
     path: 'wallet',
-    component: VendorWalletComponent,
+    component: WalletComponent,
     data: { title: 'Wallet' },
   },
   {

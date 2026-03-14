@@ -155,6 +155,12 @@ export const menuItems = {
       hasChild: false,
       icon: 'file-earmark-text',
     },
+     {
+      name: "Wallet",
+      route: "/core/customer/wallet",
+      hasChild: false,
+      icon: "wallet",
+    },
     {
       name: 'Notifications',
       route: '/core/customer/notifications',
@@ -201,12 +207,12 @@ export const menuItems = {
       icon: 'arrow-left-right',
     },
 
-    // {
-    //   name: "Wallet",
-    //   route: "/core/vendor/wallet",
-    //   hasChild: false,
-    //   icon: "wallet",
-    // },
+    {
+      name: "Wallet",
+      route: "/core/vendor/wallet",
+      hasChild: false,
+      icon: "wallet",
+    },
 
     // {
     //   name: "Report",

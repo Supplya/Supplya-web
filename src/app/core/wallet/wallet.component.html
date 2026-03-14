@@ -1,0 +1,188 @@
+<div [ngSwitch]="hasWallet">
+  <!-- Wallet not available: prompt to create/activate -->
+  <section *ngSwitchCase="false" class="wallet-empty">
+    <div class="wallet-empty__content">
+      <div class="wallet-empty__icon-wrap">
+        <i class="bi bi-hourglass-split wallet-empty__icon"></i>
+      </div>
+      <h2 class="wallet-empty__title">Your wallet isn't set up yet</h2>
+      <p class="wallet-empty__subtitle">Create a wallet to pay for orders, track spending, and manage your balance in one place.</p>
+      <button
+        type="button"
+        class="wallet-empty__btn"
+        [disabled]="initializing"
+        (click)="createWallet()"
+      >
+        <span *ngIf="!initializing">Create your wallet</span>
+        <span *ngIf="initializing">Creating…</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Wallet available: upgrade status + KYC form or wallet ready -->
+  <section *ngSwitchCase="true" class="wallet-active">
+    <section class="content container mb-3" *ngIf="upgradeStatusLoading">
+      <div class="py-5 text-center">
+        <img src="/assets/Images/requestLoading.gif" alt="" />
+        <p class="loading-text text-muted">Checking your profile…</p>
+      </div>
+    </section>
+
+    <ng-container *ngIf="!upgradeStatusLoading && upgradeStatus">
+      <!-- Complete profile (KYC) when there are missing fields -->
+      <section
+        *ngIf="hasMissingKycFields"
+        class="content container mb-3 wallet-kyc"
+      >
+        <div class="py-3">
+          <p class="content-heading">Complete your profile</p>
+          <p class="wallet-kyc__message text-muted mb-4">
+            {{ upgradeMessage }}
+          </p>
+          <form [formGroup]="kycForm" (ngSubmit)="submitKyc()">
+            <div class="row">
+              <div class="mb-2 col-lg-6 slide-left">
+                <label for="kyc-bvn" class="content-label">BVN</label>
+                <input
+                  type="text"
+                  formControlName="bvn"
+                  id="kyc-bvn"
+                  class="content-input {{
+                    isInvalid('bvn') ? 'error-input' : ''
+                  }}"
+                  placeholder="Enter your 11-digit BVN"
+                  maxlength="11"
+                  inputmode="numeric"
+                />
+                <small
+                  class="error-text mb-4 d-block"
+                  *ngIf="isInvalid('bvn')"
+                >
+                  {{ getErrorMessage('bvn', 'This field is required') }}
+                </small>
+              </div>
+              <div class="mb-2 col-lg-6 slide-right">
+                <label for="kyc-dob" class="content-label">Date of birth</label>
+                <input
+                  type="date"
+                  formControlName="dateOfBirth"
+                  id="kyc-dob"
+                  class="content-input {{
+                    isInvalid('dateOfBirth') ? 'error-input' : ''
+                  }}"
+                />
+                <small
+                  class="error-text mb-4 d-block"
+                  *ngIf="isInvalid('dateOfBirth')"
+                >
+                  {{ getErrorMessage('dateOfBirth', 'This field is required') }}
+                </small>
+              </div>
+              <div class="mb-2 col-lg-6 slide-right">
+                <label for="kyc-gender" class="content-label">Gender</label>
+                <select
+                  formControlName="gender"
+                  id="kyc-gender"
+                  class="content-select {{
+                    isInvalid('gender') ? 'error-input' : ''
+                  }}"
+                >
+                  <option value="" disabled>Select gender</option>
+                  <option
+                    *ngFor="let opt of genderOptions"
+                    [value]="opt.value"
+                  >
+                    {{ opt.label }}
+                  </option>
+                </select>
+                <small
+                  class="error-text mb-4 d-block"
+                  *ngIf="isInvalid('gender')"
+                >
+                  {{ getErrorMessage('gender', 'This field is required') }}
+                </small>
+              </div>
+            </div>
+            <div class="mt-3">
+              <button
+                type="submit"
+                class="wallet-kyc__submit"
+                [disabled]="kycForm.invalid || kycSubmitting"
+              >
+                <i class="bi bi-check2 mt-1"></i>
+                {{ kycSubmitting ? 'Submitting…' : 'Complete profile' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Wallet dashboard: balance + earned + withdrawal request (same row, same height) -->
+      <section
+        *ngIf="!hasMissingKycFields"
+        class="wallet-dashboard"
+      >
+        <div class="wallet-dashboard__row">
+          <!-- Available Balance card -->
+          <div class="wallet-card wallet-card--balance">
+            <div class="wallet-card__deco" aria-hidden="true"></div>
+            <div class="wallet-card__inner">
+              <p class="wallet-card__label">Available Balance</p>
+              <div class="wallet-card__balance-row">
+                <span class="wallet-card__amount">
+                  {{ balanceVisible ? ('₦' + (availableBalance | number:'1.2-2')) : '••••••' }}
+                </span>
+                <button
+                  type="button"
+                  class="wallet-card__eye"
+                  (click)="toggleBalanceVisibility()"
+                  [attr.aria-label]="balanceVisible ? 'Hide balance' : 'Show balance'"
+                >
+                  <i class="bi" [ngClass]="balanceVisible ? 'bi-eye-slash' : 'bi-eye'"></i>
+                </button>
+              </div>
+              <p *ngIf="isVendor" class="wallet-card__min-withdraw">
+                Minimum withdrawable Amount : N{{ minWithdrawAmount | number:'1.2-2' }}
+              </p>
+              <button
+                type="button"
+                class="wallet-card__withdraw-btn"
+                (click)="goToWithdraw()"
+              >
+                <i class="bi bi-cash-stack"></i>
+                Withdraw
+              </button>
+            </div>
+          </div>
+          <!-- Total Earned card -->
+          <div class="wallet-card wallet-card--plain">
+            <div class="wallet-card__inner">
+              <div class="wallet-card__icon-wrap">
+                <i class="bi bi-currency-exchange wallet-card__icon"></i>
+              </div>
+              <p class="wallet-card__label">Total Earned</p>
+              <p class="wallet-card__value">₦{{ totalEarned | number:'1.2-2' }}</p>
+            </div>
+          </div>
+          <!-- Total Withdrawal Request card -->
+          <div class="wallet-card wallet-card--plain">
+            <div class="wallet-card__inner">
+              <div class="wallet-card__icon-wrap">
+                <i class="bi bi-person-up wallet-card__icon"></i>
+              </div>
+              <p class="wallet-card__label">Total Withdrawal Request</p>
+              <p class="wallet-card__value">{{ totalWithdrawalRequestCount | number:'1.0-0' }}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </ng-container>
+  </section>
+
+  <!-- Fallback if user details not loaded -->
+  <section *ngSwitchDefault class="wallet-empty">
+    <div class="wallet-empty__content">
+      <p class="text-muted">Loading…</p>
+    </div>
+  </section>
+</div>

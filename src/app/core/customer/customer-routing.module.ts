@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CustomerDashboardComponent } from './customer-dashboard/customer-dashboard.component';
 import { CustomerOrderComponent } from './customer-order/customer-order.component';
-import { CustomerWalletComponent } from './customer-wallet/customer-wallet.component';
+import { WalletComponent } from '../wallet/wallet.component';
 import { CustomerSettingsComponent } from './customer-settings/customer-settings.component';
 import { TrackOrderComponent } from './track-order/track-order.component';
 import { CustomerNotificationsComponent } from './customer-notifications/customer-notifications.component';
@@ -34,7 +34,7 @@ const routes: Routes = [
     component: TrackOrderComponent,
     data: { title: 'Orders' },
   },
-  { path: 'wallet', component: CustomerWalletComponent },
+  { path: 'wallet', component: WalletComponent, data: { title: 'Wallet' } },
 ];
 
 @NgModule({

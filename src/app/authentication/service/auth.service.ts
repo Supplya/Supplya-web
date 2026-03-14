@@ -234,6 +234,15 @@ export class AuthService {
     return userData;
   }
 
+  /** Updates stored user data (e.g. after wallet init). Merges partial into current and persists. */
+  updateStoredUser(partial: Record<string, unknown>): void {
+    const current = this.getUserCredentials();
+    if (!current) return;
+    const updated = { ...current, ...partial };
+    localStorage.setItem('spa-userData', JSON.stringify(updated));
+    this.userCredentials.next(updated);
+  }
+
   logout() {
     localStorage.removeItem('spa-userType');
     localStorage.removeItem('spa-userData');

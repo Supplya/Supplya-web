@@ -1,0 +1,248 @@
+.wallet-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  padding: 2rem;
+}
+
+.wallet-empty__content {
+  text-align: center;
+  max-width: 400px;
+}
+
+.wallet-empty__icon-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #e0f7fa;
+  border: 2px solid #b2ebf2;
+  margin-bottom: 1.5rem;
+}
+
+.wallet-empty__icon {
+  font-size: 2rem;
+  color: var(--primary-color, #0097a7);
+}
+
+.wallet-empty__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #14142b;
+  margin-bottom: 0.5rem;
+}
+
+.wallet-empty__subtitle {
+  font-size: 1rem;
+  color: #6e7191;
+  margin-bottom: 1.5rem;
+}
+
+.wallet-empty__btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  border: none;
+  background-color: var(--primary-color, #0097a7);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+.wallet-active {
+  padding: 1rem 0;
+}
+
+.wallet-kyc__message {
+  font-size: 14px;
+}
+
+.wallet-kyc__submit {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--primary-color, #0097a7);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s, background-color 0.2s;
+
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  i {
+    margin-right: 6px;
+  }
+}
+
+// Wallet dashboard: 3 cards in one row, same height
+.wallet-dashboard {
+  padding: 0 0 1.5rem;
+}
+
+.wallet-dashboard__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  align-items: stretch;
+
+  @media (max-width: 992px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.wallet-card {
+  border-radius: 12px;
+  overflow: hidden;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  &--balance {
+    background: linear-gradient(135deg, #00838f 0%, #0097a7 50%, #00acc1 100%);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(0, 151, 167, 0.25);
+  }
+
+  &--plain {
+    background: #fff;
+    border: 1px solid #e0e2e7;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  &__deco {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    pointer-events: none;
+  }
+
+  &__inner {
+    padding: 1.25rem 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+  }
+
+  &__label {
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0.9;
+    margin-bottom: 0.5rem;
+    color: inherit;
+  }
+
+  &__balance-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  &__amount {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  &__eye {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    color: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+  }
+
+  &__min-withdraw {
+    font-size: 12px;
+    opacity: 0.85;
+    margin-top: auto;
+    margin-bottom: 0.75rem;
+  }
+
+  &__withdraw-btn {
+    align-self: flex-start;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--primary-color, #0097a7);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.2s, transform 0.2s;
+
+    &:hover {
+      background: #fff;
+      transform: translateY(-1px);
+    }
+  }
+
+  // Plain cards (Total Earned, Total Withdrawal Request)
+  &--plain &__label {
+    color: #6e7191;
+  }
+
+  &__icon-wrap {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(0, 151, 167, 0.12);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+  }
+
+  &__icon {
+    font-size: 1.25rem;
+    color: var(--primary-color, #0097a7);
+  }
+
+  &__value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #14142b;
+    margin: 0;
+  }
+}
