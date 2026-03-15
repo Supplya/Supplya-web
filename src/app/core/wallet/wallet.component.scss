@@ -127,8 +127,9 @@
 
   &--plain {
     background: #fff;
-    border: 1px solid #e0e2e7;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    box-shadow: 0px 3.67px 27.55px 0px #2E2D740D;
+    // border: 1px solid #e0e2e7;
+
   }
 
   &__deco {
@@ -159,8 +160,8 @@
   }
 
   &__label {
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: 17px;
+    font-weight: 400;
     opacity: 0.9;
     margin-bottom: 0;
     color: inherit;
@@ -198,7 +199,7 @@
   }
 
   &__min-withdraw {
-    font-size: 12px;
+    font-size: 13px;
     opacity: 0.85;
     margin-top: auto;
     margin-bottom: 0.75rem;
@@ -225,8 +226,9 @@
   }
 
   &__value {
-    font-size: 1.5rem;
+      font-size: 1.75rem;
     font-weight: 700;
+
     color: #14142b;
     margin: 0;
   }
@@ -237,7 +239,7 @@
 }
 
 .wallet-card__action-btn {
-  padding: 10px 20px;
+  padding: 10px 20px!important;
   border-radius: 8px;
   border: none;
   background: rgba(255, 255, 255, 0.95);
@@ -259,5 +261,84 @@
 @media (max-width: 768px) {
   .wallet-dashboard__row {
     flex-direction: column;
+  }
+}
+
+.fund-wallet-modal-container {
+  
+
+  border-radius: 12px !important;
+  position: relative;
+  overflow: hidden;
+
+  .fund-wallet-deco {
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    pointer-events: none;
+  }
+
+  h3 {
+    font-weight: 600;
+
+  }
+p{
+        font-size: 16px;
+}
+ 
+}
+
+.bank-details-list {
+  background: linear-gradient(135deg, #00838f 0%, #0097a7 50%, #00acc1 100%);
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  .bank-details-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+    &:first-child {
+      padding-top: 0;
+    }
+
+    &:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+  }
+
+  .bank-details-label {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .bank-details-value {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+
+    .copy-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: #fff;
+      font-size: 16px;
+      transition: transform 0.2s;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
   }
 }

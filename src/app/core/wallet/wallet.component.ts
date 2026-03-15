@@ -80,8 +80,23 @@ export class WalletComponent implements OnInit {
   }
 
   fundWallet() {
-    // Implement the logic for funding the wallet
-    console.log('fundWallet clicked');
+    this.toggleModal('fundWalletModal', 'open');
+  }
+
+  toggleModal = (modalId, action: string, data?: any) => {
+    if (action == 'open') {
+      document.getElementById(modalId).style.display = 'flex';
+    } else {
+      document.getElementById(modalId).style.display = 'none';
+    }
+  };
+
+  copyToClipboard(text: string) {
+    navigator.clipboard.writeText(text).then(() => {
+      this.toast.success('Copied to clipboard', 2000);
+    }, () => {
+      // this.toast.error('Failed to copy', 2000);
+    });
   }
 
   private initKycForm(): void {

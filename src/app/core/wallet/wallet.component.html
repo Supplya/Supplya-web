@@ -172,9 +172,9 @@
           <div *ngIf="isVendor" class="wallet-card wallet-card--plain">
             <div class="wallet-card__inner">
               <div class="wallet-card__header">
-                <div class="wallet-card__icon-wrap">
+                <!-- <div class="wallet-card__icon-wrap">
                   <img src="assets/Images/total-earned.svg" alt="">
-                </div>
+                </div> -->
                 <p class="wallet-card__label">Total Earned</p>
               </div>
               <p class="wallet-card__value">₦{{ totalEarned | number:'1.2-2' }}</p>
@@ -184,9 +184,9 @@
           <div class="wallet-card wallet-card--plain">
             <div class="wallet-card__inner">
               <div class="wallet-card__header">
-                <div class="wallet-card__icon-wrap">
+                <!-- <div class="wallet-card__icon-wrap">
 <img src="/assets/Images/withdraw.svg" alt="">
-                </div>
+                </div> -->
                 <p class="wallet-card__label">Total Withdrawal Request</p>
               </div>
               <p class="wallet-card__value">{{ totalWithdrawalRequestCount | number:'1.0-0' }}</p>
@@ -203,4 +203,47 @@
       <p class="text-muted">Loading…</p>
     </div>
   </section>
+</div>
+
+<!-- Fund Wallet Modal -->
+<div id="fundWalletModal" class="modal" style="display: none;">
+  <div class="modal-center-content fund-wallet-modal-container mx-auto pt-4 px-4 px-lg-5 pb-5">
+    <div class="d-flex justify-content-end">
+      <img style="cursor: pointer" class="mb-4" (click)="toggleModal('fundWalletModal', 'close')" src="/assets/Images/dismiss.svg" alt="Close" />
+    </div>
+    <div class="fund-wallet-modal-content">
+      <div class="fund-wallet-deco" aria-hidden="true"></div>
+      <h3 class="text-center mb-3">Fund Your Wallet</h3>
+      <p class="text-center text-muted mb-4">
+        Transfer money to the account below to add funds to your wallet.
+      </p>
+
+      <div class="bank-details-list">
+        <div class="bank-details-item">
+          <span class="bank-details-label">Account Name</span>
+          <div class="bank-details-value">
+            <span>{{userDetails?.firstName}} {{userDetails?.lastName}}</span>
+          </div>
+        </div>
+        <div class="bank-details-item">
+          <span class="bank-details-label">Bank Name</span>
+          <div class="bank-details-value">
+            <span>{{ userDetails?.bankName }}</span>
+            <button class="copy-btn" (click)="copyToClipboard(userDetails?.bankName)">
+              <i class="bi bi-clipboard"></i>
+            </button>
+          </div>
+        </div>
+        <div class="bank-details-item">
+          <span class="bank-details-label">Account Number</span>
+          <div class="bank-details-value">
+            <span>{{ userDetails?.virtualAccountNumber }}</span>
+            <button class="copy-btn" (click)="copyToClipboard(userDetails?.virtualAccountNumber)">
+              <i class="bi bi-clipboard"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
