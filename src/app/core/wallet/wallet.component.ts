@@ -12,7 +12,7 @@ import { WalletService, UpgradeStatusResponse } from './services/wallet.service'
 export class WalletComponent implements OnInit {
   userDetails: any = null;
   initializing = false;
-  upgradeStatus: UpgradeStatusResponse | null = null;
+  upgradeStatus: any | null = null;
   upgradeStatusLoading = false;
   kycForm!: FormGroup;
   kycSubmitting = false;
@@ -22,11 +22,10 @@ export class WalletComponent implements OnInit {
   ];
 
   balanceVisible = true;
-  availableBalance = 560430;
   totalEarned = 0;
   totalWithdrawalRequestCount = 0;
   readonly minWithdrawAmount = 5000;
-  userBankDetails: { bankName: string, accountNumber: string } | null = null;
+  userBankDetails: any;
 
   withdrawalForm!: FormGroup;
   bankOptions: { label: string; value: string }[] = [
@@ -57,19 +56,46 @@ export class WalletComponent implements OnInit {
       this.fetchUpgradeStatus();
     }
     this.fetchBankDetails();
+    this.getWalletDashboard();
   }
 
   get hasWallet(): boolean {
     return !!this.userDetails?.hasWallet;
   }
 
+  // get missingFields(): string[] {
+  //   return this.upgradeStatus?.progress?.personalInfo?.missing ?? [];
+  // }
+
+  // get hasMissingKycFields(): boolean {
+  //   return this.missingFields.length > 0;
+  // }
+
   get missingFields(): string[] {
-    return this.upgradeStatus?.progress?.personalInfo?.missing ?? [];
+  const kyc = this.upgradeStatus?.data?.kycDataOnFile;
+
+  if (!kyc) return [];
+
+  const missing: string[] = [];
+
+  if (!kyc.hasBVN) {
+    missing.push('BVN');
   }
 
-  get hasMissingKycFields(): boolean {
-    return this.missingFields.length > 0;
+  if (!kyc.hasDOB) {
+    missing.push('Date of Birth');
   }
+
+  if (!kyc.hasGender) {
+    missing.push('Gender');
+  }
+
+  return missing;
+}
+
+get hasMissingKycFields(): boolean {
+  return this.missingFields.length > 0;
+}
 
   get upgradeMessage(): string {
     return this.upgradeStatus?.message ?? '';
@@ -144,6 +170,32 @@ export class WalletComponent implements OnInit {
       },
       error: () => {
         this.upgradeStatusLoading = false;
+      },
+    });
+  }
+
+  walletLoading = false;
+  walletDetails: any = null;
+
+  private getWalletDashboard(): void {
+    this.upgradeStatusLoading = true;
+    this.walletService.getWalletDashboard().subscribe({
+      next: (res) => {
+        this.walletLoading = false;
+        this.walletDetails = res?.data;
+this.userBankDetails = this.walletDetails?.paymentAccount;
+
+        //         "wallet": {
+        //     "balance": 0
+        // },
+        // "paymentAccount": {
+        //     "virtualAccountNumber": "2451343877",
+        //     "bankName": "PROVIDUS BANK",
+        //     "instructions": "Transfer funds to 2451343877 at PROVIDUS BANK"
+        // },
+      },
+      error: () => {
+        this.walletLoading = false;
       },
     });
   }

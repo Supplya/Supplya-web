@@ -31,7 +31,7 @@
     <ng-container *ngIf="!upgradeStatusLoading && upgradeStatus">
       <!-- Complete profile (KYC) when there are missing fields -->
       <section
-        *ngIf="hasMissingKycFields"
+        *ngIf="!hasMissingKycFields"
         class="content container mb-3 wallet-kyc"
       >
         <div class="py-3 mt-3">
@@ -124,10 +124,53 @@
 
       <!-- Wallet dashboard: balance + earned + withdrawal request (same row, same height) -->
       <section
-        *ngIf="!hasMissingKycFields"
+        *ngIf="hasMissingKycFields"
         class="wallet-dashboard"
       >
-        <div class="wallet-dashboard__row">
+      <div class="row">
+        <div class="col-lg-6">
+
+          <div class="wallet-dashboard__row" *ngIf="!isVendor">
+            <!-- Available Balance card -->
+            <div class="wallet-card wallet-card--balance">
+              <div class="wallet-card__deco" aria-hidden="true"></div>
+              <div class="wallet-card__inner" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+                <div>
+                  <p class="wallet-card__label">Available Balance</p>
+                  <div class="wallet-card__balance-row">
+                    <span class="wallet-card__amount" style="font-size: 2.2rem; font-weight: 500; margin-right: 20px;">
+                      {{ balanceVisible ? ('₦' + (walletDetails?.wallet?.balance | number:'1.2-2')) : '••••••' }}
+                    </span>
+                    <button
+                      type="button"
+                      class="wallet-card__eye"
+                      (click)="toggleBalanceVisibility()"
+                      [attr.aria-label]="balanceVisible ? 'Hide balance' : 'Show balance'"
+                    >
+                      <i class="bi" [ngClass]="balanceVisible ? 'bi-eye-slash' : 'bi-eye'"></i>
+                    </button>
+                  </div>
+              
+                </div>
+             <div class="wallet-card__actions">
+    <button
+      type="button"
+      class="wallet-card__action-btn wallet-card__fund-btn"
+      (click)="fundWallet()"
+    >
+      <i class="bi bi-plus-circle"></i>
+      Fund
+    </button>
+  
+  </div>
+  
+              </div>
+            </div>
+          
+          </div>
+        </div>
+      </div>
+        <div class="wallet-dashboard__row" *ngIf="isVendor">
           <!-- Available Balance card -->
           <div class="wallet-card wallet-card--balance">
             <div class="wallet-card__deco" aria-hidden="true"></div>
@@ -136,7 +179,7 @@
                 <p class="wallet-card__label">Available Balance</p>
                 <div class="wallet-card__balance-row">
                   <span class="wallet-card__amount" style="font-size: 2.2rem; font-weight: 500; margin-right: 20px;">
-                    {{ balanceVisible ? ('₦' + (availableBalance | number:'1.2-2')) : '••••••' }}
+                    {{ balanceVisible ? ('₦' + (walletDetails?.wallet?.balance | number:'1.2-2')) : '••••••' }}
                   </span>
                   <button
                     type="button"
@@ -161,7 +204,7 @@
     Fund
   </button>
 
-  <button
+  <button *ngIf="isVendor"
     type="button"
     class="wallet-card__action-btn wallet-card__withdraw-btn"
     (click)="toggleModal('withdrawWalletModal', 'open')"
@@ -186,7 +229,7 @@
             </div>
           </div>
           <!-- Total Withdrawal Request card -->
-          <div class="wallet-card wallet-card--plain">
+          <div class="wallet-card wallet-card--plain" *ngIf="isVendor">
             <div class="wallet-card__inner">
               <div class="wallet-card__header">
                 <!-- <div class="wallet-card__icon-wrap">
@@ -233,8 +276,8 @@
         <div class="bank-details-item">
           <span class="bank-details-label">Bank Name</span>
           <div class="bank-details-value">
-            <span>{{ userDetails?.bankName }}</span>
-            <button class="copy-btn" (click)="copyToClipboard(userDetails?.bankName)">
+            <span>{{ userBankDetails?.bankName }}</span>
+            <button class="copy-btn" (click)="copyToClipboard(userBankDetails?.bankName)">
               <i class="bi bi-clipboard"></i>
             </button>
           </div>
@@ -242,8 +285,8 @@
         <div class="bank-details-item">
           <span class="bank-details-label">Account Number</span>
           <div class="bank-details-value">
-            <span>{{ userDetails?.virtualAccountNumber }}</span>
-            <button class="copy-btn" (click)="copyToClipboard(userDetails?.virtualAccountNumber)">
+            <span>{{ userBankDetails?.virtualAccountNumber }}</span>
+            <button class="copy-btn" (click)="copyToClipboard(userBankDetails?.virtualAccountNumber)">
               <i class="bi bi-clipboard"></i>
             </button>
           </div>

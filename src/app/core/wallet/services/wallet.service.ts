@@ -50,7 +50,14 @@ export class WalletService {
 
   getUpgradeStatus(): Observable<UpgradeStatusResponse> {
     return this.http.get<UpgradeStatusResponse>(
-      `${this.baseUrl}account/upgrade/status`
+      `${this.baseUrl}wallet/kyc/status`
+      // `${this.baseUrl}account/upgrade/status`
+    );
+  }
+  getWalletDashboard(): Observable<any> {
+    return this.http.get<any>(
+      `${this.baseUrl}wallet/dashboard`
+      // `${this.baseUrl}account/upgrade/status`
     );
   }
 
