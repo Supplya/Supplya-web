@@ -124,7 +124,7 @@
   &--balance {
     background: linear-gradient(135deg, #00838f 0%, #0097a7 50%, #00acc1 100%);
     color: #fff;
-    box-shadow: 0 4px 14px rgba(0, 151, 167, 0.25);
+    // box-shadow: 0 4px 14px rgba(0, 151, 167, 0.25);
   }
 
   &--plain {
@@ -228,7 +228,7 @@
   }
 
   &__value {
-      font-size: 1.75rem;
+       font-size: 1.75rem!important;
     font-weight: 700;
 
     color: #14142b;

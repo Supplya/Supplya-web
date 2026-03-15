@@ -31,7 +31,7 @@
     <ng-container *ngIf="!upgradeStatusLoading && upgradeStatus">
       <!-- Complete profile (KYC) when there are missing fields -->
       <section
-        *ngIf="!hasMissingKycFields"
+        *ngIf="hasMissingKycFields"
         class="content container mb-3 wallet-kyc"
       >
         <div class="py-3 mt-3">
@@ -124,7 +124,7 @@
 
       <!-- Wallet dashboard: balance + earned + withdrawal request (same row, same height) -->
       <section
-        *ngIf="hasMissingKycFields"
+        *ngIf="!hasMissingKycFields"
         class="wallet-dashboard"
       >
       <div class="row">
@@ -159,7 +159,7 @@
       (click)="fundWallet()"
     >
       <i class="bi bi-plus-circle"></i>
-      Fund
+      Fund Wallet
     </button>
   
   </div>
@@ -241,18 +241,18 @@
             </div>
           </div>
         </div>
-      </section>
 
-      <!-- Transactions Table -->
-      <section class="content container mb-3">
-        <div class="px-4 d-flex justify-content-between align-items-center">
+
+          <!-- Transactions Table -->
+      <section class="content container mb-3 mt-3">
+        <div class="px-2 d-flex justify-content-between align-items-center">
           <div>
             <p class="head-count mb-0 mt-2" style="font-size: 20px;">Transactions</p>
-            <p class="head-text">Recent Transactions</p>
+            <!-- <p class="head-text">Recent Transactions</p> -->
           </div>
         </div>
 
-        <section class="content mb-2" *ngIf="transactionsLoading">
+        <section class="mb-2" *ngIf="transactionsLoading">
           <div class="py-5 p-5 center">
             <div>
               <img src="/assets/Images/requestLoading.gif" alt="">
@@ -261,7 +261,7 @@
           </div>
         </section>
 
-        <section class="content center" *ngIf="!transactionsLoading && errorFetchingTransactions">
+        <section class="center" *ngIf="!transactionsLoading && errorFetchingTransactions">
           <div class="py-5 ">
             <div class="py-3 text-center" >
               <img src="/assets/Images/oops.png" style="height: 200px;" alt="">
@@ -299,17 +299,20 @@
           <pagination-controls previousLabel="" nextLabel="" *ngIf="allTransactions" (pageChange)="onTransactionsPageChange($event)"></pagination-controls>
         </div>
 
-        <section class="content center mt-2" *ngIf="!transactionsLoading && !errorFetchingTransactions && allTransactions?.length === 0">
+        <section class=" center mt-2" *ngIf="!transactionsLoading && !errorFetchingTransactions && allTransactions?.length === 0">
           <div class="py-5 ">
             <div class="py-3 text-center" >
-              <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">
-              <div class=" py-5">
-                <p class="loading-text text-muted">No transactions found</p>
+              <!-- <img src="/assets/Images/product-cat.png" style="height: 50px;" alt=""> -->
+              <div class=" py-3">
+                <p class=" text-muted" style="font-size: 18px!important;">No transaction found</p>
               </div>
             </div>
           </div>
         </section>
       </section>
+      </section>
+
+    
     </ng-container>
   </section>
 
