@@ -64,20 +64,16 @@ export class WalletComponent implements OnInit, OnDestroy {
     this.initWithdrawalForm();
     if (this.hasWallet) {
       this.fetchUpgradeStatus();
-      this.getTransactions(); // Fetch transactions when wallet is active
+
+      // Start periodic refresh for wallet dashboard every 30 seconds
+      this.balanceRefreshInterval = setInterval(() => {
+        this.getWalletDashboard();
+      }, 30000); // Refresh every 30 seconds
     }
     this.fetchBankDetails();
-    this.getWalletDashboard();
-
-    // Start periodic refresh for wallet dashboard every 30 seconds
-    this.balanceRefreshInterval = setInterval(() => {
-      this.getWalletDashboard();
-    }, 30000); // Refresh every 30 seconds
   }
 
-  // ... existing methods ...
-
-  // New method to fetch transactions
+ 
   getTransactions(page: number = this.transactionsP): void {
     this.transactionsLoading = true;
     this.errorFetchingTransactions = false;
@@ -243,17 +239,21 @@ get hasMissingKycFields(): boolean {
   walletDetails: any = null;
 
   private getWalletDashboard(): void {
-    this.walletLoading = true;
-    this.walletService.getWalletDashboard().subscribe({
-      next: (res) => {
-        this.walletLoading = false;
-        this.walletDetails = res?.data;
-this.userBankDetails = this.walletDetails?.paymentAccount;
-      },
-      error: () => {
-        this.walletLoading = false;
-      },
-    });
+    if(this.hasWallet && !this.hasMissingKycFields){
+      this.getTransactions(); 
+      
+      this.walletLoading = true;
+      this.walletService.getWalletDashboard().subscribe({
+        next: (res) => {
+          this.walletLoading = false;
+          this.walletDetails = res?.data;
+  this.userBankDetails = this.walletDetails?.paymentAccount;
+        },
+        error: () => {
+          this.walletLoading = false;
+        },
+      });
+    }
   }
 
   private patchFormFromUser(): void {
