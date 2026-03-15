@@ -22,7 +22,7 @@ export class WalletComponent implements OnInit {
   ];
 
   balanceVisible = true;
-  availableBalance = 0;
+  availableBalance = 560430;
   totalEarned = 0;
   totalWithdrawalRequestCount = 0;
   readonly minWithdrawAmount = 5000;

@@ -31,7 +31,7 @@
     <ng-container *ngIf="!upgradeStatusLoading && upgradeStatus">
       <!-- Complete profile (KYC) when there are missing fields -->
       <section
-        *ngIf="hasMissingKycFields"
+        *ngIf="!hasMissingKycFields"
         class="content container mb-3 wallet-kyc"
       >
         <div class="py-3">
@@ -119,7 +119,7 @@
 
       <!-- Wallet dashboard: balance + earned + withdrawal request (same row, same height) -->
       <section
-        *ngIf="!hasMissingKycFields"
+        *ngIf="hasMissingKycFields"
         class="wallet-dashboard"
       >
         <div class="wallet-dashboard__row">
@@ -130,7 +130,7 @@
               <div>
                 <p class="wallet-card__label">Available Balance</p>
                 <div class="wallet-card__balance-row">
-                  <span class="wallet-card__amount" style="font-size: 2.2rem; font-weight: 500;">
+                  <span class="wallet-card__amount" style="font-size: 2.2rem; font-weight: 500; margin-right: 20px;">
                     {{ balanceVisible ? ('₦' + (availableBalance | number:'1.2-2')) : '••••••' }}
                   </span>
                   <button
@@ -173,7 +173,7 @@
             <div class="wallet-card__inner">
               <div class="wallet-card__header">
                 <div class="wallet-card__icon-wrap">
-                  <i class="bi bi-currency-exchange wallet-card__icon"></i>
+                  <img src="assets/Images/total-earned.svg" alt="">
                 </div>
                 <p class="wallet-card__label">Total Earned</p>
               </div>
@@ -185,7 +185,7 @@
             <div class="wallet-card__inner">
               <div class="wallet-card__header">
                 <div class="wallet-card__icon-wrap">
-                  <i class="bi bi-person-up wallet-card__icon"></i>
+<img src="/assets/Images/withdraw.svg" alt="">
                 </div>
                 <p class="wallet-card__label">Total Withdrawal Request</p>
               </div>
