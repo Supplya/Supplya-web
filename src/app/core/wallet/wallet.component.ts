@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/authentication/service/auth.service';
 import { ToastyService } from 'ng-toasty';
-import { WalletService, UpgradeStatusResponse } from './services/wallet.service';
+import { WalletService, UpgradeStatusResponse, Transaction, TransactionResponse } from './services/wallet.service';
+
 
 @Component({
   selector: 'app-wallet',
   templateUrl: './wallet.component.html',
   styleUrls: ['./wallet.component.scss'],
 })
-export class WalletComponent implements OnInit {
+export class WalletComponent implements OnInit, OnDestroy {
   userDetails: any = null;
   initializing = false;
   upgradeStatus: any | null = null;
@@ -40,6 +41,15 @@ export class WalletComponent implements OnInit {
   isAccountValidated: boolean = false;
   validatingAccount: boolean = false;
 
+  // Transaction properties
+  allTransactions: Transaction[] = [];
+  transactionsLoading: boolean = false;
+  errorFetchingTransactions: boolean = false;
+  transactionsP: number = 1; // Current page for pagination
+  transactionsPageSize: number = 10; // Items per page
+  totalTransactionsCount: number = 0;
+  balanceRefreshInterval: any; // Property to hold the interval ID
+
   constructor(
     private authService: AuthService,
     private walletService: WalletService,
@@ -51,12 +61,67 @@ export class WalletComponent implements OnInit {
     this.userDetails = this.authService.getUserCredentials();
     console.log('user', this.userDetails)
     this.initKycForm();
-    this.initWithdrawalForm(); // Call the new method
+    this.initWithdrawalForm();
     if (this.hasWallet) {
       this.fetchUpgradeStatus();
+      this.getTransactions(); // Fetch transactions when wallet is active
     }
     this.fetchBankDetails();
     this.getWalletDashboard();
+
+    // Start periodic refresh for wallet dashboard every 30 seconds
+    this.balanceRefreshInterval = setInterval(() => {
+      this.getWalletDashboard();
+    }, 30000); // Refresh every 30 seconds
+  }
+
+  // ... existing methods ...
+
+  // New method to fetch transactions
+  getTransactions(page: number = this.transactionsP): void {
+    this.transactionsLoading = true;
+    this.errorFetchingTransactions = false;
+
+    this.walletService.getTransactions(page, this.transactionsPageSize).subscribe({
+      next: (res: any) => {
+        this.transactionsLoading = false;
+        this.errorFetchingTransactions = false; // Explicitly reset error flag on success
+        if (res.success && res.data) { // Changed res.status to res.success
+          this.allTransactions = res.data.transactions;
+          this.totalTransactionsCount = res.data.total;
+          this.transactionsP = res.data.page;
+        } else {
+          // This block handles cases where success is false or data is null/undefined
+          this.errorFetchingTransactions = true;
+          // this.toast.error(res.message || 'Failed to fetch transactions.', 5000);
+        }
+      },
+      error: (err) => {
+        this.transactionsLoading = false;
+        this.errorFetchingTransactions = true;
+        // this.toast.error('Error fetching transactions.', 5000);
+        console.error('Error fetching transactions:', err);
+      },
+    });
+  }
+
+  // New method to handle transaction page changes
+  onTransactionsPageChange(page: any): void { // Changed type to any to handle potential Event object
+    this.transactionsP = page; // ngx-pagination typically emits the page number directly
+    this.getTransactions(page);
+  }
+
+  // Helper function to capitalize the first letter (used in HTML)
+  capitalizeFirstLetter(str: string): string {
+    if (!str) return '';
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  }
+
+  ngOnDestroy(): void {
+    // Clear the interval when the component is destroyed
+    if (this.balanceRefreshInterval) {
+      clearInterval(this.balanceRefreshInterval);
+    }
   }
 
   get hasWallet(): boolean {
@@ -178,7 +243,7 @@ get hasMissingKycFields(): boolean {
   walletDetails: any = null;
 
   private getWalletDashboard(): void {
-    this.upgradeStatusLoading = true;
+    this.walletLoading = true;
     this.walletService.getWalletDashboard().subscribe({
       next: (res) => {
         this.walletLoading = false;

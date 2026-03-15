@@ -242,6 +242,74 @@
           </div>
         </div>
       </section>
+
+      <!-- Transactions Table -->
+      <section class="content container mb-3">
+        <div class="px-4 d-flex justify-content-between align-items-center">
+          <div>
+            <p class="head-count mb-0 mt-2" style="font-size: 20px;">Transactions</p>
+            <p class="head-text">Recent Transactions</p>
+          </div>
+        </div>
+
+        <section class="content mb-2" *ngIf="transactionsLoading">
+          <div class="py-5 p-5 center">
+            <div>
+              <img src="/assets/Images/requestLoading.gif" alt="">
+              <p class="loading-text text-center text-muted">Loading transactions...</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="content center" *ngIf="!transactionsLoading && errorFetchingTransactions">
+          <div class="py-5 ">
+            <div class="py-3 text-center" >
+              <img src="/assets/Images/oops.png" style="height: 200px;" alt="">
+              <p class="loading-text text-muted py-3">Could not display transactions. Click 'Refresh' to try again.</p>
+              <p class="refresh" (click)="getTransactions()">Refresh <i class="bi bi-arrow-repeat"></i></p>
+            </div>
+          </div>
+        </section>
+
+        <div class="table-responsive" *ngIf="!transactionsLoading && allTransactions?.length > 0">
+          <table class="table" style="overflow-y: auto;">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let transaction of allTransactions | paginate: { itemsPerPage: transactionsPageSize, currentPage: transactionsP, totalItems: totalTransactionsCount }; let i = index">
+                <td>{{ transaction?.transactionType }}</td>
+                <td>{{ transaction?.amount | currency:'₦':true:'1.0-2' }}</td>
+                <td>{{ transaction?.description }}</td>
+                <td>
+                  <small [ngClass]="{'completed': transaction?.status === 'SUCCESS', 'pending': transaction?.status === 'PENDING', 'cancelled': transaction?.status === 'FAILED'}">
+                    {{ capitalizeFirstLetter(transaction?.status) }}
+                  </small>
+                </td>
+                <td>{{ transaction?.date | date: 'MMM d, y hh:mm a' }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls previousLabel="" nextLabel="" *ngIf="allTransactions" (pageChange)="onTransactionsPageChange($event)"></pagination-controls>
+        </div>
+
+        <section class="content center mt-2" *ngIf="!transactionsLoading && !errorFetchingTransactions && allTransactions?.length === 0">
+          <div class="py-5 ">
+            <div class="py-3 text-center" >
+              <img src="/assets/Images/product-cat.png" style="height: 100px;" alt="">
+              <div class=" py-5">
+                <p class="loading-text text-muted">No transactions found</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
     </ng-container>
   </section>
 

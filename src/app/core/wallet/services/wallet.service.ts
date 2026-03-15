@@ -67,4 +67,36 @@ export class WalletService {
       payload
     );
   }
+
+  getTransactions(page: number, limit: number): Observable<TransactionResponse> {
+    return this.http.get<TransactionResponse>(
+      `${this.baseUrl}wallet/transactions?page=${page}&limit=${limit}`
+    );
+  }
+}
+
+// Interfaces for transactions (moved from wallet.component.ts)
+export interface Transaction {
+  _id: string;
+  transactionType: 'DEPOSIT' | 'WITHDRAWAL' | 'ORDER_PAYMENT' | 'REFUND' | string;
+  amount: number;
+  description: string;
+  orderId?: string;
+  bnplLoanId?: string;
+  anchorTransferId?: string;
+  reference: string;
+  status: 'PENDING' | 'SUCCESS' | 'FAILED' | string;
+  date: string;
+}
+
+export interface TransactionResponse {
+  status: boolean;
+  message: string;
+  data: {
+    transactions: Transaction[];
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  };
 }
