@@ -159,7 +159,7 @@
   <button
     type="button"
     class="wallet-card__action-btn wallet-card__withdraw-btn"
-    (click)="goToWithdraw()"
+    (click)="toggleModal('withdrawWalletModal', 'open')"
   >
     <i class="bi bi-cash-stack"></i>
     Withdraw
@@ -244,6 +244,106 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Withdraw Wallet Modal -->
+<div id="withdrawWalletModal" class="modal" style="display: none;">
+  <div class="modal-center-content fund-wallet-modal-container mx-auto pt-4 px-4 px-lg-5 pb-5">
+    <div class="d-flex justify-content-end">
+      <img style="cursor: pointer" class="mb-4" (click)="toggleModal('withdrawWalletModal', 'close')" src="/assets/Images/dismiss.svg" alt="Close" />
+    </div>
+    <div class="fund-wallet-modal-content">
+      <h3 class="text-center mb-3">Withdraw Funds</h3>
+      <p class="text-center text-muted mb-4">
+        Withdrawals are processed within 1-3 business days<br>
+        Processing fee : 1% fixed percentage, capped at N2000
+      </p>
+
+      <form [formGroup]="withdrawalForm" (ngSubmit)="requestWithdrawal()">
+        <div class="mb-2">
+          <label for="withdraw-amount" class="content-label">Amount to Withdraw</label>
+          <input
+            type="number"
+            formControlName="amount"
+            id="withdraw-amount"
+            class="content-input {{
+              isInvalidWithdraw('amount') ? 'error-input' : ''
+            }}"
+            placeholder="Enter amount"
+            inputmode="numeric"
+          />
+          <small
+            class="error-text mb-4 d-block"
+            *ngIf="isInvalidWithdraw('amount')"
+          >
+            {{ getErrorMessageWithdraw('amount', 'Amount is required') }}
+          </small>
+        </div>
+
+        <div class="mb-2">
+          <label for="withdraw-account-number" class="content-label">Account Number</label>
+          <input
+            type="text"
+            formControlName="accountNumber"
+            id="withdraw-account-number"
+            class="content-input {{
+              isInvalidWithdraw('accountNumber') ? 'error-input' : ''
+            }}"
+            placeholder="Enter account number"
+            maxlength="10"
+            inputmode="numeric"
+            (input)="validateAccount()"
+          />
+          <small
+            class="error-text mb-4 d-block"
+            *ngIf="isInvalidWithdraw('accountNumber')"
+          >
+            {{ getErrorMessageWithdraw('accountNumber', 'Account number is required') }}
+          </small>
+          <p *ngIf="validatingAccount" class="text-muted mt-1">Validating account...</p>
+          <p *ngIf="!validatingAccount && validatedBankName && isAccountValidated" class="text-success mt-1">Account Name: {{ validatedBankName }}</p>
+          <p *ngIf="!validatingAccount && validatedBankName && !isAccountValidated" class="text-danger mt-1">{{ validatedBankName }}</p>
+        </div>
+
+        <div class="mb-2">
+          <label for="withdraw-bank-name" class="content-label">Bank Name</label>
+          <select
+            formControlName="bankName"
+            id="withdraw-bank-name"
+            class="content-select {{
+              isInvalidWithdraw('bankName') ? 'error-input' : ''
+            }}"
+            (change)="validateAccount()"
+          >
+            <option value="" disabled>Select bank</option>
+            <option
+              *ngFor="let bank of bankOptions"
+              [value]="bank.value"
+            >
+              {{ bank.label }}
+            </option>
+          </select>
+          <small
+            class="error-text mb-4 d-block"
+            *ngIf="isInvalidWithdraw('bankName')"
+          >
+            {{ getErrorMessageWithdraw('bankName', 'Bank name is required') }}
+          </small>
+        </div>
+
+        <div class="mt-3">
+          <button
+            type="submit"
+            class="wallet-kyc__submit"
+            [disabled]="withdrawalForm.invalid || withdrawalSubmitting || !isAccountValidated"
+          >
+            <i class="bi bi-cash-stack mt-1"></i>
+            {{ withdrawalSubmitting ? 'Requesting…' : 'Request Withdrawal' }}
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

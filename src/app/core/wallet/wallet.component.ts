@@ -28,6 +28,19 @@ export class WalletComponent implements OnInit {
   readonly minWithdrawAmount = 5000;
   userBankDetails: { bankName: string, accountNumber: string } | null = null;
 
+  withdrawalForm!: FormGroup;
+  bankOptions: { label: string; value: string }[] = [
+    { label: 'Access Bank', value: 'Access Bank' },
+    { label: 'Zenith Bank', value: 'Zenith Bank' },
+    { label: 'GTBank', value: 'GTBank' },
+    { label: 'First Bank', value: 'First Bank' },
+    { label: 'UBA', value: 'UBA' },
+  ];
+  validatedBankName: string = '';
+  withdrawalSubmitting: boolean = false;
+  isAccountValidated: boolean = false;
+  validatingAccount: boolean = false;
+
   constructor(
     private authService: AuthService,
     private walletService: WalletService,
@@ -39,6 +52,7 @@ export class WalletComponent implements OnInit {
     this.userDetails = this.authService.getUserCredentials();
     console.log('user', this.userDetails)
     this.initKycForm();
+    this.initWithdrawalForm(); // Call the new method
     if (this.hasWallet) {
       this.fetchUpgradeStatus();
     }
@@ -69,9 +83,7 @@ export class WalletComponent implements OnInit {
     this.balanceVisible = !this.balanceVisible;
   }
 
-  goToWithdraw(): void {
-    // Withdraw functionality to be implemented later
-  }
+  
 
   fetchBankDetails() {
     // Replace with your actual logic to fetch bank details
@@ -111,6 +123,14 @@ export class WalletComponent implements OnInit {
       bvn: [u.bvn ?? '', [Validators.required, Validators.pattern(/^\d{11}$/)]],
       dateOfBirth: [dateOfBirth, Validators.required],
       gender: [u.gender ?? '', Validators.required],
+    });
+  }
+
+  private initWithdrawalForm(): void {
+    this.withdrawalForm = this.fb.group({
+      amount: ['', [Validators.required, Validators.min(this.minWithdrawAmount)]],
+      accountNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]], // Assuming 10-digit account number
+      bankName: ['', Validators.required],
     });
   }
 
@@ -174,6 +194,20 @@ export class WalletComponent implements OnInit {
     return defaultMsg;
   }
 
+  isInvalidWithdraw(controlName: string): boolean {
+    const c = this.withdrawalForm.get(controlName);
+    return !!(c && c.invalid && (c.dirty || c.touched));
+  }
+
+  getErrorMessageWithdraw(controlName: string, defaultMsg: string): string {
+    const c = this.withdrawalForm.get(controlName);
+    if (!c?.errors) return defaultMsg;
+    if (c.errors['required']) return 'This field is required';
+    if (c.errors['min']) return `Amount must be at least ${this.minWithdrawAmount}`;
+    if (c.errors['pattern']) return 'Enter a valid 10-digit account number';
+    return defaultMsg;
+  }
+
   submitKyc(): void {
     if (this.kycSubmitting || this.kycForm.invalid) return;
     this.kycSubmitting = true;
@@ -202,5 +236,63 @@ export class WalletComponent implements OnInit {
         this.kycSubmitting = false;
       },
     });
+  }
+
+  validateAccount(): void {
+    const accountNumberControl = this.withdrawalForm.get('accountNumber');
+    const bankNameControl = this.withdrawalForm.get('bankName');
+
+    this.validatedBankName = ''; // Clear previous validation
+    this.isAccountValidated = false; // Reset validation status
+
+    // Check if account number is provided and valid first
+    if (!accountNumberControl?.value || accountNumberControl.invalid) {
+      if (bankNameControl?.value) { // Only show this message if bank name is selected without account number
+        this.validatedBankName = 'Please enter account number first';
+      }
+      return; // Stop validation if account number is not valid
+    }
+
+    if (accountNumberControl?.valid && bankNameControl?.valid) {
+      this.validatingAccount = true; // Set loading state
+
+      // Simulate API call for account validation
+      // In a real scenario, you'd make an HTTP request here
+      setTimeout(() => {
+        const accountNumber = accountNumberControl.value;
+        const bankName = bankNameControl.value;
+
+        // Demo validation logic
+        if (accountNumber === '1234567890' && bankName === 'Zenith Bank') {
+          this.validatedBankName = 'John Doe'; // Simulate account name
+          this.isAccountValidated = true;
+        } else if (accountNumber === '0987654321' && bankName === 'Access Bank') {
+          this.validatedBankName = 'Jane Smith';
+          this.isAccountValidated = true;
+        } else {
+          this.validatedBankName = 'Unable to validate account';
+          this.isAccountValidated = false;
+        }
+        this.validatingAccount = false; // Clear loading state
+      }, 1000); // Simulate network delay
+    }
+  }
+
+  requestWithdrawal(): void {
+    if (this.withdrawalSubmitting || this.withdrawalForm.invalid) return;
+
+    this.withdrawalSubmitting = true;
+    const value = this.withdrawalForm.value;
+    console.log('Withdrawal Request:', value);
+
+    // Simulate API call for withdrawal
+    setTimeout(() => {
+      this.withdrawalSubmitting = false;
+      this.toast.success('Withdrawal request submitted successfully!', 5000);
+      this.toggleModal('withdrawWalletModal', 'close');
+      this.withdrawalForm.reset(); // Reset the form after submission
+      this.validatedBankName = ''; // Clear validated bank name
+      this.isAccountValidated = false; // Reset validation status
+    }, 2000); // Simulate network delay
   }
 }
