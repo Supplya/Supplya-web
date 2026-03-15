@@ -255,3 +255,9 @@
     transform: translateY(-1px);
   }
 }
+
+@media (max-width: 768px) {
+  .wallet-dashboard__row {
+    flex-direction: column;
+  }
+}
