@@ -26,6 +26,7 @@ export class WalletComponent implements OnInit {
   totalEarned = 0;
   totalWithdrawalRequestCount = 0;
   readonly minWithdrawAmount = 5000;
+  userBankDetails: { bankName: string, accountNumber: string } | null = null;
 
   constructor(
     private authService: AuthService,
@@ -41,6 +42,7 @@ export class WalletComponent implements OnInit {
     if (this.hasWallet) {
       this.fetchUpgradeStatus();
     }
+    this.fetchBankDetails();
   }
 
   get hasWallet(): boolean {
@@ -69,6 +71,17 @@ export class WalletComponent implements OnInit {
 
   goToWithdraw(): void {
     // Withdraw functionality to be implemented later
+  }
+
+  fetchBankDetails() {
+    // Replace with your actual logic to fetch bank details
+    // For now, I'll use some dummy data
+    this.userBankDetails = { bankName: 'Zenith Bank', accountNumber: '1234567890' };
+  }
+
+  fundWallet() {
+    // Implement the logic for funding the wallet
+    console.log('fundWallet clicked');
   }
 
   private initKycForm(): void {

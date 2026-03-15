@@ -36,7 +36,7 @@
       >
         <div class="py-3">
           <p class="content-heading">Complete your profile</p>
-          <p class="wallet-kyc__message text-muted mb-4">
+          <p class="wallet-kyc__message text-danger mb-4">
             {{ upgradeMessage }}
           </p>
           <form [formGroup]="kycForm" (ngSubmit)="submitKyc()">
@@ -126,51 +126,69 @@
           <!-- Available Balance card -->
           <div class="wallet-card wallet-card--balance">
             <div class="wallet-card__deco" aria-hidden="true"></div>
-            <div class="wallet-card__inner">
-              <p class="wallet-card__label">Available Balance</p>
-              <div class="wallet-card__balance-row">
-                <span class="wallet-card__amount">
-                  {{ balanceVisible ? ('₦' + (availableBalance | number:'1.2-2')) : '••••••' }}
-                </span>
-                <button
-                  type="button"
-                  class="wallet-card__eye"
-                  (click)="toggleBalanceVisibility()"
-                  [attr.aria-label]="balanceVisible ? 'Hide balance' : 'Show balance'"
-                >
-                  <i class="bi" [ngClass]="balanceVisible ? 'bi-eye-slash' : 'bi-eye'"></i>
-                </button>
+            <div class="wallet-card__inner" style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+              <div>
+                <p class="wallet-card__label">Available Balance</p>
+                <div class="wallet-card__balance-row">
+                  <span class="wallet-card__amount" style="font-size: 2.2rem; font-weight: 500;">
+                    {{ balanceVisible ? ('₦' + (availableBalance | number:'1.2-2')) : '••••••' }}
+                  </span>
+                  <button
+                    type="button"
+                    class="wallet-card__eye"
+                    (click)="toggleBalanceVisibility()"
+                    [attr.aria-label]="balanceVisible ? 'Hide balance' : 'Show balance'"
+                  >
+                    <i class="bi" [ngClass]="balanceVisible ? 'bi-eye-slash' : 'bi-eye'"></i>
+                  </button>
+                </div>
+                <p *ngIf="isVendor" class="wallet-card__min-withdraw">
+                  Minimum withdrawable Amount : N{{ minWithdrawAmount | number:'1.2-2' }}
+                </p>
               </div>
-              <p *ngIf="isVendor" class="wallet-card__min-withdraw">
-                Minimum withdrawable Amount : N{{ minWithdrawAmount | number:'1.2-2' }}
-              </p>
-              <button
-                type="button"
-                class="wallet-card__withdraw-btn"
-                (click)="goToWithdraw()"
-              >
-                <i class="bi bi-cash-stack"></i>
-                Withdraw
-              </button>
+           <div class="wallet-card__actions">
+  <button
+    type="button"
+    class="wallet-card__action-btn wallet-card__fund-btn"
+    (click)="fundWallet()"
+  >
+    <i class="bi bi-plus-circle"></i>
+    Fund
+  </button>
+
+  <button
+    type="button"
+    class="wallet-card__action-btn wallet-card__withdraw-btn"
+    (click)="goToWithdraw()"
+  >
+    <i class="bi bi-cash-stack"></i>
+    Withdraw
+  </button>
+</div>
+
             </div>
           </div>
           <!-- Total Earned card -->
-          <div class="wallet-card wallet-card--plain">
+          <div *ngIf="isVendor" class="wallet-card wallet-card--plain">
             <div class="wallet-card__inner">
-              <div class="wallet-card__icon-wrap">
-                <i class="bi bi-currency-exchange wallet-card__icon"></i>
+              <div class="wallet-card__header">
+                <div class="wallet-card__icon-wrap">
+                  <i class="bi bi-currency-exchange wallet-card__icon"></i>
+                </div>
+                <p class="wallet-card__label">Total Earned</p>
               </div>
-              <p class="wallet-card__label">Total Earned</p>
               <p class="wallet-card__value">₦{{ totalEarned | number:'1.2-2' }}</p>
             </div>
           </div>
           <!-- Total Withdrawal Request card -->
           <div class="wallet-card wallet-card--plain">
             <div class="wallet-card__inner">
-              <div class="wallet-card__icon-wrap">
-                <i class="bi bi-person-up wallet-card__icon"></i>
+              <div class="wallet-card__header">
+                <div class="wallet-card__icon-wrap">
+                  <i class="bi bi-person-up wallet-card__icon"></i>
+                </div>
+                <p class="wallet-card__label">Total Withdrawal Request</p>
               </div>
-              <p class="wallet-card__label">Total Withdrawal Request</p>
               <p class="wallet-card__value">{{ totalWithdrawalRequestCount | number:'1.0-0' }}</p>
             </div>
           </div>
