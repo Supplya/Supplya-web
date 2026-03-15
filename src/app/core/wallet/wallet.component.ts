@@ -249,15 +249,6 @@ get hasMissingKycFields(): boolean {
         this.walletLoading = false;
         this.walletDetails = res?.data;
 this.userBankDetails = this.walletDetails?.paymentAccount;
-
-        //         "wallet": {
-        //     "balance": 0
-        // },
-        // "paymentAccount": {
-        //     "virtualAccountNumber": "2451343877",
-        //     "bankName": "PROVIDUS BANK",
-        //     "instructions": "Transfer funds to 2451343877 at PROVIDUS BANK"
-        // },
       },
       error: () => {
         this.walletLoading = false;
