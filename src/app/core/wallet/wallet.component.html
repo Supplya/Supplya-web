@@ -130,7 +130,7 @@
       <div class="row">
         <div class="col-lg-6">
 
-          <div class="wallet-dashboard__row" *ngIf="isVendor">
+          <div class="wallet-dashboard__row" *ngIf="!isVendor">
             <!-- Available Balance card -->
             <div class="wallet-card wallet-card--balance">
               <div class="wallet-card__deco" aria-hidden="true"></div>
@@ -170,7 +170,7 @@
           </div>
         </div>
       </div>
-        <div class="wallet-dashboard__row" *ngIf="!isVendor">
+        <div class="wallet-dashboard__row" *ngIf="isVendor">
           <!-- Available Balance card -->
           <div class="wallet-card wallet-card--balance">
             <div class="wallet-card__deco" aria-hidden="true"></div>
