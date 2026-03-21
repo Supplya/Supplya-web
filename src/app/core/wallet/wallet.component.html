@@ -130,7 +130,7 @@
       <div class="row">
         <div class="col-lg-6">
 
-          <div class="wallet-dashboard__row" *ngIf="!isVendor">
+          <div class="wallet-dashboard__row" *ngIf="isVendor">
             <!-- Available Balance card -->
             <div class="wallet-card wallet-card--balance">
               <div class="wallet-card__deco" aria-hidden="true"></div>
@@ -170,7 +170,7 @@
           </div>
         </div>
       </div>
-        <div class="wallet-dashboard__row" *ngIf="isVendor">
+        <div class="wallet-dashboard__row" *ngIf="!isVendor">
           <!-- Available Balance card -->
           <div class="wallet-card wallet-card--balance">
             <div class="wallet-card__deco" aria-hidden="true"></div>
@@ -463,6 +463,30 @@
           </button>
         </div>
       </form>
+    </div>
+  </div>
+</div>
+
+<!-- Withdrawal Success Modal -->
+<div id="withdrawalSuccessModal" class="modal" style="display: none;">
+  <div class="modal-center-content fund-wallet-modal-container mx-auto pt-4 px-4 px-lg-5 pb-5">
+    <div class="d-flex justify-content-end">
+      <img style="cursor: pointer" class="mb-4" (click)="toggleModal('withdrawalSuccessModal', 'close')" src="/assets/Images/dismiss.svg" alt="Close" />
+    </div>
+    <div class="fund-wallet-modal-content text-center">
+      <img src="/assets/Images/check.png" alt="Success" style="width: 80px; height: 80px; margin-bottom: 20px;">
+      <h3 class="text-center mb-3">Withdrawal Successful!</h3>
+      <p class="text-center text-muted mb-4">
+        Your withdrawal request has been submitted successfully.
+        Funds will be processed within 1-3 business days.
+      </p>
+      <button
+        type="button"
+        class="wallet-kyc__submit"
+        (click)="toggleModal('withdrawalSuccessModal', 'close')"
+      >
+        Done
+      </button>
     </div>
   </div>
 </div>
