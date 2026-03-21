@@ -190,7 +190,7 @@
                     <i class="bi" [ngClass]="balanceVisible ? 'bi-eye-slash' : 'bi-eye'"></i>
                   </button>
                 </div>
-                <p *ngIf="isVendor" class="wallet-card__min-withdraw">
+                <p  class="wallet-card__min-withdraw">
                   Minimum withdrawable Amount : N{{ minWithdrawAmount | number:'1.2-2' }}
                 </p>
               </div>
@@ -204,7 +204,7 @@
     Fund
   </button>
 
-  <button *ngIf="isVendor"
+  <button 
     type="button"
     class="wallet-card__action-btn wallet-card__withdraw-btn"
     (click)="toggleModal('withdrawWalletModal', 'open')"
@@ -217,7 +217,7 @@
             </div>
           </div>
           <!-- Total Earned card -->
-          <div *ngIf="isVendor" class="wallet-card wallet-card--plain">
+          <div  class="wallet-card wallet-card--plain">
             <div class="wallet-card__inner">
               <div class="wallet-card__header">
                 <!-- <div class="wallet-card__icon-wrap">
@@ -229,7 +229,7 @@
             </div>
           </div>
           <!-- Total Withdrawal Request card -->
-          <div class="wallet-card wallet-card--plain" *ngIf="isVendor">
+          <div class="wallet-card wallet-card--plain">
             <div class="wallet-card__inner">
               <div class="wallet-card__header">
                 <!-- <div class="wallet-card__icon-wrap">

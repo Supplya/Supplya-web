@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/authentication/service/auth.service';
 import { ToastyService } from 'ng-toasty';
-import { WalletService, UpgradeStatusResponse, Transaction, TransactionResponse, Bank, VerifyAccountPayload } from './services/wallet.service';
+import { WalletService, UpgradeStatusResponse, Transaction, TransactionResponse, Bank, VerifyAccountPayload, WithdrawPayload } from './services/wallet.service';
 
 
 export interface UserBankDetails {
@@ -425,20 +425,37 @@ get hasMissingKycFields(): boolean {
   }
 
   requestWithdrawal(): void {
-    if (this.withdrawalSubmitting || this.withdrawalForm.invalid) return;
+    if (this.withdrawalSubmitting || this.withdrawalForm.invalid || !this.isAccountValidated) return;
 
     this.withdrawalSubmitting = true;
-    const value = this.withdrawalForm.value;
-    console.log('Withdrawal Request:', value);
+    const formValue = this.withdrawalForm.value;
 
-    // Simulate API call for withdrawal
-    setTimeout(() => {
-      this.withdrawalSubmitting = false;
-      this.toast.success('Withdrawal request submitted successfully!', 5000);
-      this.toggleModal('withdrawWalletModal', 'close');
-      this.withdrawalForm.reset(); // Reset the form after submission
-      this.validatedBankName = ''; // Clear validated bank name
-      this.isAccountValidated = false; // Reset validation status
-    }, 2000); // Simulate network delay
+    const payload: WithdrawPayload = {
+      amount: formValue.amount,
+      accountNumber: formValue.accountNumber,
+      bankCode: formValue.bankCode,
+      description: 'Wallet withdrawal', // You might want to make this dynamic
+    };
+
+    this.walletService.withdrawFunds(payload).subscribe({
+      next: (res) => {
+        this.withdrawalSubmitting = false;
+        if (res.success) {
+          this.toast.success(res.message || 'Withdrawal request submitted successfully!', 5000);
+          this.toggleModal('withdrawWalletModal', 'close');
+          this.withdrawalForm.reset(); // Reset the form after submission
+          this.validatedBankName = ''; // Clear validated bank name
+          this.isAccountValidated = false; // Reset validation status
+          this.getWalletDashboard(); // Refresh wallet dashboard to reflect new balance
+        } else {
+          this.toast.danger(res.message || 'Withdrawal failed.', 5000);
+        }
+      },
+      error: (err) => {
+        this.withdrawalSubmitting = false;
+        this.toast.danger(err.error?.message || 'Error submitting withdrawal request.', 5000);
+        console.error('Error submitting withdrawal:', err);
+      },
+    });
   }
 }

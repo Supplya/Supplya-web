@@ -60,7 +60,9 @@ export class WalletService {
       // `${this.baseUrl}account/upgrade/status`
     );
   }
-
+ withdrawFunds(payload: WithdrawPayload): Observable<WithdrawResponse> {
+    return this.http.post<WithdrawResponse>(`${this.baseUrl}wallet/withdraw`, payload);
+  }
   submitKycUpgrade(payload: KycUpgradePayload): Observable<{ success: boolean; message?: string; data?: any }> {
     return this.http.post<{ success: boolean; message?: string; data?: any }>(
       `${this.baseUrl}wallet/kyc/upgrade`,
@@ -134,4 +136,17 @@ export interface VerifyAccountResponse {
     bankCode: string;
     accountName: string;
   };
+}
+
+export interface WithdrawPayload {
+  amount: number;
+  accountNumber: string;
+  bankCode: string;
+  description: string;
+}
+
+export interface WithdrawResponse {
+  success: boolean;
+  message: string;
+  data?: any; // Adjust based on actual API response for withdrawal
 }
