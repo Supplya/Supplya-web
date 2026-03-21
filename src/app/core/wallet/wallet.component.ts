@@ -386,9 +386,7 @@ get hasMissingKycFields(): boolean {
 
     // Check if account number and bank code are provided and valid
     if (!accountNumberControl?.value || accountNumberControl.invalid || !bankCodeControl?.value || bankCodeControl.invalid) {
-      if (accountNumberControl?.value && !bankCodeControl?.value) {
-        this.validatedBankName = 'Please select a bank first';
-      } else if (!accountNumberControl?.value && bankCodeControl?.value) {
+      if (!accountNumberControl?.value && bankCodeControl?.value) {
         this.validatedBankName = 'Please enter account number first';
       }
       return; // Stop validation if inputs are not valid
@@ -434,7 +432,7 @@ get hasMissingKycFields(): boolean {
       amount: formValue.amount,
       accountNumber: formValue.accountNumber,
       bankCode: formValue.bankCode,
-      description: 'Wallet withdrawal', // You might want to make this dynamic
+      description: 'Wallet withdrawal', 
     };
 
     this.walletService.withdrawFunds(payload).subscribe({
@@ -454,7 +452,7 @@ get hasMissingKycFields(): boolean {
       },
       error: (err) => {
         this.withdrawalSubmitting = false;
-        this.toast.danger(err.error?.message || 'Error submitting withdrawal request.', 5000);
+        // this.toast.danger(err.error?.message || 'Error submitting withdrawal request.', 5000);
         console.error('Error submitting withdrawal:', err);
         this.toggleModal('withdrawWalletModal', 'close'); // Close withdrawal modal on error
       },
