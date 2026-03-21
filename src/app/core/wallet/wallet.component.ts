@@ -2,8 +2,14 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/authentication/service/auth.service';
 import { ToastyService } from 'ng-toasty';
-import { WalletService, UpgradeStatusResponse, Transaction, TransactionResponse } from './services/wallet.service';
+import { WalletService, UpgradeStatusResponse, Transaction, TransactionResponse, Bank, VerifyAccountPayload } from './services/wallet.service';
 
+
+export interface UserBankDetails {
+  bankName: string;
+  virtualAccountNumber: string;
+  accountName: string;
+}
 
 @Component({
   selector: 'app-wallet',
@@ -26,16 +32,10 @@ export class WalletComponent implements OnInit, OnDestroy {
   totalEarned = 0;
   totalWithdrawalRequestCount = 0;
   readonly minWithdrawAmount = 5000;
-  userBankDetails: any;
+  userBankDetails: UserBankDetails | null = null;
 
   withdrawalForm!: FormGroup;
-  bankOptions: { label: string; value: string }[] = [
-    { label: 'Access Bank', value: 'Access Bank' },
-    { label: 'Zenith Bank', value: 'Zenith Bank' },
-    { label: 'GTBank', value: 'GTBank' },
-    { label: 'First Bank', value: 'First Bank' },
-    { label: 'UBA', value: 'UBA' },
-  ];
+  bankOptions: Bank[] = []; // Changed to use Bank interface and initialized as empty
   validatedBankName: string = '';
   withdrawalSubmitting: boolean = false;
   isAccountValidated: boolean = false;
@@ -59,18 +59,18 @@ export class WalletComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userDetails = this.authService.getUserCredentials();
-    console.log('user', this.userDetails)
+ 
     this.initKycForm();
     this.initWithdrawalForm();
+    this.getBanks(); // Fetch banks on initialization
     if (this.hasWallet) {
       this.fetchUpgradeStatus();
-
+ this.getWalletDashboard();
       // Start periodic refresh for wallet dashboard every 30 seconds
       this.balanceRefreshInterval = setInterval(() => {
         this.getWalletDashboard();
       }, 30000); // Refresh every 30 seconds
     }
-    this.fetchBankDetails();
   }
 
  
@@ -170,14 +170,6 @@ get hasMissingKycFields(): boolean {
     this.balanceVisible = !this.balanceVisible;
   }
 
-  
-
-  fetchBankDetails() {
-    // Replace with your actual logic to fetch bank details
-    // For now, I'll use some dummy data
-    this.userBankDetails = { bankName: 'Zenith Bank', accountNumber: '1234567890' };
-  }
-
   fundWallet() {
     this.toggleModal('fundWalletModal', 'open');
   }
@@ -217,17 +209,25 @@ get hasMissingKycFields(): boolean {
     this.withdrawalForm = this.fb.group({
       amount: ['', [Validators.required, Validators.min(this.minWithdrawAmount)]],
       accountNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]], // Assuming 10-digit account number
-      bankName: ['', Validators.required],
+      bankCode: ['', Validators.required], // Changed from bankName to bankCode
     });
   }
 
   private fetchUpgradeStatus(): void {
     this.upgradeStatusLoading = true;
     this.walletService.getUpgradeStatus().subscribe({
-      next: (res) => {
+      next: (res: any) => { // Changed res type to any to access data property
         this.upgradeStatusLoading = false;
         this.upgradeStatus = res;
         this.patchFormFromUser();
+
+        if (res.success && res.data && res.data.hasVirtualNuban) {
+          this.userBankDetails = {
+            bankName: res.data.bankName,
+            virtualAccountNumber: res.data.virtualAccountNumber,
+            accountName: res.data.accountName,
+          };
+        }
       },
       error: () => {
         this.upgradeStatusLoading = false;
@@ -247,7 +247,6 @@ get hasMissingKycFields(): boolean {
         next: (res) => {
           this.walletLoading = false;
           this.walletDetails = res?.data;
-  this.userBankDetails = this.walletDetails?.paymentAccount;
         },
         error: () => {
           this.walletLoading = false;
@@ -346,43 +345,66 @@ get hasMissingKycFields(): boolean {
     });
   }
 
+  getBanks(): void {
+    this.walletService.getBanks().subscribe({
+      next: (res: any) => {
+        if (res.success && res.data && res.data.banks) {
+          this.bankOptions = res.data.banks;
+        } else {
+          this.toast.danger(res.message || 'Failed to fetch banks.', 5000);
+        }
+      },
+      error: (err) => {
+        this.toast.danger('Error fetching banks.', 5000);
+        console.error('Error fetching banks:', err);
+      },
+    });
+  }
+
   validateAccount(): void {
     const accountNumberControl = this.withdrawalForm.get('accountNumber');
-    const bankNameControl = this.withdrawalForm.get('bankName');
+    const bankCodeControl = this.withdrawalForm.get('bankCode'); // Changed to bankCodeControl
 
     this.validatedBankName = ''; // Clear previous validation
     this.isAccountValidated = false; // Reset validation status
 
-    // Check if account number is provided and valid first
-    if (!accountNumberControl?.value || accountNumberControl.invalid) {
-      if (bankNameControl?.value) { // Only show this message if bank name is selected without account number
+    // Check if account number and bank code are provided and valid
+    if (!accountNumberControl?.value || accountNumberControl.invalid || !bankCodeControl?.value || bankCodeControl.invalid) {
+      if (accountNumberControl?.value && !bankCodeControl?.value) {
+        this.validatedBankName = 'Please select a bank first';
+      } else if (!accountNumberControl?.value && bankCodeControl?.value) {
         this.validatedBankName = 'Please enter account number first';
       }
-      return; // Stop validation if account number is not valid
+      return; // Stop validation if inputs are not valid
     }
 
-    if (accountNumberControl?.valid && bankNameControl?.valid) {
+    if (accountNumberControl?.valid && bankCodeControl?.valid) {
       this.validatingAccount = true; // Set loading state
 
-      // Simulate API call for account validation
-      // In a real scenario, you'd make an HTTP request here
-      setTimeout(() => {
-        const accountNumber = accountNumberControl.value;
-        const bankName = bankNameControl.value;
+      const payload: VerifyAccountPayload = {
+        accountNumber: accountNumberControl.value,
+        bankCode: bankCodeControl.value,
+      };
 
-        // Demo validation logic
-        if (accountNumber === '1234567890' && bankName === 'Zenith Bank') {
-          this.validatedBankName = 'John Doe'; // Simulate account name
-          this.isAccountValidated = true;
-        } else if (accountNumber === '0987654321' && bankName === 'Access Bank') {
-          this.validatedBankName = 'Jane Smith';
-          this.isAccountValidated = true;
-        } else {
-          this.validatedBankName = 'Unable to validate account';
+      this.walletService.verifyBankAccount(payload).subscribe({
+        next: (res: any) => {
+          this.validatingAccount = false;
+          if (res.success && res.data) {
+            this.validatedBankName = res.data.accountName;
+            this.isAccountValidated = true;
+          } else {
+            this.validatedBankName = res.message || 'Unable to validate account';
+            this.isAccountValidated = false;
+          }
+        },
+        error: (err) => {
+          this.validatingAccount = false;
+          this.validatedBankName = 'Error validating account. Please try again.';
           this.isAccountValidated = false;
-        }
-        this.validatingAccount = false; // Clear loading state
-      }, 1000); // Simulate network delay
+          this.toast.danger('Error validating account.', 5000);
+          console.error('Error validating account:', err);
+        },
+      });
     }
   }
 

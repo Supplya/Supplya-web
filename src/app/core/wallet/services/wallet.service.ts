@@ -73,6 +73,14 @@ export class WalletService {
       `${this.baseUrl}wallet/transactions?page=${page}&limit=${limit}`
     );
   }
+
+  getBanks(): Observable<BankListResponse> {
+    return this.http.get<BankListResponse>(`${this.baseUrl}wallet/banks`);
+  }
+
+  verifyBankAccount(payload: VerifyAccountPayload): Observable<VerifyAccountResponse> {
+    return this.http.post<VerifyAccountResponse>(`${this.baseUrl}wallet/verify-account`, payload);
+  }
 }
 
 // Interfaces for transactions (moved from wallet.component.ts)
@@ -98,5 +106,32 @@ export interface TransactionResponse {
     page: number;
     limit: number;
     totalPages: number;
+  };
+}
+
+export interface Bank {
+  name: string;
+  code: string;
+  id: string;
+}
+
+export interface BankListResponse {
+  success: boolean;
+  data: {
+    banks: Bank[];
+  };
+}
+
+export interface VerifyAccountPayload {
+  accountNumber: string;
+  bankCode: string;
+}
+
+export interface VerifyAccountResponse {
+  success: boolean;
+  data: {
+    accountNumber: string;
+    bankCode: string;
+    accountName: string;
   };
 }

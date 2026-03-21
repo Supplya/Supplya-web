@@ -139,7 +139,7 @@
                   <p class="wallet-card__label">Available Balance</p>
                   <div class="wallet-card__balance-row">
                     <span class="wallet-card__amount" style="font-size: 2.2rem; font-weight: 500; margin-right: 20px;">
-                      {{ balanceVisible ? ('₦' + (walletDetails?.wallet?.balance | number:'1.2-2')) : '••••••' }}
+                      {{ balanceVisible ? ('₦' + (walletDetails?.wallet?.balance || 0 | number:'1.2-2' )) : '••••••' }}
                     </span>
                     <button
                       type="button"
@@ -341,7 +341,7 @@
         <div class="bank-details-item">
           <span class="bank-details-label">Account Name</span>
           <div class="bank-details-value">
-            <span>{{userDetails?.firstName}} {{userDetails?.lastName}}</span>
+            <span>{{userBankDetails?.accountName}} </span>
           </div>
         </div>
         <div class="bank-details-item">
@@ -429,26 +429,26 @@
         <div class="mb-2">
           <label for="withdraw-bank-name" class="content-label">Bank Name</label>
           <select
-            formControlName="bankName"
+            formControlName="bankCode"
             id="withdraw-bank-name"
             class="content-select {{
-              isInvalidWithdraw('bankName') ? 'error-input' : ''
+              isInvalidWithdraw('bankCode') ? 'error-input' : ''
             }}"
             (change)="validateAccount()"
           >
             <option value="" disabled>Select bank</option>
             <option
               *ngFor="let bank of bankOptions"
-              [value]="bank.value"
+              [value]="bank.code"
             >
-              {{ bank.label }}
+              {{ bank.name }}
             </option>
           </select>
           <small
             class="error-text mb-4 d-block"
-            *ngIf="isInvalidWithdraw('bankName')"
+            *ngIf="isInvalidWithdraw('bankCode')"
           >
-            {{ getErrorMessageWithdraw('bankName', 'Bank name is required') }}
+            {{ getErrorMessageWithdraw('bankCode', 'Bank name is required') }}
           </small>
         </div>
 
