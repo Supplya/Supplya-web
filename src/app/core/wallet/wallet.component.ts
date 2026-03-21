@@ -257,12 +257,28 @@ get hasMissingKycFields(): boolean {
 
   private patchFormFromUser(): void {
     const u = this.userDetails || {};
-    if (u.bvn) this.kycForm.patchValue({ bvn: u.bvn });
-    if (u.dob) {
-      const d = typeof u.dob === 'string' ? u.dob.split('T')[0] : '';
-      if (d) this.kycForm.patchValue({ dateOfBirth: d });
+
+    // Patch BVN from upgradeStatus
+    if (this.upgradeStatus?.data?.kycDataOnFile?.hasBVN && this.upgradeStatus?.data?.kycDataOnFile?.bvn) {
+      this.kycForm.patchValue({ bvn: this.upgradeStatus.data.kycDataOnFile.bvn });
+    } else if (u.bvn) { // Fallback to userDetails.bvn if not in upgradeStatus
+      this.kycForm.patchValue({ bvn: u.bvn });
     }
-    if (u.gender) this.kycForm.patchValue({ gender: u.gender });
+
+    // Patch Date of Birth (reverted to original logic)
+    const dobRaw = u.dob;
+    const dateOfBirth =
+      typeof dobRaw === 'string' && dobRaw
+        ? dobRaw.split('T')[0]
+        : '';
+    if (dateOfBirth) {
+      this.kycForm.patchValue({ dateOfBirth: dateOfBirth });
+    }
+
+    // Patch Gender (reverted to original logic)
+    if (u.gender) {
+      this.kycForm.patchValue({ gender: u.gender });
+    }
   }
 
   createWallet(): void {
