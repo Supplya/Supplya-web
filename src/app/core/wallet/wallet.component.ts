@@ -439,22 +439,22 @@ get hasMissingKycFields(): boolean {
       next: (res) => {
         this.withdrawalSubmitting = false;
         if (res.success) {
-          this.toggleModal('withdrawWalletModal', 'close'); // Close withdrawal modal
-          this.withdrawalForm.reset(); // Reset the form after submission
-          this.validatedBankName = ''; // Clear validated bank name
-          this.isAccountValidated = false; // Reset validation status
-          this.getWalletDashboard(); // Refresh wallet dashboard to reflect new balance
-          this.toggleModal('withdrawalSuccessModal', 'open'); // Open the success modal
+          this.toggleModal('withdrawWalletModal', 'close'); 
+          this.withdrawalForm.reset();
+          this.validatedBankName = ''; 
+          this.isAccountValidated = false; 
+          this.getWalletDashboard();
+          this.toggleModal('withdrawalSuccessModal', 'open'); 
         } else {
           this.toast.danger(res.message || 'Withdrawal failed.', 5000);
-          this.toggleModal('withdrawWalletModal', 'close'); // Close withdrawal modal on failure
+          this.toggleModal('withdrawWalletModal', 'close'); 
         }
       },
       error: (err) => {
         this.withdrawalSubmitting = false;
         // this.toast.danger(err.error?.message || 'Error submitting withdrawal request.', 5000);
         console.error('Error submitting withdrawal:', err);
-        this.toggleModal('withdrawWalletModal', 'close'); // Close withdrawal modal on error
+        this.toggleModal('withdrawWalletModal', 'close');
       },
     });
   }
