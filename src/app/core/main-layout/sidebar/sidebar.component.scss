@@ -85,7 +85,9 @@ color: #000;
     transition: color 0.3s ease, background-color 0.3s ease;
     border-radius: 4px !important;
 }
-
+.navbar-brand{
+    max-width: 100%!important;
+}
 
 .submenu {
     // padding-left: 20px; 
@@ -166,4 +168,9 @@ font-weight: 600;
     border-radius: 50%;
     padding: 0.5em;
     font-size: 0.75em;
+}
+@media (max-width: 769px) {
+    .navbar-brand{
+    max-width: 120px!important;
+}
 }

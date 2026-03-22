@@ -179,7 +179,7 @@
                 <p class="wallet-card__label">Available Balance</p>
                 <div class="wallet-card__balance-row">
                   <span class="wallet-card__amount" style="font-size: 2.2rem; font-weight: 500; margin-right: 20px;">
-                    {{ balanceVisible ? ('₦' + (walletDetails?.wallet?.balance | number:'1.2-2')) : '••••••' }}
+                    {{ balanceVisible ? ('₦' + (walletDetails?.wallet?.balance || 0 | number:'1.2-2')) : '••••••' }}
                   </span>
                   <button
                     type="button"
