@@ -53,14 +53,14 @@
                                     </div> -->
 
                                       <!-- Identifier Field -->
-          <label for="identifier" class="px-2 mb-1">Email or Phone Number</label>
+          <label for="identifier" class="px-2 mb-1">Email Address</label>
           <div class="auth-input slide-left">
             <i class="bi bi-person"></i>
             <input type="text" 
                    id="identifier" 
                    class="auth" 
                    formControlName="identifier" 
-                   placeholder="Email or Phone Number" 
+                   placeholder="Enter email address" 
                    [ngClass]="{ 'is-invalid': isInvalid('identifier') }">
             <!-- <div class="invalid-feedback mb-4 px-3" *ngIf="isInvalid('identifier')">
               {{ getErrorMessage('identifier', 'Email or Phone Number is required') }}

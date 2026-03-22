@@ -130,6 +130,7 @@ export class ProfileUpdateComponent
     // this.pickUpForm.value.fromWhere = location?.address;
     this.form.patchValue({
       address: location?.address,
+      city: location?.city,
       postalCode: location?.postalCode,
       state: location?.state,
       country: 'Nigeria',

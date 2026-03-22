@@ -141,6 +141,7 @@ export class VendorSettingsComponent implements OnInit {
     this.form.patchValue({
       address: location?.address,
       postalCode: location?.postalCode,
+      city: location?.city,
       state: location?.state,
       country: 'Nigeria',
     });

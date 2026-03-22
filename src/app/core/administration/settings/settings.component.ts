@@ -104,6 +104,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     this.form.patchValue({
       address: location?.address,
       postalCode: location?.postalCode,
+      city: location?.city,
       state: location?.state,
       country: 'Nigeria',
     });
