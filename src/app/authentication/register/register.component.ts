@@ -86,7 +86,7 @@ export class RegisterComponent implements OnInit {
     this.submitType = true;
     if (this.userType != '') {
       this.toggleModal('signUpModal', 'close');
-      this.toggleModal('methodModal', 'open');
+      // this.toggleModal('methodModal', 'open');
     } else {
       return;
     }
