@@ -200,12 +200,12 @@ export const menuItems = {
       hasChild: false,
       icon: 'truck',
     },
-    {
-      name: 'Withdrawal',
-      route: '/core/vendor/withdrawal',
-      hasChild: false,
-      icon: 'arrow-left-right',
-    },
+    // {
+    //   name: 'Withdrawal',
+    //   route: '/core/vendor/withdrawal',
+    //   hasChild: false,
+    //   icon: 'arrow-left-right',
+    // },
 
     {
       name: "Wallet",

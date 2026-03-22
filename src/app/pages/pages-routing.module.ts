@@ -12,7 +12,7 @@ import { OtherProductTypesComponent } from './other-product-types/other-product-
 import { LandingPageComponent } from './landing-page/landing-page.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: '', redirectTo: 'shop', pathMatch: 'full'},
   {path: 'home', component: LandingPageComponent},
   {path: 'shop', component: HomeComponent},
   {path: 'about-us', component: AboutComponent},
